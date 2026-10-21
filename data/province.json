@@ -1,0 +1,405 @@
+[
+  {
+    "id": "beijing",
+    "name": "北京市",
+    "short": "京",
+    "region": "华北",
+    "popWeight": 22,
+    "urbanRatioBaseline": 2.8,
+    "tags": [
+      "首都核心",
+      "科教策源",
+      "大院四合院"
+    ]
+  },
+  {
+    "id": "tianjin",
+    "name": "天津市",
+    "short": "津",
+    "region": "华北",
+    "popWeight": 14,
+    "urbanRatioBaseline": 2.2,
+    "tags": [
+      "北方工商业重镇",
+      "海河要冲",
+      "近代工业摇篮"
+    ]
+  },
+  {
+    "id": "hebei",
+    "name": "河北省",
+    "short": "冀",
+    "region": "华北",
+    "popWeight": 74,
+    "urbanRatioBaseline": 0.9,
+    "tags": [
+      "京畿环抱",
+      "钢铁能源",
+      "燕赵慷慨"
+    ]
+  },
+  {
+    "id": "shanxi",
+    "name": "山西省",
+    "short": "晋",
+    "region": "华北",
+    "popWeight": 35,
+    "urbanRatioBaseline": 0.95,
+    "tags": [
+      "乌金之乡",
+      "表里山河",
+      "重工业与煤电"
+    ]
+  },
+  {
+    "id": "neimenggu",
+    "name": "内蒙古自治区",
+    "short": "蒙",
+    "region": "华北",
+    "popWeight": 24,
+    "urbanRatioBaseline": 1.1,
+    "tags": [
+      "辽阔草原",
+      "稀土之都",
+      "林牧矿业并举"
+    ]
+  },
+  {
+    "id": "liaoning",
+    "name": "辽宁省",
+    "short": "辽",
+    "region": "东北",
+    "popWeight": 42,
+    "urbanRatioBaseline": 1.6,
+    "tags": [
+      "共和国长子",
+      "重工装备",
+      "钢都煤海"
+    ]
+  },
+  {
+    "id": "jilin",
+    "name": "吉林省",
+    "short": "吉",
+    "region": "东北",
+    "popWeight": 24,
+    "urbanRatioBaseline": 1.3,
+    "tags": [
+      "黑土粮仓",
+      "第一汽车",
+      "老工业基地"
+    ]
+  },
+  {
+    "id": "heilongjiang",
+    "name": "黑龙江省",
+    "short": "黑",
+    "region": "东北",
+    "popWeight": 31,
+    "urbanRatioBaseline": 1.4,
+    "tags": [
+      "北大荒北大仓",
+      "大庆油田",
+      "林海雪原"
+    ]
+  },
+  {
+    "id": "shanghai",
+    "name": "上海市",
+    "short": "沪",
+    "region": "华东",
+    "popWeight": 25,
+    "urbanRatioBaseline": 2.9,
+    "tags": [
+      "远东都会",
+      "工商业中心",
+      "弄堂文化"
+    ]
+  },
+  {
+    "id": "jiangsu",
+    "name": "江苏省",
+    "short": "苏",
+    "region": "华东",
+    "popWeight": 85,
+    "urbanRatioBaseline": 1.3,
+    "tags": [
+      "鱼米之乡",
+      "苏南模式",
+      "文教鼎盛"
+    ]
+  },
+  {
+    "id": "zhejiang",
+    "name": "浙江省",
+    "short": "浙",
+    "region": "华东",
+    "popWeight": 65,
+    "urbanRatioBaseline": 1.3,
+    "tags": [
+      "百工之乡",
+      "温州模式",
+      "民营经济先驱"
+    ]
+  },
+  {
+    "id": "anhui",
+    "name": "安徽省",
+    "short": "皖",
+    "region": "华东",
+    "popWeight": 61,
+    "urbanRatioBaseline": 0.88,
+    "tags": [
+      "江淮沃野",
+      "小岗首创",
+      "徽商故里"
+    ]
+  },
+  {
+    "id": "fujian",
+    "name": "福建省",
+    "short": "闽",
+    "region": "华东",
+    "popWeight": 41,
+    "urbanRatioBaseline": 1.15,
+    "tags": [
+      "八山一水一分田",
+      "侨乡下南洋",
+      "晋江民营"
+    ]
+  },
+  {
+    "id": "jiangxi",
+    "name": "江西省",
+    "short": "赣",
+    "region": "华东",
+    "popWeight": 45,
+    "urbanRatioBaseline": 0.88,
+    "tags": [
+      "革命摇篮",
+      "江南鱼米",
+      "有色金属"
+    ]
+  },
+  {
+    "id": "shandong",
+    "name": "山东省",
+    "short": "鲁",
+    "region": "华东",
+    "popWeight": 101,
+    "urbanRatioBaseline": 0.98,
+    "tags": [
+      "齐鲁大地",
+      "工农业大省",
+      "孔孟之乡"
+    ]
+  },
+  {
+    "id": "henan",
+    "name": "河南省",
+    "short": "豫",
+    "region": "华中",
+    "popWeight": 98,
+    "urbanRatioBaseline": 0.85,
+    "tags": [
+      "中原粮仓",
+      "人口大省",
+      "平原腹地"
+    ]
+  },
+  {
+    "id": "hubei",
+    "name": "湖北省",
+    "short": "鄂",
+    "region": "华中",
+    "popWeight": 58,
+    "urbanRatioBaseline": 1.1,
+    "tags": [
+      "九省通衢",
+      "武钢二汽",
+      "千湖之省"
+    ]
+  },
+  {
+    "id": "hunan",
+    "name": "湖南省",
+    "short": "湘",
+    "region": "华中",
+    "popWeight": 66,
+    "urbanRatioBaseline": 0.9,
+    "tags": [
+      "三湘四水",
+      "有色之乡",
+      "心忧天下"
+    ]
+  },
+  {
+    "id": "guangdong",
+    "name": "广东省",
+    "short": "粤",
+    "region": "华南",
+    "popWeight": 126,
+    "urbanRatioBaseline": 1.4,
+    "tags": [
+      "岭南热土",
+      "改革前沿",
+      "全球制造中心"
+    ]
+  },
+  {
+    "id": "guangxi",
+    "name": "广西壮族自治区",
+    "short": "桂",
+    "region": "华南",
+    "popWeight": 50,
+    "urbanRatioBaseline": 0.85,
+    "tags": [
+      "山水甲天下",
+      "八桂重镇",
+      "边贸走廊"
+    ]
+  },
+  {
+    "id": "hainan",
+    "name": "海南省",
+    "short": "琼",
+    "region": "华南",
+    "popWeight": 10,
+    "urbanRatioBaseline": 0.95,
+    "tags": [
+      "天涯海角",
+      "热带海岛",
+      "自贸港口"
+    ]
+  },
+  {
+    "id": "chongqing",
+    "name": "重庆市",
+    "short": "渝",
+    "region": "西南",
+    "popWeight": 32,
+    "urbanRatioBaseline": 1.25,
+    "tags": [
+      "山城江城",
+      "重工汽摩",
+      "抗战陪都"
+    ]
+  },
+  {
+    "id": "sichuan",
+    "name": "四川省",
+    "short": "川",
+    "region": "西南",
+    "popWeight": 83,
+    "urbanRatioBaseline": 0.9,
+    "tags": [
+      "天府之国",
+      "三线军工",
+      "大后方"
+    ]
+  },
+  {
+    "id": "guizhou",
+    "name": "贵州省",
+    "short": "黔",
+    "region": "西南",
+    "popWeight": 38,
+    "urbanRatioBaseline": 0.75,
+    "tags": [
+      "喀斯特山地",
+      "三线内迁",
+      "生态秘境"
+    ]
+  },
+  {
+    "id": "yunnan",
+    "name": "云南省",
+    "short": "滇",
+    "region": "西南",
+    "popWeight": 47,
+    "urbanRatioBaseline": 0.8,
+    "tags": [
+      "彩云之南",
+      "有色烟草",
+      "多民族聚居"
+    ]
+  },
+  {
+    "id": "xizang",
+    "name": "西藏自治区",
+    "short": "藏",
+    "region": "西南",
+    "popWeight": 3,
+    "urbanRatioBaseline": 0.6,
+    "tags": [
+      "雪域高原",
+      "日光之城",
+      "青稞牦牛"
+    ]
+  },
+  {
+    "id": "shaanxi",
+    "name": "陕西省",
+    "short": "陕",
+    "region": "西北",
+    "popWeight": 39,
+    "urbanRatioBaseline": 1.05,
+    "tags": [
+      "三秦故土",
+      "军工航天",
+      "能源金三角"
+    ]
+  },
+  {
+    "id": "gansu",
+    "name": "甘肃省",
+    "short": "陇",
+    "region": "西北",
+    "popWeight": 25,
+    "urbanRatioBaseline": 0.8,
+    "tags": [
+      "河西走廊",
+      "石油化工",
+      "苦瘠坚韧"
+    ]
+  },
+  {
+    "id": "qinghai",
+    "name": "青海省",
+    "short": "青",
+    "region": "西北",
+    "popWeight": 6,
+    "urbanRatioBaseline": 0.85,
+    "tags": [
+      "三江之源",
+      "盐湖重工",
+      "青藏枢纽"
+    ]
+  },
+  {
+    "id": "ningxia",
+    "name": "宁夏回族自治区",
+    "short": "宁",
+    "region": "西北",
+    "popWeight": 7,
+    "urbanRatioBaseline": 1.0,
+    "tags": [
+      "塞上江南",
+      "黄河灌区",
+      "宁东煤化工"
+    ]
+  },
+  {
+    "id": "xinjiang",
+    "name": "新疆维吾尔自治区",
+    "short": "新",
+    "region": "西北",
+    "popWeight": 25,
+    "urbanRatioBaseline": 0.95,
+    "tags": [
+      "丝路绿洲",
+      "兵团屯垦",
+      "棉花石油"
+    ]
+  }
+]

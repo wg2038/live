@@ -1,0 +1,495 @@
+[
+  {
+    "id": "dis_1938_huayuankou",
+    "name": "花园口决堤黄泛浩劫",
+    "year": 1938,
+    "month": 6,
+    "targetProvinces": [
+      "henan",
+      "anhui",
+      "jiangsu"
+    ],
+    "targetCities": [
+      "zhengzhou",
+      "kaifeng",
+      "zhoukou",
+      "shangqiu",
+      "fuyang",
+      "suzhou_ah",
+      "xuzhou"
+    ],
+    "severity": "catastrophic",
+    "fact": "1938年6月国民政府为阻滞日军西进炸开郑州花园口黄河大堤。浑黄洪水奔腾而下，淹没豫皖苏44个县，形成长达九年、上万平方公里的黄泛区，据历史文献估计数百万人受灾或流离失所。",
+    "hitNarrative": "深夜狂浪咆哮，黄水泥浆轰然冲毁门板屋梁！田畴房舍瞬间被泽国吞没，你与家人拼死抓住漂浮的树干，在恶臭的黄浪中绝望哭号，满目皆是溺亡的生灵与碎瓦。",
+    "casualtyRoll": {
+      "deathProb": 0.28,
+      "injuryProb": 0.35,
+      "wealthWipeProb": 0.85,
+      "familyLossProb": 0.45
+    }
+  },
+  {
+    "id": "dis_1939_tianjin_flood",
+    "name": "华北暴雨与海河天津特大水灾",
+    "year": 1939,
+    "month": 8,
+    "targetProvinces": [
+      "tianjin",
+      "hebei"
+    ],
+    "targetCities": [
+      "tianjin",
+      "baoding",
+      "cangzhou"
+    ],
+    "severity": "severe",
+    "fact": "1939年8月华北特大暴雨，海河五大支流并涨漫顶。天津市区洪水漫街深达数米，交通瘫痪达两个月之久，日占当局与平民均困于房顶舟楫之上，传染病肆虐。",
+    "hitNarrative": "浑浊的洪水淹至二楼窗台，城内断粮断水。尸体漂浮在泛着油渍的水面上，烈日曝晒下恶臭刺鼻。你挤在房顶草棚上分食一碗发馊的面糊，高烧与痢疾如影随形。",
+    "casualtyRoll": {
+      "deathProb": 0.12,
+      "injuryProb": 0.3,
+      "wealthWipeProb": 0.65,
+      "familyLossProb": 0.2
+    }
+  },
+  {
+    "id": "dis_1942_zhongyuan_famine",
+    "name": "中原特大干旱与蝗灾大荒",
+    "year": 1942,
+    "month": 7,
+    "targetProvinces": [
+      "henan",
+      "shanxi",
+      "hebei",
+      "anhui"
+    ],
+    "targetCities": [
+      "zhengzhou",
+      "luoyang",
+      "kaifeng",
+      "xuchang",
+      "pingdingshan",
+      "nanyang",
+      "shangqiu",
+      "zhoukou"
+    ],
+    "severity": "catastrophic",
+    "fact": "1942至1943年河南遭遇百年不遇旱灾与漫天飞蝗，加之战争赋税过重，数百万难民沿陇海铁路向西逃荒，据学者与官方档案记载大量灾民因饥馁倒毙于途。",
+    "hitNarrative": "田地干裂如龟甲，漫天蝗虫蔽日掠过，连树皮与草根都被啃光。家中米缸早已空空如也，老人为了省下一口口粮悄然离家自尽。你眼睁睁看着亲人消瘦成枯骨，在陇海路道班边绝望喘息。",
+    "casualtyRoll": {
+      "deathProb": 0.35,
+      "injuryProb": 0.4,
+      "wealthWipeProb": 0.9,
+      "familyLossProb": 0.5
+    }
+  },
+  {
+    "id": "dis_1954_changjiang_flood",
+    "name": "长江淮河全流域特大洪灾",
+    "year": 1954,
+    "month": 7,
+    "targetProvinces": [
+      "hubei",
+      "hunan",
+      "jiangxi",
+      "anhui",
+      "jiangsu"
+    ],
+    "targetCities": [
+      "wuhan",
+      "jingzhou",
+      "yueyang",
+      "jiujiang",
+      "anqing",
+      "wuhu",
+      "nanjing"
+    ],
+    "severity": "severe",
+    "fact": "1954年长江暴发全流域百年一遇特大洪水，汉口最高水位达29.73米。数万军民抢险保卫武汉关大堤，荆江分洪区与多处洼地主动蓄洪，受灾农田达数千万亩。",
+    "hitNarrative": "江水漫过堤头，军民手挽手跳入滚滚浊浪筑成人墙！分洪闸轰然开启，蓄洪区村落倾覆在巨浪之下。你全家老小被紧急转移到防汛芦席棚，在吸血虫病的阴影下啃着冰冷的杂粮窝头度日。",
+    "casualtyRoll": {
+      "deathProb": 0.08,
+      "injuryProb": 0.25,
+      "wealthWipeProb": 0.75,
+      "familyLossProb": 0.15
+    }
+  },
+  {
+    "id": "dis_1958_huanghe_flood",
+    "name": "黄河特大洪峰险情",
+    "year": 1958,
+    "month": 7,
+    "targetProvinces": [
+      "henan",
+      "shandong"
+    ],
+    "targetCities": [
+      "zhengzhou",
+      "xinxiang",
+      "kaifeng",
+      "liaocheng",
+      "dezhou",
+      "jinan"
+    ],
+    "severity": "moderate",
+    "fact": "1958年7月黄河三门峡至花园口区间突降特大暴雨，花园口出现2.23万立方米/秒的罕见大洪峰，京广铁路黄河大桥被冲毁，鲁豫两省组织数百万人防汛抢险。",
+    "hitNarrative": "铁轨大桥在狂涛撞击下轰然倾塌，大堤鸣锣报警彻夜不绝。全村男女老少冒着暴雨肩挑泥包围堵漫堤。你家低洼的麦田全部泡烂在淤泥里，一年的收成转眼化为乌有。",
+    "casualtyRoll": {
+      "deathProb": 0.05,
+      "injuryProb": 0.18,
+      "wealthWipeProb": 0.5,
+      "familyLossProb": 0.08
+    }
+  },
+  {
+    "id": "dis_1966_xingtai_earthquake",
+    "name": "河北邢台大地震",
+    "year": 1966,
+    "month": 3,
+    "targetProvinces": [
+      "hebei"
+    ],
+    "targetCities": [
+      "xingtai",
+      "handan",
+      "shijiazhuang"
+    ],
+    "severity": "catastrophic",
+    "fact": "1966年3月8日及22日，河北邢台隆尧、宁晋相继发生6.8级与7.2级浅源大地震。华北平原大批土坯民房瞬间坍塌，周恩来总理三次亲赴灾区抚慰群众并提出抗震防震指导方针。",
+    "hitNarrative": "黎明前地底传来雷鸣般的怒吼，地动山摇！厚重的泥土梁柱轰然砸落，整个村庄被遮天蔽日的灰尘吞没。你在废墟瓦砾下被压得骨裂吐血，身边传来邻里微弱的呼救与断断续续的悲咽。",
+    "casualtyRoll": {
+      "deathProb": 0.22,
+      "injuryProb": 0.4,
+      "wealthWipeProb": 0.7,
+      "familyLossProb": 0.3
+    }
+  },
+  {
+    "id": "dis_1970_tonghai_earthquake",
+    "name": "云南通海7.7级大地震",
+    "year": 1970,
+    "month": 1,
+    "targetProvinces": [
+      "yunnan"
+    ],
+    "targetCities": [
+      "yuxi",
+      "honghe"
+    ],
+    "severity": "catastrophic",
+    "fact": "1970年1月5日凌晨，云南通海、峨山一带发生7.7级强烈地震。震中烈度达10度，极震区房屋几乎全平，时值文革特殊时期，救灾在极其艰难闭塞的条件下展开。",
+    "hitNarrative": "严冬深夜瓦砾横飞，大地撕开深不见底的裂缝。几秒钟内土房全部被夷为平地，狂风卷起严寒。你从断木下拉出被砸断腿的亲人，在没有帐篷的荒野瓦砾堆上抱团颤抖挨过漫漫长夜。",
+    "casualtyRoll": {
+      "deathProb": 0.25,
+      "injuryProb": 0.38,
+      "wealthWipeProb": 0.8,
+      "familyLossProb": 0.35
+    }
+  },
+  {
+    "id": "dis_1975_banqiao_dam",
+    "name": "河南驻马店“75·8”特大溃坝惨剧",
+    "year": 1975,
+    "month": 8,
+    "targetProvinces": [
+      "henan"
+    ],
+    "targetCities": [
+      "zhumadian",
+      "zhoukou",
+      "luohe"
+    ],
+    "severity": "catastrophic",
+    "fact": "1975年8月超强台风停滞伏牛山脉，驻马店出现日降水逾千毫米极端暴雨。板桥、石漫滩两座大型水库及数十座中小型水库相继垮坝，据官方与历史资料记载数万人在睡梦中被洪峰冲走或因次生灾害罹难。",
+    "hitNarrative": "凌晨两点半，半空炸裂般巨响，数米高的黑浊水头如巨龙咆哮推平村落！房屋树木在激流中如同火柴盒被碾得粉碎。你被巨浪卷入旋涡，在冰冷刺骨的洪水中拼尽最后一丝力气抓住浮尸与柴草漂浮逃生。",
+    "casualtyRoll": {
+      "deathProb": 0.38,
+      "injuryProb": 0.35,
+      "wealthWipeProb": 0.95,
+      "familyLossProb": 0.55
+    }
+  },
+  {
+    "id": "dis_1976_tangshan_earthquake",
+    "name": "河北唐山7.8级大地震",
+    "year": 1976,
+    "month": 7,
+    "targetProvinces": [
+      "hebei",
+      "tianjin",
+      "beijing"
+    ],
+    "targetCities": [
+      "tangshan",
+      "tianjin",
+      "qinhuangdao",
+      "chengde"
+    ],
+    "severity": "catastrophic",
+    "fact": "1976年7月28日凌晨3时42分，河北省唐山市发生里氏7.8级特大地震。百年重工业城市顷刻夷为平地，官方统计罹难24.2万余人、重伤16.4万余人，震后全国军民大营救展现了坚毅不屈的民族脊梁。",
+    "hitNarrative": "大地剧烈颤抖，蓝白地光刺破黑夜！几秒钟内预制板与砖墙轰然砸落，整座城市化作数百万吨瓦砾。你满脸鲜血被卡在水泥板下动弹不得，至亲在咫尺呼喊中声音渐渐微弱，成为终生铭心的剧痛。",
+    "casualtyRoll": {
+      "deathProb": 0.42,
+      "injuryProb": 0.45,
+      "wealthWipeProb": 0.9,
+      "familyLossProb": 0.6
+    }
+  },
+  {
+    "id": "dis_1981_sichuan_flood",
+    "name": "四川盆地特大夏汛洪灾",
+    "year": 1981,
+    "month": 7,
+    "targetProvinces": [
+      "sichuan",
+      "chongqing"
+    ],
+    "targetCities": [
+      "chengdu",
+      "mianyang",
+      "deyang",
+      "nanchong",
+      "chongqing"
+    ],
+    "severity": "severe",
+    "fact": "1981年7月四川连降暴雨，嘉陵江、沱江、岷江干支流并暴发特大洪水，成昆铁路大桥被冲垮，沿江城镇数百万人受淹受灾，成渝工业生产与交通遭受重大破坏。",
+    "hitNarrative": "成昆铁路大桥在洪峰中轰然坍塌，滚滚泥流漫过防洪墙灌进车间与居民楼。家具家电在泥浪里打着转漂走，全厂职工彻夜用沙袋抢救机床，身上满是划伤与污泥。",
+    "casualtyRoll": {
+      "deathProb": 0.06,
+      "injuryProb": 0.2,
+      "wealthWipeProb": 0.6,
+      "familyLossProb": 0.1
+    }
+  },
+  {
+    "id": "dis_1987_daxinganling_fire",
+    "name": "大兴安岭“5·6”特大森林火灾",
+    "year": 1987,
+    "month": 5,
+    "targetProvinces": [
+      "heilongjiang"
+    ],
+    "targetCities": [
+      "daxinganling"
+    ],
+    "severity": "catastrophic",
+    "fact": "1987年5月6日，大兴安岭林区暴发特大森林火灾，8级大风引发‘火风暴’，烧毁漠河、图强等城镇林场，受灾群众达5万余人，上万人奋战近一个月扑灭火魔。",
+    "hitNarrative": "天际被染成血红色，飓风卷着数十米高的火浪呼啸而来！木刻楞房屋在几分钟内化为火海。你跳上最后一辆逃难的卡车，热浪将后颈烤得焦脱起泡，回头望去，世代生息的家园已成一片焦炭地狱。",
+    "casualtyRoll": {
+      "deathProb": 0.18,
+      "injuryProb": 0.35,
+      "wealthWipeProb": 0.85,
+      "familyLossProb": 0.25
+    }
+  },
+  {
+    "id": "dis_1991_huadong_flood",
+    "name": "江淮华东特大水灾",
+    "year": 1991,
+    "month": 6,
+    "targetProvinces": [
+      "anhui",
+      "jiangsu",
+      "henan"
+    ],
+    "targetCities": [
+      "hefei",
+      "chuzhou",
+      "bengbu",
+      "fuyang",
+      "huaian",
+      "yangzhou"
+    ],
+    "severity": "severe",
+    "fact": "1991年夏江淮流域出现历史罕见集中梅雨，淮河滁河大水漫溢。数千万亩良田受淹，中国首次向国际社会发出人道主义求援呼吁，港澳同胞与全国军民掀起‘水灾募捐赈灾潮’。",
+    "hitNarrative": "暴雨整整倾盆了半个月，大堤数度决口，大水漫过了院墙门楣。全家连夜划着木澡盆带着几件衣服逃到大堤上露宿。眼看刚插下的稻秧全泡在污泥中腐烂，全村男女老幼痛哭失声。",
+    "casualtyRoll": {
+      "deathProb": 0.05,
+      "injuryProb": 0.18,
+      "wealthWipeProb": 0.7,
+      "familyLossProb": 0.08
+    }
+  },
+  {
+    "id": "dis_1998_quanguo_flood",
+    "name": "长江、嫩江、松花江全流域特大洪水",
+    "year": 1998,
+    "month": 8,
+    "targetProvinces": [
+      "hubei",
+      "jiangxi",
+      "hunan",
+      "jilin",
+      "heilongjiang"
+    ],
+    "targetCities": [
+      "wuhan",
+      "jingzhou",
+      "jiujiang",
+      "yueyang",
+      "daqing",
+      "qiqihar",
+      "harbin"
+    ],
+    "severity": "catastrophic",
+    "fact": "1998年夏季长江、嫩江、松花江全流域暴发特大洪水，九江决口、簰洲湾溃口，数十万解放军官兵与广大干部群众以血肉之躯‘人在堤在’筑成人肉防线，谱写抗洪壮歌。",
+    "hitNarrative": "九江大堤溃口处水流如脱缰野马，冲锋舟在浊浪中狂颠。你随着村干部拼死搬运铁丝石笼跳入冰凉急流封堵管涌，双臂皮开肉绽。远处自己的老宅瓦房在激流中轰然倾塌沉入水底。",
+    "casualtyRoll": {
+      "deathProb": 0.08,
+      "injuryProb": 0.22,
+      "wealthWipeProb": 0.65,
+      "familyLossProb": 0.12
+    }
+  },
+  {
+    "id": "dis_2008_bingxue",
+    "name": "南方特大低温雨雪冰冻灾害",
+    "year": 2008,
+    "month": 1,
+    "targetProvinces": [
+      "hunan",
+      "guizhou",
+      "jiangxi",
+      "guangdong",
+      "guangxi"
+    ],
+    "targetCities": [
+      "chenzhou",
+      "changsha",
+      "guiyang",
+      "guangzhou",
+      "shaoguan",
+      "ganzhou"
+    ],
+    "severity": "severe",
+    "fact": "2008年春节前夕南方遭遇半个世纪罕见特大冰冻，高压电塔被冻雨压垮，郴州等地长时间断电停水，京广铁路瘫痪致使广州火车站数十万返乡务工人员滞留。",
+    "hitNarrative": "高压电线杆在重冰重压下接连折断，全城断水停电陷入极寒黑暗。你被困在拥挤不堪的绿皮车厢或火车站广场，饥寒交迫中把仅剩的半袋饼干让给怀中发烧的孩子，手脚冻得乌紫发麻。",
+    "casualtyRoll": {
+      "deathProb": 0.04,
+      "injuryProb": 0.2,
+      "wealthWipeProb": 0.25,
+      "familyLossProb": 0.05
+    }
+  },
+  {
+    "id": "dis_2008_wenchuan_earthquake",
+    "name": "四川汶川8.0级特大地震",
+    "year": 2008,
+    "month": 5,
+    "targetProvinces": [
+      "sichuan",
+      "gansu",
+      "shaanxi"
+    ],
+    "targetCities": [
+      "aba",
+      "mianyang",
+      "deyang",
+      "guangyuan",
+      "chengdu",
+      "longnan",
+      "hanzhong"
+    ],
+    "severity": "catastrophic",
+    "fact": "2008年5月12日14时28分，四川汶川发生里氏8.0级特大地震。极震区烈度达11度，山川崩碎，房屋大范围垮塌，据官方统计近7万人遇难、数十万人受伤，全国展开规模空前大营救。",
+    "hitNarrative": "下午两点二十八分，脚下大地疯狂隆起撕裂，山体裹挟亿万吨巨石呼啸砸落！几秒钟内学校与厂房崩解成碎石粉末。你在漫天白灰中拼命扒开石块救出昏迷的同胞，泪水模糊了布满灰尘的面庞。",
+    "casualtyRoll": {
+      "deathProb": 0.35,
+      "injuryProb": 0.42,
+      "wealthWipeProb": 0.88,
+      "familyLossProb": 0.48
+    }
+  },
+  {
+    "id": "dis_2010_yushu_earthquake",
+    "name": "青海玉树7.1级大地震",
+    "year": 2010,
+    "month": 4,
+    "targetProvinces": [
+      "qinghai"
+    ],
+    "targetCities": [
+      "yushu"
+    ],
+    "severity": "severe",
+    "fact": "2010年4月14日晨，青海玉树藏族自治州结古镇发生7.1级地震。土木藏式民居脆弱坍塌，地处4000米高海拔极寒缺氧，全国救援力量克服高原反应全力施救。",
+    "hitNarrative": "清晨剧震将土木藏房震得四分五裂，高原狂风卷着刺鼻烟尘。你在零下几度的严寒瓦砾中忍受着剧烈的高原反应和胸闷头痛，用冻僵的双手刨挖被废墟压住的亲眷与经卷。",
+    "casualtyRoll": {
+      "deathProb": 0.2,
+      "injuryProb": 0.36,
+      "wealthWipeProb": 0.75,
+      "familyLossProb": 0.28
+    }
+  },
+  {
+    "id": "dis_2010_zhouqu_debris_flow",
+    "name": "甘肃舟曲特大山洪泥石流",
+    "year": 2010,
+    "month": 8,
+    "targetProvinces": [
+      "gansu"
+    ],
+    "targetCities": [
+      "gannan"
+    ],
+    "severity": "catastrophic",
+    "fact": "2010年8月7日深夜，甘肃甘南藏族自治州舟曲县突发暴雨，三眼峪等峡谷暴发特大泥石流，淤泥带长达5公里、厚达数米，半座县城被黄泥吞噬，千余同胞不幸罹难。",
+    "hitNarrative": "深夜一声闷雷轰响，数十米高的黄泥浊流推着房屋轿车排山倒海压来！你从二楼窗户拼死跃出攀上电线杆，眼睁睁看着脚下的家门被数米深的黑泥倾覆抹平，呼喊声瞬间消匿于死寂。",
+    "casualtyRoll": {
+      "deathProb": 0.32,
+      "injuryProb": 0.35,
+      "wealthWipeProb": 0.92,
+      "familyLossProb": 0.45
+    }
+  },
+  {
+    "id": "dis_2021_zhengzhou_rainstorm",
+    "name": "河南郑州“7·20”特大暴雨",
+    "year": 2021,
+    "month": 7,
+    "targetProvinces": [
+      "henan"
+    ],
+    "targetCities": [
+      "zhengzhou",
+      "xinxiang",
+      "hebi",
+      "zhoukou"
+    ],
+    "severity": "severe",
+    "fact": "2021年7月20日郑州遭遇千年罕见特大暴雨，小时降雨量超200毫米刷新大陆极值。地铁五号线、京广北路隧道积水倒灌，城市基础设施承压极大，全国自发互助众志成城救援。",
+    "hitNarrative": "暴雨如同瀑布倾泻，路面洪水瞬间冲走车辆。你被困在积水漫过胸口的地下车库或车厢中，车窗外浊流翻滚。在氧气稀薄、积水渐升的绝境中，众人手拉手破窗互助，在死神指缝间逃出生天。",
+    "casualtyRoll": {
+      "deathProb": 0.06,
+      "injuryProb": 0.18,
+      "wealthWipeProb": 0.45,
+      "familyLossProb": 0.08
+    }
+  },
+  {
+    "id": "dis_2023_haihe_rainstorm",
+    "name": "海河流域“23·7”特大暴雨与滞洪险情",
+    "year": 2023,
+    "month": 7,
+    "targetProvinces": [
+      "beijing",
+      "hebei",
+      "tianjin"
+    ],
+    "targetCities": [
+      "beijing",
+      "baoding",
+      "langfang",
+      "tianjin"
+    ],
+    "severity": "severe",
+    "fact": "2023年7月底台风‘杜苏芮’残余环流在太行山燕山阻滞形成极端特大暴雨。门头沟、房山山洪暴发，河北涿州等多处蓄滞洪区漫水，大量图书库房与物流园被淹，全国救援队星夜驰援。",
+    "hitNarrative": "山洪裹挟着泥沙巨树如巨兽般冲断公路桥梁，村庄通信电力全部归零。你与邻里挤在二楼楼顶看着齐腰深的浑水泡烂全部家具与藏书，救援冲锋舟在风雨中破浪而来的马达声成了唯一的希望。",
+    "casualtyRoll": {
+      "deathProb": 0.04,
+      "injuryProb": 0.15,
+      "wealthWipeProb": 0.55,
+      "familyLossProb": 0.06
+    }
+  }
+]

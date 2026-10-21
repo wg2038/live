@@ -1,0 +1,504 @@
+{
+  "birthCohorts": [
+    { "range": [1937, 1945], "name": "抗战一代", "weight": 11, "avgAnnualBirthM": 12.5 },
+    { "range": [1946, 1949], "name": "战后复苏", "weight": 14, "avgAnnualBirthM": 14.2 },
+    { "range": [1950, 1957], "name": "建国初婴儿潮", "weight": 21, "avgAnnualBirthM": 20.1 },
+    { "range": [1958, 1961], "name": "困难时期低谷", "weight": 10, "avgAnnualBirthM": 13.0 },
+    { "range": [1962, 1975], "name": "第二代人口大高峰", "weight": 28, "avgAnnualBirthM": 26.8 },
+    { "range": [1976, 1984], "name": "改革初潮一代", "weight": 19, "avgAnnualBirthM": 20.5 },
+    { "range": [1985, 1990], "name": "第三代人口高峰", "weight": 23, "avgAnnualBirthM": 24.5 },
+    { "range": [1991, 2000], "name": "九十年代独生代", "weight": 17, "avgAnnualBirthM": 17.8 },
+    { "range": [2001, 2015], "name": "新世纪新千禧一代", "weight": 15, "avgAnnualBirthM": 16.1 },
+    { "range": [2016, 2026], "name": "全面二孩及后世代", "weight": 11, "avgAnnualBirthM": 11.2 }
+  ],
+  "eras": [
+    {
+      "id": "era_1937_1945",
+      "name": "全面抗日战争时期",
+      "startYear": 1937,
+      "endYear": 1945,
+      "lifeExpectancy": 35.0,
+      "infantMortality": 200,
+      "urbanRatio": 9.0,
+      "avgSiblings": 5.2,
+      "educationLevels": {
+        "illiterate": 78,
+        "primary": 16,
+        "juniorMiddle": 4.5,
+        "seniorHigh": 1.2,
+        "higherEd": 0.3
+      },
+      "ruralClasses": [
+        { "name": "贫农/雇农", "weight": 65 },
+        { "name": "中农", "weight": 22 },
+        { "name": "乡间木匠/铁匠手艺人", "weight": 8 },
+        { "name": "地主/富农兼乡绅", "weight": 5 }
+      ],
+      "urbanClasses": [
+        { "name": "码头/纺织工人", "weight": 48 },
+        { "name": "街巷小商贩/人力车夫", "weight": 32 },
+        { "name": "洋行/店铺账房职员", "weight": 12 },
+        { "name": "工商业私营业主/教员", "weight": 8 }
+      ],
+      "typicalCausesOfDeath": [
+        "霍乱与急性肠胃炎",
+        "战火流弹与空袭伤亡",
+        "严重营养不良与水肿",
+        "伤寒高热不退",
+        "破伤风感染"
+      ],
+      "macroSnippets": [
+        "烽火连绵，沿海工矿学校艰难西迁大后方，市面粮价一日数涨，煤油与棉布极度匮乏。",
+        "城头防空警报常响，街道两旁贴着军饷公债布告，乡村保甲征粮催差之声日夜不绝。",
+        "黄河泛滥与大旱连年，难民肩挑背扛携老扶幼涌入驿道，关卡间路条盘查甚严。"
+      ]
+    },
+    {
+      "id": "era_1946_1949",
+      "name": "解放战争与政权交替",
+      "startYear": 1946,
+      "endYear": 1949,
+      "lifeExpectancy": 38.0,
+      "infantMortality": 170,
+      "urbanRatio": 10.2,
+      "avgSiblings": 5.0,
+      "educationLevels": {
+        "illiterate": 72,
+        "primary": 20,
+        "juniorMiddle": 6.0,
+        "seniorHigh": 1.6,
+        "higherEd": 0.4
+      },
+      "ruralClasses": [
+        { "name": "贫农", "weight": 60 },
+        { "name": "中农", "weight": 26 },
+        { "name": "小手工业者", "weight": 9 },
+        { "name": "富农/旧乡绅", "weight": 5 }
+      ],
+      "urbanClasses": [
+        { "name": "产业工人", "weight": 45 },
+        { "name": "街头摊贩/苦力", "weight": 35 },
+        { "name": "公教职员/办事员", "weight": 14 },
+        { "name": "小私营店主", "weight": 6 }
+      ],
+      "typicalCausesOfDeath": [
+        "急性传染病未能送医",
+        "战乱波及受创",
+        "冬春时节肺结核咯血",
+        "产后大出血感染"
+      ],
+      "macroSnippets": [
+        "法币急剧贬值，金圆券如废纸般堆积，商号纷纷歇业，平民提竹篮购米往往空手而归。",
+        "前线炮声时断时续，解放区土改工作队进驻村庄丈量田地，旧地契在大树下当众焚毁。",
+        "火车车顶挤满求生者，江面渡船日夜抢运物资，新旧政权交替的前夕人心惶惶又充满期盼。"
+      ]
+    },
+    {
+      "id": "era_1950_1957",
+      "name": "建国初期与一五计划",
+      "startYear": 1950,
+      "endYear": 1957,
+      "lifeExpectancy": 46.5,
+      "infantMortality": 120,
+      "urbanRatio": 13.5,
+      "avgSiblings": 5.6,
+      "educationLevels": {
+        "illiterate": 60,
+        "primary": 28,
+        "juniorMiddle": 9.0,
+        "seniorHigh": 2.4,
+        "higherEd": 0.6
+      },
+      "ruralClasses": [
+        { "name": "分得土地的新贫农", "weight": 62 },
+        { "name": "互助组/初级社社员", "weight": 28 },
+        { "name": "乡村铁木匠与兽医", "weight": 7 },
+        { "name": "老中农家庭", "weight": 3 }
+      ],
+      "urbanClasses": [
+        { "name": "国营大厂产业工人", "weight": 50 },
+        { "name": "公私合营店员/职工", "weight": 26 },
+        { "name": "基层干部与税粮征管员", "weight": 16 },
+        { "name": "中小学教员/技术员", "weight": 8 }
+      ],
+      "typicalCausesOfDeath": [
+        "流行性脑脊髓膜炎",
+        "重症小儿麻疹并发肺炎",
+        "急腹症未能及时手术",
+        "慢性劳损转肺疾"
+      ],
+      "macroSnippets": [
+        "大街小巷大喇叭播放着志愿军凯歌，爱国卫生运动在全国展开，灭蝇灭蚊除四害如火如荼。",
+        "鞍钢、一汽、武汉长江大桥等156项重点工程相继奠基，穿蓝色工装戴胸章成为社会最受尊重的体面象征。",
+        "农田里扎起初级合作社的红旗，识字班夜校灯火通明，农民用粗茧的手掌一笔一划写下自己的名字。"
+      ]
+    },
+    {
+      "id": "era_1958_1961",
+      "name": "三年困难时期与调整",
+      "startYear": 1958,
+      "endYear": 1961,
+      "lifeExpectancy": 42.0,
+      "infantMortality": 140,
+      "urbanRatio": 18.0,
+      "avgSiblings": 4.8,
+      "educationLevels": {
+        "illiterate": 52,
+        "primary": 32,
+        "juniorMiddle": 12.0,
+        "seniorHigh": 3.2,
+        "higherEd": 0.8
+      },
+      "ruralClasses": [
+        { "name": "人民公社生产队社员", "weight": 84 },
+        { "name": "大队小队基层干部", "weight": 11 },
+        { "name": "公社卫生员/农机手", "weight": 5 }
+      ],
+      "urbanClasses": [
+        { "name": "国营矿山机械工人", "weight": 55 },
+        { "name": "供销社/粮食局职工", "weight": 22 },
+        { "name": "行政事业单位干部", "weight": 15 },
+        { "name": "技术工人与工程师", "weight": 8 }
+      ],
+      "typicalCausesOfDeath": [
+        "重度营养不良并发全身浮肿",
+        "肠梗阻与代食品中毒",
+        "新生儿破伤风",
+        "体力衰竭合并低温症"
+      ],
+      "macroSnippets": [
+        "全国实行严格的凭票定量供应，粮票、布票、肉票紧紧攥在手心，公社公共食堂蒸出的菜叶杂粮饭稀薄见底。",
+        "田埂上的榆树皮和野菜被采摘殆尽，供销社柜台空空荡荡，家家户户在瓦盆里小心翼翼计算着口粮。",
+        "大炼钢铁的土高炉逐渐熄火，中央紧急出台‘调整、巩固、充实、提高’八字方针，城市人口大量动员压缩返乡。"
+      ]
+    },
+    {
+      "id": "era_1962_1965",
+      "name": "国民经济调整与三线建设",
+      "startYear": 1962,
+      "endYear": 1965,
+      "lifeExpectancy": 55.0,
+      "infantMortality": 75,
+      "urbanRatio": 17.5,
+      "avgSiblings": 5.8,
+      "educationLevels": {
+        "illiterate": 45,
+        "primary": 37,
+        "juniorMiddle": 14.0,
+        "seniorHigh": 3.3,
+        "higherEd": 0.7
+      },
+      "ruralClasses": [
+        { "name": "三级所有队为基础社员", "weight": 85 },
+        { "name": "大队书记/会计", "weight": 9 },
+        { "name": "公社水利农技员", "weight": 6 }
+      ],
+      "urbanClasses": [
+        { "name": "内迁三线重工工人", "weight": 52 },
+        { "name": "轻工纺织厂青工", "weight": 25 },
+        { "name": "机关事务员/民警", "weight": 15 },
+        { "name": "科研所/医院职员", "weight": 8 }
+      ],
+      "typicalCausesOfDeath": [
+        "肝炎与消化道恶疾",
+        "工矿井下尘肺与事故",
+        "突发脑溢血",
+        "急性心肌炎"
+      ],
+      "macroSnippets": [
+        "‘备战备荒为人民’，西南大山深处响起开山炮声，成昆铁路与军工厂房在崇山峻岭间隐秘铺展。",
+        "自留地与家庭副业政策有所松动，集市上偶尔可见鸡蛋与手工竹篮交易，日子渐渐见到了温热的炊烟。",
+        "大庆油田甩掉‘贫油国’帽子传遍神州，广播里天天放着学大庆、学大寨的嘹亮进行曲。"
+      ]
+    },
+    {
+      "id": "era_1966_1976",
+      "name": "十年动荡与知青下乡",
+      "startYear": 1966,
+      "endYear": 1976,
+      "lifeExpectancy": 64.0,
+      "infantMortality": 50,
+      "urbanRatio": 17.2,
+      "avgSiblings": 5.1,
+      "educationLevels": {
+        "illiterate": 35,
+        "primary": 42,
+        "juniorMiddle": 18.0,
+        "seniorHigh": 4.5,
+        "higherEd": 0.5
+      },
+      "ruralClasses": [
+        { "name": "公社记工分社员", "weight": 82 },
+        { "name": "大队贫协代表/赤脚医生", "weight": 10 },
+        { "name": "知青点接纳农户", "weight": 8 }
+      ],
+      "urbanClasses": [
+        { "name": "军工及国营厂正式工", "weight": 56 },
+        { "name": "革委会干事/街道办事员", "weight": 22 },
+        { "name": "等待分配或插队的知青", "weight": 15 },
+        { "name": "保留编制的工程技术员", "weight": 7 }
+      ],
+      "typicalCausesOfDeath": [
+        "重体力农活过度疲劳伤残",
+        "工伤事故与医疗简陋所致感染",
+        "高血压突发中风",
+        "胃癌与食管癌"
+      ],
+      "macroSnippets": [
+        "车站站台上红旗招展，戴着大红花的中学毕业生挤进绿皮车皮，千千万万知识青年奔赴北大荒与插队山村。",
+        "城乡墙壁刷满白底红字标语，手抄本和样板戏唱段传唱街巷，赤脚医生背着药箱穿梭在田间地埂。",
+        "高考暂停，工农兵学员经群众推荐踏入大学校门，厂矿车间既要‘抓革命’又要‘促生产’。"
+      ]
+    },
+    {
+      "id": "era_1977_1984",
+      "name": "高考恢复与家庭联产承包",
+      "startYear": 1977,
+      "endYear": 1984,
+      "lifeExpectancy": 67.5,
+      "infantMortality": 38,
+      "urbanRatio": 21.0,
+      "avgSiblings": 3.4,
+      "educationLevels": {
+        "illiterate": 25,
+        "primary": 45,
+        "juniorMiddle": 22.0,
+        "seniorHigh": 6.8,
+        "higherEd": 1.2
+      },
+      "ruralClasses": [
+        { "name": "包产到户承包农户", "weight": 80 },
+        { "name": "乡镇社队企业创办人/骨干", "weight": 12 },
+        { "name": "农机站长/乡村民办教师", "weight": 8 }
+      ],
+      "urbanClasses": [
+        { "name": "国营大中型企业职工", "weight": 52 },
+        { "name": "恢复工作的事业单位干部", "weight": 24 },
+        { "name": "待业知青返城办大集体", "weight": 14 },
+        { "name": "首批领照个体修车/裁缝户", "weight": 10 }
+      ],
+      "typicalCausesOfDeath": [
+        "中风偏瘫并发褥疮肺部感染",
+        "慢性肺源性心脏病",
+        "肝癌与晚期结核",
+        "道路与农机机械安全事故"
+      ],
+      "macroSnippets": [
+        "冬天破旧的考场上，知青、工人和返乡老三届手握铅笔同场答卷，油印试卷的油墨味改变了整整一代人的命运。",
+        "安徽凤阳小岗村包产到户的秘密契约解冻全国，农村分田到户后余粮堆满粮囤，集贸市场恢复了热气腾腾的叫卖。",
+        "深圳蛇口工业区竖起‘时间就是金钱，效率就是生命’巨型标牌，收录机里飘扬着邓丽君温柔的歌声。"
+      ]
+    },
+    {
+      "id": "era_1985_1992",
+      "name": "城市双轨制与下海经商潮",
+      "startYear": 1985,
+      "endYear": 1992,
+      "lifeExpectancy": 69.2,
+      "infantMortality": 32,
+      "urbanRatio": 27.5,
+      "avgSiblings": 2.5,
+      "educationLevels": {
+        "illiterate": 18,
+        "primary": 42,
+        "juniorMiddle": 28.0,
+        "seniorHigh": 9.8,
+        "higherEd": 2.2
+      },
+      "ruralClasses": [
+        { "name": "专业种养大户/承包农户", "weight": 70 },
+        { "name": "初入沿海特区的打工仔打工妹", "weight": 18 },
+        { "name": "乡镇五金编织厂经营者", "weight": 12 }
+      ],
+      "urbanClasses": [
+        { "name": "体制内机关事业单位人员", "weight": 42 },
+        { "name": "国企铁饭碗中青年职工", "weight": 38 },
+        { "name": "停薪留职倒包货的‘倒爷’/商贩", "weight": 12 },
+        { "name": "外企代表处/合资公司雇员", "weight": 8 }
+      ],
+      "typicalCausesOfDeath": [
+        "急性心肌梗死",
+        "原发性脑出血",
+        "恶性消化系统肿瘤",
+        "交通肇事重大伤亡"
+      ],
+      "macroSnippets": [
+        "物价‘双轨制’带来价格闯关，市民拿着存折连夜排队抢购电风扇、彩电和肥皂，凭票购买逐步退出历史舞台。",
+        "机关大院和科研所悄然流行‘停薪留职’，皮夹克、公文包与BP机成为走南闯北下海老板的标准行头。",
+        "邓小平南方视察谈话发表，南国潮平两岸阔，股市开市敲锣声引发全国对财富与市场经济的巨大渴求。"
+      ]
+    },
+    {
+      "id": "era_1993_2000",
+      "name": "市场经济体制与国企改制",
+      "startYear": 1993,
+      "endYear": 2000,
+      "lifeExpectancy": 71.4,
+      "infantMortality": 25,
+      "urbanRatio": 36.2,
+      "avgSiblings": 1.8,
+      "educationLevels": {
+        "illiterate": 10,
+        "primary": 38,
+        "juniorMiddle": 35.0,
+        "seniorHigh": 13.2,
+        "higherEd": 3.8
+      },
+      "ruralClasses": [
+        { "name": "珠三角/长三角外来务工农民", "weight": 45 },
+        { "name": "留守本地传统农耕农户", "weight": 45 },
+        { "name": "乡村建筑队与运输户", "weight": 10 }
+      ],
+      "urbanClasses": [
+        { "name": "民营与三资外资企业员工", "weight": 36 },
+        { "name": "国企下岗待业/买断工龄自谋生路者", "weight": 26 },
+        { "name": "党政机关与科教文卫编制人员", "weight": 22 },
+        { "name": "批发市场批发零售私营老板", "weight": 16 }
+      ],
+      "typicalCausesOfDeath": [
+        "心血管意外猝死",
+        "各类晚期恶性肿瘤",
+        "重症糖尿病并发症",
+        "工业粉尘与建筑高空事故"
+      ],
+      "macroSnippets": [
+        "国企改革‘抓大放小’深化，千万产业工人脱下工装领受‘下岗光荣证’，骑着二八大杠在劳务市场另寻出路。",
+        "住房实物分配终结，商品房与按揭贷款横空出世，福利分房的筒子楼记忆让位给现代商业小区的防盗门。",
+        "绿皮春运列车车厢拥挤得连厕所都站满了打工者，编织袋里装着一年寄回老家翻修瓦房的全部血汗钱。"
+      ]
+    },
+    {
+      "id": "era_2001_2012",
+      "name": "加入WTO与城镇化大潮",
+      "startYear": 2001,
+      "endYear": 2012,
+      "lifeExpectancy": 74.8,
+      "infantMortality": 13,
+      "urbanRatio": 50.0,
+      "avgSiblings": 1.4,
+      "educationLevels": {
+        "illiterate": 5,
+        "primary": 28,
+        "juniorMiddle": 42.0,
+        "seniorHigh": 16.5,
+        "higherEd": 8.5
+      },
+      "ruralClasses": [
+        { "name": "两栖城乡的成熟代农民工", "weight": 52 },
+        { "name": "老人留守农业家庭", "weight": 35 },
+        { "name": "现代农机合作社骨干", "weight": 13 }
+      ],
+      "urbanClasses": [
+        { "name": "民营IT/外贸/服务业白领", "weight": 40 },
+        { "name": "公务员及大型央企国企员工", "weight": 25 },
+        { "name": "城市自由职业与个体商户", "weight": 20 },
+        { "name": "大中专院校毕业初入职青年", "weight": 15 }
+      ],
+      "typicalCausesOfDeath": [
+        "冠心病与心肌缺血",
+        "肺癌（吸烟与空气因素）",
+        "脑卒中偏瘫",
+        "重症肝肾功能衰竭"
+      ],
+      "macroSnippets": [
+        "入世多哈会议一锤定音，沿海港口集装箱昼夜装卸吞吐，‘中国制造’商品潮水般涌入全球超市货架。",
+        "2008年北京奥运盛会焰火照亮苍穹，全国众志成城抗击汶川特大地震，高铁CRH动车组悄然改写国土时空距离。",
+        "大学连年扩招使高等教育迈入大众化，繁华商圈与房价日新月异，年轻人在论坛与QQ签名上抒写漂泊与奋斗。"
+      ]
+    },
+    {
+      "id": "era_2013_2019",
+      "name": "移动互联与脱贫攻坚新时代",
+      "startYear": 2013,
+      "endYear": 2019,
+      "lifeExpectancy": 77.3,
+      "infantMortality": 7.0,
+      "urbanRatio": 60.5,
+      "avgSiblings": 1.2,
+      "educationLevels": {
+        "illiterate": 2.8,
+        "primary": 22,
+        "juniorMiddle": 40.0,
+        "seniorHigh": 19.2,
+        "higherEd": 16.0
+      },
+      "ruralClasses": [
+        { "name": "进城落户/购房新市民家庭", "weight": 48 },
+        { "name": "返乡创业/电商种植养殖户", "weight": 28 },
+        { "name": "享受精准扶贫建档立卡户", "weight": 24 }
+      ],
+      "urbanClasses": [
+        { "name": "互联网平台/金融/现代服务白领", "weight": 42 },
+        { "name": "体制内公职与编制内教卫人员", "weight": 26 },
+        { "name": "外卖骑手/网约车等新业态就业者", "weight": 18 },
+        { "name": "私营小微企业主/个体经营者", "weight": 14 }
+      ],
+      "typicalCausesOfDeath": [
+        "中晚期肺癌与消化道肿瘤",
+        "冠状动脉粥样硬化性心脏病",
+        "慢性阻塞性肺疾病(COPD)",
+        "老年多器官功能衰退"
+      ],
+      "macroSnippets": [
+        "二维码一夜之间贴满卖菜摊位与百货商城，现金钱包逐渐被智能手机替代，共享单车染红骑行街头。",
+        "驻村第一书记扎进深山贫困村，水泥硬化路修到农家院门，全国数千万建档立卡贫困人口陆续脱贫摘帽。",
+        "外卖平台与网购快递四通八达，高铁八纵八横呼啸驰骋，大厂‘996’与高房价成为社交网络热议话题。"
+      ]
+    },
+    {
+      "id": "era_2020_2026",
+      "name": "公共卫生考验与高质量发展",
+      "startYear": 2020,
+      "endYear": 2026,
+      "lifeExpectancy": 78.6,
+      "infantMortality": 4.5,
+      "urbanRatio": 66.5,
+      "avgSiblings": 1.1,
+      "educationLevels": {
+        "illiterate": 1.8,
+        "primary": 16.5,
+        "juniorMiddle": 37.5,
+        "seniorHigh": 22.2,
+        "higherEd": 22.0
+      },
+      "ruralClasses": [
+        { "name": "城乡两栖现代工薪家庭", "weight": 55 },
+        { "name": "农旅融合与新型家庭农场主", "weight": 25 },
+        { "name": "乡村银发养老与留守家庭", "weight": 20 }
+      ],
+      "urbanClasses": [
+        { "name": "高新技术/文创/现代产业人员", "weight": 38 },
+        { "name": "基层公务治理/医疗教育体系", "weight": 28 },
+        { "name": "平台零工经济与数字游民", "weight": 20 },
+        { "name": "传统制造与服务转型从业人员", "weight": 14 }
+      ],
+      "typicalCausesOfDeath": [
+        "高龄多器官衰竭自然终老",
+        "重度心脑血管突发急症",
+        "呼吸系统重症合并感染",
+        "各类晚期恶性肿瘤"
+      ],
+      "macroSnippets": [
+        "健康码与核酸检测构筑起三年特殊的社会联防图景，居家用电脑办公、上网课与社区志愿者送菜成为共同记忆。",
+        "疫情防控平稳转段后烟火气迅速回归，人工智能、新能源汽车与新质生产力成为街谈巷议的新热词。",
+        "银发浪潮来临，社区养老日间照料中心与适老化改造逐步推进，一代代人在时光流转中守护家国寻常。"
+      ]
+    }
+  ],
+  "peerBenchmarks": {
+    "education": [
+      { "level": "文盲/半文盲", "score": 10, "percentileEstimate": 15 },
+      { "level": "小学文化", "score": 30, "percentileEstimate": 38 },
+      { "level": "初中文化", "score": 50, "percentileEstimate": 68 },
+      { "level": "高中/中专", "score": 70, "percentileEstimate": 85 },
+      { "level": "大专/本科及以上", "score": 90, "percentileEstimate": 96 }
+    ],
+    "wealth": [
+      { "tier": "绝对贫困/困顿", "max": 25, "cohortRange": "后 15%" },
+      { "tier": "温饱维艰", "max": 45, "cohortRange": "15% - 45% 区间" },
+      { "tier": "平稳小康", "max": 70, "cohortRange": "45% - 80% 区间" },
+      { "tier": "富裕优渥", "max": 100, "cohortRange": "前 20% 区间" }
+    ],
+    "lifespanNote": "基于同时期国家统计公报、全国人口普查寿命表以及历史人口学文献估算得出。"
+  }
+}
