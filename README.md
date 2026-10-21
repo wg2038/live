@@ -67,8 +67,8 @@
 # 1. 确保位于项目目录
 cd live
 
-# 2. 关联你的 GitHub 远程仓库 (将 <YOUR_USERNAME> 替换为你自己的 GitHub 用户名)
-git remote add origin https://github.com/<YOUR_USERNAME>/live.git
+# 2. 关联你的 GitHub 远程仓库
+git remote add origin https://github.com/wg2038/live.git
 
 # 3. 推送到 main 分支
 git branch -M main
@@ -85,7 +85,7 @@ git push -u origin main
    - 目录保持为 **`/ (root)`**；
    - 点击 **Save**（保存）；
 5. 等待约 1 分钟刷新页面，GitHub 会在上方生成专属的在线访问网址：
-   `https://<YOUR_USERNAME>.github.io/live/`
+   `https://wg2038.github.io/live/`
 
 **直接把这个链接发给微信群或朋友，手机浏览器点开即可立即试玩！**
 
