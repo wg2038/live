@@ -497,6 +497,78 @@ class SimulationEngine {
    */
   checkLifeMilestone() {
     const age = this.currentAge;
+    const isLateBorn = this.character && this.character.birthYear >= 2010;
+
+    // 针对 2010 年及以后出生的新时代少儿专属成长关卡（绝不涉及成年虚构内容）
+    if (isLateBorn) {
+      if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_child_interest')) {
+        this.statusFlags.add('decision_child_interest');
+        return {
+          id: 'node_child_interest',
+          title: '幼小衔接与兴趣班抉择',
+          isDecision: true,
+          narrative: `你已到学龄，周边家长纷纷给孩子报名少儿编程、英语口语与思维训练班。面对激烈的同龄竞争，家庭需权衡教育投入。`,
+          choices: [
+            {
+              text: '报读少儿兴趣与思维启蒙班',
+              effect: { "knowledge": 20, "wealth": -15, "health": -5 },
+              log: '周末穿梭于各个校外培训班，虽略显疲累，但眼界与思维打下了扎实基础。'
+            },
+            {
+              text: '坚持快乐童年，多跑跳户外运动',
+              effect: { "health": 15, "family": 15, "wealth": 5 },
+              log: '放学后与邻里小伙伴在小区楼下自由奔跑玩耍，享受无忧无虑的纯真童年。'
+            }
+          ]
+        };
+      }
+
+      if (age >= 10 && age <= 12 && !this.statusFlags.has('decision_child_digital')) {
+        this.statusFlags.add('decision_child_digital');
+        return {
+          id: 'node_child_digital',
+          title: '网课居家与智能终端考量',
+          isDecision: true,
+          narrative: `疫情居家上网课期间，你拥有了属于自己的平板与智能手机。屏幕那头是老师的板书，后台则是精彩纷呈的短视频与手机游戏。`,
+          choices: [
+            {
+              text: '高度自律专心网课，主动做拓展题',
+              effect: { "knowledge": 25, "mentality": 10, "health": -5 },
+              log: '抵制住了游戏短视频诱惑，利用数字终端汲取海量知识，成绩名列前茅。'
+            },
+            {
+              text: '沉迷手机游戏与短视频，熬夜摸鱼',
+              effect: { "mentality": 15, "health": -10, "knowledge": -10 },
+              log: '在虚拟网络世界中获得极高满足感，但也让视力下降，课业偶有落伍。'
+            }
+          ]
+        };
+      }
+
+      if (age >= 14 && age <= 16 && !this.statusFlags.has('decision_child_exam')) {
+        this.statusFlags.add('decision_child_exam');
+        return {
+          id: 'node_child_exam',
+          title: '中考分流与未来求学方向',
+          isDecision: true,
+          narrative: `初三中考倒计时，面对普职分流的现实分水岭，教室里的空气格外凝重。面对未来的求学路径，你与父母坐下来认真商量。`,
+          choices: [
+            {
+              text: '开启题海战术冲刺重点示范普高',
+              effect: { "knowledge": 30, "health": -10, "mentality": -5 },
+              log: '挑灯夜战刷完几十套模拟卷，顺利拿到重点高中录取通知书，迈入人生新起点。'
+            },
+            {
+              text: '报考艺术特长或特色职业技术院校',
+              effect: { "mentality": 15, "wealth": 10, "knowledge": 10 },
+              log: '结合自身爱好走向特色技能赛道，卸下过重考学包袱，走上一条踏实务实之路。'
+            }
+          ]
+        };
+      }
+
+      return null;
+    }
 
     // 1. 启蒙上学 (6-8岁)
     if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_school')) {
@@ -771,25 +843,42 @@ class SimulationEngine {
     // 3. 个人处境切片 (结合具体城市产业与职业细节，约 40-70 字)
     let personal = '';
     const jobDetail = ind && ind.typicalJobs ? ind.typicalJobs[0] : '寻常劳作';
+    const isLateBorn = this.character && this.character.birthYear >= 2010;
 
-    if (age <= 5) {
-      personal = `你在${cityDisp.displayName}的青瓦泥墙下由长辈拉扯着蹒跚学步，常喝米汤充饥，童年在清贫中一天天长大。`;
-    } else if (age <= 15) {
-      if (this.energy.study >= 30) {
-        personal = `在昏暗的煤油灯下仔细翻读卷边的旧课本，课余帮家里料理碎柴，心底里悄悄盼望着多长些文化见识。`;
+    if (isLateBorn) {
+      if (age <= 3) {
+        personal = `你在${cityDisp.displayName}由长辈推着婴儿车长大，长辈手边刷着短视频，房间里放着早教儿歌，城市在你的咿呀学语中日新月异。`;
+      } else if (age <= 6) {
+        personal = `在幼儿园里戴着小黄帽排队做操、早起测晨检体温。放学时校门外围满了接送的电动车与长辈的身影，回家的路上总盼着买一根烤肠。`;
+      } else if (age <= 11) {
+        if (year === 2020 || year === 2021 || year === 2022) {
+          personal = `突如其来的疫情打乱了课堂，你穿着睡衣守着平板上网课，每天早晨钉钉打卡上传体温与作业，戴着小号口罩下楼做核酸。`;
+        } else {
+          personal = `小学书包沉甸甸地压在肩头。随着“双减”落地，周遭补习班悄然退场，课余在题海与少儿数字生活间一天天抽条拔高。`;
+        }
       } else {
-        personal = `你早早跟着长辈学习【${jobDetail}】的粗浅活计，掌心磨出薄茧，在粗茶淡饭间体味着操持家门的不易。`;
-      }
-    } else if (age <= 55) {
-      if (this.energy.work >= 35) {
-        personal = `你在${cityDisp.displayName}从事【${jobDetail}】，工装上落满岁月的痕迹，凭勤恳踏实攒下每分汗水钱撑起全家口粮。`;
-      } else if (this.energy.family >= 35) {
-        personal = `你把更多心思放在照拂老少亲眷上，柴米油盐细水长流，简陋的屋檐下洋溢着互谅互勉的人间温情。`;
-      } else {
-        personal = `在生活的磕碰起伏中步履不停，既要顾全家中一日三餐，也在岁月更迭中竭力守住内心的安宁。`;
+        personal = `步入初中，面对中考升学的无声张力。天花板日光灯照亮堆满练习册的书桌，课间讨论着流行网络梗与新科技，静静注视着窗外飞驰的高铁与霓虹。`;
       }
     } else {
-      personal = `青丝染雪，手脚渐慢。你坐在老屋竹椅上守望着儿孙的背影，往昔在${cityDisp.displayName}数十载风风雨雨皆化作案头平静的长叹。`;
+      if (age <= 5) {
+        personal = `你在${cityDisp.displayName}的青瓦泥墙下由长辈拉扯着蹒跚学步，常喝米汤充饥，童年在清贫中一天天长大。`;
+      } else if (age <= 15) {
+        if (this.energy.study >= 30) {
+          personal = `在昏暗的煤油灯下仔细翻读卷边的旧课本，课余帮家里料理碎柴，心底里悄悄盼望着多长些文化见识。`;
+        } else {
+          personal = `你早早跟着长辈学习【${jobDetail}】的粗浅活计，掌心磨出薄茧，在粗茶淡饭间体味着操持家门的不易。`;
+        }
+      } else if (age <= 55) {
+        if (this.energy.work >= 35) {
+          personal = `你在${cityDisp.displayName}从事【${jobDetail}】，工装上落满岁月的痕迹，凭勤恳踏实攒下每分汗水钱撑起全家口粮。`;
+        } else if (this.energy.family >= 35) {
+          personal = `你把更多心思放在照拂老少亲眷上，柴米油盐细水长流，简陋的屋檐下洋溢着互谅互勉的人间温情。`;
+        } else {
+          personal = `在生活的磕碰起伏中步履不停，既要顾全家中一日三餐，也在岁月更迭中竭力守住内心的安宁。`;
+        }
+      } else {
+        personal = `青丝染雪，手脚渐慢。你坐在老屋竹椅上守望着儿孙的背影，往昔在${cityDisp.displayName}数十载风风雨雨皆化作案头平静的长叹。`;
+      }
     }
 
     let full = `${macro} ${personal}`.trim();
@@ -1016,6 +1105,30 @@ class SimulationEngine {
           choices: [
             { text: '坚持上学', effect: { "knowledge": 25, "wealth": -10 }, log: '在困境中坚持上学，打下了扎实的文化底子。' },
             { text: '辍学做工', effect: { "wealth": 15, "knowledge": -10 }, log: '早早挑起家庭生计重担，在劳动中磨砺手茧。' }
+          ]
+        };
+      } else if (decisionId === 'node_child_interest') {
+        evt = {
+          title: '幼小衔接与兴趣班抉择',
+          choices: [
+            { text: '报读少儿兴趣与思维启蒙班', effect: { "knowledge": 20, "wealth": -15, "health": -5 }, log: '周末穿梭于各个校外培训班，虽略显疲累，但眼界与思维打下了扎实基础。' },
+            { text: '坚持快乐童年多跑跳运动', effect: { "health": 15, "family": 15, "wealth": 5 }, log: '放学后与邻里小伙伴在小区楼下自由奔跑玩耍，享受无忧无虑的纯真童年。' }
+          ]
+        };
+      } else if (decisionId === 'node_child_digital') {
+        evt = {
+          title: '网课居家与智能终端考量',
+          choices: [
+            { text: '高度自律专心网课打卡', effect: { "knowledge": 25, "mentality": 10, "health": -5 }, log: '抵制住了游戏短视频诱惑，利用数字终端汲取海量知识，成绩名列前茅。' },
+            { text: '沉迷手机游戏与短视频', effect: { "mentality": 15, "health": -10, "knowledge": -10 }, log: '在虚拟网络世界中获得极高满足感，但也让视力下降，课业偶有落伍。' }
+          ]
+        };
+      } else if (decisionId === 'node_child_exam') {
+        evt = {
+          title: '中考分流与求学走向',
+          choices: [
+            { text: '开启题海战术冲刺重点普高', effect: { "knowledge": 30, "health": -10, "mentality": -5 }, log: '挑灯夜战刷完几十套模拟卷，顺利拿到重点高中录取通知书，迈入人生新起点。' },
+            { text: '报考艺术特长或职教院校', effect: { "mentality": 15, "wealth": 10, "knowledge": 10 }, log: '结合自身爱好走向特色技能赛道，卸下过重考学包袱，走上一条踏实务实之路。' }
           ]
         };
       } else if (decisionId === 'node_marriage') {
@@ -1277,19 +1390,29 @@ class SimulationEngine {
     this.currentYear = finalYear;
     this.currentAge = finalAge;
 
+    const isLateBorn = this.character.birthYear >= 2010;
+    const cause = isLateBorn
+      ? '在当今时代家庭的托举与照护中平稳成长，正值少年时期'
+      : '见证近百年家国沧桑，于当今盛世安享晚年';
+
+    const detail = isLateBorn
+      ? `于${this.character.birthYear}年降生，在祖辈与父辈的倾力托举下，于2026年成长为风华少年。`
+      : `从${this.character.birthYear}年风雨中一路走来，终在2026年与时代相拥，一生平凡而丰厚。`;
+
     this.deathInfo = {
       age: finalAge,
       year: finalYear,
-      cause: '见证近百年家国沧桑，于当今盛世安享晚年',
+      cause,
       isNatural: true,
-      isDisaster: false
+      isDisaster: false,
+      isAliveIn2026: true
     };
 
     this.character.milestones.push({
       year: finalYear,
       age: finalAge,
-      title: '见证盛世',
-      detail: `从${this.character.birthYear}年风雨中一路走来，终在2026年与时代相拥，一生平凡而丰厚。`
+      title: isLateBorn ? '风华少年' : '见证盛世',
+      detail
     });
   }
 
@@ -1300,8 +1423,31 @@ class SimulationEngine {
     const age = this.deathInfo ? this.deathInfo.age : this.currentAge;
     const birthYear = this.character.birthYear;
     const era = this.getEraForYear(birthYear);
-
     const expectedLife = era.lifeExpectancy;
+
+    // 针对 2010 年及以后出生且存活至 2026 年的少年
+    if (this.character.birthYear >= 2010 && (this.deathInfo && this.deathInfo.isAliveIn2026)) {
+      const eduLevel = age <= 6 ? '学前幼儿阶段' : (age <= 12 ? '小学义务教育阶段' : '初级中等教育在读');
+      return {
+        lifespan: {
+          val: age,
+          expected: expectedLife,
+          percentile: 98,
+          desc: `现代公共卫生条件下，该世代人均预期寿命已达 ${expectedLife} 岁，平稳健康成长中`
+        },
+        education: {
+          level: eduLevel,
+          percentile: 88,
+          desc: `全面普及九年义务教育环境，知识技能基础良好`
+        },
+        wealth: {
+          tier: this.character.economicLevel || '寻常温饱',
+          percentile: 72,
+          desc: `依托父辈两代人的积累，享有较完备的现代物质生活与家庭托举`
+        }
+      };
+    }
+
     const diff = age - expectedLife;
     let lifePercentile = 50;
     if (diff > 25) lifePercentile = 95;
@@ -1367,6 +1513,226 @@ class SimulationEngine {
 
   evaluateLifeResults() {
     return this.calculatePeerComparisons();
+  }
+
+  /**
+   * 为 2010 年及以后出生且存活至 2026 年的角色生成“传承视角”三代人对照
+   */
+  generateLineageHistory(char) {
+    if (!char || char.birthYear < 2010) return null;
+
+    const childBirthYear = char.birthYear;
+    // 父辈出生于 1975–1990 年
+    const parentAgeAtBirth = 25 + (childBirthYear % 6);
+    const parentBirthYear = childBirthYear - parentAgeAtBirth;
+    // 祖辈出生于 1950–1965 年
+    const grandAgeAtBirth = 24 + (parentBirthYear % 5);
+    const grandBirthYear = parentBirthYear - grandAgeAtBirth;
+
+    const isUrban = char.urbanRural === 'urban';
+
+    const parentName = this.generateAuthenticName(parentBirthYear, '男', char.provinceId, char.ethnicity);
+    const grandName = this.generateAuthenticName(grandBirthYear, '男', char.provinceId, char.ethnicity);
+
+    // 1. 祖辈轨迹 (约 1950s-1970s 成长)
+    const grandTimeline = [
+      {
+        period: `${grandBirthYear} — ${grandBirthYear + 15} 年`,
+        stage: '童年与三年困难时期',
+        detail: `生于新中国初建时期，童年亲历三年困难时期（1959–1961），靠红薯干与国家定粮度日，在朴素清贫中扎下勤俭家风。`
+      },
+      {
+        period: `${grandBirthYear + 16} — ${grandBirthYear + 25} 年`,
+        stage: '青年劳作与集体建设',
+        detail: isUrban
+          ? `青年期按政策招工进入${char.cityName}国营厂矿做工，历经工业建设岁月，按八级工规制领取粮票工资。`
+          : `在公社生产大队挣工分、修筑水库水利设施，参加农业集体劳动，打下吃苦耐劳的体力底子。`
+      },
+      {
+        period: `${grandBirthYear + 28} — ${grandBirthYear + 40} 年`,
+        stage: '改革开放与家门立业',
+        detail: isUrban
+          ? `迎来改革开放与国企转轨浪潮，享受单位福利分房，操持一家温饱，抚育下一代成长。`
+          : `赶上家庭联产承包责任制，大包干解决一家温饱，农闲兼做零工运输，支撑儿女学杂开支。`
+      },
+      {
+        period: `2000 年代至今`,
+        stage: '晚年桑榆与照看幼孙',
+        detail: `迈入晚年领取基础养老退休金，常在老家小院侍弄菜圃，或进城帮衬照护孙辈（即你），在安宁中守望家族生生不息。`
+      }
+    ];
+
+    // 2. 父辈轨迹 (约 1975-1990s 成长)
+    const parentTimeline = [
+      {
+        period: `${parentBirthYear} — ${parentBirthYear + 18} 年`,
+        stage: '求学与升学改制',
+        detail: isUrban
+          ? `在九年义务教育普惠中读完初高中，适逢高校大扩招浪潮，考入大专院校就读，成为家族首代知识白领。`
+          : `完成乡村初中学业后就读中专技校或拜师学手艺，立志通过技术走出土地。`
+      },
+      {
+        period: `${parentBirthYear + 19} — ${parentBirthYear + 26} 年`,
+        stage: '就业打拼与经济转轨',
+        detail: isUrban
+          ? `步入社会直面国企重组与外资民企蓬勃期，进入现代企业竞争打拼，经历市场风浪与行业周期。`
+          : `搭上南下民工大潮的绿皮火车，在沿海制造业车间、建筑工地或物流网点奔波，凭辛勤汗水汇款安家。`
+      },
+      {
+        period: `${parentBirthYear + 26} — ${childBirthYear} 年`,
+        stage: '房改安家与成家立业',
+        detail: isUrban
+          ? `适逢福利分房终结与商品房市场化，倾注两代人积蓄背负按揭贷款在城市购置首套住房，建立家庭。`
+          : `在老家宅基地翻建二层红砖楼房，或在务工城市租房栖身，省吃俭用为新生命到来做好准备。`
+      },
+      {
+        period: `${childBirthYear} — 2026 年`,
+        stage: '托举子女与中年重任',
+        detail: `迎来你的出生。人到中年承担上有老下有小的重担，经历校外辅导班热潮、疫情三年陪读与生活转段，倾尽所能护佑你平安成长。`
+      }
+    ];
+
+    // 3. 角色自身（2010-2026 童年）
+    const childTimeline = [
+      {
+        period: `${childBirthYear} — ${childBirthYear + 5} 年`,
+        stage: '数字时代的学前生活',
+        detail: `降生于中国综合国力腾飞与移动互联网时代，在家庭的照拂、早教绘本与智能终端的陪伴中步入童年。`
+      },
+      {
+        period: `${childBirthYear + 6} — 2026 年`,
+        stage: '求学岁月与同龄记忆',
+        detail: `背上书包走进校园，亲历了三年疫情网课居家打卡、校外“双减”落地、中考素质教育改革，在飞速演进的时代中成长为风华少年。`
+      }
+    ];
+
+    return {
+      disclaimer: '基于统计规律的典型轨迹推演，非真实个人经历。不涉及 2026 年之后的任何预测。',
+      child: {
+        birthYear: childBirthYear,
+        name: char.name,
+        ageIn2026: 2026 - childBirthYear,
+        timeline: childTimeline
+      },
+      parent: {
+        birthYear: parentBirthYear,
+        name: parentName,
+        ageIn2026: 2026 - parentBirthYear,
+        job: char.parentJob,
+        timeline: parentTimeline,
+        profile: {
+          birthYear: parentBirthYear,
+          name: parentName,
+          provinceId: char.provinceId,
+          cityId: char.cityId,
+          urbanRural: char.urbanRural,
+          sex: '男',
+          ethnicity: char.ethnicity,
+          childName: char.name
+        }
+      },
+      grandparent: {
+        birthYear: grandBirthYear,
+        name: grandName,
+        ageIn2026: 2026 - grandBirthYear,
+        timeline: grandTimeline
+      }
+    };
+  }
+
+  /**
+   * 以父母身份重新开始新一世人生（代际串联读档）
+   */
+  createCharacterFromParent(parentProfile) {
+    this.paceMode = 'medium';
+    this.history = [];
+    this.statusFlags.clear();
+    this.isGameOver = false;
+    this.deathInfo = null;
+
+    const birthYear = parentProfile.birthYear;
+    const era = this.getEraForYear(birthYear);
+    const indEraKey = this.getIndustryEraKey(birthYear);
+
+    const province = this.provinces.find(p => p.id === parentProfile.provinceId) || this.provinces[0];
+    const city = this.cities.find(c => c.id === parentProfile.cityId) || this.cities[0];
+    const cityDisplay = this.resolveCityDisplay(city, birthYear);
+
+    const urbanRural = parentProfile.urbanRural || 'urban';
+    const isUrban = urbanRural === 'urban';
+    const sex = parentProfile.sex || '男';
+    const ethnicity = parentProfile.ethnicity || '汉族';
+    const name = parentProfile.name || this.generateAuthenticName(birthYear, sex, province.id, ethnicity);
+
+    const indProfile = city.eraIndustries[indEraKey] || city.eraIndustries['era_1979_2000'];
+    const typicalJobs = indProfile.typicalJobs || ['国营厂技术员', '农田社员'];
+    const parentJob = typicalJobs[Math.floor(Math.random() * typicalJobs.length)];
+    const familyClass = `${city.type} · ${parentJob}`;
+
+    const attributes = {
+      health: 82,
+      wealth: 45,
+      knowledge: isUrban ? 38 : 24,
+      family: 75,
+      mentality: 70
+    };
+
+    this.character = {
+      name,
+      sex,
+      ethnicity,
+      birthYear,
+      birthPlace: province.name,
+      provinceId: province.id,
+      cityId: city.id,
+      cityName: city.name,
+      cityHistoricalName: cityDisplay.displayName,
+      cityType: city.type,
+      cityFoundingYear: city.foundingYear,
+      region: province.region,
+      urbanRural,
+      familyClass,
+      parentJob,
+      industryPillar: indProfile.pillar,
+      economicLevel: '温饱',
+      siblingsCount: 2,
+      attributes,
+      educationLevel: '未入学',
+      occupation: isUrban ? '城镇孩童' : '乡野幼童',
+      milestones: [],
+      survivedDisasters: [],
+      lifelineHistory: [
+        {
+          age: 0,
+          year: birthYear,
+          health: attributes.health,
+          wealth: attributes.wealth,
+          mentality: attributes.mentality,
+          knowledge: attributes.knowledge
+        }
+      ],
+      isInheritedParent: true,
+      childName: parentProfile.childName
+    };
+
+    this.currentYear = birthYear;
+    this.currentAge = 0;
+
+    this.energy = {
+      study: 25,
+      work: 25,
+      family: 25,
+      health: 25
+    };
+
+    this.character.milestones.push({
+      year: birthYear,
+      age: 0,
+      title: '血脉溯源',
+      detail: `时光倒流回到 ${birthYear} 年。作为曾抚育【${parentProfile.childName || '子嗣'}】的父辈，你在${province.name}${cityDisplay.displayName}以【${name}】之名重新开启这充满时代激荡的一生。`
+    });
+
+    return this.character;
   }
 }
 

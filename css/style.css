@@ -1383,6 +1383,170 @@ img {
 }
 
 /* ==========================================================================
+   Lineage Perspective Section (.lineage-section)
+   ========================================================================== */
+
+.lineage-section {
+  width: min(720px, 100%);
+  margin: 24px auto 0;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  animation: slideUp 0.4s ease;
+}
+
+@media (max-width: 560px) {
+  .lineage-section {
+    padding: 18px 16px;
+  }
+}
+
+.lineage-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.lineage-badge {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .02em;
+}
+
+.lineage-sub {
+  font-size: 14px;
+  color: var(--ink2);
+  margin: 6px 0 8px;
+}
+
+.lineage-disclaimer {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--ink3);
+  background: var(--card2);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--rule2);
+}
+
+.lineage-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gen-card {
+  background: var(--card2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+
+.gen-title {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.gen-title .tag {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: normal;
+  background: var(--stamp-soft);
+  color: var(--stamp);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.gen-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 14px;
+  border-left: 2px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gen-step {
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.gen-step::before {
+  content: '';
+  position: absolute;
+  left: -19px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--card2);
+}
+
+.gen-step.child-step::before {
+  background: var(--stamp);
+}
+
+.gen-step b {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.gen-step .period {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--ink3);
+}
+
+.gen-step span {
+  display: block;
+  font-size: 13px;
+  color: var(--ink2);
+  margin-top: 2px;
+}
+
+.lineage-action {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--rule);
+  text-align: center;
+}
+
+.btn-replay-parent {
+  margin: 0 auto;
+  background: var(--stamp);
+  color: #FFFFFF;
+}
+
+.btn-replay-parent:hover {
+  filter: brightness(1.08);
+}
+
+.lineage-hint {
+  font-size: 12.5px;
+  color: var(--ink3);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
    Animations
    ========================================================================== */
 

@@ -565,11 +565,104 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 4. 绘制 Canvas 生命轨迹图 (Lifeline Chart)
     drawLifelineChart(char.lifelineHistory, death.age);
 
-    // 5. 渲染分享卡与文字总结
-    const summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为「${char.name}」（${char.birthYear}–${death.year}），享年 ${death.age} 岁。出生于 ${char.birthPlace} · ${char.cityHistoricalName}，因 ${death.cause} 离世。寿数超越同代 ${comp.lifespan.percentile}% 的人！来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
+    // 5. 晚出生角色“传承视角”检测与渲染 (出生>=2010且2026年存活)
+    const lineageSection = document.getElementById('lineageSection');
+    const isLateBornSurvivor = char.birthYear >= 2010 && (death.isAliveIn2026 || death.year >= 2026);
+
+    if (lineageSection) {
+      if (isLateBornSurvivor) {
+        const lineage = engine.generateLineageHistory(char);
+        renderLineageView(lineage);
+        lineageSection.hidden = false;
+      } else {
+        lineageSection.hidden = true;
+      }
+    }
+
+    // 6. 渲染分享卡与文字总结
+    let summaryText = '';
+    if (isLateBornSurvivor) {
+      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为新时代少年「${char.name}」（${char.birthYear}年出生，现年 ${death.age} 岁）。出生于 ${char.birthPlace} · ${char.cityHistoricalName}，在父祖两代人近半个世纪的接力托举中平稳成长。来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
+    } else {
+      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为「${char.name}」（${char.birthYear}–${death.year}），享年 ${death.age} 岁。出生于 ${char.birthPlace} · ${char.cityHistoricalName}，因 ${death.cause} 离世。寿数超越同代 ${comp.lifespan.percentile}% 的人！来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
+    }
     document.getElementById('shareText').textContent = summaryText;
 
     renderShareCardPreview(char, death, comp, '');
+  }
+
+  // 渲染晚出生角色“传承视角”三代人对照
+  function renderLineageView(lineage) {
+    if (!lineage) return;
+    const container = document.getElementById('lineageCards');
+    if (!container) return;
+
+    const gp = lineage.grandparent;
+    const p = lineage.parent;
+    const c = lineage.child;
+
+    container.innerHTML = `
+      <!-- 祖辈一代 -->
+      <div class="gen-card">
+        <div class="gen-title">
+          <span>祖辈一代 · ${escapeHtml(gp.name)}（约 ${gp.birthYear} 年生）</span>
+          <span class="tag">建国初与集体化一代</span>
+        </div>
+        <ul class="gen-timeline">
+          ${gp.timeline.map(item => `
+            <li class="gen-step">
+              <span class="period">${escapeHtml(item.period)}</span>
+              <b>${escapeHtml(item.stage)}</b>
+              <span>${escapeHtml(item.detail)}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+
+      <!-- 父辈一代 -->
+      <div class="gen-card">
+        <div class="gen-title">
+          <span>父辈一代 · ${escapeHtml(p.name)}（约 ${p.birthYear} 年生 · ${escapeHtml(p.job)}）</span>
+          <span class="tag">改革开放与市场转轨托举一代</span>
+        </div>
+        <ul class="gen-timeline">
+          ${p.timeline.map(item => `
+            <li class="gen-step">
+              <span class="period">${escapeHtml(item.period)}</span>
+              <b>${escapeHtml(item.stage)}</b>
+              <span>${escapeHtml(item.detail)}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+
+      <!-- 角色当代 -->
+      <div class="gen-card" style="border-color: var(--stamp);">
+        <div class="gen-title" style="color: var(--stamp);">
+          <span>当代少年 · ${escapeHtml(c.name)}（${c.birthYear} 年生 · 现年 ${c.ageIn2026} 岁）</span>
+          <span class="tag" style="background: var(--stamp); color: var(--paper);">移动互联与新时代一代</span>
+        </div>
+        <ul class="gen-timeline">
+          ${c.timeline.map(item => `
+            <li class="gen-step child-step">
+              <span class="period">${escapeHtml(item.period)}</span>
+              <b>${escapeHtml(item.stage)}</b>
+              <span>${escapeHtml(item.detail)}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+
+    const btnReplayParent = document.getElementById('btnReplayParent');
+    if (btnReplayParent && p && p.profile) {
+      btnReplayParent.onclick = () => {
+        engine.createCharacterFromParent(p.profile);
+        showSection(secLifeview);
+        initLifeviewUI();
+        resumeGame();
+      };
+    }
   }
 
   // 绘制生命轨迹线图
@@ -695,16 +788,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.font = 'bold 36px "Noto Serif SC", serif';
     ctx.fillText(char.name, 40, 126);
 
+    const isLateBornSurvivor = char.birthYear >= 2010 && (death.isAliveIn2026 || death.year >= 2026);
+    const subTitle = isLateBornSurvivor
+      ? `${char.birthYear} — 2026 · 现年 ${death.age} 岁少年 (${char.sex} · ${char.ethnicity})`
+      : `${char.birthYear} — ${death.year} · 享年 ${death.age} 岁 (${char.sex} · ${char.ethnicity})`;
+
     ctx.font = '16px "IBM Plex Mono", monospace';
     ctx.fillStyle = '#4A5A61';
-    ctx.fillText(`${char.birthYear} — ${death.year} · 享年 ${death.age} 岁 (${char.sex} · ${char.ethnicity})`, 40, 156);
+    ctx.fillText(subTitle, 40, 156);
 
     // 4. 死因与生卒条框
     ctx.fillStyle = '#DCEDEA';
     ctx.fillRect(40, 180, w - 80, 48);
     ctx.fillStyle = '#0F6E68';
     ctx.font = 'bold 16px "Noto Serif SC", serif';
-    ctx.fillText(`死因：${death.cause}`, 56, 210);
+    const causeText = isLateBornSurvivor ? `状态：${death.cause}` : `死因：${death.cause}`;
+    ctx.fillText(causeText, 56, 210);
 
     // 5. 出生与家门基准
     ctx.fillStyle = '#13212A';
@@ -757,7 +856,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 8. 留给这一生的话
-    const quote = farewell || '辛苦操劳了一生，在人间风雨里平平淡淡走过，无悔于世。';
+    const defaultQuote = isLateBornSurvivor
+      ? '三代人八十载寒暑接力，终见人间安宁与繁盛。'
+      : '辛苦操劳了一生，在人间风雨里平平淡淡走过，无悔于世。';
+    const quote = farewell || defaultQuote;
     ctx.fillStyle = '#DCEDEA';
     ctx.fillRect(40, 755, w - 80, 68);
     ctx.font = 'italic 15px "Noto Serif SC", serif';

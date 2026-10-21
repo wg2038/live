@@ -8,8 +8,9 @@
     { "range": [1976, 1984], "name": "改革初潮一代", "weight": 19, "avgAnnualBirthM": 20.5 },
     { "range": [1985, 1990], "name": "第三代人口高峰", "weight": 23, "avgAnnualBirthM": 24.5 },
     { "range": [1991, 2000], "name": "九十年代独生代", "weight": 17, "avgAnnualBirthM": 17.8 },
-    { "range": [2001, 2015], "name": "新世纪新千禧一代", "weight": 15, "avgAnnualBirthM": 16.1 },
-    { "range": [2016, 2026], "name": "全面二孩及后世代", "weight": 11, "avgAnnualBirthM": 11.2 }
+    { "range": [2001, 2009], "name": "新世纪新千禧一代", "weight": 16, "avgAnnualBirthM": 16.1 },
+    { "range": [2010, 2015], "name": "一零年代独生与二孩前夜", "weight": 5, "avgAnnualBirthM": 16.3 },
+    { "range": [2016, 2026], "name": "全面二孩及后世代", "weight": 4, "avgAnnualBirthM": 11.2 }
   ],
   "eras": [
     {
