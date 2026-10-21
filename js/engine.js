@@ -32,6 +32,7 @@ class SimulationEngine {
 
     // 状态标记
     this.statusFlags = new Set();
+    this.currentPendingDecision = null;
   }
 
   /**
@@ -235,6 +236,7 @@ class SimulationEngine {
     this.paceMode = paceMode;
     this.history = [];
     this.statusFlags.clear();
+    this.currentPendingDecision = null;
     this.isGameOver = false;
     this.deathInfo = null;
 
@@ -345,6 +347,8 @@ class SimulationEngine {
       siblingsCount,
       attributes,
       educationLevel: '未入学',
+      careerTrack: this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob),
+      careerRank: '初生幼年',
       occupation: isUrban ? '城镇孩童' : '乡野幼童',
       milestones: [],
       survivedDisasters: [],
@@ -362,6 +366,7 @@ class SimulationEngine {
 
     this.currentYear = birthYear;
     this.currentAge = 0;
+    this.updateCareerStage();
 
     // 默认精力分配
     this.energy = {
@@ -587,6 +592,7 @@ class SimulationEngine {
           {
             text: '早早辍学务农或当学徒做工',
             effect: { "wealth": 15, "family": 15, "knowledge": -10 },
+            status: 'status_dropped_out',
             log: `懂事地辍学帮衬家门，在${this.character.industryPillar}的尘土中流下第一滴汗水。`
           }
         ]
@@ -815,80 +821,570 @@ class SimulationEngine {
   }
 
   /**
-   * 自动生成当年纪实叙事 (严格 80-150 字，克制、具体、生活细节)
+   * 初生职业轨道推演判定
+   */
+  determineInitialCareerTrack(isUrban, city, familyClass, parentJob) {
+    if (familyClass === '干部' || familyClass === '知识分子') return 'cadre_teacher';
+    if (familyClass === '商人' || (parentJob && (parentJob.includes('商') || parentJob.includes('贩') || parentJob.includes('铺')))) return 'merchant';
+    if (familyClass === '工人' || (parentJob && (parentJob.includes('工') || parentJob.includes('匠')))) return 'worker';
+    if (!isUrban || (familyClass && familyClass.includes('农'))) return 'farmer';
+    if (city && city.type === '综合科教中心') return 'tech_whitecollar';
+    return isUrban ? 'worker' : 'farmer';
+  }
+
+  /**
+   * 角色生涯与职业进阶树动态推演引擎 (0-80+岁千人千面)
+   */
+  updateCareerStage() {
+    if (!this.character) return;
+    const char = this.character;
+    const age = this.currentAge;
+    const year = this.currentYear;
+    const flags = this.statusFlags;
+    const energy = this.energy;
+    const attr = char.attributes;
+    const isUrban = char.urbanRural === 'urban';
+
+    if (!char.careerTrack) {
+      char.careerTrack = this.determineInitialCareerTrack(isUrban, null, char.familyClass, char.parentJob);
+    }
+
+    // 1. 动态轨道迁跃校准 (基于重大历史抉择与玩家精力)
+    if (flags.has('college_graduate') || flags.has('attended_gaokao')) {
+      if (year >= 2000 && (char.cityType === '综合科教中心' || energy.study >= 30)) {
+        char.careerTrack = 'tech_whitecollar';
+      } else {
+        char.careerTrack = 'cadre_teacher';
+      }
+      char.educationLevel = '大学本科';
+    } else if (flags.has('chose_south_artisan') || flags.has('township_worker') || flags.has('certified_technician')) {
+      char.careerTrack = 'worker';
+    } else if (flags.has('chose_iron_bowl') || flags.has('vocational_talent')) {
+      char.careerTrack = 'worker';
+      char.educationLevel = '中等专业';
+    } else if (flags.has('xiahai_entrepreneur') || flags.has('franchise_owner') || flags.has('regional_trader')) {
+      char.careerTrack = 'merchant';
+    } else if (flags.has('safe_driver') || flags.has('highspeed_commuter')) {
+      char.careerTrack = 'flexible_labor';
+    } else if (flags.has('expert_farmer') || flags.has('sober_peasant')) {
+      char.careerTrack = 'farmer';
+    }
+
+    // 2. 年龄阶段进阶与身份定格
+    let title = '平民';
+
+    // (A) 幼年期 (0-5岁)
+    if (age <= 2) {
+      title = isUrban ? '城镇乳儿' : '乡野乳儿';
+    } else if (age <= 5) {
+      title = isUrban ? '城镇幼童' : '乡野幼童';
+    }
+    // (B) 少年求学与帮工期 (6-14岁)
+    else if (age <= 14) {
+      if (flags.has('status_dropped_out')) {
+        if (isUrban) {
+          title = year < 1980 ? '手工作坊学徒' : '市井跑腿杂工';
+        } else {
+          title = year < 1980 ? '生产队放牛娃' : '农家田头帮工';
+        }
+      } else {
+        if (age <= 11) {
+          char.educationLevel = '小学在读';
+          if (year < 1950) title = '私塾/新制小学童';
+          else if (year < 1978) title = '完小少先队员';
+          else if (year < 2000) title = '小学少先队员';
+          else title = '小学学生';
+        } else {
+          char.educationLevel = '初中在读';
+          if (year < 1950) title = '新制初中学校生';
+          else if (year < 1978) title = '初中学校红卫兵';
+          else title = '初级中学在读生';
+        }
+      }
+    }
+    // (C) 青年起步与深造期 (15-22岁)
+    else if (age <= 22) {
+      const isStudying = flags.has('college_graduate') || 
+                         char.educationLevel === '大学本科' || 
+                         char.educationLevel === '高等院校在读' ||
+                         (age <= 18 && (energy.study >= 25 || attr.knowledge >= 45));
+
+      if (isStudying && age <= 18) {
+        char.educationLevel = '高中在读';
+        title = year < 1977 ? '完高学生/学农青年' : '示范高中学子';
+      } else if (isStudying && age <= 22) {
+        char.educationLevel = '高等院校在读';
+        if (year < 1977) title = '工农兵推荐学员';
+        else if (year < 1999) title = '全日制公费大学生';
+        else title = '全日制大学本科生';
+      } else if (char.educationLevel === '中等专业' || flags.has('chose_iron_bowl')) {
+        title = age <= 18 ? '省属中专技校实习生' : '国营大厂分配青年技工';
+      } else {
+        switch (char.careerTrack) {
+          case 'worker':
+            if (year < 1978) title = isUrban ? '国营机修厂二级学徒' : '公社修配站青工';
+            else if (year < 1998) title = flags.has('chose_south_artisan') ? '特区外资模具厂冲压工' : '国营机械厂车工';
+            else if (year < 2012) title = '沿海五金装配流水线工';
+            else title = '现代装备数控操作工';
+            break;
+          case 'farmer':
+            if (year < 1980) title = '人民公社生产队整劳力';
+            else if (year < 2000) title = '承包责任田种粮青年';
+            else title = '现代农业合作社青年农户';
+            break;
+          case 'cadre_teacher':
+            if (year < 1980) title = '公社完小民办代课教师';
+            else if (year < 2000) title = '乡镇公办小学青年教师';
+            else title = '公办学校青年教师/科员';
+            break;
+          case 'merchant':
+            if (year < 1980) title = '街道便民组修补匠';
+            else if (year < 2000) title = '农贸市场摊位年轻店主';
+            else title = '连锁商超店长/电商合伙人';
+            break;
+          case 'tech_whitecollar':
+            if (year < 2005) title = '外贸公司跟单助理';
+            else if (year < 2015) title = '软件研发初级程序员';
+            else title = '科技公司全栈研发工程师';
+            break;
+          case 'flexible_labor':
+            if (year < 2005) title = '城市货运长途跟车员';
+            else if (year < 2015) title = '干线重卡长途货车司机';
+            else title = '平台同城专送金牌骑手';
+            break;
+          default:
+            title = isUrban ? '工厂装配初级工' : '生产队青年劳力';
+        }
+      }
+    }
+    // (D) 壮年立业与黄金期 (23-59岁)
+    else if (age <= 59) {
+      const isJunior = age <= 35;
+      const isMid = age > 35 && age <= 48;
+
+      switch (char.careerTrack) {
+        case 'worker':
+          if (isJunior) {
+            if (year < 1998) title = '国营机械厂四级钳工';
+            else if (year < 2005) title = flags.has('xiagang_self_employed') ? '下岗再就业模具骨干' : '国企技改车间技术员';
+            else title = '现代制造车间数控技师';
+          } else if (isMid) {
+            if (year < 1998) title = '机械制造车间副主任';
+            else if (year < 2008) title = '民营五金模具厂车间主任';
+            else title = '现代化总装车间主任/技师';
+          } else {
+            title = '资深机电总装大师傅/八级工';
+          }
+          break;
+
+        case 'farmer':
+          if (isJunior) {
+            if (year < 1980) title = '公社大队农机手/副队长';
+            else if (year < 2000) title = '责任田科技示范种粮能手';
+            else title = '现代特色家庭农场主';
+          } else if (isMid) {
+            if (year < 1980) title = '人民公社生产大队长';
+            else if (year < 2000) title = '乡镇农资总经销/种粮大户';
+            else title = '农机专业合作社理事长';
+          } else {
+            title = '乡村资深农艺师/种田名家';
+          }
+          break;
+
+        case 'cadre_teacher':
+          if (isJunior) {
+            if (year < 1980) title = '公社中心校教导主任';
+            else if (year < 2000) title = '县属中学公办骨干教师';
+            else title = '实验中学高级教研组长';
+          } else if (isMid) {
+            title = '重点中学校长/高级教师';
+          } else {
+            title = '教育系统资深督学/高级教师';
+          }
+          break;
+
+        case 'merchant':
+          if (isJunior) {
+            if (year < 1980) title = '供销社百货柜组组长';
+            else if (year < 2000) title = '沿海商贸五金批发商行主';
+            else title = '跨境商贸供应链合伙人';
+          } else if (isMid) {
+            title = '建材五金城总批发商/总经理';
+          } else {
+            title = '民营商贸企业董事长/商会理事';
+          }
+          break;
+
+        case 'tech_whitecollar':
+          if (isJunior) {
+            if (year < 2005) title = '跨国实业外贸部经理';
+            else if (year < 2018) title = '互联网资深软件架构师';
+            else title = '人工智能算法研发总监';
+          } else if (isMid) {
+            title = '高新科技公司技术总监/合伙人';
+          } else {
+            title = '数字化转型首席行业顾问';
+          }
+          break;
+
+        case 'flexible_labor':
+          if (isJunior) {
+            if (year < 2005) title = '长途货运重卡车队司机';
+            else if (year < 2018) title = '物流干线冷链调度组长';
+            else title = '平台金牌车队长/专送主管';
+          } else if (isMid) {
+            title = '区域冷链货运车队长';
+          } else {
+            title = '产业园区设备安全运行主管';
+          }
+          break;
+
+        default:
+          title = isUrban ? '工厂技术骨干' : '乡村骨干农户';
+      }
+    }
+    // (E) 退休退养与期颐期 (60岁及以上)
+    else {
+      const isOld = age >= 75;
+      const isCentenarian = age >= 85;
+
+      const isSystemRetiree = char.careerTrack === 'cadre_teacher' || 
+                              char.careerTrack === 'worker' || 
+                              char.careerTrack === 'tech_whitecollar' || 
+                              char.urbanRural === 'urban';
+
+      if (isCentenarian) {
+        title = isSystemRetiree ? '期颐之年离休老同志' : '九旬期颐老寿星';
+      } else if (isOld) {
+        title = isSystemRetiree ? '八旬高龄退休老职工' : '八旬耄耋乡村长者';
+      } else {
+        if (char.careerTrack === 'cadre_teacher') {
+          title = '教育系统退休高级教师';
+        } else if (char.careerTrack === 'worker') {
+          title = '国企退休八级技师';
+        } else if (char.careerTrack === 'tech_whitecollar') {
+          title = '企业退休资深技术顾问';
+        } else if (char.careerTrack === 'farmer') {
+          title = '乡村退养农户/享基础养老金';
+        } else if (char.careerTrack === 'merchant') {
+          title = '退养商界名宿/老街坊';
+        } else {
+          title = isUrban ? '城镇退休居民/享社保' : '乡村退养长者/享养老金';
+        }
+      }
+    }
+
+    char.occupation = title;
+  }
+
+  /**
+   * 将重大历史抉择动态匹配到角色的年龄与社会圈层 (千人千面)
+   */
+  adaptDecisionToPersona(decision) {
+    if (!decision) return decision;
+    if (decision.id === 'evt_2022_covid_lockdown') {
+      const age = this.currentAge;
+      const track = this.character ? this.character.careerTrack : 'worker';
+
+      // 1. 高龄退养群体 (>=60岁)
+      if (age >= 60) {
+        return {
+          id: 'evt_2022_covid_lockdown',
+          title: '常态化防控、社区静默与慢病保供',
+          isDecision: true,
+          historicalFact: '2022年部分特大城市经历长时间静态管理与网格化多轮核酸筛查，社区成为老幼互助的最小单元，各级保障通道全力守护高龄慢病群体的生命线。',
+          narrative: '绿色的健康码和场所码成了进出楼栋的硬通货。社区连日组织多轮网格化筛查，儿孙隔着手机屏幕反复叮嘱别受凉。家里的降压慢病常用药快要见底，楼道群里老街坊们互相通气匀药，在不确定的岁月里守望相助。',
+          choices: [
+            {
+              text: '求助居委会与楼组长接力配药通道，闭门静心休养',
+              effect: { "health": 15, "mentality": 10, "wealth": -5 },
+              status: "covid_senior_rest",
+              log: '靠社区爱心送药通道和邻里匀出的半盒降压药渡过断药危机，居家静待生机。'
+            },
+            {
+              text: '戴好口罩与红袖标，在楼道单元协助分发蔬菜与抗原试剂',
+              effect: { "mentality": 20, "family": 15, "health": -15 },
+              status: "covid_senior_volunteer",
+              log: '虽腿脚微有不便，但协助楼道分发爱心菜包，赢得街坊邻里由衷敬重。'
+            }
+          ]
+        };
+      }
+
+      // 2. 青少年与在读学子 (<23岁)
+      if (age < 23) {
+        return {
+          id: 'evt_2022_covid_lockdown',
+          title: '高校闭环管理、线上答辩与考公考研大潮',
+          isDecision: true,
+          historicalFact: '2022年高校广泛推行闭环管理与线上双选会，应届毕业生规模创下历史新高，数以百万计的年轻人投入考研与公考大军。',
+          narrative: '校园实行闭环管理，食堂提倡错峰打包，自习室拉起了透明隔板。毕业论文答辩转入腾讯会议云端，线下春招宣讲会纷纷延期。面对严峻的就业大盘，考研自习室与公考备考群里座无虚席。',
+          choices: [
+            {
+              text: '扎进图书馆早出晚归，高强度刷题冲刺事业单位与公考',
+              effect: { "knowledge": 25, "mentality": -10, "health": -10 },
+              status: "covid_study_exam",
+              log: '刷完上万道公考行测申论模拟题，在严峻就业大环境中力求搏得一份稳定保障。'
+            },
+            {
+              text: '海投民营科技与外贸实习，先就业在实战一线积累经验',
+              effect: { "wealth": 15, "mentality": 15, "knowledge": 10 },
+              status: "covid_early_job",
+              log: '放下身段先就业再择业，在实际业务摸爬滚打中迅速褪去学生的稚气。'
+            }
+          ]
+        };
+      }
+
+      // 3. 体制内/教师/医护群组
+      if (track === 'cadre_teacher') {
+        return {
+          id: 'evt_2022_covid_lockdown',
+          title: '常态化防控、线上教学与下沉网格包保',
+          isDecision: true,
+          historicalFact: '2022年广大党员干部、教师和医护工作者践行初心使命，坚守讲台停课不停学，多轮下沉社区网格充实基层保供与流调排查一线。',
+          narrative: '作为体制内与文教人员，单位要求除保供运转外全员居家备勤。不仅要熟练开展线上网课与云端办公，还要随时响应号召下沉网格协助维持核酸检测秩序与卡口值守。',
+          choices: [
+            {
+              text: '一丝不苟备好每一堂线上网课，安抚屏幕那端求学的孩子',
+              effect: { "knowledge": 15, "mentality": 10, "health": -5 },
+              status: "covid_online_teaching",
+              log: '调试好麦克风与课件，在特殊时期给求学的孩子们守住一张安定的书桌。'
+            },
+            {
+              text: '佩戴红袖标连续数周下沉社区一线协助维持采样秩序与卡口值守',
+              effect: { "mentality": 20, "family": 10, "health": -20 },
+              status: "covid_cadre_volunteer",
+              log: '顶着风雨在核酸卡口扫码值守，身心极度疲惫，但也切身体会到基层一线的不易。'
+            }
+          ]
+        };
+      }
+
+      // 4. 工矿与制造技工
+      if (track === 'worker') {
+        return {
+          id: 'evt_2022_covid_lockdown',
+          title: '闭环泡泡生产、驻厂保产与供应链承压',
+          isDecision: true,
+          historicalFact: '2022年重点工业企业推行‘气泡式’闭环管理，广大产业工人和工程师吃住在厂、封闭连轴运转，全力保住关键产业链供应链稳定。',
+          narrative: '为保障重点产业链与重大装备交付不中断，厂区实行‘气泡式’闭环管理。工人们背着被褥卷住进车间行军床，每天早晚做抗原核酸，机器轰鸣昼夜不歇，物流货车排队消杀等候通行证。',
+          choices: [
+            {
+              text: '接受驻厂闭环封闭生产，睡车间行军床换取加班津贴',
+              effect: { "wealth": 20, "health": -20, "mentality": -10 },
+              status: "covid_factory_bubble",
+              log: '在车间地铺上熬了整整一个月，靠满负荷加班保住交货期，领到一笔沉甸甸的闭环津贴。'
+            },
+            {
+              text: '担忧家中老小生计，申请居家静默照料老小',
+              effect: { "family": 25, "mentality": 10, "wealth": -15 },
+              status: "covid_home_care",
+              log: '放弃闭环津贴守在家人身边，虽只能拿基本保障工资，但一家人朝夕相伴心里踏实。'
+            }
+          ]
+        };
+      }
+
+      // 5. 知识白领与科技人员
+      if (track === 'tech_whitecollar') {
+        return {
+          id: 'evt_2022_covid_lockdown',
+          title: '居家远程办公、腾讯会议与降本增效阴云',
+          isDecision: true,
+          historicalFact: '2022年现代科技与商务服务业全面推行远程办公，各平台会议日活激增，同时面临降本增效与组织架构调整带来的职场挑战。',
+          narrative: '居家远程办公成了常态，日程表被密密麻麻的线上会议占满。屏幕右下角时不时跳出公司业务收缩与部门裁员降薪的传闻。窗外的大街空空荡荡，你在书桌前一边盯着线上周报，一边关注着生鲜App的清晨补货时段。',
+          choices: [
+            {
+              text: '熬夜响应工作群消息保住KPI，利用深夜恶补新技术与考编知识',
+              effect: { "knowledge": 20, "wealth": 10, "health": -20 },
+              status: "covid_wfh_struggle",
+              log: '顶住裁员阴影在工位上连轴转，用过硬的业务产出和技能储备稳住了职场阵脚。'
+            },
+            {
+              text: '申请远程外包兼职并压缩一切日常非必要开销，囤粮求稳',
+              effect: { "wealth": 10, "family": 15, "mentality": -10 },
+              status: "covid_frugal_defense",
+              log: '果断退订非必要消费，居家学做三餐，以极低的生存成本平稳度过风暴期。'
+            }
+          ]
+        };
+      }
+
+      // 6. 商户、个体与灵活人员
+      return {
+        id: 'evt_2022_covid_lockdown',
+        title: '实体客流冲击、社区保供团长与现金流生死线',
+        isDecision: true,
+        historicalFact: '2022年部分线下餐饮、文旅与小微商贸遭遇停业与现金流严峻考验，许多商户主动转型社区保供团购，在坚守与转型中搏击生机。',
+        narrative: '堂食暂停、商场关门、物流受阻，卷帘门一关就是数月，但店铺租金、员工保底与货款账单依旧准时送达。街头行人寥寥，唯有身穿防护服的保供人员与骑手在疾驰。小微生计到了悬崖边上。',
+        choices: [
+          {
+            text: '对接周边小区居民需求，改做无接触社区团购保供与自提配送',
+            effect: { "wealth": 15, "health": -25, "mentality": -10 },
+            status: "covid_group_leader",
+            log: '每天起早摸黑对接蔬菜基地与小区团购，靠微薄跑腿利润和双脚硬扛过店铺断流难关。'
+          },
+          {
+            text: '与房东坦诚协商减免部分租金，盘点退库果断止损休整',
+            effect: { "wealth": -15, "mentality": 15, "family": 15 },
+            status: "covid_store_close",
+            log: '结清各方款项保住信誉，退回老家与家人静待市场生机复苏，虽折损本金但守住了底线。'
+          }
+        ]
+      };
+    }
+    return decision;
+  }
+
+  /**
+   * 自动生成当年纪实叙事 (严格 80-150 字，千人千面四重线索交织：宏观切片 + 职业工种感官 + 家底温饱 + 精力印记)
    */
   generateNarrative(era, triggeredEvent, disasterStrike) {
     const age = this.currentAge;
     const year = this.currentYear;
-    const prov = this.character.birthPlace;
-    const city = this.cities.find(c => c.id === this.character.cityId) || {};
+    const char = this.character;
+    const city = this.cities.find(c => c.id === char.cityId) || {};
     const cityDisp = this.resolveCityDisplay(city, year);
-    const indEraKey = this.getIndustryEraKey(year);
-    const ind = city.eraIndustries ? city.eraIndustries[indEraKey] : null;
 
-    // 1. 若当年遭遇自然灾难袭击
+    // 1. 若当年遭遇特大自然灾害袭击
     if (disasterStrike && disasterStrike.isHit) {
       return disasterStrike.disaster.hitNarrative;
     }
 
-    // 2. 宏观背景切片 (约 40-60 字)
+    // 2. 线程一：宏观时代脉搏 (约 30-55 字)
     let macro = '';
     if (triggeredEvent && triggeredEvent.narrative) {
-      macro = triggeredEvent.narrative.slice(0, 70);
+      macro = triggeredEvent.narrative.slice(0, 55);
     } else {
-      const snippets = era.macroSnippets || [];
-      macro = snippets[Math.floor(Math.random() * snippets.length)] || `${year}年春风吹过神州大地，历史的滚滚车轮在每一个寻常巷陌刻下深印。`;
+      macro = this.getYearMacroSnippet(year, era);
     }
 
-    // 3. 个人处境切片 (结合具体城市产业与职业细节，约 40-70 字)
-    let personal = '';
-    const jobDetail = ind && ind.typicalJobs ? ind.typicalJobs[0] : '寻常劳作';
-    const isLateBorn = this.character && this.character.birthYear >= 2010;
+    // 3. 线程二：职业工种感官与劳作细节 (约 35-55 字)
+    const labor = this.getLaborSensorySnippet(char, age, year, cityDisp);
 
-    if (isLateBorn) {
-      if (age <= 3) {
-        personal = `你在${cityDisp.displayName}由长辈推着婴儿车长大，长辈手边刷着短视频，房间里放着早教儿歌，城市在你的咿呀学语中日新月异。`;
-      } else if (age <= 6) {
-        personal = `在幼儿园里戴着小黄帽排队做操、早起测晨检体温。放学时校门外围满了接送的电动车与长辈的身影，回家的路上总盼着买一根烤肠。`;
-      } else if (age <= 11) {
-        if (year === 2020 || year === 2021 || year === 2022) {
-          personal = `突如其来的疫情打乱了课堂，你穿着睡衣守着平板上网课，每天早晨钉钉打卡上传体温与作业，戴着小号口罩下楼做核酸。`;
-        } else {
-          personal = `小学书包沉甸甸地压在肩头。随着“双减”落地，周遭补习班悄然退场，课余在题海与少儿数字生活间一天天抽条拔高。`;
-        }
-      } else {
-        personal = `步入初中，面对中考升学的无声张力。天花板日光灯照亮堆满练习册的书桌，课间讨论着流行网络梗与新科技，静静注视着窗外飞驰的高铁与霓虹。`;
-      }
-    } else {
-      if (age <= 5) {
-        personal = `你在${cityDisp.displayName}的青瓦泥墙下由长辈拉扯着蹒跚学步，常喝米汤充饥，童年在清贫中一天天长大。`;
-      } else if (age <= 15) {
-        if (this.energy.study >= 30) {
-          personal = `在昏暗的煤油灯下仔细翻读卷边的旧课本，课余帮家里料理碎柴，心底里悄悄盼望着多长些文化见识。`;
-        } else {
-          personal = `你早早跟着长辈学习【${jobDetail}】的粗浅活计，掌心磨出薄茧，在粗茶淡饭间体味着操持家门的不易。`;
-        }
-      } else if (age <= 55) {
-        if (this.energy.work >= 35) {
-          personal = `你在${cityDisp.displayName}从事【${jobDetail}】，工装上落满岁月的痕迹，凭勤恳踏实攒下每分汗水钱撑起全家口粮。`;
-        } else if (this.energy.family >= 35) {
-          personal = `你把更多心思放在照拂老少亲眷上，柴米油盐细水长流，简陋的屋檐下洋溢着互谅互勉的人间温情。`;
-        } else {
-          personal = `在生活的磕碰起伏中步履不停，既要顾全家中一日三餐，也在岁月更迭中竭力守住内心的安宁。`;
-        }
-      } else {
-        personal = `青丝染雪，手脚渐慢。你坐在老屋竹椅上守望着儿孙的背影，往昔在${cityDisp.displayName}数十载风风雨雨皆化作案头平静的长叹。`;
-      }
-    }
+    // 4. 线程三：家境温饱与身心承载 (约 20-35 字)
+    const household = this.getHouseholdSensorySnippet(char, age);
 
-    let full = `${macro} ${personal}`.trim();
+    // 5. 线程四：精力灌注之印记 (约 15-25 字)
+    const energyFocus = this.getEnergySensorySnippet(this.energy);
+
+    // 综合编织
+    let full = `${macro} ${labor} ${household} ${energyFocus}`.trim();
+
+    // 长度与节奏严格钳制在 80 - 150 汉字
     if (full.length > 150) {
       full = full.slice(0, 146) + '……';
     } else if (full.length < 80) {
-      full += `岁序常易，寻常岁月里唯有坚韧生活才是最踏实的依靠。`;
+      full += `岁序常易，寻常岁月里唯有脚踏实地才是穿透风雨最坚固的依靠。`;
+      if (full.length > 150) full = full.slice(0, 146) + '……';
     }
 
     return full;
+  }
+
+  getYearMacroSnippet(year, era) {
+    if (year >= 1937 && year <= 1938) return `${year}年卢沟桥烽火骤起，沿海高校与工矿仓促西撤，流民车马塞满官道。`;
+    if (year >= 1939 && year <= 1941) return `${year}年大后方警报声不绝于耳，黑烟滚滚，街市在空袭与物价飞涨中勉力维系。`;
+    if (year >= 1942 && year <= 1943) return `${year}年中原旱蝗成灾与战事胶着，粮盐定量紧缩，家家在煤油灯下苦苦捱过饥馑。`;
+    if (year >= 1944 && year <= 1945) return `${year}年抗战胜利号外传遍大街小巷，爆竹碎屑染红青石板，百废待兴复员还乡。`;
+    if (year >= 1946 && year <= 1948) return `${year}年法币金圆券如废纸般贬值，商铺关门物价如脱缰野马，局势急剧动荡。`;
+    if (year >= 1949 && year <= 1950) return `${year}年开国礼炮响彻神州，城乡秧歌腰鼓震天，扫盲夜校与分田界碑遍布乡野。`;
+    if (year >= 1951 && year <= 1953) return `${year}年抗美援朝保家卫国动员如火如荼，大后方工厂夜以继日赶制支前被服弹药。`;
+    if (year >= 1954 && year <= 1956) return `${year}年“一五”重工奠基与三大改造高潮涌动，公私合营与手工业入社红榜挂满街头。`;
+    if (year >= 1957 && year <= 1959) return `${year}年土高炉火光映红夜空，大炼钢铁与公社大食堂号角齐鸣，标语刷满白灰墙。`;
+    if (year >= 1960 && year <= 1962) return `${year}年粮票布票按两称重，稀粥照出人影，工矿精简职工退粮还乡共克时艰。`;
+    if (year >= 1963 && year <= 1965) return `${year}年第一颗原子弹在戈壁升空，“备战备荒”三线建设号召大批骨干扎入深山。`;
+    if (year >= 1966 && year <= 1970) return `${year}年红色浪潮席卷城乡，语录歌在大喇叭里终日回响，知青打起背包上山下乡。`;
+    if (year >= 1971 && year <= 1975) return `${year}年街道地下防空工事叮当作响，乒乓外交叩开国门，车间里悄然抓紧规章整顿。`;
+    if (year >= 1976 && year <= 1977) return `${year}年唐山余震未平，紧接着高考之门重新开启，数十万学子挑灯夜战奔赴考场。`;
+    if (year >= 1978 && year <= 1981) return `${year}年改革春风拂面，小岗村承包红手印传开，街头巷尾探讨着实践真理与按劳分配。`;
+    if (year >= 1982 && year <= 1985) return `${year}年女排夺冠万人空巷，黑白电视机围满邻里，特区蛇口开山炮声震动南国。`;
+    if (year >= 1986 && year <= 1989) return `${year}年港台卡带情歌回响街头，物价闯关牵动人心，孔雀东南飞与进厂学徒潮并起。`;
+    if (year >= 1990 && year <= 1992) return `${year}年亚运盼盼走红，邓小平南巡讲话掀起新一轮热潮，股市认购证排起长龙。`;
+    if (year >= 1993 && year <= 1996) return `${year}年商品经济狂飙，三角债与下海大潮激荡，腰间寻呼机BP机的嘀嘀声不绝于耳。`;
+    if (year >= 1997 && year <= 1999) return `${year}年维港焰火映照香港回归，国企三年脱困下岗阵痛袭来，高校大扩招带来新希望。`;
+    if (year >= 2000 && year <= 2003) return `${year}年千禧钟声长鸣，入世集装箱货轮扬帆起航，非典突袭与收容遣送废止铭刻历史。`;
+    if (year >= 2004 && year <= 2007) return `${year}年沿海世界工厂机器昼夜轰鸣，春运列车满载务工老乡，延续两千余年的农业税彻底废除。`;
+    if (year >= 2008 && year <= 2009) return `${year}年汶川浩劫举国大救援，奥运五环点亮北京夜空，四万亿基建列车高速启动。`;
+    if (year >= 2010 && year <= 2014) return `${year}年白色高铁银龙飞驰成网，智能手机与扫码支付融入市井，电商快递堆满驿站。`;
+    if (year >= 2015 && year <= 2019) return `${year}年棚改货币化拆平老街旧巷，脱贫攻坚建档立卡，新能源汽车开始驶入寻常巷陌。`;
+    if (year >= 2020 && year <= 2022) return `${year}年场所码与24小时核酸成为通行日常，多轮网格化筛查与供应链考验着万千生计。`;
+    if (year >= 2023 && year <= 2026) return `${year}年生成式AI狂飙迭代，绿牌电车无声流过街头，延迟退休与银发时代悄然落地。`;
+    return `${year}年时代车轮滚滚向前，千家万户的喜怒哀乐交织成奔涌的历史长河。`;
+  }
+
+  getLaborSensorySnippet(char, age, year, cityDisp) {
+    const track = char.careerTrack || 'worker';
+    const occ = char.occupation || '平民';
+
+    // 1. 幼年 (0-5)
+    if (age <= 5) {
+      if (char.birthYear >= 2010) {
+        return `你在${cityDisp.displayName}的长辈看护下玩耍，客厅播放着早教儿歌，城市在咿呀学语中日新月异。`;
+      }
+      return `你在${cityDisp.displayName}的简陋屋檐下蹒跚学步，常喝热米汤充饥，童年在清贫与泥土芬芳中一天天抽条。`;
+    }
+
+    // 2. 学童与青年求学 (6-14 或高等求学)
+    if (age <= 14 || occ.includes('学生') || occ.includes('学员') || occ.includes('少先队')) {
+      if (char.birthYear >= 2010) {
+        if (age <= 11) return `书包沉沉压在肩上，教室里齐刷刷朗读课文，放学路队穿行于车流，盼着路边一串热烤肠。`;
+        return `教室顶上日光灯嗡嗡作响，模拟题与错题本堆满课桌，指关节磨出薄茧，课间讨论着新网络话题。`;
+      }
+      if (age <= 11) {
+        return `在简易木课桌前翻读磨出毛边的旧课本，墨水蹭脏了粗布袖口，晨读声穿透薄雾回荡在土墙校舍。`;
+      }
+      return `挑灯自习到深夜，算草纸写满密密麻麻的公式，煤油灯或日光灯照亮年轻求知的眼睛。`;
+    }
+
+    // 3. 退休与退养老者 (60+)
+    if (age >= 60) {
+      if (track === 'cadre_teacher' || track === 'worker' || track === 'tech_whitecollar' || char.urbanRural === 'urban') {
+        return `身为【${occ}】，晨起拎着茶缸在公园看人杀棋，每月按时领退休金，戴着老花镜在阳台翻阅晚报。`;
+      }
+      return `身为【${occ}】，在自留菜园给水葱青菜浇水除草，傍晚守在村口看着儿孙，领着基础养老金颐养天年。`;
+    }
+
+    // 4. 各行业在岗劳动感官细节
+    switch (track) {
+      case 'worker':
+        return `身为【${occ}】，工装上浸着深色机油与铁屑味，手握游标卡尺精确校准工件，机床轰鸣声震彻耳膜。`;
+      case 'farmer':
+        return `身为【${occ}】，卷起裤腿踩进微凉泥水田，农忙时秸秆粉尘扑得满身微痒，扶着突突作响的农机抢收抢种。`;
+      case 'cadre_teacher':
+        return `身为【${occ}】，讲台前飞扬着白色粉笔微尘，红墨水在教案本上留下端正批注，公文印章在桌角码放整齐。`;
+      case 'merchant':
+        return `身为【${occ}】，天未亮便哗啦拉开卷帘门，算盘与计算器噼啪作响，精细核算着每一笔进销差价与铺面流水。`;
+      case 'tech_whitecollar':
+        return `身为【${occ}】，液晶屏幕蓝光映在发酸的双眼，键盘敲击声不知疲倦，工作群红点闪烁，深夜工位放着凉透的外卖。`;
+      case 'flexible_labor':
+        return `身为【${occ}】，离合器踩到发木，雨夜反光雨披在车灯下闪烁，手机接单提示音在耳畔催促着分秒必争。`;
+      default:
+        return `身为【${occ}】，在${cityDisp.displayName}本分劳作，工装上落满岁月的痕迹，凭双手撑起门庭口粮。`;
+    }
+  }
+
+  getHouseholdSensorySnippet(char, age) {
+    const attr = char.attributes;
+    if (attr.health < 30) {
+      return `常年劳碌落下陈年腰腿疾，阴雨天隐隐酸痛，抽屉里常备膏药。`;
+    }
+    if (attr.wealth < 25) {
+      return `手头紧巴捏着账本直叹气，粗茶淡饭精打细算度日。`;
+    }
+    if (attr.wealth >= 75) {
+      return `家底渐趋厚实余粮宽裕，添置大件家什，日子过得分外踏实从容。`;
+    }
+    return `柴米油盐细水长流，日子虽不富裕倒也平稳温饱。`;
+  }
+
+  getEnergySensorySnippet(energy) {
+    if (energy.study >= 40) return `夜灯下翻卷深研，眼界见识日益开阔。`;
+    if (energy.work >= 45) return `抢抓工时全力打拼，掌心磨出厚实老茧。`;
+    if (energy.family >= 45) return `用心照看老小起居，屋檐下满是烟火人情。`;
+    if (energy.health >= 45) return `起居有节清淡进补，精神矍铄身骨结实。`;
+    return `脚踏实地，在岁序更替中守住内心的踏实与平静。`;
   }
 
   /**
@@ -902,6 +1398,9 @@ class SimulationEngine {
       stepYears = 2026 - this.currentYear;
     }
     const era = this.getEraForYear(this.currentYear);
+
+    // 0. 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
+    this.updateCareerStage();
 
     // 1. 自然灾害碰撞命中检验（这是人生的残酷天谴）
     const disasterStrike = this.checkNaturalDisaster();
@@ -1012,7 +1511,7 @@ class SimulationEngine {
       pendingMilestone = this.checkLifeMilestone();
     }
 
-    const activeDecision = (pendingEvent && pendingEvent.isDecision) ? pendingEvent : pendingMilestone;
+    let activeDecision = (pendingEvent && pendingEvent.isDecision) ? pendingEvent : pendingMilestone;
 
     // 4. 正常年度死亡检测
     const deathRate = this.calculateAnnualMortalityRate(era);
@@ -1029,8 +1528,10 @@ class SimulationEngine {
       };
     }
 
-    // 5. 若有重大历史抉择，暂停推进等待玩家选择
+    // 5. 若有重大历史抉择，暂停推进等待玩家选择 (动态圈层千人千面适配)
     if (activeDecision && activeDecision.isDecision) {
+      activeDecision = this.adaptDecisionToPersona(activeDecision);
+      this.currentPendingDecision = activeDecision;
       return {
         isDecision: true,
         decisionData: activeDecision,
@@ -1098,13 +1599,15 @@ class SimulationEngine {
    * 玩家确认抉择后的结算处理
    */
   resolveDecision(decisionId, choiceIndex) {
-    let evt = this.events.find(e => e.id === decisionId);
+    let evt = (this.currentPendingDecision && this.currentPendingDecision.id === decisionId)
+      ? this.currentPendingDecision
+      : this.events.find(e => e.id === decisionId);
     if (!evt) {
       if (decisionId === 'node_school') {
         evt = {
           choices: [
             { text: '坚持上学', effect: { "knowledge": 25, "wealth": -10 }, log: '在困境中坚持上学，打下了扎实的文化底子。' },
-            { text: '辍学做工', effect: { "wealth": 15, "knowledge": -10 }, log: '早早挑起家庭生计重担，在劳动中磨砺手茧。' }
+            { text: '辍学做工', effect: { "wealth": 15, "knowledge": -10 }, status: 'status_dropped_out', log: '早早挑起家庭生计重担，在劳动中磨砺手茧。' }
           ]
         };
       } else if (decisionId === 'node_child_interest') {
@@ -1189,6 +1692,10 @@ class SimulationEngine {
       }
     }
 
+    if (choice.status) {
+      this.statusFlags.add(choice.status);
+    }
+
     if (choice.effect) {
       for (const [k, v] of Object.entries(choice.effect)) {
         if (this.character.attributes[k] !== undefined) {
@@ -1196,6 +1703,9 @@ class SimulationEngine {
         }
       }
     }
+
+    this.updateCareerStage();
+    this.currentPendingDecision = null;
 
     this.character.milestones.push({
       year: this.currentYear,
@@ -1209,6 +1719,9 @@ class SimulationEngine {
       stepYears = 2026 - this.currentYear;
     }
     const era = this.getEraForYear(this.currentYear);
+
+    // 0. 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
+    this.updateCareerStage();
 
     this.applyEnergyEffects(stepYears);
 
@@ -1390,14 +1903,23 @@ class SimulationEngine {
     this.currentYear = finalYear;
     this.currentAge = finalAge;
 
-    const isLateBorn = this.character.birthYear >= 2010;
-    const cause = isLateBorn
-      ? '在当今时代家庭的托举与照护中平稳成长，正值少年时期'
-      : '见证近百年家国沧桑，于当今盛世安享晚年';
+    let cause = '见证近百年家国沧桑，于当今盛世安享晚年';
+    let title = '见证盛世';
+    let detail = `从${this.character.birthYear}年风雨中一路走来，终在2026年与时代相拥，一生平凡而丰厚。`;
 
-    const detail = isLateBorn
-      ? `于${this.character.birthYear}年降生，在祖辈与父辈的倾力托举下，于2026年成长为风华少年。`
-      : `从${this.character.birthYear}年风雨中一路走来，终在2026年与时代相拥，一生平凡而丰厚。`;
+    if (finalAge < 18) {
+      cause = '在当今时代家庭的倾力托举与照护中平稳成长，正值少年求学之时';
+      title = '风华少年';
+      detail = `于${this.character.birthYear}年降生，在祖辈与父辈的倾力托举下，于2026年成长为风华少年。`;
+    } else if (finalAge < 35) {
+      cause = '沐浴新时代发展春风，作为时代青年正奋战于各行各业前沿';
+      title = '青年立业';
+      detail = `于${this.character.birthYear}年降生，历经求学与入职磨砺，在2026年昂首步入人生事业上升期。`;
+    } else if (finalAge < 60) {
+      cause = '历经时代风云洗礼，作为社会中流砥柱在当代继续奋斗前行';
+      title = '中流砥柱';
+      detail = `从${this.character.birthYear}年一路拼搏，承担家庭与事业重担，在2026年继续稳步前行。`;
+    }
 
     this.deathInfo = {
       age: finalAge,
@@ -1411,7 +1933,7 @@ class SimulationEngine {
     this.character.milestones.push({
       year: finalYear,
       age: finalAge,
-      title: isLateBorn ? '风华少年' : '见证盛世',
+      title,
       detail
     });
   }
@@ -1647,6 +2169,7 @@ class SimulationEngine {
     this.paceMode = 'medium';
     this.history = [];
     this.statusFlags.clear();
+    this.currentPendingDecision = null;
     this.isGameOver = false;
     this.deathInfo = null;
 
@@ -1698,6 +2221,8 @@ class SimulationEngine {
       siblingsCount: 2,
       attributes,
       educationLevel: '未入学',
+      careerTrack: this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob),
+      careerRank: '初生幼年',
       occupation: isUrban ? '城镇孩童' : '乡野幼童',
       milestones: [],
       survivedDisasters: [],
@@ -1717,6 +2242,7 @@ class SimulationEngine {
 
     this.currentYear = birthYear;
     this.currentAge = 0;
+    this.updateCareerStage();
 
     this.energy = {
       study: 25,
