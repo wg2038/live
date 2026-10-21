@@ -81,6 +81,7 @@ async function runSimulation(totalCharacters = 5000) {
     lifeEvents.push({ year: char.birthYear, age: 0, text: `出生在 ${char.birthPlace} ${char.cityName}` });
 
     let safetyLoop = 0;
+    let decisionsCount = 0;
     while (!engine.isGameOver && engine.currentYear <= 2026 && safetyLoop < 150) {
       safetyLoop++;
       const curYear = engine.currentYear;
@@ -90,12 +91,13 @@ async function runSimulation(totalCharacters = 5000) {
 
       // Advance year
       const yearLog = engine.advanceYear();
-      if (yearLog) {
+      if (yearLog && !yearLog.isDecision) {
         lifeEvents.push({ year: curYear, age: curAge, text: yearLog.title || yearLog.narrative || JSON.stringify(yearLog) });
       }
 
       // If pending decision
       if (engine.currentPendingDecision) {
+        decisionsCount++;
         const dec = engine.currentPendingDecision;
         const decId = dec.id || dec.title;
         stats.decisionTriggerCounts[decId] = (stats.decisionTriggerCounts[decId] || 0) + 1;
@@ -106,10 +108,6 @@ async function runSimulation(totalCharacters = 5000) {
           const choiceKey = `${decId} -> ${chosen.text}`;
           stats.decisionChoiceCounts[choiceKey] = (stats.decisionChoiceCounts[choiceKey] || 0) + 1;
 
-          if (decId === 'node_marriage' && choiceIdx === 0) {
-            isMarried = true;
-          }
-
           engine.resolveDecision(dec.id, choiceIdx);
           lifeEvents.push({ year: engine.currentYear, age: engine.currentAge, text: `[抉择] ${dec.title}: 选择了「${chosen.text}」` });
         } else {
@@ -117,11 +115,16 @@ async function runSimulation(totalCharacters = 5000) {
         }
       }
 
-      // Check education status
+      // Check education & marital status
       if (char.educationLevel && char.educationLevel !== '未入学') {
         maxEdu = char.educationLevel;
       }
+      if (char.maritalStatus === '已婚' || (char.tags && char.tags.has('married'))) {
+        isMarried = true;
+      }
     }
+
+    stats.totalDecisions = (stats.totalDecisions || 0) + decisionsCount;
 
     const finalAge = engine.currentAge;
     stats.totalLifespanAll += finalAge;
@@ -192,7 +195,8 @@ async function runSimulation(totalCharacters = 5000) {
   return stats;
 }
 
-runSimulation(5000).then(stats => {
+const count = parseInt(process.argv[2], 10) || 5000;
+runSimulation(count).then(stats => {
   fs.writeFileSync(path.join(ROOT, 'tools/simulation_report.json'), JSON.stringify(stats, null, 2), 'utf8');
   console.log('Batch simulation complete. Report saved to tools/simulation_report.json');
   
@@ -202,9 +206,11 @@ runSimulation(5000).then(stats => {
   console.log(`Alive in 2026 ("未完待续"): ${stats.aliveIn2026} (${((stats.aliveIn2026 / stats.total) * 100).toFixed(1)}%)`);
   console.log(`Average Lifespan (Deceased): ${(stats.totalLifespanDeceased / stats.deceasedCount).toFixed(1)} 岁`);
   console.log(`Average Age (All at End): ${(stats.totalLifespanAll / stats.total).toFixed(1)} 岁`);
+  console.log(`Average Decisions per Lifetime: ${(stats.totalDecisions / stats.total).toFixed(1)} 次`);
   console.log(`Infant Mortality (Age 0): ${stats.infantDeaths} (${((stats.infantDeaths / stats.total) * 100).toFixed(2)}%)`);
   console.log(`Marriage Rate: ${stats.marriedCount} (${((stats.marriedCount / stats.total) * 100).toFixed(1)}%)`);
   console.log(`Literacy Rate: ${stats.literateCount} (${((stats.literateCount / stats.total) * 100).toFixed(1)}%)`);
+  console.log(`Higher Ed Rate: ${stats.collegeCount} (${((stats.collegeCount / stats.total) * 100).toFixed(1)}%)`);
   console.log(`Higher Ed Rate: ${stats.collegeCount} (${((stats.collegeCount / stats.total) * 100).toFixed(1)}%)`);
   
   console.log('\n--- Mortality by Era (Deaths / Person-Years) ---');

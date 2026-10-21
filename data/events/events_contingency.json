@@ -1,0 +1,1269 @@
+[
+  {
+    "id": "evt_cont_meilu_zhongdu",
+    "tier": "contingency",
+    "title": "寒冬险情：蜂窝煤炉烟道倒灌与开窗自救",
+    "yearRange": [
+      1937,
+      2026
+    ],
+    "targetAge": [
+      6,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "北方冬季燃煤取暖曾普遍使用蜂窝煤炉。气压低、大风刮倒风斗或烟囱堵塞极易引发无色无味的一氧化碳（煤气）蓄积中毒，常年是冬季公卫重点宣教内容。",
+    "narrative": "严冬深夜寒风呼啸，屋里烧着红通通的蜂窝煤炉，门窗紧闭糊着封条。半夜醒来突然感觉头晕目眩像戴了紧箍咒，恶心想吐四肢发软无力，两只耳朵嗡嗡鸣响。煤炉的风门不知何时被倒灌的西北风吹歪了。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "意识到是煤气中毒，拼尽最后一丝力气滚下床铺爬向房门，猛烈撞开木门通风并大声呼救",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：10–75",
+          "地域：燃煤采暖地区",
+          "门槛：具备中毒常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "冷风灌入房间迅速驱散一氧化碳，同住家人苏醒脱险，吸氧后彻底恢复无后遗症。",
+            "effect": {
+              "health": -10,
+              "family": 30,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断爬向大门开窗通风挽救全家性命，成为家庭福星。",
+            "status": "carbon_monoxide_savior"
+          },
+          {
+            "type": "injured",
+            "weight": 17,
+            "log": "头晕摔倒磕破额角缝合三针，送高压氧舱吸氧治疗五天痊愈出院。",
+            "effect": {
+              "health": -25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "煤气中毒摔伤经高压氧抢救痊愈，安装强排烟管永除后患。"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "深度昏迷未能及时挣扎开窗，因重度一氧化碳中毒缺氧不幸窒息身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "冬季燃煤取暖煤气中毒未能及时通风不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "取暖前彻底清掏烟道积炭，安装室外防风帽风斗，并在卧室窗户留开指缝宽度的透气孔",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：14–75",
+          "地域：全国城乡",
+          "门槛：谨慎防范者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "整个严冬安全取暖无一丝隐患，屋暖人安，邻里纷纷前来学习烟道安装经验。",
+            "effect": {
+              "family": 25,
+              "mentality": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "严守防范煤气中毒规程，平平安安度过数十个暖冬。",
+            "status": "safe_heating_master"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "主动帮独居孤寡老邻居加装烟道防风帽排险，获居委会通报表扬。",
+            "effect": {
+              "mentality": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "防患于未然助人为乐，筑牢邻里安全防线。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_shiwu_zhongdu",
+    "tier": "contingency",
+    "title": "夏日饮食：野生菌未熟与急性食物中毒抢救",
+    "yearRange": [
+      1937,
+      2026
+    ],
+    "targetAge": [
+      8,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "野生菌类、未煮熟四季豆或隔夜受污染熟食极易滋生沙门氏菌、金黄色葡萄球菌或毒素，引发剧烈恶心、呕吐、脱水与休克，是基层常见的食源性急症。",
+    "narrative": "夏日农家小院里飘着炒见手青或野蘑菇的香气。因柴火不足翻炒时间过短，半盘蘑菇还带着少许半生夹生。吃下后不到两小时，胃中如翻江倒海般剧烈绞痛，狂吐不止伴随严重的腹泻脱水，眼前甚至出现看见‘小矮人跳舞’的幻觉。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "立即用温盐水筷子刺激舌根剧烈催吐排毒，并由家人火速送往镇卫生院急诊洗胃输液",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：8–75",
+          "地域：全国",
+          "门槛：应急求医者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "及时彻底洗胃与大量补液利尿排除毒素，住院观察两天后平安出院，胃黏膜完全修复。",
+            "effect": {
+              "health": -15,
+              "mentality": 15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "食物中毒自救催吐洗胃迅速化解危局，牢记吃熟透食物规矩。",
+            "status": "poisoning_recovery_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "剧烈呕吐脱水引发急性肾功能暂时损伤伴低钾血症，输液两周调养康复。",
+            "effect": {
+              "health": -30,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "食物中毒损及肾功能幸得抢救，彻底戒除食用不明野生菌。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "误食剧毒鹅膏菌（白毒伞）未及时送医致急性肝坏死多器官衰竭不幸身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "误食剧毒野生菌引发急性肝坏死不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "严格遵照食品安全规范，野生菌彻底大火炒熟煮透二十分钟以上，坚决不采不买不认识的毒菇",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：14–75",
+          "地域：全国",
+          "门槛：科学饮食者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "尽享山珍鲜美而全家肠胃安然无恙，树立良好的科学烹饪与食品安全习惯。",
+            "effect": {
+              "health": 20,
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恪守食品煮熟煮透底线，一生远离食源性中毒侵害。",
+            "status": "food_safety_adherent"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "在集市劝阻辨认出一堆乡亲采摘的致命白毒伞并当场销毁，挽救了数条人命。",
+            "effect": {
+              "knowledge": 25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火眼金睛辨毒菇救乡亲，深受邻里交口称颂。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_dianxin_zhapian",
+    "tier": "contingency",
+    "title": "涉网险情：冒充公检法与刷单杀猪盘博弈",
+    "yearRange": [
+      2005,
+      2026
+    ],
+    "targetAge": [
+      18,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "2000年代中后期以来随着移动通信与网络金融普及，冒充公检法‘安全账户’、网络兼职刷单返利、虚假投资理财等新型电信网络诈骗频发，国家建立全国反诈劝阻联动机制。",
+    "narrative": "手机突然接到一通显示为‘某市公安局刑侦支队’的陌生来电，对方严厉声称你名下的银行卡涉嫌数百万元跨国洗钱大案，发送伪造的‘带红头逮捕令’PDF，命令你立刻把所有存款转入所谓的‘国家监管安全账户’自证清白！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "牢记“公检法绝无安全账户”铁律，果断挂断电话拨打110反诈专线核实，向反诈中心举报骗子账号",
+        "choiceTags": [
+          "时代：2005–2026",
+          "年龄：18–75",
+          "地域：全国",
+          "门槛：反诈警惕公民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "识破骗局未损失一分钱，配合民警冻结了电诈洗钱黑账户，荣获派出所反诈宣传标兵表彰。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冷静清醒识破电信网络诈骗保全全家积蓄，成为亲友反诈智囊。",
+            "status": "anti_fraud_vigilant_citizen"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "组织社区居民安装国家反诈中心APP并做宣讲，守护了数十位老人的养老钱。",
+            "effect": {
+              "knowledge": 25,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "主动普及反诈常识造福邻里，深受社区爱戴。"
+          }
+        ]
+      },
+      {
+        "text": "被对方严肃威吓搞得六神无主，瞒着家人匆匆赶往银行ATM机按指令转账操作",
+        "choiceTags": [
+          "时代：2005–2026",
+          "年龄：18–75",
+          "地域：全国",
+          "门槛：盲信恐慌受害者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 60,
+            "log": "被骗走家中三年辛苦积蓄数万元，立案后经公安跨省追击追回三成，痛定思痛。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻信电诈损失巨资惨痛交学费，深刻领会不轻信不转账真谛。",
+            "status": "fraud_victim_recovering"
+          },
+          {
+            "type": "safe",
+            "weight": 40,
+            "log": "在银行柜台转账时被警惕的银行柜员与赶来的社区民警当场强行制止拦截，保全本金。",
+            "effect": {
+              "mentality": 15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "银行民警火线拦截挽回全家血汗钱，如梦初醒感激涕零。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_laohua_chudian",
+    "tier": "contingency",
+    "title": "居家用电：老旧线路老化短路与漏电保护器",
+    "yearRange": [
+      1960,
+      2026
+    ],
+    "targetAge": [
+      12,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "随着家用电器普及，铝线绝缘老化、私拉乱接电线和缺乏接地漏电保护是家庭电气火灾与人身触电的主要根源。",
+    "narrative": "雷雨天气老宅墙角的电表箱突然啪地爆出一团刺眼的蓝白色电弧火花，刺鼻的塑料烧焦味弥漫开来。洗衣机金属外壳因零线接地不良带电，打赤脚的手刚摸上旋钮，整只手臂瞬间如被巨力猛抽，肌肉剧烈痉挛被电流死死吸住！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "危急时刻用未被吸住的另一只脚猛踹洗衣机塑料脚垫使身体脱离电源，用干燥木拖把挑断电闸",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：14–70",
+          "地域：居民住宅",
+          "门槛：冷静触电自救者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "成功脱离电源切断总闸，手部仅有轻微电灼伤水泡，随后花钱重新改换全屋阻燃铜线与漏保空开。",
+            "effect": {
+              "health": -10,
+              "knowledge": 25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "触电惊魂自救成功并彻底翻新电路，守住全家数十年用电安全。",
+            "status": "electrical_safety_renovator"
+          },
+          {
+            "type": "injured",
+            "weight": 18,
+            "log": "右手手掌二级接触性电烧伤伴肌肉严重酸痛，住院清创包扎换药两周后痊愈。",
+            "effect": {
+              "health": -25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "触电负局部烧烫轻伤幸存，深刻认清规范接地的生死意义。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在潮湿地面被高压短路电流持续电击心室纤颤抢救无效不幸身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "家庭用电严重短路漏电不幸触电身亡。"
+          }
+        ]
+      },
+      {
+        "text": "装修改造时严格采用国标阻燃铜线穿管，全屋分路安装合格漏电保护断路器（空开）与防雷接地",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：18–70",
+          "地域：全国城乡",
+          "门槛：规范用电住户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "洗衣机轻微漏电瞬间漏保空开0.1秒极速跳闸保护断电，人身无一丝感应触电，安然无恙。",
+            "effect": {
+              "wealth": 15,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "规范配置漏电保护器，以现代电气标准铸就金钟罩。",
+            "status": "standard_electric_household"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "主动帮助整栋旧单元楼居民排查排查入户线老化起火隐患，杜绝火灾发生。",
+            "effect": {
+              "knowledge": 20,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "热心公益排除电气险患，成为受街坊赞许的热心电工。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_ertong_beiguai",
+    "tier": "contingency",
+    "title": "人潮险境：火车站集市防拐警觉与群众合力解救",
+    "yearRange": [
+      1980,
+      2015
+    ],
+    "targetAge": [
+      6,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "二十世纪八九十年代及二十一世纪初火车站、长途汽车站人潮汹涌，拐卖妇女儿童犯罪曾较为猖獗。公安部随后开展全国打拐专项行动并建立DNA数据库，全民防拐意识大幅提高。",
+    "narrative": "春运期间拥挤喧嚣的长途汽车站候车大厅里人头攒动。几岁大的幼童在水磨石柱旁玩铁皮青蛙，一个面色阴鸷的陌生男女突然凑上前拿糖果诱骗拉扯孩子，迅速用大衣包裹孩子拔腿向侧门窜去！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "时刻牢记目光不离孩子，见状尖声大喊“抓人贩子！抢孩子啦！”并扑上前死死抱住对方大腿",
+        "choiceTags": [
+          "时代：1980–2015",
+          "年龄：14–60",
+          "地域：车站码头集市",
+          "门槛：机警看护家长/热心群众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "四面八方的热心旅客与车站民警瞬间合围截住人贩当场将其按翻在地，孩子毫发无伤救回怀抱。",
+            "effect": {
+              "family": 35,
+              "mentality": 30,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "机警勇敢当场截获人贩保全骨肉，守护家庭核心天伦圆满。",
+            "status": "child_rescue_vigilant_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "与人贩撕扯搏斗被对方推倒撞伤面部鼻梁挫伤破皮流血，成功夺回孩子，警方顺藤摸瓜端掉拐卖团伙。",
+            "effect": {
+              "health": -15,
+              "family": 35,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "勇斗人贩负轻伤解救骨肉与多名被拐儿童，成为轰动全省的打拐英雄。",
+            "status": "anti_trafficking_hero"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在穷追人贩横穿国道公路时遭遇超速货车撞击不幸壮烈牺牲，孩子被随后赶来的民警安全解救。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "为抢救被拐儿童舍己追凶遭遇车祸光荣牺牲。"
+          }
+        ]
+      },
+      {
+        "text": "在火车站参与‘宝贝回家’志愿者寻亲宣传，为过往返乡务工家庭义务发放防走失手环与指纹卡",
+        "choiceTags": [
+          "时代：1980–2015",
+          "年龄：16–50",
+          "地域：交通枢纽",
+          "门槛：热心公益志愿者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "长年参与寻亲防拐志愿服务促成数十个失散家庭重聚团圆，荣获全国社会公益奖章。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 20,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "长年投身民间打拐防拐公益，温暖无数家庭骨肉相连。",
+            "status": "child_safety_volunteer"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "在候车室成功辨识出一名被遗弃在长椅上的弃婴并联系福利院妥善安置救活其性命。",
+            "effect": {
+              "family": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拯救无辜婴孩生命，体现深沉人道主义博爱。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_xiaoyuan_baling",
+    "tier": "contingency",
+    "title": "少年关口：校园混混勒索与勇敢求助维权",
+    "yearRange": [
+      1970,
+      2026
+    ],
+    "targetAge": [
+      10,
+      18
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "青少年成长过程中常面临校园欺凌与校外不良少年勒索。正当防卫、依法维权、家校协同联动是粉碎霸凌、重塑自信的关键路径。",
+    "narrative": "放学校门外昏暗的死胡同拐角处，三名留着长发的高年级混混堵住去路。嘴里叼着烟卷，用粗鲁言语推搡肩膀，强行搜身勒索一周的零花钱与饭票，扬言‘敢告诉家长老师就打断你的腿’。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "绝不逆来顺受隐忍，当天回家如实向父母老师汇报，并在派出所民警与学校保卫科陪同下依纪依法追责",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：10–18",
+          "地域：学校周边",
+          "门槛：勇敢维权学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "校纪处分混混并在校门口设立治安巡逻岗，恶霸团伙被彻底肃清，从此自信昂首成长，学业突飞猛进。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 25,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以法纪和勇气击碎校园霸凌阴影，淬炼出刚正不阿的自信人格。",
+            "status": "bullying_overcomer_confident"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "被推搡摔倒磨破双侧手肘皮肤，经法制教育混混家长当面诚恳道歉赔偿医疗费。",
+            "effect": {
+              "health": -10,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "面对霸凌不屈服赢得正义，性格更加坚韧果敢。"
+          }
+        ]
+      },
+      {
+        "text": "报名参加学校散打摔跤与田径体育队，强身健体练就一身强健体魄与过硬自卫本领",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：10–18",
+          "地域：学校操场",
+          "门槛：自强少年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "体格强壮威武不怒自威，混混望而生畏再不敢招惹，并在市中学生摔跤比赛荣获二等奖。",
+            "effect": {
+              "health": 30,
+              "mentality": 30,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "通过体育强身健体自立自强，一生远离弱者心态。",
+            "status": "strong_resilient_youth"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "实战对抗训练不慎扭伤右侧腕关节，包扎调养两周后身手更加敏捷过人。",
+            "effect": {
+              "health": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "习武强身负小伤无大碍，铸就一身凛然正气。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_yilia_wuzhen",
+    "tier": "contingency",
+    "title": "医疗急症：突发急性阑尾炎与三甲连夜转诊",
+    "yearRange": [
+      1950,
+      2026
+    ],
+    "targetAge": [
+      8,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "急性化脓性阑尾炎、肠梗阻或宫外孕破裂是临床最常见的急腹症。早期易与普通肠胃炎混淆，误诊穿孔可引发弥漫性腹膜炎与感染性休克，规范转诊与微创手术可迅速挽救生命。",
+    "narrative": "深夜右下腹突然传来针扎刀割般的剧烈跳痛，体温飙升至39度高热，肚皮硬得像一块木板压痛反跳痛明显。小诊所初诊误以为是受凉肠痉挛只给挂了普通盐水，疼痛不仅未减反而剧烈加重冷汗直冒！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "察觉病情凶险绝非普通肠炎，连夜果断租车转送县级公立综合医院急诊科做血常规与超声检查",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：8–65",
+          "地域：全国",
+          "门槛：果断求医患者/家属"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "超声确诊急性坏疽穿孔性阑尾炎，当夜行急诊腹腔镜微创切除与腹腔冲洗，五天后康复出院。",
+            "effect": {
+              "health": 20,
+              "wealth": -15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断大医院转诊避免弥漫性腹膜炎致死危局，深明正规医疗之重。",
+            "status": "acute_appendix_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "阑尾微穿孔导致盆腔少量化脓，置引流管冲洗换药住院两周后痊愈留下一小道切口疤痕。",
+            "effect": {
+              "health": -20,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "急腹症微穿孔惊险治愈留轻疤，平平安安度过人生健康坎。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在偏远落后山区延误就诊发生弥漫性腹膜炎伴感染性休克抢救无效不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "急性坏疽穿孔性阑尾炎未能及时转诊引发感染性休克不幸病逝。"
+          }
+        ]
+      },
+      {
+        "text": "若为基层乡村医务工作者，凭借扎实麦氏点压痛体检基本功准确辨认急腹症，第一时间开通绿色通道送转",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：20–60",
+          "地域：乡镇卫生院",
+          "门槛：基层良医"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "凭借高度责任心在黄金两小时内将病人转送县医院挽救其性命，被患者全家敲锣打鼓赠送锦旗。",
+            "effect": {
+              "knowledge": 30,
+              "family": 25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "精准诊断急腹症不推诿延误救活乡亲，赢得极高民间声誉。",
+            "status": "village_lifesaver_doctor"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "自制急腹症体检科普挂图在全乡各村巡回讲解，提升全乡自诊警惕。",
+            "effect": {
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "普及急救常识造福桑梓，筑牢乡村公卫前哨。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_nongtian_shishou",
+    "tier": "contingency",
+    "title": "野外惊雷：暴雨雷电与农田低洼防雷自救",
+    "yearRange": [
+      1937,
+      2026
+    ],
+    "targetAge": [
+      10,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "夏季强对流雷暴天气极易在平原农田、旷野高地发生直击雷或跨步电压电击。严禁大树下避雨、远离金属农具、低洼双脚并拢下蹲是标准防雷避险规范。",
+    "narrative": "广阔的水稻田上空突然乌云密布，昼如黑夜，炸雷一个接一个在头顶轰然炸响，闪电如利剑撕裂天空。手里拿着铁锄头，旷野上只有几百米外一棵孤零零高耸的百年大苦楝树，暴雨如注倾盆砸下！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "绝不去孤树下避雨，立即扔掉手中铁锄，脱下雨靴迅速寻找干燥低洼处双脚并拢下蹲低头抱膝",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：10–65",
+          "地域：旷野田间",
+          "门槛：掌握防雷常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "闪电直击远处那棵百年大树将其生生劈裂起火，自己因低姿避雷安然无恙，雷雨停歇后安全归家。",
+            "effect": {
+              "mentality": 30,
+              "knowledge": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "掌握野外防雷科学常识避免大树雷击，在惊险天象中保全性命。",
+            "status": "lightning_survival_smart"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "附近落地雷强大电磁脉冲导致短暂双耳耳鸣失聪伴受惊发热两天，敷药调理平复。",
+            "effect": {
+              "health": -15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "雷暴震伤双耳短暂耳鸣无大碍，从此深谙防灾自救。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在旷野高举铁制农具奔跑不幸遭遇雷电直接击中身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在旷野农田遭遇强对流直击雷不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "雷雨前夕敏锐观察天气，见燕子低飞天边起浓黑乌云果断提前收工赶回砖瓦房家中闭门避险",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：14–65",
+          "地域：乡村田间",
+          "门槛：经验老农"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "在安全的砖房内泡一壶热茶看窗外暴雨滂沱，身心泰然远离一切野外雷暴危险。",
+            "effect": {
+              "family": 20,
+              "health": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经验丰富不抢险天时，以稳健生活智慧保平安。",
+            "status": "cautious_weather_watcher"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "大雨前主动帮邻里抢收晾晒在晒场上的两千斤稻谷，免遭暴雨冲走。",
+            "effect": {
+              "wealth": 15,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抢雨抢粮邻里相帮，铸就淳厚乡风。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_nanchang_xinsheng",
+    "tier": "contingency",
+    "title": "生育关卡：骨盆狭窄难产与现代剖宫产转危为安",
+    "yearRange": [
+      1950,
+      2026
+    ],
+    "targetAge": [
+      20,
+      42
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "旧中国传统旧法接生导致极高的产褥热感染与难产母婴死亡率。新中国推行新式接生法、现代妇幼保健网络与剖宫产手术，使孕产妇与婴儿死亡率实现历史性断崖式下降。",
+    "narrative": "分娩室里产妇满头大汗，宫缩剧烈疼痛已长达十余小时。胎头下降受阻停滞在盆腔，胎心监测音开始急促不规则忽高忽低。妇产科主任戴着无菌手套沉着诊断：‘骨盆入口狭窄伴胎儿窘迫，必须立刻行急诊剖宫产手术！’",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "家属与产妇绝对信任现代医学，果断在手术同意书上签字，连夜由资深产科团队实施剖宫产",
+        "choiceTags": [
+          "时代：1950–2026",
+          "年龄：20–42",
+          "地域：县级及以上医院",
+          "门槛：现代科学就医家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "手术极度顺利仅用二十分钟一声嘹亮婴儿啼哭响彻手术室，母子平安，术后刀口愈合如线。",
+            "effect": {
+              "family": 40,
+              "health": 10,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断接受现代剖宫产手术母子平安，享受现代围产医学发展红利。",
+            "status": "safe_cesarean_mother"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "术中大出血输血四百毫升并伴术后轻度腹壁感染，抗炎调理三周后母婴健康出院。",
+            "effect": {
+              "health": -25,
+              "family": 35,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经受难产剖宫产惊险大考验母子双全，全家视其为生命至宝。",
+            "status": "resilient_brave_mother"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在偏远无急救条件的落后私家作坊遭遇羊水栓塞DIC大出血抢救无效不幸遇难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在缺乏抢救条件的落后接生中突发羊水栓塞大出血不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若为基层妇幼保健医生，推行孕期规范产检与高危孕产妇评分早筛，提前收治高危孕妇住院待产",
+        "choiceTags": [
+          "时代：1950–2026",
+          "年龄：22–60",
+          "地域：基层妇幼系统",
+          "门槛：妇产科白衣卫士"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "辖区连续十年实现孕产妇零死亡，成功接生上千名健康婴儿，获评全国三八红旗手与优秀妇幼标兵。",
+            "effect": {
+              "knowledge": 35,
+              "mentality": 35,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以精湛产科技术与责任心守护千家母婴平安，功德无量。",
+            "status": "maternal_health_guardian"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "深夜翻山越岭把一名突发前置胎盘大出血的贫困孕妇安全护送至县医院挽救两条生命。",
+            "effect": {
+              "family": 30,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火线护送危急孕妇救活母子，深受群众世代感念。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_xinjing_aed",
+    "tier": "contingency",
+    "title": "黄金四分钟：街头突发心源性猝死与AED心肺复苏",
+    "yearRange": [
+      2000,
+      2026
+    ],
+    "targetAge": [
+      16,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "心血管疾病是国民健康头号杀手。在心脏骤停发生的‘黄金4分钟’内，普及民众徒手心肺复苏（CPR）与自动体外除颤器（AED）是挽救生命的最关键链条。",
+    "narrative": "早高峰熙熙攘攘的地铁换乘通道里，前面一位提着公文包的中年男子突然身子一歪直挺挺倒地，呼吸微弱呈濒死喘息样，颈动脉搏动消失！周围人群瞬间惊呼围拢，通道墙上的红色AED急救箱正亮着指示灯。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "挺身而出跪倒在地按压患者胸口实施高质量徒手CPR，同时大声呼喊路人取下墙上的AED电击除颤",
+        "choiceTags": [
+          "时代：2000–2026",
+          "年龄：16–60",
+          "地域：公共场所",
+          "门槛：懂急救热心市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "AED一次电击除颤成功恢复窦性心律，救护车赶到前患者恢复意识睁开双眼，受到全网点赞被授予见义勇为模范。",
+            "effect": {
+              "mentality": 40,
+              "knowledge": 30,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在公共场所精准利用AED拯救同胞生命，谱写当代社会最高善意。",
+            "status": "aed_lifesaver_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "连续高强度胸外按压三十分钟双手双膝擦伤力竭脱水，救回患者生命后由红十字会发放慰问金。",
+            "effect": {
+              "health": -15,
+              "mentality": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "竭尽全力心肺复苏救活生命，展现崇高公民道德。"
+          }
+        ]
+      },
+      {
+        "text": "若为倒地发病患者本人，平日随身携带速效救心丸/硝酸甘油并在感到胸骨后压榨性闷痛时立刻舌下含服坐下呼救",
+        "choiceTags": [
+          "时代：2000–2026",
+          "年龄：35–75",
+          "地域：全国",
+          "门槛：有心血管基础病者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "舌下含服硝酸甘油在两分钟内有效缓解冠脉痉挛，随后由路人协助呼叫120送医行支架介入开通血管生还。",
+            "effect": {
+              "health": 15,
+              "wealth": -20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "规范随身备药早识别自救成功逃过鬼门关，深刻树立科学养生理念。",
+            "status": "heart_attack_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 17,
+            "log": "大面积急性前壁心肌梗死送医植入两枚药物支架抢救脱险，心功能稍受损需长期服药。",
+            "effect": {
+              "health": -30,
+              "wealth": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "心梗急诊支架开通血管保命，后半生注重戒烟低盐清淡生活。"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "突发大面积心梗并发恶性室颤未能在4分钟内得到有效CPR与电击除颤不幸离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "公共场所突发恶性心梗猝死未能抢救成功不幸离世。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_laoren_diedao",
+    "tier": "contingency",
+    "title": "暮年坎坷：浴室湿滑跌倒骨折与适老化防滑改造",
+    "yearRange": [
+      1980,
+      2026
+    ],
+    "targetAge": [
+      60,
+      85
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "跌倒是老年人伤残的首位原因，髋部骨折被称为‘人生的最后一次骨折’。铺设防滑地砖、安装一字安全扶手和适老化洗澡凳能降低80%以上的老年跌倒风险。",
+    "narrative": "寒冬洗完澡地面瓷砖残留着大量泡沫水渍。步履有些蹒跚的老人伸手去够毛巾架，拖鞋底突然猛烈打滑，整个人失去重心重重向侧方摔在坚硬的水泥地砖上，左侧髋部传来咔嚓一声脆响与剧烈撕裂痛！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "受伤后不盲目站立扭动避免移位加重，由子女立刻呼叫120送骨科行微创人工股骨头置换术并快速下地康复",
+        "choiceTags": [
+          "时代：1980–2026",
+          "年龄：60–85",
+          "地域：城镇家庭",
+          "门槛：老年跌倒患者/子女"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "手术成功三天后在助行器辅助下自主站立慢走，两个月后彻底恢复自理生活，全家在卫生间铺满防滑垫加装安全扶手。",
+            "effect": {
+              "health": 15,
+              "wealth": -20,
+              "family": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高龄髋部骨折微创手术成功战胜病魔，完成适老化改造安享幸福晚年。",
+            "status": "hip_replacement_recovered"
+          },
+          {
+            "type": "injured",
+            "weight": 22,
+            "log": "术后卧床引发轻度肺部感染与下肢深静脉血栓，经抗凝雾化治疗一个月后平复，需拄拐行走。",
+            "effect": {
+              "health": -30,
+              "wealth": -25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "骨折康复受波折需拐杖代步，在子女孝顺照料下精神安稳。",
+            "status": "wheelchair_supported_elder"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "高龄跌倒卧床并发严重褥疮与重度坠积性肺炎多系统衰竭不幸辞世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "高龄跌倒骨折长期卧床并发重度肺部感染不幸逝世。"
+          }
+        ]
+      },
+      {
+        "text": "子女提前尽孝对父母老旧卫生间进行彻底适老化改造：铺防滑地胶、装L型上水扶手与壁挂折叠沐浴凳",
+        "choiceTags": [
+          "时代：1980–2026",
+          "年龄：55–85",
+          "地域：全国",
+          "门槛：孝顺子女/明智老人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "浴室安全改造消除全部湿滑死角，十年间老人从未摔跌一次，身子骨硬朗鹤发童颜。",
+            "effect": {
+              "family": 35,
+              "wealth": 10,
+              "health": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "未雨绸缪搞好适老化防跌改造，守护父母晚年平安无虞，家风祥和。",
+            "status": "safe_aging_home_champion"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "将自家适老化改造清单分享给整栋单元楼老街坊，带动全小区掀起改造热潮。",
+            "effect": {
+              "mentality": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "普及适老居室改造经验造福社区老人，赢得极高赞誉。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_cont_huoza_taosheng",
+    "tier": "contingency",
+    "title": "午夜逃生：老旧小区走廊火灾与湿毛巾低姿撤离",
+    "yearRange": [
+      1970,
+      2026
+    ],
+    "targetAge": [
+      10,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.03,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "老旧居民小区走廊堆放杂物、电动车违规入户飞线充电引发火灾是城市消防重大隐患。有毒高温浓烟是火灾首要致死因素，‘小火快逃、大火堵门固守’是现代火场逃生铁律。",
+    "narrative": "凌晨两点刺鼻的焦糊味穿过门缝，楼道里传来噼里啪啦的爆炸声与凄厉的喊救命声。透过猫眼看去，走廊里已灌满黑得化不开的滚滚浓烟，热浪烤得防盗门把手滚烫。楼道一楼违规飞线充电的电瓶车电瓶发生热失控猛烈爆燃！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "见楼道已被剧毒高温浓烟封死坚决不盲目开门冲入走廊，立刻退守有窗卧室用湿毛巾被褥堵死门缝，开窗挥舞鲜艳衣物呼救",
+        "choiceTags": [
+          "时代：1970–2026",
+          "年龄：10–75",
+          "地域：居民住宅楼",
+          "门槛：具备火场固守常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "湿被褥成功阻挡剧毒烟气渗入，消防云梯车十分钟后赶到窗前架起云梯将全家安全救下，无一人呛伤吸入有毒气体。",
+            "effect": {
+              "family": 30,
+              "mentality": 30,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火场冷静固守湿堵门缝化险为夷，以专业知识在死神面前拯救全家。",
+            "status": "smart_fire_escape_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 13,
+            "log": "窗台等待云梯救援时手背被飞溅的火星灼伤起水泡，吸入少量烟尘住院雾化洗肺三天出院。",
+            "effect": {
+              "health": -15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火场固守成功获救负轻灼伤，彻底杜绝电动车违规停放。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在剧烈高温烟雾逼近时因恐慌盲目从六楼窗台跳楼不幸坠亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "高层火灾中因极度恐慌盲目跳楼不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "发现火情处于极初期走廊尚无浓烟，迅速用冷水浸湿毛巾折叠八层捂住口鼻，身体紧贴地面低姿迅速从安全通道撤出楼外",
+        "choiceTags": [
+          "时代：1970–2026",
+          "年龄：10–65",
+          "地域：居民楼道",
+          "门槛：初期逃生反应敏捷者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "黄金三十秒内快速冲出单元大门脱险，并第一时间拨打119报火警与按响全楼火灾报警器，全楼无一人伤亡。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火灾初期果断低姿逃生并拉响全楼警报拯救整栋楼，荣立见义勇为功臣。",
+            "status": "brave_fire_alert_neighbor"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "逃生推开通道防火门时右手臂被滚烫金属门把手烫伤起大水泡，敷烫伤膏换药康复。",
+            "effect": {
+              "health": -15,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初期逃生负轻微烫伤，机警果断挽救全家。"
+          }
+        ]
+      }
+    ]
+  }
+]

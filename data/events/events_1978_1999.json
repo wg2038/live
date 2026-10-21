@@ -1,0 +1,4747 @@
+[
+  {
+    "id": "evt_1978_xiaogang_dabaogan",
+    "tier": "era",
+    "title": "小岗村大包干与包产到户",
+    "yearRange": [
+      1978,
+      1982
+    ],
+    "targetAge": [
+      18,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1978年冬安徽凤阳小岗村18位农民按下红手印搞‘大包干’。随后家庭联产承包责任制在全国农村铺开，极大地释放了亿万农民的生产积极性。",
+    "narrative": "大队部前的打谷场上，老支书拿着红印泥宣布分田到户。祖祖辈辈给集体挣工分的社员们，第一次在属于自家的承包田里打下木桩。粮囤空瘪了多年，如今泥土带着希望的温热。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "精耕细作自留承包田，兼搞生猪圈养与温棚菜",
+        "choiceTags": [
+          "时代：1978–1982",
+          "年龄：18–65",
+          "地域：全国农村",
+          "门槛：承包社员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "起早贪黑伺候庄稼，秋天谷子堆满仓，卖出余粮摘掉贫困帽。",
+            "effect": {
+              "wealth": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "赶上包产到户第一班春风，靠辛勤汗水换来全家温饱富足。",
+            "status": "diligent_farmer"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "开荒抢种过度劳累扭伤腰肌，且被农具划破小腿发炎。",
+            "effect": {
+              "health": -20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "农活繁重落下腰劳损，但家里粮仓终于有了余粮。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "因分地地界与邻舍发生纠纷，闹到公社调解方得平息。",
+            "effect": {
+              "family": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因地垄争端与族亲产生嫌隙，耗费数月调和。"
+          }
+        ]
+      },
+      {
+        "text": "种足口粮田即可，农闲时挑担走村串户做泥瓦木工手艺活",
+        "choiceTags": [
+          "时代：1978–1982",
+          "年龄：18–50",
+          "地域：乡村集镇",
+          "门槛：有手艺农民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "凭一身过硬木工手艺挣回现钱，贴补家用日子过得颇为滋润。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "农闲做手艺贴补家计，成为村里最早有现金活钱的家庭。",
+            "status": "rural_artisan"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "挑担走乡遭遇雨雪路滑摔坏工具箱，白忙活半个月。",
+            "effect": {
+              "wealth": -10,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "风餐露宿跑手艺尝尽辛苦，换来微薄养家铜板。"
+          },
+          {
+            "type": "redirected",
+            "weight": 10,
+            "log": "被邻县刚筹建的建筑队看中，收为固定泥瓦班长带队进城。",
+            "effect": {
+              "wealth": 30,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "凭手艺脱离纯农耕，成为第一批走出山乡的乡村建筑班长。",
+            "newCareerTrack": "worker"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_gongpai_liuxue",
+    "tier": "era",
+    "title": "首批公派留学生选拔",
+    "yearRange": [
+      1978,
+      1980
+    ],
+    "targetAge": [
+      22,
+      40
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "higher_ed_degree"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.65,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1978年教育部选拔首批52名公派访问学者赴美留学，标志着新时期留学大潮的正式拉开帷幕，入选者多为高校与科研院所骨干骨干精英。",
+    "narrative": "科研所红榜前聚满了人，泛黄的报名简章上写着公派赴美访问学者的选拔条件。英语口语测试、专业考核极为严苛，无数知识分子在微弱的台灯下重新捧起尘封多年的外文期刊。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "全力备战选拔考试，争取出访北美名校担任公派学者",
+        "choiceTags": [
+          "时代：1978–1980",
+          "年龄：22–40",
+          "地域：重点高校科研院",
+          "门槛：高级知识分子"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "以拔尖专业成绩入选公派名单，身着统一深色西服飞赴大洋彼岸。",
+            "effect": {
+              "knowledge": 40,
+              "wealth": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "作为国家首批公派学者开眼看世界，奠定终生学术殿堂地位。",
+            "status": "overseas_scholar"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "政审与外语口语临场微弱失利落选，留守教研室继续带课。",
+            "effect": {
+              "mentality": -15,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "公派竞争激烈擦肩而过，转而深耕国内重点实验室项目。"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "通宵突击查阅外文文献过度疲劳引发突发性耳鸣，调养两月。",
+            "effect": {
+              "health": -20,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "备考过度用脑伤及神经，但拓宽了科研学术眼界。"
+          }
+        ]
+      },
+      {
+        "text": "安于本院重点实验室，接手老教授留下的国产重点攻坚课题",
+        "choiceTags": [
+          "时代：1978–1980",
+          "年龄：24–45",
+          "地域：科研事业单位",
+          "门槛：院所助教讲师"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "主导攻克工业仪表国产化关键算法，获部委科技进步二等奖并晋级副高。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 15,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "留守本土潜心攻关，成为实验室不可或缺的技术掌门人。",
+            "status": "lab_core"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "实验室耗材与外汇短缺陷入停滞，眼看同辈出洋内心难免落寞。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在国内科研资源吃紧时期坚守书桌，甘坐数年冷板凳。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1979_zhiqing_fancheng",
+    "tier": "era",
+    "title": "知青大返城浪潮与接班顶替",
+    "yearRange": [
+      1979,
+      1981
+    ],
+    "targetAge": [
+      22,
+      35
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1979年前后全国迎来千万知青返城落户大潮。许多老职工通过‘退休顶替’政策让子女顶岗回城，大批返城青年面临待业安置与生计重整。",
+    "narrative": "知青农场的大铁门前，卡车装满行囊。红头文件下发，允许父母提前退休由知青子女接班回城。有人紧紧攥着盖着大红公章的回城审批表，有人则看着乡下的配偶与幼子陷入两难。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "通过父母提前退休办理‘长安顶替’，回城进国营厂当学徒工",
+        "choiceTags": [
+          "时代：1979–1981",
+          "年龄：22–35",
+          "地域：城镇国企",
+          "门槛：父母为国企老职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "顺利顶替入厂端上铁饭碗，分到集体宿舍，开启踏实的工人岁月。",
+            "effect": {
+              "wealth": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺利顶替父母工籍回归城市生活，获得铁饭碗安稳庇护。",
+            "status": "secured_factory_job"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "顶替岗位为车间脏苦累的翻砂工，工资微薄，与家人挤狭小偏房。",
+            "effect": {
+              "health": -15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "回城后从事底层重体力车间工作，居住条件极为逼仄。"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "车间行车搬运钢板不慎砸伤脚趾，休工卧床两月方愈。",
+            "effect": {
+              "health": -25,
+              "wealth": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顶替初入车间技术生疏受工伤，休养后逐步掌握要领。"
+          }
+        ]
+      },
+      {
+        "text": "因在农村已成家生子，毅然选择留乡扎根，在大队小学当公办教师",
+        "choiceTags": [
+          "时代：1979–1981",
+          "年龄：23–35",
+          "地域：乡村插队地",
+          "门槛：有乡间家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "不忍抛妻弃子留守山乡，教书育人深得乡民敬仰，家庭和睦幸福。",
+            "effect": {
+              "family": 30,
+              "knowledge": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "为挚爱亲情放弃回城，在乡村讲台上桃李芬芳赢得一世尊崇。",
+            "status": "village_teacher"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "看着回城知青寄来的城市风景照，面对泥泞土路常发长叹。",
+            "effect": {
+              "mentality": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "午夜梦回念及城市繁华难免怅然，但恪守为人父母之责。"
+          },
+          {
+            "type": "redirected",
+            "weight": 10,
+            "log": "因文化功底扎实被公社选拔为乡党委秘书，开启基层公职之路。",
+            "effect": {
+              "knowledge": 20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "留乡展现文字才能被提拔为公社干部，走出独特的晋升路。",
+            "newCareerTrack": "cadre_teacher"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1979_duiyue_fanjizhan",
+    "tier": "era",
+    "title": "1979南疆自卫还击作战动员",
+    "yearRange": [
+      1979,
+      1980
+    ],
+    "targetAge": [
+      18,
+      25
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "all"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1979年2月对越自卫还击作战打响。大批热血军人与边境支前民兵奔赴南疆热带雨林山岳丛林作战，涌现出大批战斗英雄，有力维护了西南边境安全。",
+    "narrative": "武装部的大喇叭里播放着热血军歌，南疆边境哨所接连告急。火车站台上挤满了换上崭新草绿色军装的参军青年，胸前佩戴的大红花娇艳欲滴。车厢内歌声嘹亮，即将踏入湿热险峻的山岳丛林。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "写下请战书报名开赴南疆前线，参加山地丛林穿插突击队",
+        "choiceTags": [
+          "时代：1979–1980",
+          "年龄：18–25",
+          "地域：全国",
+          "门槛：热血青年男性"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 50,
+            "log": "在湿热丛林中奋勇穿插完成作战使命，荣立战功凯旋返乡。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 15,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "参军经历南疆炮火洗礼，荣归故里成为受全社会敬仰的老兵功臣。",
+            "status": "war_veteran"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "在山隘排雷时遭遇弹片击中左小腿致轻残，退伍安置进机关车队。",
+            "effect": {
+              "health": -35,
+              "mentality": 15,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "排雷作战负伤致轻度伤残，退伍保送安置体制内工作。",
+            "status": "disabled_veteran"
+          },
+          {
+            "type": "entangled",
+            "weight": 13,
+            "log": "目睹战友牺牲患上创伤后应激障碍，深夜偶发惊悸盗汗。",
+            "effect": {
+              "mentality": -30,
+              "health": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战后长期受PTSD困扰，在家人悉心照料下逐步恢复。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在穿插阻击战中遭遇暗堡炮火伏击光荣牺牲。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在南疆前线阻击阵地上光荣牺牲，被追授烈士称号。"
+          }
+        ]
+      },
+      {
+        "text": "服从地方分配报名参加边境弹药与战地伤员民兵汽车抢运队",
+        "choiceTags": [
+          "时代：1979–1980",
+          "年龄：18–35",
+          "地域：西南/华南",
+          "门槛：青壮劳力/司机"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "驾解放牌卡车冒着落石夜行盘山路抢送前线急需物资，平安立功。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "作为战地运输骨干立功，锤炼出神入化的重型卡车驾驶技能。",
+            "status": "driver_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "卡车在盘山公路避让炮坑侧翻入边沟，锁骨轻微骨折。",
+            "effect": {
+              "health": -25,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战地运输车遭遇险情翻车负伤，休养半年后重返工作岗位。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "因车辆遭炮火炸损承担审查损失，耗费数月才核销物资清单。",
+            "effect": {
+              "mentality": -15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战地物资损耗核查周折繁琐，心力交瘁。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1980_shenzhen_tequ",
+    "tier": "era",
+    "title": "深圳经济特区设立与开山拓荒",
+    "yearRange": [
+      1980,
+      1983
+    ],
+    "targetAge": [
+      18,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1980年8月全国人大常委会批准设立深圳经济特区。蛇口工业区响起‘开山第一炮’，竖起‘时间就是金钱，效率就是生命’标牌，吸引全国开拓者涌入南粤小渔村。",
+    "narrative": "海风吹过咸涩的泥沼，推土机与铁镐轰鸣不绝。罗湖黄泥漫天，简易工棚连绵数里。来自全国各地的基建工程兵与青年拓荒者汗流浃背，日夜抢建这片热土。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "报名随工程基建大队开赴特区，在罗湖荒滩挑灯夜战打地基",
+        "choiceTags": [
+          "时代：1980–1983",
+          "年龄：18–45",
+          "地域：广东深圳",
+          "门槛：基建青工/退役老兵"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "随部队打通特区深南大道，经考核转为特区第一代建设发展公司正式员工。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "南下特区第一代拓荒牛，参与特区奠基并优先落户深圳。",
+            "status": "tequ_pioneer"
+          },
+          {
+            "type": "injured",
+            "weight": 28,
+            "log": "炎热潮湿患上顽固烂裆与湿疹，手脚多处磕碰留疤。",
+            "effect": {
+              "health": -25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在恶劣工棚环境中负伤染疾，但赚回了可观的特区补贴。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "特区建设早期水土不服严重腹泻，因思乡一度动摇回乡念头。",
+            "effect": {
+              "mentality": -15,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初期条件艰苦水土不服，咬牙挺过最艰难的开拓阶段。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "深基坑高空脚手架作业突遇暴风雨坍塌不幸坠亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在特区早期基建突发事故中不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "留守原籍老厂按部就班上工，不图风浪只求安稳旱涝保收",
+        "choiceTags": [
+          "时代：1980–1983",
+          "年龄：18–50",
+          "地域：内地城镇",
+          "门槛：工矿职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "老家日子波澜不惊，守在父母妻儿身边，每月准时领劳保粮票与工资。",
+            "effect": {
+              "family": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "安居乡梓避开南下拓荒之苦，享受内地老工业基地的温情。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "数年后听闻昔日同僚在深圳月入数百元买上电视机，略有艳羡。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "内地发展相对平缓，与沿海特区拉开了一定收入差距。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1980_dushengzinv",
+    "tier": "era",
+    "title": "独生子女政策全面推行与领证抉择",
+    "yearRange": [
+      1980,
+      1984
+    ],
+    "targetAge": [
+      22,
+      38
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.8,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1980年9月中共中央发表《关于控制我国人口增长问题致全体共产党员共青团员的公开信》，提倡一对夫妇只生育一个孩子。全国城乡广泛发放《独生子女父母光荣证》与保健费。",
+    "narrative": "街道居委会与厂工会挂起了大红标语，计生宣传画上胖乎乎的单娃捧着大红花。单位领导找上门做思想工作，桌上摆着‘独生子女父母光荣证’与每月五元的营养保健费批条。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "积极响应号召主动领取独生子女光荣证，不再生育二胎",
+        "choiceTags": [
+          "时代：1980–1984",
+          "年龄：22–38",
+          "地域：全国城乡",
+          "门槛：已育一孩夫妇"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "领受光荣证并获评单位计生模范，将全副心血与资源投入培养独生宝贝。",
+            "effect": {
+              "wealth": 15,
+              "family": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "响应国家号召生育独子，集中家庭财力让孩子享受最好照料。",
+            "status": "only_child_parent"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "老家公婆重男轻女思想严重，因生的是女孩引发家庭长达数年冷战。",
+            "effect": {
+              "family": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因未生男丁在传统宗族间承受沉重传统伦理压力。"
+          }
+        ]
+      },
+      {
+        "text": "渴望儿女双全，暗中回乡下老宅暂避风头，伺机超生二胎",
+        "choiceTags": [
+          "时代：1980–1984",
+          "年龄：22–38",
+          "地域：乡村边缘",
+          "门槛：传统家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 40,
+            "log": "辗转在远亲偏僻村庄生下二孩，虽东躲西藏但终于实现儿女双全。",
+            "effect": {
+              "family": 25,
+              "mentality": -10,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "东躲西藏诞下二胎，为全家未来生活平添一份子嗣依靠。",
+            "status": "multi_children"
+          },
+          {
+            "type": "entangled",
+            "weight": 50,
+            "log": "被计生干部排查堵截，被按规定扣罚两年社会抚养费并通报开除公职。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -30,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因超生遭受重额经济罚款与体制内除名，家庭一度极为拮据。",
+            "status": "status_penalized"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "在乡村简陋接生婆处分娩发生大出血险些丧命，万幸抢救脱险。",
+            "effect": {
+              "health": -35,
+              "wealth": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黑诊所简陋分娩遭遇大出血，伤及元气休养整年。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1980_fuli_fenfang",
+    "tier": "era",
+    "title": "国企大厂福利分房积分考评",
+    "yearRange": [
+      1980,
+      1983
+    ],
+    "targetAge": [
+      26,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.78,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1980年前后城市住房极度紧张，国企大中型工厂依据工龄、技术职务、双职工身份与婚育状况进行综合算分排队分房，解决职工三代同堂的筒子楼居住困境。",
+    "narrative": "厂区公告栏前烟头落了一地，白底红字的大榜贴出了今年分房计分排位。祖孙三代蜗居在12平米暗间的青工老干们拿着放大镜对照积分，任何一分之差都决定能不能搬出筒子楼。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "向厂部如实汇报三代同堂困难，凭借技术能手与无缺勤加分冲刺房榜",
+        "choiceTags": [
+          "时代：1980–1983",
+          "年龄：26–55",
+          "地域：国企工矿",
+          "门槛：国企老职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "顺利排进前十名分到红砖新楼两居室套房，告别公用厨房煤球炉。",
+            "effect": {
+              "wealth": 30,
+              "family": 30,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "凭工龄与贡献分得国企福利套房，彻底改变全家居住面貌。",
+            "status": "welfare_housed"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "排名卡在边缘以0.5分之差惜败名落孙山，不得不继续在筒子楼挤住三年。",
+            "effect": {
+              "mentality": -20,
+              "family": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "福利分房因细微积分差抱憾落空，体味到体制内排队的不易。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "搬家搬运沉重铸铁煤炉不慎扭伤腰椎，卧床两周。",
+            "effect": {
+              "health": -15,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "搬迁新居时不慎扭伤腰部，但在新房炕头上笑逐颜开。"
+          }
+        ]
+      },
+      {
+        "text": "自知工龄尚浅排不上号，自行动手用红砖在自建小院搭一间防震临时偏厦",
+        "choiceTags": [
+          "时代：1980–1983",
+          "年龄：24–40",
+          "地域：城镇街道",
+          "门槛：平民家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "拉运废旧砖石搭起八平米干燥小屋分流居所，解了燃眉之急。",
+            "effect": {
+              "wealth": 10,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不等不靠自搭小棚解决住处，体现普通百姓的坚韧与巧思。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "搭建的棚房被街道城管认定为违章搭建拆除一半，心疼不已。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "私搭棚房被整治拆除部分，但依然在缝隙中求得安身。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1981_nvpai_duoguan",
+    "tier": "era",
+    "title": "中国女排首夺世界冠军与振兴中华",
+    "yearRange": [
+      1981,
+      1981
+    ],
+    "targetAge": [
+      10,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1981年11月中国女排在第三届世界杯排球赛中以七战全胜首夺世界冠军。北大学子在燕园点燃扫帚游行高呼‘团结起来，振兴中华’，女排拼搏精神极大振奋了全国民心。",
+    "narrative": "黑白电视机前围满了整条胡同的邻里老少，信号天线晃动着雪花点。决胜局扣杀落地的瞬间，大杂院里爆发出掀翻屋顶的欢呼。敲脸盆、燃鞭炮，人们相拥在夜色里热泪盈眶。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15
+    },
+    "choices": [
+      {
+        "text": "深怀激动投身高校/单位夜校进修，将女排拼搏精神化为加班苦干动力",
+        "choiceTags": [
+          "时代：1981",
+          "年龄：16–50",
+          "地域：全国",
+          "门槛：平民大众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "精神大受振奋，在岗位技术大比武中斩获第一名并记嘉奖一次。",
+            "effect": {
+              "mentality": 25,
+              "knowledge": 15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "沐浴女排拼搏精神洗礼，将时代自豪感转化为实干晋升。",
+            "status": "role_model_1981"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "与满院邻里痛饮散装白酒庆贺，在激情燃烧的年代结下深厚邻里深情。",
+            "effect": {
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在集体记忆中感受到久违的民族自信与家国大爱。"
+          }
+        ]
+      },
+      {
+        "text": "带头组建社区/车间青年排球与长跑队，坚持晨练强身健体",
+        "choiceTags": [
+          "时代：1981",
+          "年龄：14–40",
+          "地域：城镇街道",
+          "门槛：热血青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "常年长跑排球练就结实强健体魄，彻底摆脱幼年羸弱体质。",
+            "effect": {
+              "health": 25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "受女排带动坚持群众体育锻炼，为一生奠定过硬身体基础。",
+            "status": "sports_enthusiast"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "扣球起跳落地不慎扭伤右脚踝韧带，肿痛卧床两周。",
+            "effect": {
+              "health": -15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "打排球扭伤脚踝，但在运动场上结识了相伴终生挚友。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1982_yiwu_xiaoshangpin",
+    "tier": "era",
+    "title": "义乌小商品市场开放与敲糖帮",
+    "yearRange": [
+      1982,
+      1985
+    ],
+    "targetAge": [
+      18,
+      50
+    ],
+    "applicableRegions": [
+      "华东"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "zhejiang",
+        "jiangsu",
+        "anhui",
+        "jiangxi"
+      ]
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1982年浙江义乌县委正式提出‘四个允许’（允许农民经商、长途贩运、开放市场、多渠道竞争），开放第一代马路小商品市场，敲糖帮走向全国。",
+    "narrative": "青石板路两侧支起简易水泥板摊位，拨浪鼓的咚咚声清脆悦耳。针线包、尼龙袜、塑料纽扣铺满布单，县委干部的批条保护着这些曾被称为投机倒把的小挑担。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "放下锄头摇起拨浪鼓，租下水泥摊位批发尼龙袜与小五金饰品",
+        "choiceTags": [
+          "时代：1982–1985",
+          "年龄：18–50",
+          "地域：浙东江浙",
+          "门槛：敢闯农户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "勤俭耐劳走南闯北走量批发，成为义乌第一批日进斗金的小商品摊主。",
+            "effect": {
+              "wealth": 45,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应市场经济萌芽敢为人先，从鸡毛换糖蜕变为民营老板。",
+            "status": "yiwu_merchant",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "长途挤绿皮车挤爆车窗刮伤右臂，且货物被小偷偷走两包。",
+            "effect": {
+              "health": -15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "赶集长途颠簸受工伤与失窃，但摸清了全国商贸流通门路。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "在外省兜售小百货被当地市管人员按投机倒把扣押罚款，几经申诉方解。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期跨省贩运政策未完全普及，历经曲折洗礼。"
+          }
+        ]
+      },
+      {
+        "text": "留守本地承包田为摆摊亲友扎制竹篮编织纸盒，坐收稳定工钱",
+        "choiceTags": [
+          "时代：1982–1985",
+          "年龄：18–60",
+          "地域：浙东乡村",
+          "门槛：传统农户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "手脚麻利加工包装盒，农忙种地农闲拿现款，日子稳步改善。",
+            "effect": {
+              "wealth": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "为新兴市场做配套手工业加工，离土不离乡稳定增收。"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "因收购商资金周转不灵拖欠半年货款，四处上门讨要账目。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遭遇初期商业信用欠账考验，学会订立字据规避风险。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1983_yanda_zhian",
+    "tier": "era",
+    "title": "1983全国社会治安大整顿（“严打”）",
+    "yearRange": [
+      1983,
+      1984
+    ],
+    "targetAge": [
+      16,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1983年8月全国部署开展‘严厉打击严重刑事犯罪活动’（严打），从重从快惩处流氓、抢劫、杀人等犯罪，社会治安实现迅速根本好转，群众夜间出行重获安全感。",
+    "narrative": "城关广场挂起公捕公判大会巨幅横幅，军警卡车呼啸而过。街头的流氓混混、拍花拐骗与滋事阿飞被连根拔起。原本穿喇叭裤、在旱冰场吹口哨的青年纷纷理短头发，敛声屏气。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "本分做人恪守规矩，夜间安心温书做工，规劝亲友远离社会不良圈子",
+        "choiceTags": [
+          "时代：1983–1984",
+          "年龄：16–45",
+          "地域：全国城镇",
+          "门槛：守法市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "遵纪守法安稳度日，走夜路再也不用提心吊胆，享受良好治安环境。",
+            "effect": {
+              "mentality": 15,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "身正不怕影子斜，严打期间规矩做人，享受社会安定红利。"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "因早年借过隔壁劣迹青年十元钱被传唤协助核实笔录，洗清嫌疑。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因江湖故交受短暂例行盘查，洗脱嫌疑后更懂人际分寸。"
+          },
+          {
+            "type": "redirected",
+            "weight": 5,
+            "log": "看到治安大队招录，报名加入街道联防巡逻队，因勇敢转为公职保卫干部。",
+            "effect": {
+              "knowledge": 15,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "加入基层巡逻联防表现优异，转入体制内保卫干部编制。",
+            "newCareerTrack": "cadre_teacher"
+          }
+        ]
+      },
+      {
+        "text": "在录像厅跳贴面舞起哄，与邻座因踩脚发生抓扯推搡",
+        "choiceTags": [
+          "时代：1983–1984",
+          "年龄：17–28",
+          "地域：城镇娱乐场所",
+          "门槛：好动青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 40,
+            "log": "经家人紧急写检查托人作保，定性为一般民事纠纷批评释放。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "虚惊一场写下深刻检讨，从此脱胎换骨老实做人。"
+          },
+          {
+            "type": "entangled",
+            "weight": 45,
+            "log": "被从严认定为扰乱公共场所秩序收容劳教一年，丢掉原有工作指标。",
+            "effect": {
+              "wealth": -30,
+              "mentality": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在严打风口浪尖因打闹受劳教处分，人生遭遇重大波折。",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "推搡冲突中左眼角被汽水瓶碎片划破，缝合五针留疤。",
+            "effect": {
+              "health": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "录像厅纠纷负伤挂彩，成为青年时代深刻警醒教训。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1984_shenfenzheng",
+    "tier": "era",
+    "title": "第一代居民身份证制度实施",
+    "yearRange": [
+      1984,
+      1985
+    ],
+    "targetAge": [
+      16,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1984年4月国务院颁布《中华人民共和国居民身份证试行条例》，我国开始实施居民身份证制度。结束了千百年来凭借户口簿、工作证或介绍信证明身份的历史。",
+    "narrative": "居委会和派出所门前排起了照相长队，白色布幕挂在红砖墙上，镁光灯闪烁。大家整理着领口，第一次领到了那张塑料封膜、印着长城与单色黑白头像的身份证卡片。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 10
+    },
+    "choices": [
+      {
+        "text": "拍照领证后小心塑封珍藏，凭身份证去银行开立个人独立存折",
+        "choiceTags": [
+          "时代：1984–1985",
+          "年龄：16–75",
+          "地域：全国",
+          "门槛：普通公民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "拥有了全国通用的法定身份证件，出差住旅馆再也不用到处开单位介绍信。",
+            "effect": {
+              "knowledge": 10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "第一代身份证见证公民个人身份权利的法定化。",
+            "status": "has_id_card"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "领证时名字被派出所民警笔误写错一个同音字，费时一月更正。",
+            "effect": {
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期手工登记出现微小瑕疵，但顺利规范更正。"
+          }
+        ]
+      },
+      {
+        "text": "凭新办身份证办理边防通行证与车票，开启第一次跨省旅行远游",
+        "choiceTags": [
+          "时代：1984–1985",
+          "年龄：18–35",
+          "地域：城镇",
+          "门槛：年轻市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "凭身份证顺畅入住宿舍旅馆，饱览祖国名山大川，眼界大开。",
+            "effect": {
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "新制度赋能个人自由流动，完成人生首次壮游。"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "火车站人流拥挤被扒手割破裤袋偷走钱包，所幸身份证藏在内袋。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "出门远游遭遇失窃受惊，学会财物贴身防范。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1984_yanhai_kaifang",
+    "tier": "era",
+    "title": "沿海14个港口城市开放与合资浪潮",
+    "yearRange": [
+      1984,
+      1986
+    ],
+    "targetAge": [
+      18,
+      45
+    ],
+    "applicableRegions": [
+      "华东",
+      "华南",
+      "华北",
+      "东北"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "shanghai",
+        "tianjin",
+        "guangdong",
+        "jiangsu",
+        "zhejiang",
+        "shandong",
+        "liaoning",
+        "fujian"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.78,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1984年中央决定进一步开放大连、秦皇岛、天津、烟台、青岛、连云港、南通、上海、宁波、温州、福州、广州、湛江、北海14个沿海港口城市，中外合资合作企业蓬勃涌现。",
+    "narrative": "港口码头吊车林立，外商洽谈会与合资工厂招聘简章贴满了外贸大楼。第一批外企招录懂英语、懂机电操作的青工，身着合体工装、按时打卡、月薪翻倍的现代企业震撼着沿海年轻人。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "报考合资机电/纺织大厂做熟练流水线工，接受外企严格规范管理",
+        "choiceTags": [
+          "时代：1984–1986",
+          "年龄：18–35",
+          "地域：沿海14开放港口",
+          "门槛：青年工薪"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "拿到比国企高出一倍的现钞工资与加班费，掌握现代ISO质量管理流程。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "进入早期合资外企开眼界，领跑同龄人工资水平。",
+            "status": "joint_venture_worker"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "车间两班倒高强度打卡劳累过度，神经衰弱视力下降。",
+            "effect": {
+              "health": -20,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "合资流水线高强度考核透支健康，但赚下丰厚第一桶金。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "外资因国际航运波动削减订单临时停产待料，收入骤降两个月。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初步体味到国际外贸订单周期波动的不可控性。"
+          }
+        ]
+      },
+      {
+        "text": "留在原国有老港务局/机床厂，兼修夜校涉外商务英语等待机遇",
+        "choiceTags": [
+          "时代：1984–1986",
+          "年龄：18–40",
+          "地域：沿海老国企",
+          "门槛：体制内员工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "学成英语出任港务局涉外货轮装卸调度主管，既有编制又享外勤津贴。",
+            "effect": {
+              "knowledge": 25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "结合外向型经济提升自身外语，成为国企涉外骨干。",
+            "status": "port_cadre"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "眼见同龄人跳槽合资拿高薪买大件家电，心理一度难以平衡。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "面对沿海薪酬双轨制冲击，守住老厂安稳饭碗。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1985_caijun_baiwan",
+    "tier": "era",
+    "title": "裁军百万大精简与军转民潮",
+    "yearRange": [
+      1985,
+      1987
+    ],
+    "targetAge": [
+      18,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "soldier"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1985年中央军委决定裁减军队员额100万，大批铁道兵、基建工程兵集体转业为铁道部与建设部工程局，军工企业大力推进‘军转民’生产摩托车、电冰箱与民品。",
+    "narrative": "营房大礼堂里军歌悲壮嘹亮，摘下领章帽徽的那一刻，钢铁般的男儿热泪盈眶。背起帆布行囊，数十万转业官兵退伍返乡或集体成建制并入地方建筑路桥单位。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 5
+    },
+    "choices": [
+      {
+        "text": "服从整编集体转业为地方工程路桥集团施工队长，转战全国筑路",
+        "choiceTags": [
+          "时代：1985–1987",
+          "年龄：20–45",
+          "地域：全国工程线",
+          "门槛：工程转业官兵"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "保持军人优良作风雷厉风行，带队修建首条高等级公路荣立集体一等功。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "脱下戎装投身国家大基建，成为路桥交通工程脊梁。",
+            "status": "veteran_builder",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "隧道开凿遭遇瓦斯涌出与塌方砸伤右臂，休养半年评轻残退二线。",
+            "effect": {
+              "health": -30,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转业工程施工负工伤致残，转为调度室主任。",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "常年随筑路队风餐露宿浪迹荒野，与家人两地分居子女疏远。",
+            "effect": {
+              "family": -25,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "为国家大通道四海为家，家庭团聚成为奢侈期盼。"
+          }
+        ]
+      },
+      {
+        "text": "申请转业安置回原籍县城公安局或司法局，当基层执法干警",
+        "choiceTags": [
+          "时代：1985–1987",
+          "年龄：22–40",
+          "地域：原籍城镇",
+          "门槛：转业干部"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "安置进入县公安局巡警保卫科，分到单位福利房，守在妻儿父母身边。",
+            "effect": {
+              "wealth": 20,
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转业落户家乡公安系统，家庭事业双圆满。",
+            "status": "police_officer",
+            "newCareerTrack": "cadre_teacher"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "抓捕跨省重大盗窃团伙时被歹徒用匕首划伤左小臂，荣立三等功。",
+            "effect": {
+              "health": -20,
+              "mentality": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转业从警忠于职守负伤立功，深受百姓拥戴。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "因县级财政紧张连续数月缓发警衔津贴，日子过得颇为清苦拮据。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转业地方遭遇财政困难期，咬牙同舟共济。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1985_dagongchao_dongnan",
+    "tier": "era",
+    "title": "“孔雀东南飞”与珠三角打工潮",
+    "yearRange": [
+      1985,
+      1989
+    ],
+    "targetAge": [
+      17,
+      30
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.8,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1980年代中后期数以百万计的内地农村青年背上编织袋涌入东莞、深圳、顺德等珠三角城镇。‘三来一补’玩具厂、电子厂拔地而起，中国第一代打工妹、打工仔登上历史舞台。",
+    "narrative": "春运绿皮列车挤得连过道和水池都站满了人。年轻人们提着印有‘上海’字样的旅行包，操着各省方言涌出广州火车站。街道上‘招录女工、包吃包住’的白纸红字随处可见。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "跟随同村老乡南下东莞玩具电子厂，在日光灯下做流水线焊锡打包",
+        "choiceTags": [
+          "时代：1985–1989",
+          "年龄：17–30",
+          "地域：广东珠三角",
+          "门槛：内地农家青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "每月寄回两百元汇款单给老家盖楼，年底给父母寄回彩色画报与年货。",
+            "effect": {
+              "wealth": 35,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "第一代农民工典范，用流水线汗水撑起内地老家半边天。",
+            "status": "migrant_pioneer",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "injured",
+            "weight": 28,
+            "log": "焊锡松香烟雾刺鼻且通宵加班导致重度咽喉炎与手指烫伤。",
+            "effect": {
+              "health": -25,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恶劣劳保条件落下慢性咽喉病，但赚下扎实家底。",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "entangled",
+            "weight": 12,
+            "log": "路上遭遇火车站黑中介诈骗工本费，滞留街头靠老乡接济进厂。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初入大都市遭遇江湖险恶被骗，幸得同乡施以援手。",
+            "newCareerTrack": "worker"
+          }
+        ]
+      },
+      {
+        "text": "留在老家承包田伺候庄稼，照顾体弱多病的父母双亲",
+        "choiceTags": [
+          "时代：1985–1989",
+          "年龄：18–35",
+          "地域：内地乡村",
+          "门槛：留守青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "在父母膝前尽孝，农作有条不紊，村里小家庭和乐安宁。",
+            "effect": {
+              "family": 25,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "守望家乡麦田尽孝，享受传统乡村安稳淳朴。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "看着南下同伴过年带回洋气的录音机与尼龙大衣，内心五味杂陈。",
+            "effect": {
+              "mentality": -15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "留守故土面对城乡收入拉大，饱尝心理落差。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1985_chuguore_tuofu",
+    "tier": "era",
+    "title": "托福外语热与自费留学潮",
+    "yearRange": [
+      1985,
+      1989
+    ],
+    "targetAge": [
+      20,
+      32
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "higher_ed_degree"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.72,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1985年中国取消自费留学审批资格限制，放宽留学政策。大学校园刮起强劲的‘托福热’与‘出国狂潮’，红宝书词表与听力磁带成为青年学子人手一份的标配。",
+    "narrative": "高校阶梯教室通宵坐满刷题的学生，录音机里传来美音听力朗读。为了报考托福，大家连夜带着军大衣在考点门外排队三天三夜。大洋彼岸的奖学金成了改变阶层命运的最亮灯塔。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙啃完厚厚词典考下高分托福，向北美大学狂投申请争取全奖",
+        "choiceTags": [
+          "时代：1985–1989",
+          "年龄：20–32",
+          "地域：大中城市高校",
+          "门槛：本科学历/英语功底"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "斩获全额奖学金顺利飞赴北美攻读博士，开启跨国学术与职场征程。",
+            "effect": {
+              "knowledge": 40,
+              "wealth": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "80年代自费留学成功飞跃重洋，跻身华人海外精英行列。",
+            "status": "overseas_scholar"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "成绩虽过关但签证数次遭遇无理拒签，耗费数千元积蓄遗憾抱憾留国。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "签证受挫断了出国念想，回国内高校继续带研究生。"
+          },
+          {
+            "type": "redirected",
+            "weight": 10,
+            "log": "因精通外语被新成立的中外合资代表处高薪招为主管翻译。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借外语优势涉足沿海涉外商务，抢先享受外贸红利。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "安心留守国内科研教学岗位，参与国家自然科学基金早期重点项目",
+        "choiceTags": [
+          "时代：1985–1989",
+          "年龄：22–35",
+          "地域：科研院所",
+          "门槛：青年教师/助教"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "作为国内青年学术骨干破格提拔为副研究员，分得两居室福利套房。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 20,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "留守国内挑大梁，快速晋升为科研学术带头人。",
+            "status": "promoted_scholar"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "面对‘造导弹不如卖茶叶蛋’的脑体倒挂，每月领薄弱死工资感到迷茫。",
+            "effect": {
+              "mentality": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在脑体倒挂岁月坚守清贫书桌，历经考验。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1986_yiwujiaoyu",
+    "tier": "era",
+    "title": "《义务教育法》颁布与九年制普及",
+    "yearRange": [
+      1986,
+      1989
+    ],
+    "targetAge": [
+      6,
+      15
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1986年4月全国人大审议通过《中华人民共和国义务教育法》，确立国家实行九年制义务教育制度，普及少年儿童免费基础教育，成为中国现代教育史里程碑。",
+    "narrative": "村头泥泞的土台阶被水泥台阶取代，琅琅书声在瓦房小学里回荡。黑板上写着‘再穷不能穷教育，再苦不能苦孩子’。适龄孩童必须送进学校，辍学打工受到严格律法约束。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "每天背着缝补的书包步行五里泥路上学，刻苦自律打牢各门功课基础",
+        "choiceTags": [
+          "时代：1986–1989",
+          "年龄：6–15",
+          "地域：全国城乡",
+          "门槛：适龄学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "顺利读完初中九年义务教育，数理语文基础极为扎实，名列前茅考入县一中。",
+            "effect": {
+              "knowledge": 30,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "完整享受九年义务教育红利，为后半生奠定知识基石。",
+            "status": "middle_school_graduate"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "冬天雨雪路滑在山路上摔倒擦伤膝盖，仍瘸着腿坚持到校上早自习。",
+            "effect": {
+              "health": -15,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "求学之路艰辛但意志如铁，深得师生赞赏。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "因学校缺少合格外语老师，初中英语底子薄弱，成为偏科隐患。",
+            "effect": {
+              "knowledge": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "乡村教育资源匮乏造成外语薄弱，日后加倍补足。"
+          }
+        ]
+      },
+      {
+        "text": "父母观念保守认为读书无用，暗中帮家里在田头放羊做手工贴补家用",
+        "choiceTags": [
+          "时代：1986–1989",
+          "年龄：10–15",
+          "地域：贫困偏远山村",
+          "门槛：特困家庭子女"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 50,
+            "log": "被村委会与驻村教师三次登门劝返复课，终于保住求学之路。",
+            "effect": {
+              "knowledge": 15,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在基层干部与乡村教师挽救下重返课堂，改变辍学命运。",
+            "status": "returned_student"
+          },
+          {
+            "type": "entangled",
+            "weight": 50,
+            "log": "过早辍学在家务农，因文化水平不足，后半生打工就业严重受限。",
+            "effect": {
+              "wealth": 10,
+              "knowledge": -25,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "失去义务教育庇护过早辍学，成为一生难以弥补的遗憾。",
+            "status": "status_dropped_out"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1986_laodonghetong",
+    "tier": "era",
+    "title": "国企劳动合同制试点与铁饭碗松动",
+    "yearRange": [
+      1986,
+      1988
+    ],
+    "targetAge": [
+      18,
+      50
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1986年国务院发布国营企业实行劳动合同制暂行规定，明确国营企业招用工人一律实行劳动合同制，彻底打破了‘一进国企干一辈子’的铁饭碗大锅饭格局。",
+    "narrative": "厂部人事科的大桌上摊开一份份蓝皮合同书。老工人们围在一旁议论纷纷，新招录的青年职工按手印签约。‘能进能出、打破铁饭碗’的标语让工厂大院泛起阵阵不安涟漪。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "作为新进合同制工人踏实苦干，狠抓数控车床与装配技能争当先进",
+        "choiceTags": [
+          "时代：1986–1988",
+          "年龄：18–35",
+          "地域：国企工矿",
+          "门槛：新入厂青工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "凭过硬技术指标被评为标兵工人，签订首批五年长期稳定劳动合同。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应劳动制度改革靠技能立足，成为国企骨干技工。",
+            "status": "contract_worker"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因车间生产线整顿被转入辅助包装组，工资奖金减半，倍感压力。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初入职场尝到合同制流动压力，督促自己不断学技术。"
+          }
+        ]
+      },
+      {
+        "text": "仗着老职工正式编制身份安于现状，在后勤仓库喝茶看报混日子",
+        "choiceTags": [
+          "时代：1986–1988",
+          "年龄：30–55",
+          "地域：老国企机关",
+          "门槛：原固定工编制"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "继续享受大锅饭编制工资，但面对改革浪潮内心总泛着一丝惶惶不可终日。",
+            "effect": {
+              "wealth": 10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "固守传统体制舒适区，未能提前掌握市场化生存技能。"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "因考核长期处于末位被调至看大门保安岗，威望与奖金大打折扣。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "考核落后转岗边际职位，为九十年代下岗危机埋下隐患。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1987_tanqinchao_laobing",
+    "tier": "era",
+    "title": "台湾老兵探亲潮与两岸亲人相认",
+    "yearRange": [
+      1987,
+      1989
+    ],
+    "targetAge": [
+      15,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.7,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1987年11月台湾当局开放老兵赴大陆探亲，结束了两岸近40年的隔绝状态。白发苍苍的老兵提着三大件五小件踏上故土，老家亲人抱头痛哭，骨肉终团聚。",
+    "narrative": "村头和弄堂口驶入一辆挂着外埠牌照的出租车，戴金丝眼镜、穿笔挺西服的白发老翁颤巍巍下车，手里紧攥着泛黄的老家宗谱。离别四十载，相顾泪满巾。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "热情迎接远归的海外至亲骨肉，摆家宴叙离情，陪同修缮祖坟宗祠",
+        "choiceTags": [
+          "时代：1987–1989",
+          "年龄：15–80",
+          "地域：全国",
+          "门槛：涉台侨属亲友"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "亲情融洽获赠彩电录像机大件家电与侨汇资助，祖坟得以重修祭扫。",
+            "effect": {
+              "wealth": 35,
+              "family": 35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "两岸骨肉相认获侨汇支持，家境与人脉实现巨大跨越。",
+            "status": "overseas_family_tied"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "因远亲资助资金分配不均与同族兄弟产生隔阂，引起财产口舌纠纷。",
+            "effect": {
+              "family": -20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "外来侨资带来财富的同时引发宗族分配矛盾，费力平息。"
+          }
+        ]
+      },
+      {
+        "text": "协助地方台办与统战部门组织接待联谊，宣传家乡投资经贸环境",
+        "choiceTags": [
+          "时代：1987–1989",
+          "年龄：25–60",
+          "地域：县市城镇",
+          "门槛：体制干部/知识分子"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成功促成台商亲友在县城投资创办第一家中外合资鞋服厂，受市委记功表彰。",
+            "effect": {
+              "knowledge": 20,
+              "wealth": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以侨为桥招商引资，成为当地改革开放涉外骨干。",
+            "status": "taiwan_liaison"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "沟通繁琐垫支多笔接待经费迟迟未报销，工作劳心伤神。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "涉台接待工作繁重琐碎，历经协调磨练。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1987_kenji_qianmen",
+    "tier": "era",
+    "title": "肯德基中国首店在前门开业",
+    "yearRange": [
+      1987,
+      1988
+    ],
+    "targetAge": [
+      8,
+      55
+    ],
+    "applicableRegions": [
+      "华北"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "beijing",
+        "tianjin",
+        "hebei"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1987年11月中国首家美式快餐肯德基在北京前门繁华地段开业。三层楼的大店门口天天排长队，原味吮指原味鸡与土豆泥成为国人接触西方快餐文化的早期窗口。",
+    "narrative": "前门大街飘着炸鸡的焦香，玻璃橱窗里桑德斯上校笑脸迎人。门口排队的人流拐了两个弯，有人为了尝一块两块五毛钱的炸鸡，宁肯攒下半个月的零花钱。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 5
+    },
+    "choices": [
+      {
+        "text": "拿出省下的半月零花钱带家人尝鲜排队购买原味炸鸡和土豆泥",
+        "choiceTags": [
+          "时代：1987–1988",
+          "年龄：8–50",
+          "地域：京津华北",
+          "门槛：城市居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "吃上一口酥脆多汁的炸鸡，在红色餐盒前留影合影，成为大院里炫耀谈资。",
+            "effect": {
+              "wealth": -10,
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "第一次品尝洋快餐，亲身感受对外开放的现代商业气息。",
+            "status": "tried_western_fastfood"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "觉得炸鸡油腻不对胃口，心疼花掉的两张大钞，但满足了全家好奇心。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "体验西洋新鲜事物后回归传统饮食，生活充满时代烟火。"
+          }
+        ]
+      },
+      {
+        "text": "敏锐洞察现代快餐连锁运营模式，在附近小吃街学做本土脆皮炸鸡摊",
+        "choiceTags": [
+          "时代：1987–1988",
+          "年龄：20–45",
+          "地域：京津城镇",
+          "门槛：个体经营者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "以低一半的平民价格做国产炸鸡风靡街巷，成为前门红火的万元个体户。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敏锐模仿洋快餐本土化，抢占早期大众小吃餐饮蓝海。",
+            "status": "fastfood_entrepreneur",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "操作电炸锅时不慎被高温沸油溅伤右手背，住院包扎三周。",
+            "effect": {
+              "health": -20,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "炸锅操作受烫伤留疤，但生意越做越大。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "油烟扰民遭附近居民举报整改，搬迁摊位损失一周营业额。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "小吃摊初创遭遇合规波折，学会规范排烟经营。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1988_jiage_chuangguan",
+    "tier": "era",
+    "title": "1988年“价格闯关”与全国抢购狂潮",
+    "yearRange": [
+      1988,
+      1989
+    ],
+    "targetAge": [
+      16,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1988年夏中央尝试放开绝大多数商品价格进行‘价格闯关’。由于通胀预期，全国大中城市爆发罕见挤兑抢购风潮，市民囤积火柴、肥皂、食盐、电风扇甚至毛线面料。",
+    "narrative": "百货大楼的柜台被围得水泄不通，货架在半天内被扫荡一空。人们手里攥着厚厚的人民币和存折，不管有用没用，见货就买，扛着整箱肥皂和几台电风扇穿过混乱街道。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "跟随街坊人流连夜排队提款，抢购保值棉花、火柴与几箱日用肥皂",
+        "choiceTags": [
+          "时代：1988–1989",
+          "年龄：18–75",
+          "地域：全国城镇",
+          "门槛：城镇市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "抢购的物资虽然占满床底，但确实在随后数月物价飞涨中省下了过日子钱。",
+            "effect": {
+              "wealth": 15,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "参与88抢购潮自保过日子，囤积物资抵御通胀波动。"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "百货商场门前极度拥挤发生踩踏推搡，脚踝被铁门挤压骨裂休养。",
+            "effect": {
+              "health": -25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在商场抢购人潮中被踩伤脚踝，体味到抢购盲动之苦。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "高位盲目抢购了三台残次黑白电视机，随后价格平抑亏掉半年积蓄。",
+            "effect": {
+              "wealth": -30,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲目抢购囤积残次家电折损身家，吸取深刻理财教训。"
+          }
+        ]
+      },
+      {
+        "text": "保持冷静理性不参与挤兑，将积蓄存为定期保值储蓄对抗通胀",
+        "choiceTags": [
+          "时代：1988–1989",
+          "年龄：22–65",
+          "地域：全国",
+          "门槛：理性居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "国家随后出台保值储蓄补贴利息政策，本息安然无恙，免去折腾搬运之苦。",
+            "effect": {
+              "wealth": 10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冷静不盲从跟风抢购，依托保值储蓄平稳度过物价闯关期。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "短时间内物价翻倍导致生活日用开支骤增，节衣缩食两三年。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "物价上涨侵蚀固定工薪，度过数年精打细算的清贫岁月。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1988_hainan_sheng",
+    "tier": "era",
+    "title": "海南建省办大特区与十万人才下海南",
+    "yearRange": [
+      1988,
+      1990
+    ],
+    "targetAge": [
+      18,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1988年4月全国人大设立海南省并划定海南岛为经济特区。‘十万人才下海南’，大批大学生、知识分子与拓荒者乘轮渡跨过琼州海峡，投身最大特区建设。",
+    "narrative": "秀英港码头停满客轮，来自各地的求职年轻人背着帆布包走上海口街头。三角池的人才劳务市场挂满了手写招聘牌，椰树下随处是手握简历、怀揣梦想的年轻面孔。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "带上文凭与积蓄勇闯海口三角池人才市场，应聘特区早期贸易/房产公司",
+        "choiceTags": [
+          "时代：1988–1990",
+          "年龄：20–40",
+          "地域：海南海口",
+          "门槛：有文凭有胆识青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "入职早期外贸开发公司参与特区基建，工资翻倍，分到海滨职工简易宿舍。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "赶上十万人才下海南壮举，成为热带大特区拓荒功臣。",
+            "status": "hainan_pioneer"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在炎热暴晒的人才集市中暑并患急性肠胃炎，住院一周花光盘缠。",
+            "effect": {
+              "health": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "南下水土不服受病痛折磨，但咬牙坚持扎根海岛。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "遭遇皮包中介骗走一百元介绍费，在海口公园露宿三夜才找到立足工。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初入大特区遭遇诈骗露宿街头，历练出粗砺生存本领。"
+          }
+        ]
+      },
+      {
+        "text": "认定孤岛开发风险莫测，留在原省份体制内科研所深耕专业",
+        "choiceTags": [
+          "时代：1988–1990",
+          "年龄：22–50",
+          "地域：内地各省",
+          "门槛：体制内员工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "在原单位按部就班晋升业务骨干，生活风平浪静，家庭安稳团圆。",
+            "effect": {
+              "family": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理智评估未盲从下海南热潮，守住内地稳定生活基业。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "听闻南下同仁在海南炒地皮发大财传闻，内心偶有患得患失之叹。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "面对沿海暴富神话传闻心起涟漪，但坚守内心宁静。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1988_xiaozhongzhuan",
+    "tier": "era",
+    "title": "“小中专热”：考取中专跳出农门",
+    "yearRange": [
+      1986,
+      1992
+    ],
+    "targetAge": [
+      14,
+      17
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.82,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1980年代中后期至1990年代初，中考报考省属中等专业学校（小中专）成为乡村学子最高荣誉。考上中专立即转为城市‘商品粮’户口且包分配干部工，录取线甚至超越重点高中。",
+    "narrative": "初三教室的黑板上写着中专与普高录取线。老校长拉着你的手千叮咛万嘱咐。只要考上省属财贸、师范或农机中专，不仅三年学费全免，毕业直接端上国家干部铁饭碗。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "全力报考省属中等专业学校（小中专），毕业直通铁饭碗跳出农门",
+        "choiceTags": [
+          "时代：1986–1992",
+          "年龄：14–17",
+          "地域：全国农村",
+          "门槛：初三顶尖学霸"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "以全校第一名斩获省属财经中专录取通知书，全村敲锣打鼓送行，转为城市商品粮户口。",
+            "effect": {
+              "wealth": 30,
+              "knowledge": 25,
+              "family": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "通过千军万马考取中专跃龙门，早早端上干部公薪铁饭碗。",
+            "status": "zhongzhuan_graduate",
+            "newCareerTrack": "cadre_teacher"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "因一分之差惜败落选调剂到县农机校，未能端上省属好饭碗，略显失落。",
+            "effect": {
+              "mentality": -20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "中专竞争惨烈差一分调剂，后半生留在了基层农机系统。",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "通宵苦读导致高度近视且神经衰弱头痛，体检差点被卡视力关。",
+            "effect": {
+              "health": -20,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拼命考学透支视力，但在全家人期待中顺利脱胎换骨。"
+          }
+        ]
+      },
+      {
+        "text": "放弃眼前包分配诱惑，报考重点高中图谋三年后冲击全日制大学本科",
+        "choiceTags": [
+          "时代：1986–1992",
+          "年龄：14–17",
+          "地域：县城与乡村",
+          "门槛：有远见学子"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "升入重点高中咬牙苦读三年，终于在高考中金榜题名考取全国重点大学本科。",
+            "effect": {
+              "knowledge": 40,
+              "wealth": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "舍弃眼前中专包分配短利，放长线钓大鱼终成名校高材生。",
+            "status": "highschool_to_college"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "高中毕业高考落榜未能被大学录取，因失去中专包分配资格陷入两难待业。",
+            "effect": {
+              "mentality": -25,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冲击本科失利未考上，反而错失了当年中专包分配红利。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1989_beijing_fengbo",
+    "tier": "era",
+    "title": "1989年春夏之交的风波与人生抉择",
+    "yearRange": [
+      1989,
+      1989
+    ],
+    "targetAge": [
+      17,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "beijing",
+        "tianjin",
+        "shanghai",
+        "hubei",
+        "shaanxi"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 5,
+    "factLevel": "估计/文学化",
+    "historicalFact": "1989年春夏之交北京及部分大城市发生政治风波，社会秩序与各行各业受到严重影响，随后国家平息局势并重新调整政策导向。",
+    "narrative": "初夏的街头人流涌动，各类传单在大街小巷流传，公共交通陷入停滞。面对复杂的局面与纷乱的声音，单位与学校要求坚守岗位与考场，每个人都在复杂的时代漩涡前驻足沉思。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "坚守图书馆与科研车间本职岗位，闭门研读毕业论文，严守纪律",
+        "choiceTags": [
+          "时代：1989",
+          "年龄：17–55",
+          "地域：涉事大城市",
+          "门槛：大中专师生/职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "潜心完成论文毕业设计并顺利通过答辩，如期分配进入省属科研事业单位。",
+            "effect": {
+              "knowledge": 20,
+              "wealth": 15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在动荡时刻保持冷静克制守住书桌，平稳进入体制内开展学术生涯。"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "虽未参与任何活动，但因所属班级宿舍受到常规谈话审查，延期三月定岗。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "随大流经受例行谈话排查，虽无处分但心有郁结。"
+          },
+          {
+            "type": "redirected",
+            "weight": 10,
+            "log": "看淡虚浮纷扰，决定提前办理解约离京，奔赴广东沿海开放前沿发展。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "受时代风波感触提前南下南粤求索，开启民营经济打拼历程。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "出于朴素关切在街头巷尾送开水、维持交通秩序与救护帮扶",
+        "choiceTags": [
+          "时代：1989",
+          "年龄：18–45",
+          "地域：大城市街头",
+          "门槛：热心市民/青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "局势平息后默默重回原单位，将深切的感悟埋藏心底，踏实生活。",
+            "effect": {
+              "mentality": 15,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "见证时代剧变后回归寻常日子，以务实求真态度过好后半生。"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "在夜间人流拥挤推搡中摔倒擦伤手臂与前胸，养伤一月。",
+            "effect": {
+              "health": -20,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在夜间人流推挤中摔伤留痕，体会到现实的沉重与残酷。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "被要求在单位连续三周写思想检查报告，入党考察期被推迟两年。",
+            "effect": {
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因街头帮扶被要求写思想检讨并延缓提拔，历经数年方平复。"
+          },
+          {
+            "type": "redirected",
+            "weight": 9,
+            "log": "毅然辞去原有公职编制，远赴海南岛或深圳经济特区自谋生路。",
+            "effect": {
+              "wealth": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "受风波影响脱离原体制南下商海，成为海南特区拓荒者之一。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "fatal",
+            "weight": 1,
+            "log": "在极度混乱的街区走避不及时遭遇突发意外不幸失去音讯罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在极度混乱的城市街区中遭遇突发意外不幸罹难。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1990_shangzhengsuo",
+    "tier": "era",
+    "title": "上海证券交易所开市与“老八股”热潮",
+    "yearRange": [
+      1990,
+      1991
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "华东"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "shanghai",
+        "jiangsu",
+        "zhejiang"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1990年12月上海证券交易所在黄浦路浦江饭店正式开业。真空电子、飞乐音响等‘老八股’挂牌交易，红马甲穿梭在红绿跳动的行情大屏幕前，敲响了新中国资本市场的钟声。",
+    "narrative": "西康路静安证券业务部门前整夜排满长队，小折凳、军用水壶铺了一地。柜台里手递手交接着黄绿色印有红章的股票纸票，面额几块钱的股票转眼翻了几番。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 5,
+      "knowledge": 10
+    },
+    "choices": [
+      {
+        "text": "拿出三千元积蓄在西康路排队购入‘电真空’与‘飞乐音响’原始老八股",
+        "choiceTags": [
+          "时代：1990–1991",
+          "年龄：22–55",
+          "地域：上海江浙",
+          "门槛：有数千积蓄股民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "老八股一年内暴涨十余倍抛售套现，一跃成为大户室里喝茶抽中华的大赢家。",
+            "effect": {
+              "wealth": 60,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期股市造富神话幸运儿，凭借敏锐眼光赚下第一桶金。",
+            "status": "stock_pioneer"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "排队三天三夜受寒引发重度肺炎住院，且高位追涨买入接盘套牢数月。",
+            "effect": {
+              "health": -25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲目狂热排队伤身，并因高位追涨被短暂深套。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "纸质股票防潮不慎被老鼠啃坏一角，跑了数家银行与发行公司方办理补登。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期纸质证券保管不慎受波折，吸取规范理财经验。"
+          }
+        ]
+      },
+      {
+        "text": "认定股市风险莫测如赌博，坚决不沾股市，专心做实体加工做买卖",
+        "choiceTags": [
+          "时代：1990–1991",
+          "年龄：22–60",
+          "地域：华东城镇",
+          "门槛：保守居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "踏实经营实体店铺不图虚浮横财，避开了后来的股市大幅剧烈震荡洗牌。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "坚守本心专注实业，规避了早期证券市场的大起大落风险。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "看着隔壁老邻居靠股票换了洋房和彩电，内心暗自懊恼自己胆子太小。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "面对时代造富红利波澜，体会到敢闯与求稳的人生取舍。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1990_beijing_yayun",
+    "tier": "era",
+    "title": "第十一届北京亚运会盛况见证",
+    "yearRange": [
+      1990,
+      1990
+    ],
+    "targetAge": [
+      8,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1990年9月第十一届亚运会在北京隆重举行，这是中国首次承办大型综合性国际体育赛事。吉祥物大熊猫‘盼盼’与主题曲《亚洲雄风》唱响神州大地，全国掀起亚运捐款热潮。",
+    "narrative": "广播大喇叭天天播放‘我们亚洲，山是高昂的头’。街头巷尾贴满手持金牌的熊猫盼盼贴画，学校里号召大家捐出一分钱零用钱支援亚运，胸前别着亚运五环徽章成了最时尚的装扮。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15
+    },
+    "choices": [
+      {
+        "text": "主动为亚运会建设工程捐款一个月零花钱，报名参与全民迎亚运爱国卫生清扫",
+        "choiceTags": [
+          "时代：1990",
+          "年龄：8–70",
+          "地域：全国",
+          "门槛：平民大众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "获得亚运组委会捐款纪念证书，在大杂院扫除清淤中感受到空前凝聚力与荣光。",
+            "effect": {
+              "mentality": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "积极支援首届北京亚运，体验全民齐心的家国情怀。",
+            "status": "asian_games_contributor"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "买下印有盼盼图案的书包与陶瓷纪念盘珍藏，留下一代人经典记忆。",
+            "effect": {
+              "wealth": -5,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "珍藏盼盼纪念物，见证中国走向世界的大国自信起步。"
+          }
+        ]
+      },
+      {
+        "text": "若身处京津地区，参与亚运会场馆外围交通疏导或合资快餐特需保供服务",
+        "choiceTags": [
+          "时代：1990",
+          "年龄：18–45",
+          "地域：京津华北",
+          "门槛：工矿青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "在奥体中心外围圆满完成涉外交通调度，被评为市级精神文明优秀模范个人。",
+            "effect": {
+              "knowledge": 15,
+              "mentality": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在一线服务亚运盛会开眼界，锤炼出大型活动统筹能力。",
+            "status": "asian_games_volunteer"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "连续两周高强度执勤暴晒严重脱皮并患日光性皮炎，服药调养半月。",
+            "effect": {
+              "health": -15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "服务盛会劳碌脱皮，但以亲历历史盛宴为傲。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1991_huadong_shuizai",
+    "tier": "era",
+    "title": "1991华东特大水灾与全国赈灾大动员",
+    "yearRange": [
+      1991,
+      1991
+    ],
+    "targetAge": [
+      10,
+      75
+    ],
+    "applicableRegions": [
+      "华东",
+      "华中"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "anhui",
+        "jiangsu",
+        "henan",
+        "hubei"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1991年夏江淮淮河流域与太湖流域暴雨如注，遭遇新中国罕见特大水灾。安徽、江苏受灾最为严重，数千万人受困水乡。中国政府首次向国际社会呼吁抗洪紧急救灾援助，港台同胞亦倾力捐助。",
+    "narrative": "淮河两岸一片汪洋，村舍在混浊波涛中只露出屋顶瓦脊。乡亲们挤在大堤上搭起的塑料油布窝棚避水，解放军舟桥部队冲锋舟划破水面运送救灾大饼与净水药片。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处江淮受灾区，随大队老幼紧急撤上防汛大堤，咬牙协助抢垒沙袋护堤",
+        "choiceTags": [
+          "时代：1991",
+          "年龄：14–65",
+          "地域：淮河江淮洪泛区",
+          "门槛：灾区百姓"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "在大堤上连夜奋战堵住管涌保住家园，全家人平安脱险，饮用净水药片无疫病。",
+            "effect": {
+              "health": -10,
+              "mentality": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经历91华东特大水灾洗礼保全一家老小，磨练出逆境坚韧意志。",
+            "status": "flood_survivor_1991"
+          },
+          {
+            "type": "injured",
+            "weight": 32,
+            "log": "泡水抢险过久患上重度烂脚浸润与接触性皮炎，多处皮肤溃烂感染。",
+            "effect": {
+              "health": -30,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抗洪泡水落下一身慢性湿疹，但守住了全村人堤防安全。"
+          },
+          {
+            "type": "entangled",
+            "weight": 11,
+            "log": "家中三间泥瓦房被洪水彻底冲垮，靠政府发放救济棉被与口粮艰难度过严冬。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "房屋尽毁一贫如洗，全靠国家救济与自力更生重建家园。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "夜间撤离渡船不慎被暗流漩涡掀翻溺水不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在华东洪水中转移避难不幸溺水罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若身处非灾区，主动响应号召向灾区捐赠半月工资与旧棉衣棉被",
+        "choiceTags": [
+          "时代：1991",
+          "年龄：16–70",
+          "地域：全国其他省市",
+          "门槛：普通市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "积极打包捐出御寒棉衣棉被支援灾区同胞，体现血浓于水的一方有难八方支援。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倾力捐助水灾同胞，传承互帮互助大爱美德。"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "参加街道组织的义演义卖为灾区筹款，深切体会到国家治理与同胞深情。",
+            "effect": {
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "参与社会公益慈善活动，思想境界获得升华。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1992_nanxun_jianghua",
+    "tier": "era",
+    "title": "邓小平南方视察与“发展才是硬道理”",
+    "yearRange": [
+      1992,
+      1993
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1992年春邓小平视察武昌、深圳、珠海、上海等地并发表重要谈话，明确提出‘特区姓社不姓资’、‘三个有利于’、‘发展才是硬道理’，驱散改革观望迷雾，掀起新一轮改革开放与经济狂飙。",
+    "narrative": "报纸各大头条整版刊发长篇通讯《东方风来满眼春》。机关大院、厂矿车间大喇叭日夜宣讲‘胆子要更大一点，步子要更快一点’。沉闷的气氛被一扫而空，神州大地再次涌动着滚滚春潮。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15,
+      "wealth": 10
+    },
+    "choices": [
+      {
+        "text": "深读南巡讲话备受鼓舞，主动申请在单位内承包亏损车间搞自负盈亏自主经营",
+        "choiceTags": [
+          "时代：1992–1993",
+          "年龄：24–50",
+          "地域：全国工矿城镇",
+          "门槛：骨干职工/技师"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "引进新技术改革绩效工资，半年扭亏为盈，全车间奖金翻番，成为局里改革典型。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借南巡春风承包车间放手一搏，成为国企改制早期弄潮儿。",
+            "status": "reform_contractor"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "承包后遭遇原材料价格飞涨回款困难，被原厂部追缴保证金，负债劳心。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "体制内承包自负盈亏遇市场风浪考验，深感办实业不易。"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "连续两月连轴转跑全国推销产品导致急性胃出血住院抢救，身体透支。",
+            "effect": {
+              "health": -30,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "跑业务拼命导致胃出血，调养后更加注重劳逸结合。"
+          }
+        ]
+      },
+      {
+        "text": "坚持稳健原则守好本职业务，利用业余时间修读市场经济与财务外贸课程",
+        "choiceTags": [
+          "时代：1992–1993",
+          "年龄：20–45",
+          "地域：全国",
+          "门槛：求知青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "自学考取会计员证书与外销员从业资格，在随后到来的外向型经济大潮中如鱼得水。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "提前储备现代市场财会外贸知识，抢占职业技能转型先机。",
+            "status": "finance_skilled"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "面对单位内部大破大立的人事变动感到略微不适，坚守业务靠技术保饭碗。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在剧烈变革时代守住专业手艺，以不变应万变。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1992_xiahai_chao",
+    "tier": "era",
+    "title": "“92派”下海浪潮：砸破铁饭碗奔赴商海",
+    "yearRange": [
+      1992,
+      1994
+    ],
+    "targetAge": [
+      22,
+      50
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker",
+      "cadre_teacher"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.8,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1992年后全国掀起极为轰动的干部、知识分子下海经商潮（史称‘92派’）。据统计当年全国有超过十万体制内干部和科研人员辞职下海或停薪留职，创办私营实业与现代企业。",
+    "narrative": "科室茶杯还在冒着热气，抽屉里已塞好了盖着红印的‘停薪留职批复’。身边的年轻科长和大学讲师脱掉笔挺干部装，换上皮夹克，提起装满公章和样品的公文包走向火车站。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "毅然办理停薪留职或辞去公职编制，南下特区/长三角创办五金贸易与咨询公司",
+        "choiceTags": [
+          "时代：1992–1994",
+          "年龄：24–45",
+          "地域：全国大中城市",
+          "门槛：体制内员工/有数千本金"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "赶上物资匮乏与市场爆发双重红利，三年内公司营业额破千万，成为知名企业家。",
+            "effect": {
+              "wealth": 70,
+              "knowledge": 20,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "92派下海先锋典范，脱离体制在市场大风大浪中成就数千万实业。",
+            "status": "xiahai_entrepreneur",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因缺乏商业防诈骗经验被老江湖骗光启动资金，欠债数万咬牙在异乡摆地摊还债。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "下海初遇诈骗亏光积蓄，历经地摊还债磨难方东山再起。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "商海应酬常年大量酗酒患上急性重症胰腺炎住院两周，险些丧命。",
+            "effect": {
+              "health": -35,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "下海应酬暴饮暴食伤及内脏，后半生被迫戒酒调养。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "坚信体制内依然大有可为，留守原行政事业单位踏实参与法治与现代治理建设",
+        "choiceTags": [
+          "时代：1992–1994",
+          "年龄：24–55",
+          "地域：全国",
+          "门槛：体制内员工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "在单位机构改革中凭稳健专业才能晋升为中层科局级干部，主抓地方招商引资。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 20,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "留守体制内挑大梁，成为懂市场、善治理的现代化中坚干部。",
+            "status": "seasoned_cadre"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "看着昔日下海同事开着豪车回乡宴请，面对每月几百元死工资难免心绪起伏。",
+            "effect": {
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在体制与市场财富悬殊期坚守清贫，锤炼廉洁定力。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1992_shenzhen_810",
+    "tier": "era",
+    "title": "深圳“8·10”股票认购证与发售风波",
+    "yearRange": [
+      1992,
+      1992
+    ],
+    "targetAge": [
+      18,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.7,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1992年8月深圳发售国内新股认购抽签表，全国数百万人携数亿资金涌入深圳。大雨中数十万人连夜前胸贴后背排队数十小时，因网点营私引发群体风波，随后政府紧急增发500万张化解危机。",
+    "narrative": "深南中路各大银行网点前人山人海，酷暑与暴雨交替。人们用麻绳把整排排队者绑在一起防止插队，前胸紧贴着后背连呼吸都困难。一张面额百元的抽签表在场外转手就炒到数千元。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "带足积蓄与身份证随老乡连夜排队数十小时抢购抽签表，绝不中途退出",
+        "choiceTags": [
+          "时代：1992",
+          "年龄：18–50",
+          "地域：广东深圳/外来股民",
+          "门槛：带现款股民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "排队两天两夜成功抢到十张认购表全部中签，上市当天斩获十倍暴利套现。",
+            "effect": {
+              "wealth": 55,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "810认购证排队大赢家，靠吃大苦冒险赚下惊人原始资本。",
+            "status": "stock_lucky_winner"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "在极度拥挤的人群中被踩伤右脚骨裂并中暑虚脱，被人从人墙头顶抬出送医。",
+            "effect": {
+              "health": -30,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深南路人海踩踏严重负伤中暑，终生难忘资本狂热的残酷。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "排队排到窗口前几分钟宣布售罄，眼睁睁看着黄牛在黑市倒卖，气愤心酸折返。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "排队售罄空手而归损失往返路费，体味资本市场早期规则漏洞。"
+          }
+        ]
+      },
+      {
+        "text": "在拥挤街道旁支起折叠桌卖盒饭矿泉水与塑料雨衣，做无风险稳妥小买卖",
+        "choiceTags": [
+          "时代：1992",
+          "年龄：18–55",
+          "地域：深圳街头",
+          "门槛：务实生意人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "十元一盒的快餐和五元一把的雨伞遭疯抢，两天净赚数千元现钞，安稳落袋。",
+            "effect": {
+              "wealth": 30,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "卖水卖雨伞发‘淘金路上卖水人’稳财，展现极高商业智慧。",
+            "status": "street_smart",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "推车挑担时被暴躁插队人潮掀翻摊位，擦伤双臂并折损半数货物。",
+            "effect": {
+              "health": -15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在狂躁人群边缘做买卖受波折，但依然有所盈余。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1993_liangpiao_zhongjie",
+    "tier": "era",
+    "title": "全国取消粮票：告别三十八年票证时代",
+    "yearRange": [
+      1993,
+      1994
+    ],
+    "targetAge": [
+      10,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1993年全国绝大多数省市相继放开粮食价格，停止使用粮票、布票、肉票等统购统销票证。延续近40年的中国凭票供应制度正式终结，物资短缺时代一去不复返。",
+    "narrative": "粮店柜台上的大木斗换成了敞开式货架，红高粱、精白面、大米堆得高高的，贴着醒目的现钞价格。家家户户从抽屉深处翻出泛黄的面粉票、油票，如今都成了压箱底的历史见证卡片。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 10,
+      "mentality": 15
+    },
+    "choices": [
+      {
+        "text": "把家里剩余的最后两斤粮票在粮店换购白面，将多余的整套全国粮票精美装裱封存",
+        "choiceTags": [
+          "时代：1993–1994",
+          "年龄：10–80",
+          "地域：全国",
+          "门槛：普通大众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "吃上了松软的大白馒头，装裱的粮票后来成为家庭见证新中国历史变迁的传家宝。",
+            "effect": {
+              "wealth": 10,
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历统购统销终结，见证社会主义市场经济物资充盈奇迹。",
+            "status": "ticket_era_witness"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "粮票取消后市面粮价微涨，精打细算调整家庭伙食，日子踏实温饱。",
+            "effect": {
+              "wealth": 5,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "平稳过渡到自由购粮时代，柴米油盐寻常幸福。"
+          }
+        ]
+      },
+      {
+        "text": "凭借敏锐嗅觉，在县城街道创办平价粮油副食批发门市部，自由进销各地大米粮油",
+        "choiceTags": [
+          "时代：1993–1994",
+          "年龄：22–50",
+          "地域：城镇集市",
+          "门槛：个体经营者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "对接东北大米与鲁花花生油直供，成为全县第一家大型民营粮油副食超市。",
+            "effect": {
+              "wealth": 45,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抢占粮油放开第一波红利，民营粮油超市生意红红火火。",
+            "status": "grain_dealer",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "扛运百斤粮油麻袋长期压迫患上严重腰椎间盘突出，经常腰痛。",
+            "effect": {
+              "health": -25,
+              "wealth": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早年搬粮劳累落下腰疾，但换来殷实家产。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "夏季梅雨季节仓库防水疏忽导致两吨大米受潮发霉损失惨重。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "粮油仓储管理经验不足交学费，完善防潮防霉规程。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1993_hainan_pomo",
+    "tier": "era",
+    "title": "1993海南房地产泡沫破裂与烂尾楼潮",
+    "yearRange": [
+      1993,
+      1995
+    ],
+    "targetAge": [
+      22,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "merchant"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1993年6月国务院发布十六条整顿金融秩序措施，给过热的房地产踩下紧急刹车。海南、北海等地疯狂炒作地皮与楼花的泡沫瞬间破裂，留下数百栋烂尾楼与数千亿坏账沉淀。",
+    "narrative": "海口与三亚的滨海大道旁，昨夜还在击鼓传花的售楼处一夜间人去楼空。未封顶的钢筋混凝土框架在海风中生锈，炒房客抵押的存折与借据化为废纸，满大街都是慌乱催债的人群。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "在调控前夕敏锐察觉危险，果断降价两成果断甩卖楼花地皮套现离场",
+        "choiceTags": [
+          "时代：1993–1995",
+          "年龄：24–55",
+          "地域：海南/沿海",
+          "门槛：涉足地产商人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "成功在泡沫彻底破灭前落袋为安保住本金利润，在商界赢得极高声誉。",
+            "effect": {
+              "wealth": 50,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在海南房产大崩盘前全身而退，展现极强风险控制力。",
+            "status": "crisis_escape_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "虽转手多处地块但被下游买家连累拖欠尾款数十万，追索三年未果。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "虽提前脱身仍受坏账三角债牵连，元气有所损伤。"
+          }
+        ]
+      },
+      {
+        "text": "抱持侥幸心理继续高杠杆接盘借贷炒楼，楼盘烂尾被银行与债主堵门",
+        "choiceTags": [
+          "时代：1993–1995",
+          "年龄：24–50",
+          "地域：海南/沿海",
+          "门槛：盲目加杠杆者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 60,
+            "log": "资金链彻底断裂负债累累，不得不变卖家产潜回内地隐姓埋名自谋生路。",
+            "effect": {
+              "wealth": -55,
+              "mentality": -40,
+              "family": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遭遇海南房地产泡沫破裂血本无归，历经数年艰难还债。",
+            "status": "debt_crisis"
+          },
+          {
+            "type": "safe",
+            "weight": 30,
+            "log": "将烂尾楼宇改造成热带仓储和水产养殖基地，咬牙自救在数年后逐步翻盘。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "绝境中变通将烂尾资产盘活自救，展现极强商海韧性。",
+            "status": "resilient_entrepreneur"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "遭暴怒债权人雇凶追债殴打致右小腿骨折，在医院调养两月。",
+            "effect": {
+              "health": -30,
+              "wealth": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深陷债务纠纷负伤，成为商海盲目加杠杆的惨痛烙印。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1994_sanjiaozhai",
+    "tier": "era",
+    "title": "全国清理“三角债”与企业资金链博弈",
+    "yearRange": [
+      1993,
+      1996
+    ],
+    "targetAge": [
+      22,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker",
+      "merchant"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.8,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1990年代中前期企业间相互拖欠货款与工程款的‘三角债’恶疾蔓延全国，涉及数千亿元。朱镕基副总理铁腕主导注入源头清欠资金，斩断债务链条，规范市场商业信用。",
+    "narrative": "厂长办公室的大门整日被催款者堵得水泄不通。仓库里堆满了发不出工资而抵顶债款的铝合金门窗与布匹。财务桌上摊着厚厚的承兑汇票与欠条，每个人都在四处找款解套保生产。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "坚守现款现货原则，严控垫资，亲自带队上门以物抵债追讨源头陈欠",
+        "choiceTags": [
+          "时代：1993–1996",
+          "年龄：25–55",
+          "地域：全国工矿企业",
+          "门槛：销售业务骨干/企业主"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "成功追回八成关键流动资金，保障了车间职工足额发薪与原料采购。",
+            "effect": {
+              "wealth": 30,
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在三角债危机中铁腕控风险追回欠款，保全企业生命线。",
+            "status": "clearing_champion"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在东北异地讨债遭遇地方保护人员推搡殴打受皮肉伤，艰难讨回两成货款。",
+            "effect": {
+              "health": -20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "跨省清欠讨债吃尽苦头负伤，磨炼出过人谈判魄力。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "被迫接受客户以三卡车滞销罐头抵顶二十万货款，全厂职工发罐头抵工资。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抵顶回实物商品变现折价，体会到实体转型的沉重。"
+          }
+        ]
+      },
+      {
+        "text": "服从大局参与国家政策性注入清欠闭环，依规核销坏账专心技改升级",
+        "choiceTags": [
+          "时代：1993–1996",
+          "年龄：22–55",
+          "地域：国有重点厂矿",
+          "门槛：国企中层骨干"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "借助政府注资斩断债务链条，企业产品打入外贸新渠道重获生机。",
+            "effect": {
+              "knowledge": 25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依托国家清欠闭环甩掉历史包袱，投身技术革新。",
+            "status": "tech_upgraded"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "清欠后全厂实行分流减员降薪三成，生活清简节流支撑度日。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "企业资金紧张承受降薪分流，同舟共济渡难关。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1994_fenshuizhi",
+    "tier": "era",
+    "title": "分税制财政体制改革与国税地税分设",
+    "yearRange": [
+      1994,
+      1995
+    ],
+    "targetAge": [
+      22,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "cadre_teacher"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1994年1月中国推行重大分税制财政体制改革，建立中央与地方两套税收体制，设立国税局与地税局，理顺中央与地方分配关系，极大增强了中央宏观调控与国家财政实力。",
+    "narrative": "税务局大楼前挂起了两块崭新的大牌子，税务系统青年干部忙着整理增值税发票与核算系统。金税工程的大型计算机终端嗡嗡作响，现代税收征管制度正全面筑牢国之基石。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 5
+    },
+    "choices": [
+      {
+        "text": "钻研金税工程计算机发票交叉稽核系统，成为税务改革首批微机骨干",
+        "choiceTags": [
+          "时代：1994–1995",
+          "年龄：22–45",
+          "地域：税务机关系统",
+          "门槛：财经税务干部"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "熟练掌握现代微机增值税防伪税控体系，晋升为分局业务股长荣立三等功。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住分税制与金税工程技术红利，成为财税现代化骨干。",
+            "status": "tax_expert"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "高强度上机录入发票连续加班一个月导致严重颈椎病与干眼症。",
+            "effect": {
+              "health": -15,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "电脑录入繁重累及颈椎眼部，但练就过硬计算机本领。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "因严格依法核查偷漏税遭遇个别不良商贩恶劣言语威胁恐吓。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "严守国家税法顶住外部压力，彰显公职人员浩然正气。"
+          }
+        ]
+      },
+      {
+        "text": "若为企业财务人员，全面学习增值税专票抵扣规范，严格依法纳税规避发票风险",
+        "choiceTags": [
+          "时代：1994–1995",
+          "年龄：22–55",
+          "地域：工商企业",
+          "门槛：企业会计"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "建立全套规范的现代企业财务发票台账，帮助公司规避数笔虚开假发票大坑。",
+            "effect": {
+              "knowledge": 25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "精通新税制为企业筑牢合规防线，深得管理层倚重信任。",
+            "status": "senior_accountant"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "因旧账抵扣不符被税务所追缴罚款三千元，被老板责怪扣除当月奖金。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "初涉新税制吃罚款教训，更加严谨细致对待账目。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1995_shuangxiri",
+    "tier": "era",
+    "title": "双休日工作制正式推行：告别“单休”历史",
+    "yearRange": [
+      1995,
+      1995
+    ],
+    "targetAge": [
+      16,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker",
+      "cadre_teacher",
+      "tech_whitecollar"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.92,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1995年5月1日起中国在全国机关、企事业单位正式实行每周5天工作制（双休日），从每周48小时、大小周过渡到法定双休，深刻改变了亿万职工的生活节奏与精神风貌。",
+    "narrative": "工厂星期五下午的下班铃声格外清脆，工人们换下蓝色工装互道‘周一见’。以往只有周日一天洗衣服洗被褥、喘不上气来的日子，如今多出了宝贵的一整天闲暇周末时光。",
+    "isDecision": false,
+    "passiveImpact": {
+      "health": 10,
+      "family": 15
+    },
+    "choices": [
+      {
+        "text": "充分享受双休日闲暇，周末带全家逛公园野餐、教子女骑自行车",
+        "choiceTags": [
+          "时代：1995",
+          "年龄：20–65",
+          "地域：全国城镇",
+          "门槛：工薪职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "家庭和睦其乐融融，精神压力大为缓解，身体机能与心肺活力明显改善。",
+            "effect": {
+              "family": 25,
+              "health": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "沐浴双休日改革春风，家庭亲子关系与健康素质大幅跃升。",
+            "status": "weekend_enjoyer"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "利用周六周日整修了老宅厨房管道，家里被收拾得窗明几净。",
+            "effect": {
+              "family": 15,
+              "wealth": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "利用富余闲暇料理家事，生活充满温馨烟火气。"
+          }
+        ]
+      },
+      {
+        "text": "利用多出来的周末两天从事第二职业副业，做课外辅导/电器零修/开夜市",
+        "choiceTags": [
+          "时代：1995",
+          "年龄：22–50",
+          "地域：城镇街市",
+          "门槛：有技能副业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "周末兼职每月额外增收五百元，家里迅速换上大屏幕彩电与全自动洗衣机。",
+            "effect": {
+              "wealth": 30,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "利用双休拼命打拼副业，成为率先享受消费升级的一批人。",
+            "status": "sideline_master"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "常年无休兼职身心极度疲惫，患上偏头痛与顽固神经衰弱。",
+            "effect": {
+              "health": -25,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "周末透支体力搞副业累伤身体，后逐步回归健康平衡。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "兼职摆摊被单位同事碰见传为谈资，在办公室面对微言风语。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期搞副业面对体制内保守观念指点，坦然处之。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1996_wangba_hulianwang",
+    "tier": "era",
+    "title": "第一代网吧开业与早期互联网瀛海威",
+    "yearRange": [
+      1996,
+      1998
+    ],
+    "targetAge": [
+      15,
+      35
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.75,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1996年11月中国第一家电脑网络咖啡屋‘威雀网吧’在上海威海路开业。中关村竖起‘中国人离信息高速公路还有多远’巨幅广告，56K调制解调器拨号声开启了早期互联网大门。",
+    "narrative": "沉重的笨重CRT显示器前散发着主机的热气，耳畔是吱吱作响的猫（Modem）拨号音。屏幕上Netscape浏览器一点点加载出大洋彼岸的文字。青年学生聚精会神注册自己第一个电子邮箱。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 10
+    },
+    "choices": [
+      {
+        "text": "拿出半月伙食费购买上网机时，潜心自学HTML网页制作与BBS社区发帖",
+        "choiceTags": [
+          "时代：1996–1998",
+          "年龄：15–35",
+          "地域：大中城市",
+          "门槛：高校学生/科技青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "熟练掌握早期网络建站技术，受聘为首批商业门户网站早班技术编辑，月薪翻倍。",
+            "effect": {
+              "knowledge": 35,
+              "wealth": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "中国第一代网虫与互联网弄潮儿，提前跨入IT数字新时代。",
+            "status": "internet_pioneer",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "通宵泡网吧眼睛严重干涩近视加深，且昼夜颠倒落下顽固胃炎。",
+            "effect": {
+              "health": -20,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "沉迷早期网络熬夜伤身，但收获了前沿数字技能视野。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "昂贵的国际长途电话拨号费让家里收到上千元天价账单，被父母痛责。",
+            "effect": {
+              "wealth": -20,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因昂贵上网费交学费，后转为规范控制上网时间。"
+          }
+        ]
+      },
+      {
+        "text": "认定互联网是富家子弟的虚无玩具，专心于现有工厂设备车间或农田营生",
+        "choiceTags": [
+          "时代：1996–1998",
+          "年龄：18–50",
+          "地域：全国",
+          "门槛：传统工薪/农户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "恪守本分手艺赚工薪，生活节奏波澜不惊，免受网络虚火纷扰。",
+            "effect": {
+              "wealth": 10,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恪守实体行当安稳度日，虽未沾互联网之光但也无风险。"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "数年后面对电脑办公与无纸化普及显得略微生疏，不得不从零学打字。",
+            "effect": {
+              "knowledge": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "未能提前拥抱数字化浪潮，日后在办公自动化中加倍追赶。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1997_xianggang_huigui",
+    "tier": "era",
+    "title": "1997香港回归祖国历史盛典见证",
+    "yearRange": [
+      1997,
+      1997
+    ],
+    "targetAge": [
+      8,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1997年7月1日零点中国政府对香港恢复行使主权，历经百年沧桑的香港重回祖国怀抱。天安门广场数十万人狂欢倒计时，五星红旗与紫荆花区旗在会展中心冉冉升起。",
+    "narrative": "电视机前通宵达旦，军乐演奏着《义勇军进行曲》。当英国米字旗缓缓降下、五星红旗在零点分秒不差准时升起时，大江南北鞭炮齐鸣，人们相拥在阳台挥动国旗，百年屈辱终雪。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 20
+    },
+    "choices": [
+      {
+        "text": "彻夜守在电视前见证零点历史交接，翌日参加单位/学校迎回归大联欢",
+        "choiceTags": [
+          "时代：1997",
+          "年龄：8–80",
+          "地域：全国",
+          "门槛：全体国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "爱国热忱空前高涨，在集体自豪感中备受鼓舞，珍藏整套香港回归首日封特种邮票。",
+            "effect": {
+              "mentality": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历百年国耻洗雪的高光时刻，凝聚深厚爱国民族自豪感。",
+            "status": "hk_handover_witness"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "与亲朋好友畅饮庆贺回归，深切感受到国家日益强盛带来的安全感与荣光。",
+            "effect": {
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在举国狂欢中体会到国家富强对个体生活的坚实庇护。"
+          }
+        ]
+      },
+      {
+        "text": "若为广东或沿海涉外经贸人员，积极参与深港口岸通关保障与经贸对接业务",
+        "choiceTags": [
+          "时代：1997",
+          "年龄：20–55",
+          "地域：广东珠三角",
+          "门槛：涉外/交通人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "在皇岗与文锦渡口岸圆满完成跨境穿梭运输保障，获省涉外保畅模范表彰。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在一线保驾护航深港融合，拓展大批香港外贸优质客户资源。",
+            "status": "border_cadre"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "暴雨中在口岸高强度指挥疏导导致严重滑倒挫伤手肘，休工治疗一周。",
+            "effect": {
+              "health": -15,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "回归保畅执勤负轻伤，以汗水换来通关顺畅。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1998_xiagangchao",
+    "tier": "era",
+    "title": "国企“抓大放小”改制与下岗再就业潮",
+    "yearRange": [
+      1997,
+      2000
+    ],
+    "targetAge": [
+      28,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1990年代末伴随亚洲金融危机冲击与国企深化改革，全国开展大规模‘下岗分流、减员增效’。数千万产业工人脱下工装领受‘下岗证’自谋出路，骑自行车穿梭在劳务市场从头再来。",
+    "narrative": "厂区广播站播送着再就业倡议与《从头再来》歌声。车间大门贴着第一批协议买断工龄与分流下岗名单，昔日风光无限的国企职工手捧红本下岗证，在凛冽寒风中茫然四顾不知何去何从。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "擦干眼泪领受买断工龄补偿金，置办三轮车在菜市/夜市摆摊卖早点做馄饨",
+        "choiceTags": [
+          "时代：1997–2000",
+          "年龄：28–50",
+          "地域：老工业基地城市",
+          "门槛：下岗国企工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "起早贪黑炸油条做早点，靠货真价实客流如云，收入反超昔日工厂，撑起一家老小。",
+            "effect": {
+              "wealth": 30,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不向命运低头自食其力，从国企下岗工逆袭为红火个体老板。",
+            "status": "xiagang_self_employed",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 28,
+            "log": "冬天推三轮车在泥雪中摔翻砸伤左膝，且长期双手浸冷水长满冻疮皲裂。",
+            "effect": {
+              "health": -25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "地摊谋生风吹雨淋受工伤，但用粗茧双手托起孩子大学梦想。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 12,
+            "log": "摆摊占道屡遭城管暂扣三轮锅具，夫妻二人相拥抱头痛哭，心酸苦涩。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "下岗初期谋生饱尝底层人情冷暖，在屈辱中苦苦支撑。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "参加政府举办的免费免费下岗再就业技能培训，考取电工/出租车从业资格证",
+        "choiceTags": [
+          "时代：1997–2000",
+          "年龄：28–50",
+          "地域：全国城镇",
+          "门槛：有学习意愿职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "开上城市出租车或受聘为物业首席工程电工，每月领两千元现钞，重拾职业尊严。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "靠技能再就业转型开出租车，成为城市灵活就业排头兵。",
+            "status": "taxi_driver_master",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因出租车份子钱沉重且同行竞争加剧，每月早出晚归勉强维持温饱。",
+            "effect": {
+              "wealth": 10,
+              "health": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "出租车高强度驾驶劳累过度，但保住了全家口粮底线。",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "夜间出车遭遇两车轻度剐蹭致手腕扭伤，修车破费一千元。",
+            "effect": {
+              "health": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "开出租遇轻微车祸有惊无险，开车更加谨慎专注。",
+            "newCareerTrack": "flexible_labor"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1998_shangpinfang_anjie",
+    "tier": "era",
+    "title": "福利分房终结与商品房按揭时代开启",
+    "yearRange": [
+      1998,
+      2000
+    ],
+    "targetAge": [
+      25,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1998年7月国务院发布《关于进一步深化城镇住房制度改革加快住房建设的通知》，宣布全国停止住房实物分配，逐步实行住房分配货币化，中国正式迈入商业化商品房与银行按揭时代。",
+    "narrative": "厂区房管科正式贴出封印大榜，宣告延续近半个世纪的福利分房画上句号。大街上房地产中介与售楼处如雨后春笋般冒出，五万元首付、按揭贷款二十年买红砖防盗门新房成为街谈巷议新热词。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "掏空两代人全部积蓄并向银行办理按揭贷款，咬牙在城区购买首套商品房",
+        "choiceTags": [
+          "时代：1998–2000",
+          "年龄：25–50",
+          "地域：全国城镇",
+          "门槛：有两万元首付储蓄"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成为第一批吃商品房红利的人，住进带阳台独立卫浴的明亮套房，房产日后翻数倍。",
+            "effect": {
+              "wealth": 50,
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敢为人先在房改初期贷款买商品房，锁定时代财富超级红利。",
+            "status": "home_owner_1998"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "每月按揭月供几乎占去工资大半，日子紧巴巴不敢吃肉下馆子，尝到房奴压力。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期扛按揭生活拮据，但最终熬成城市有产中产。",
+            "status": "home_owner_1998"
+          }
+        ]
+      },
+      {
+        "text": "嫌商品房价格高不可攀且背负银行利息，坚决不买房，继续租住老旧筒子楼",
+        "choiceTags": [
+          "时代：1998–2000",
+          "年龄：25–55",
+          "地域：全国城镇",
+          "门槛：保守居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "无债一身轻免受房贷压迫，吃喝从容自由，每月将工钱存为银行存单。",
+            "effect": {
+              "wealth": 10,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拒绝房贷过好当下寻常日子，避开按揭负债压力。"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "数年后看着周边房价一路狂飙扶摇直上，自己积蓄连个卫生间都买不起，扼腕长叹。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "严重错失城镇住房市场化早期低价红利，后半生租房漂泊。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1998_kanghong_qiangxian",
+    "tier": "era",
+    "title": "1998长江、嫩江、松花江全流域特大抗洪",
+    "yearRange": [
+      1998,
+      1998
+    ],
+    "targetAge": [
+      14,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "hubei",
+        "hunan",
+        "jiangxi",
+        "heilongjiang",
+        "jilin",
+        "neimenggu",
+        "anhui",
+        "jiangsu"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1998年夏长江、嫩江、松花江爆发百年罕见特大全流域全线洪涝灾害。三十万官兵与百万群众用血肉之躯在九江、荆江大堤上严防死守、‘人在堤在’，万众一心谱写抗洪壮歌。",
+    "narrative": "荆江大堤暴雨倾盆，江水已高出城区地面数米，如同头顶悬着一盆浩瀚巨湖。管涌喷涌浑水，大喇叭吼着‘死保九江大堤、决不后退半步’。红旗在风雨中猎猎作响，人墙手挽手跳入滚滚浊浪。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处沿江重灾区，带头扛运沙袋跳入冰冷江水筑起血肉防波人墙，死保大堤",
+        "choiceTags": [
+          "时代：1998",
+          "年龄：17–55",
+          "地域：长江/松花江防汛前线",
+          "门槛：热血军民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "在大堤上连熬七天七夜成功封堵九江决口，保住身后百万居民生命财产，荣立大功。",
+            "effect": {
+              "mentality": 35,
+              "health": -10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "九八抗洪铁血英雄，以血肉之躯护佑山河家园，锤炼出泰山不倒意志。",
+            "status": "flood_hero_1998"
+          },
+          {
+            "type": "injured",
+            "weight": 32,
+            "log": "江水湍急受管涌乱石撞击导致右腿骨裂并患重度浸泡皮炎，住院养伤三月。",
+            "effect": {
+              "health": -35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抗洪前线被乱石撞击负伤致轻度残疾，深受全社会崇高尊崇。",
+            "status": "injured_rescuer_1998"
+          },
+          {
+            "type": "entangled",
+            "weight": 11,
+            "log": "身后家中老房被倒灌内涝浸泡倒塌，农田全部绝收，靠救济粮重建家园。",
+            "effect": {
+              "wealth": -35,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "洪水中家财尽毁，在政府安置下搭建板房度过寒冬。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在封堵大堤突发决口合龙时被狂暴激流卷入深潭不幸牺牲。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在1998年抗洪封堵决口危急时刻光荣牺牲。"
+          }
+        ]
+      },
+      {
+        "text": "在后方城市连夜赶制防汛救灾冲锋舟编织袋，并向受灾同胞捐赠一周薪水",
+        "choiceTags": [
+          "时代：1998",
+          "年龄：14–70",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "生产线三班倒赶制出上万条加厚编织袋驰援九江，在后方尽己所能奉献力量。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在后方为抗洪大局添砖加瓦，体现深厚家国同胞情谊。"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "收留安置沿江来投靠的落难远房表亲，腾出两间热屋管吃管住直到水退。",
+            "effect": {
+              "family": 25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在患难时刻接济亲族骨肉，诠释血脉相连的人间温情。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1999_daxue_kuozhao",
+    "tier": "era",
+    "title": "1999年全国高校大扩招：走向大众化高等教育",
+    "yearRange": [
+      1999,
+      2001
+    ],
+    "targetAge": [
+      16,
+      22
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "1999年6月教育部出台高校扩招政策，当年全国普通高校招生总人数增加51万人，增幅达47.4%，录取率由36%跃升至56%。从此中国高等教育彻底告别精英象牙塔，步入大众化新纪元。",
+    "narrative": "高考发榜的高中学校门口挤满了查分的人群。喜报上的红榜比往年长了几乎一倍，许多原本只能读专科或回乡复读的乡村学子，惊喜地在省属本科院校录取名单里找到了自己的名字。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "抓住扩招历史机遇以适度分数顺利迈进大学本科校门，勤工俭学读完学业",
+        "choiceTags": [
+          "时代：1999–2001",
+          "年龄：17–22",
+          "地域：全国",
+          "门槛：高中高三学子"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成为家族首位全日制大学生，靠国家助学贷款与发传单打工读完本科，开启白领生涯。",
+            "effect": {
+              "knowledge": 35,
+              "wealth": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "搭乘99大学扩招头班车圆大学梦，彻底完成由农家子向城市白领飞跃。",
+            "status": "expanded_college_student",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "扩招后每年数千元高昂学杂费让农村家庭债台高筑，父母借遍亲友才凑齐学费。",
+            "effect": {
+              "wealth": -25,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高昂学费让全家背上重债，毕业后拼命工作还清债务。",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "暑期为赚学费在砖窑做苦力中暑虚脱脱水，休养半月方缓过劲。",
+            "effect": {
+              "health": -20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "打暑期工吃尽苦头攒齐学费，更加珍惜大学求学时光。"
+          }
+        ]
+      },
+      {
+        "text": "因家境极其困难弟妹众多，放弃读二本机会，直接进入沿海电子五金厂当技术员",
+        "choiceTags": [
+          "时代：1999–2001",
+          "年龄：18–22",
+          "地域：贫困家庭",
+          "门槛：懂事实用青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "进厂早早领两千元工资寄回老家供弟妹上学，凭高中扎实数理底子晋升车间排长。",
+            "effect": {
+              "wealth": 30,
+              "family": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃求学牺牲自己托举全家，用大爱换来弟妹学有所成。",
+            "status": "factory_senior_tech",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "多年后看着考上大学的同班同学在写字楼吹空调，内心深处难掩一丝遗憾。",
+            "effect": {
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "为家庭生计妥协放弃文凭，在平凡务实生活中守住无悔担当。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1999_zhunan_shiguan",
+    "tier": "era",
+    "title": "驻南使馆遭袭事件与青年爱国示威",
+    "yearRange": [
+      1999,
+      1999
+    ],
+    "targetAge": [
+      15,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1999年5月8日以美国为首的北约悍然使用导弹袭击中国驻南联盟大使馆，造成邵云环、许杏虎、朱颖3位优秀记者英勇牺牲，数十人受伤。全国高校学子与各界群众爆发空前爱国抗议。",
+    "narrative": "校园宣传栏前贴满了印有烈士遗照的号外报纸，群情激愤。大学生们额头上系着白色布条，手拉手走上街头高举抗议标语，向外国使领馆愤怒声讨霸权行径，国歌声整日响彻云霄。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "加入青年爱国游行队伍高呼口号声讨霸权，誓言投身国防科技与发奋读书",
+        "choiceTags": [
+          "时代：1999",
+          "年龄：15–40",
+          "地域：全国大中城市",
+          "门槛：热血青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "深刻洗礼激发内心强国抱负，发愤图强考取军工科研所或国防重大工程专项。",
+            "effect": {
+              "mentality": 30,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历南使馆之痛立志科技报国，成长为国家国防尖端领域骨干。",
+            "status": "defense_aspirant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "抗议人潮极度拥挤发生踩踏磕碰，左膝被路牙石磕伤淤血两周。",
+            "effect": {
+              "health": -15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在抗议人潮中轻微擦伤，爱国热忱刻骨铭心。"
+          }
+        ]
+      },
+      {
+        "text": "坚守科研试验室或工矿生产线加班加点，以‘把自己的事情做好’实际行动爱国",
+        "choiceTags": [
+          "时代：1999",
+          "年龄：18–60",
+          "地域：全国",
+          "门槛：工矿科研职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "将满腔悲愤化为生产攻关动力，提前一个月完成重大型号核心部件试制交差。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "化悲痛为实干力量，在平凡岗位上为挺起大国脊梁添砖加瓦。",
+            "status": "patriotic_worker"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "参与单位组织的追思悼念仪式，深切感悟‘落后就要挨打’的铁血硬道理。",
+            "effect": {
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "牢记历史教训，以务实求真精神过好每一天。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1999_huangjinzhou",
+    "tier": "era",
+    "title": "首个“十一”黄金周：假日经济与旅游热潮",
+    "yearRange": [
+      1999,
+      1999
+    ],
+    "targetAge": [
+      8,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "1999年国庆节中国首个7天‘黄金周’长假落地。2800万人次涌向全国名胜古迹，华山、黄山、故宫客流爆棚，交通与文旅消费引爆神州，‘假日经济’横空出世。",
+    "narrative": "火车站售票窗口前排起了蜿蜒长龙，大巴车挂着‘黄山三日游’、‘北京观光’的横幅。饭店客房早早挂出满房招牌，背着双肩包戴着红遮阳帽的普通市民，兴奋地迈出体验休闲旅游的第一步。",
+    "isDecision": false,
+    "passiveImpact": {
+      "family": 10,
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "第一次跟团或自由行带家人远赴北京故宫/泰山游览，体验长假旅游",
+        "choiceTags": [
+          "时代：1999",
+          "年龄：12–70",
+          "地域：全国",
+          "门槛：普通工薪家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "领略祖国大好河山，拍下珍贵的彩色胶卷全家福冲印成册，精神文化生活极大丰富。",
+            "effect": {
+              "family": 25,
+              "mentality": 20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享受国家首个法定黄金周旅游红利，开创现代家庭度假生活方式。",
+            "status": "golden_week_traveler"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "景区人潮极度拥堵在山道台阶被踩伤右脚踝扭伤，排队如厕耗费数小时。",
+            "effect": {
+              "health": -15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黄金周首遇全国景点大拥堵受皮肉苦，学会错峰出行经验。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "遭遇黑导游虚假宣传强制购物消费，与旅行社交涉一周方退回部分款项。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期旅游市场不规范交学费，学会依法维权索赔。"
+          }
+        ]
+      },
+      {
+        "text": "若为景区/交通/餐饮从业者，全员无休坚守一线迎客，斩获丰厚长假营收",
+        "choiceTags": [
+          "时代：1999",
+          "年龄：18–55",
+          "地域：旅游城市与景区",
+          "门槛：服务文旅从业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "客栈餐饮天天爆满，七天长假净赚数万元利润，顶上平时整季度收入。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住首届黄金周井喷商机赚得盆满钵满，奠定文旅实业基石。",
+            "status": "tourism_beneficiary",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "连续七天高强度掌勺迎宾劳累过度导致急性喉炎与腰肌扭伤住院。",
+            "effect": {
+              "health": -20,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高强度服务长假透支咽喉与腰肌，后加聘帮手科学排班。"
+          }
+        ]
+      }
+    ]
+  }
+]

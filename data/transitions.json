@@ -1,0 +1,228 @@
+{
+  "version": "1.0.0",
+  "description": "中国出生模拟器核心状态与标签合法转换规则库（禁止突兀跳变，每年最多一次主要标签变更）",
+  "maxMajorTransitionsPerYear": 1,
+  "careerTracks": {
+    "farmer": {
+      "name": "农业生产/耕作系",
+      "allowedNext": [
+        {
+          "target": "migrant_worker",
+          "name": "进城务工/第一代农民工",
+          "minYear": 1984,
+          "minAge": 16,
+          "requiresTags": [],
+          "requiresWealth": 15,
+          "description": "离开土地进城打拼，成为建筑工或沿海流水线工"
+        },
+        {
+          "target": "township_worker",
+          "name": "乡镇企业职工",
+          "minYear": 1982,
+          "minAge": 16,
+          "requiresTags": [],
+          "requiresWealth": 20,
+          "description": "洗脚上田进入村办、社队五金纺织小厂"
+        },
+        {
+          "target": "merchant",
+          "name": "乡村专业户/自营个体户",
+          "minYear": 1980,
+          "minAge": 18,
+          "requiresTags": ["experience_sideline"],
+          "requiresWealth": 35,
+          "description": "需先有农闲副业或养殖经验，并积累一定启动本金"
+        },
+        {
+          "target": "worker",
+          "name": "工矿正式工（招工/顶替）",
+          "maxYear": 1985,
+          "minAge": 16,
+          "requiresTags": ["worker_quota_recruited"],
+          "description": "通过困难时期支援或文革后期农机招工指标转正"
+        }
+      ]
+    },
+    "worker": {
+      "name": "产业工矿与现代制造系",
+      "allowedNext": [
+        {
+          "target": "xiagang_wait",
+          "name": "国企改制下岗待业",
+          "minYear": 1993,
+          "maxYear": 2003,
+          "minAge": 25,
+          "requiresTags": ["urban_state_enterprise"],
+          "description": "遭遇90年代国企抓大放小与减员增效下岗"
+        },
+        {
+          "target": "merchant",
+          "name": "停薪留职/辞职下海",
+          "minYear": 1984,
+          "minAge": 22,
+          "requiresTags": ["urban_hukou"],
+          "requiresWealth": 30,
+          "description": "脱离铁饭碗南下闯荡或街头开小店"
+        },
+        {
+          "target": "cadre_teacher",
+          "name": "工农兵学员/夜大提拔干部",
+          "minAge": 22,
+          "requiresTags": ["higher_ed_degree"],
+          "description": "通过在职进修或推荐深造进入管理与技术序列"
+        },
+        {
+          "target": "flexible_labor",
+          "name": "现代零工/技能自雇",
+          "minYear": 2012,
+          "minAge": 30,
+          "requiresTags": [],
+          "description": "转为独立机械检修、装修工或技能游民"
+        }
+      ]
+    },
+    "cadre_teacher": {
+      "name": "体制内公职与科教文卫系",
+      "allowedNext": [
+        {
+          "target": "merchant",
+          "name": "下海经商/体制外合伙人",
+          "minYear": 1988,
+          "minAge": 25,
+          "requiresTags": [],
+          "requiresWealth": 40,
+          "description": "顺应92南巡等时代春风，投身市场实业开发"
+        },
+        {
+          "target": "tech_whitecollar",
+          "name": "高校院所/高新技术带头人",
+          "minYear": 1995,
+          "minAge": 28,
+          "requiresTags": ["higher_ed_degree"],
+          "description": "转入高新科技园区产学研转化"
+        }
+      ]
+    },
+    "merchant": {
+      "name": "个体经商与民营实业系",
+      "allowedNext": [
+        {
+          "target": "bankrupt_flexible",
+          "name": "生意受挫退守零工",
+          "minAge": 25,
+          "requiresTags": ["debt_crisis"],
+          "description": "遭遇债务危机或竞争淘汰，退回打散工还债"
+        },
+        {
+          "target": "private_enterprise_owner",
+          "name": "规模私营企业家",
+          "minYear": 1992,
+          "minAge": 28,
+          "requiresWealth": 70,
+          "requiresTags": [],
+          "description": "企业做大做强，跻身规模型企业法人"
+        }
+      ]
+    },
+    "tech_whitecollar": {
+      "name": "外贸与现代IT互联网白领系",
+      "allowedNext": [
+        {
+          "target": "flexible_labor",
+          "name": "遭遇35岁职场危机/转为零工自由职业",
+          "minYear": 2018,
+          "minAge": 32,
+          "requiresTags": [],
+          "description": "大厂裁员或身体透支后转向灵活就业、自媒体或开店"
+        },
+        {
+          "target": "merchant",
+          "name": "技术创业/合伙人",
+          "minYear": 2000,
+          "minAge": 26,
+          "requiresWealth": 50,
+          "description": "依靠行业积累与期权本金独立创业"
+        }
+      ]
+    },
+    "flexible_labor": {
+      "name": "灵活就业与平台新业态系",
+      "allowedNext": [
+        {
+          "target": "merchant",
+          "name": "积累本金开办实体小店",
+          "minAge": 24,
+          "requiresWealth": 40,
+          "description": "在长年跑腿、货运或地摊打拼后盘下门店"
+        },
+        {
+          "target": "worker",
+          "name": "技能考证进入规范制造企业",
+          "minAge": 20,
+          "requiresTags": ["certified_skill"],
+          "description": "取得焊工、数控或电工特种作业证重回正规工厂"
+        }
+      ]
+    }
+  },
+  "educationTransitions": {
+    "未入学": {
+      "next": "小学",
+      "autoAdvancePostYear": 1986,
+      "ageRange": [6, 8]
+    },
+    "小学": {
+      "next": "初中",
+      "autoAdvancePostYear": 1990,
+      "ageRange": [11, 13]
+    },
+    "初中": {
+      "nextOptions": [
+        { "level": "高中", "minKnowledge": 40 },
+        { "level": "中专/技校", "minKnowledge": 30 },
+        { "level": "初中毕业务工/学徒", "minKnowledge": 0 }
+      ],
+      "ageRange": [14, 16]
+    },
+    "高中": {
+      "nextOptions": [
+        { "level": "大学本科", "minKnowledge": 55, "requiresEvent": "gaokao" },
+        { "level": "专科院校", "minKnowledge": 45, "requiresEvent": "gaokao" },
+        { "level": "高中毕业就业", "minKnowledge": 0 }
+      ],
+      "ageRange": [17, 19]
+    },
+    "大学本科": {
+      "nextOptions": [
+        { "level": "硕士研究生", "minKnowledge": 70, "minYear": 1981 },
+        { "level": "出国留学", "minKnowledge": 75, "minWealth": 45, "minYear": 1978 }
+      ],
+      "ageRange": [21, 25]
+    }
+  },
+  "relationshipTransitions": {
+    "single": {
+      "stages": ["dating", "engaged", "married"],
+      "ageMin": 18,
+      "ageMax": 45,
+      "cooldownYears": 3
+    },
+    "married": {
+      "branches": [
+        { "next": "parent", "condition": "fertility_age_19_42" },
+        { "next": "divorced", "condition": "marital_discord" },
+        { "next": "widowed", "condition": "spouse_deceased" }
+      ]
+    },
+    "divorced": {
+      "branches": [
+        { "next": "remarried", "cooldownYears": 2 }
+      ]
+    },
+    "widowed": {
+      "branches": [
+        { "next": "remarried", "cooldownYears": 3 }
+      ]
+    }
+  }
+}

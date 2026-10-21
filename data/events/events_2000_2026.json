@@ -1,0 +1,4890 @@
+[
+  {
+    "id": "evt_2000_qianxinian",
+    "tier": "era",
+    "title": "千禧之交“世纪婴儿”与新世纪畅想",
+    "yearRange": [
+      2000,
+      2000
+    ],
+    "targetAge": [
+      0,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2000年迎来新千禧年，中华世纪坛点亮世纪圣火。全国各地迎来跨世纪狂欢与‘千禧宝宝’生育高峰，亿万民众在对新世纪的憧憬中迈入公元2000年代。",
+    "narrative": "钟声敲响，千禧烟花照亮苍穹。产房外挤满了等候千禧龙宝宝降生的家长，街道橱窗贴着千禧纪念挂历。人们在贺年卡上写下对新千年的美好期许，时代的钟摆迎向未知的新百年。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "若适逢婚育期，顺应喜庆氛围迎来‘千禧宝宝’降生，精心起名呵护",
+        "choiceTags": [
+          "时代：2000",
+          "年龄：22–40",
+          "地域：全国",
+          "门槛：适龄育龄夫妇"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "千禧龙宝宝平安降生，阖家欢聚摆满月酒，给全家带来无尽喜气与希望。",
+            "effect": {
+              "family": 30,
+              "wealth": -10,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "迎接新世纪千禧宝宝，全家凝聚力与奋斗目标焕然一新。",
+            "status": "millennium_baby_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "产院床位极度爆满在走廊加床分娩，产后着凉虚脱调理一月。",
+            "effect": {
+              "health": -20,
+              "family": 25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千禧扎堆生育遭遇医疗资源拥挤，所幸母子平安。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "千禧年扎堆同龄人过多，日后在幼升小和高考中竞争格外激烈。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千禧生育高峰带来日后就学升学竞争压力。"
+          }
+        ]
+      },
+      {
+        "text": "在单位/学校跨年晚会上担任主持人或幕后筹办，写下新世纪人生目标存入心底",
+        "choiceTags": [
+          "时代：2000",
+          "年龄：14–60",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "在昂扬向上的集体氛围中立下长远学业/职业目标，精神面貌焕然一新。",
+            "effect": {
+              "mentality": 20,
+              "knowledge": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "跨入新世纪树立长远雄心，为后续二十年拼搏奠定心智底盘。",
+            "status": "millennium_dreamer"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "除夕夜与挚友痛饮畅谈通宵，在世纪晨光中留下一张难忘的青春合影。",
+            "effect": {
+              "family": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "新世纪初夜的友谊与诗意，成为一生温暖底色。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2001_wto_waomao",
+    "tier": "era",
+    "title": "中国加入WTO：世界工厂与外贸狂飙",
+    "yearRange": [
+      2001,
+      2004
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2001年11月多哈会议正式批准中国加入世界贸易组织（WTO）。外贸关税壁垒打破，全球产业链向中国沿海大规模转移，‘中国制造’商品潮水般涌向全球货架。",
+    "narrative": "宁波舟山港与盐田港集装箱昼夜装卸吞吐，汽笛长鸣。外贸公司的传真机整日吐着来自欧美客商的急单。各大工厂车间通宵达旦赶工，英文标签与集装箱封签成了工薪族的最熟悉日常。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "投身沿海合资外贸制造企业做外销跟单员或进出口报关员",
+        "choiceTags": [
+          "时代：2001–2004",
+          "年龄：20–40",
+          "地域：沿海长三角/珠三角",
+          "门槛：大中专青年/懂基本英语"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "熟练处理信用证与报关退税，年终外贸提成丰厚，在沿海省城全款购入首套商品房。",
+            "effect": {
+              "wealth": 50,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "精准搭上加入WTO外贸爆发快车，数年内实现阶层跃升与资产立足。",
+            "status": "wto_foreign_trader",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "欧美船期催单日夜倒时差熬夜沟通，患上严重反流性食管炎与胃溃疡。",
+            "effect": {
+              "health": -25,
+              "wealth": 40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "透支身体换取外贸高薪，在经济起飞期积累了雄厚原始资本。",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "遭遇外商破产赖账被拖欠十万美元货款，被迫承担两成业务罚款。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "涉外贸易初涉国际商法漏洞，经受法律合规大考。",
+            "newCareerTrack": "tech_whitecollar"
+          }
+        ]
+      },
+      {
+        "text": "若为内地农机或传统国企，主动推动生产线按国际ISO标准换装出海配件",
+        "choiceTags": [
+          "时代：2001–2004",
+          "年龄：24–55",
+          "地域：全国工业城镇",
+          "门槛：制造车间技工/工程师"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "主导车间拿下欧美CE与UL安全认证，工厂订单排到三年后，全厂效益大翻身。",
+            "effect": {
+              "wealth": 30,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依托国际化标准升级传统制造，成为不可或缺的涉外数控技师。",
+            "status": "iso_certified_engineer"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因老设备精度不达标首批外贸出口件遭遇批量退货索赔，扣罚三个月奖金。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "设备老化冲击外贸标准交学费，痛定思痛全面技改。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2001_shenao_chenggong",
+    "tier": "era",
+    "title": "莫斯科之夜：北京申奥成功狂欢",
+    "yearRange": [
+      2001,
+      2001
+    ],
+    "targetAge": [
+      8,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2001年7月13日国际奥委会萨马兰奇主席宣布‘BEIJING’获得2008年第29届奥运会举办权。天安门广场与中华世纪坛数十万人狂欢达旦，举国沸腾，成为改革开放信心的世纪飞跃。",
+    "narrative": "电视里传来‘北京！’的庄严宣布，刹那间欢呼声划破夜空。天安门广场迅速被红旗与标语汇聚成人海。出租车司机一路按响喇叭免费载客，人们相拥流泪高唱国歌，通宵达旦不眠。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15
+    },
+    "choices": [
+      {
+        "text": "披上国旗涌入广场与百万同胞并肩游行狂欢，相拥高呼中国万岁",
+        "choiceTags": [
+          "时代：2001",
+          "年龄：14–60",
+          "地域：全国大中城市",
+          "门槛：普通公民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "在狂欢人潮中感受到无与伦比的民族尊严与自信，珍藏申奥号外报纸一辈子。",
+            "effect": {
+              "mentality": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历申奥成功莫斯科之夜，将大国崛起自信深深烙入生命。",
+            "status": "olympic_bid_witness"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "人流极度拥挤中被踩伤右脚踝扭伤，但瘸着腿依然挥旗呐喊到天明。",
+            "effect": {
+              "health": -15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "狂欢推挤受轻伤，在激荡青春中见证世纪盛典。"
+          }
+        ]
+      },
+      {
+        "text": "立志为七年后的北京奥运贡献力量，主动报考涉外英语或土木场馆建设专业",
+        "choiceTags": [
+          "时代：2001",
+          "年龄：16–35",
+          "地域：全国",
+          "门槛：求学青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "锚定目标发奋学习，日后成功入选奥运重点场馆设计团队或涉外核心骨干。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "将申奥热情化为长远学业动力，终成国家重大工程参建骨干。",
+            "status": "olympic_dream_builder"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "踏实自学涉外口语，在日常生活与工作中践行现代礼仪风尚。",
+            "effect": {
+              "knowledge": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "从身边点滴提升文明素养，迎接世界眼光审视。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2003_sars_feidian",
+    "tier": "era",
+    "title": "2003抗击“非典”与小汤山战役",
+    "yearRange": [
+      2003,
+      2003
+    ],
+    "targetAge": [
+      0,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2003年春我国遭遇非典型肺炎（SARS）突发公共卫生危机。北京、广东等地疫情严峻，7天7夜建成小汤山定点医院。全国医护白衣执甲逆行出征，城乡全民联防取得抗击非典全面胜利。",
+    "narrative": "街头弥漫着浓烈的过氧乙酸消毒水气味，药店门前排长队抢购板蓝根与白醋。学校体温表天天监测，进出小区量体温、登记出入证。电视里播放着小汤山抢建实况与白衣天使逆行剪影。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若为医护或公卫人员，毫不犹豫写下请战书，奔赴发热门诊与小汤山一线隔离区",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：20–55",
+          "地域：全国各省",
+          "门槛：医护体系人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "在一线穿密闭厚重防护服连续奋战两月救治数十名重症病患，荣立卫生系统一等功。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "非典战役白衣战士，以仁心仁术护佑苍生，荣膺时代楷模称号。",
+            "status": "sars_medical_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "在抢救插管过程中不幸感染非典重症，经大剂量激素冲击治疗保全性命但留股骨头缺血坏死隐患。",
+            "effect": {
+              "health": -40,
+              "mentality": 25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抗疫一线感染康复，留下激素治疗慢性骨质损伤，深受全社会崇敬保障。",
+            "status": "sars_convalescent"
+          },
+          {
+            "type": "fatal",
+            "weight": 5,
+            "log": "在连续高强度抢救危重患者过程中不幸职业暴露感染殉职。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在抗击非典一线英勇殉职，被追授烈士荣誉。"
+          }
+        ]
+      },
+      {
+        "text": "严格遵从防控指引居家隔离通风，每日监测体温，不造谣不传谣",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：0–80",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "用香皂勤洗手、居室开窗通风，平稳度过两个月紧张隔离期，全家人无恙。",
+            "effect": {
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "树立科学公卫防护观念，平稳度过新中国首场现代公卫危机。",
+            "status": "sars_safe_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "高价抢购数箱劣质板蓝根与白醋受骗破费数百元，深刻吸取不信谣教训。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恐慌跟风抢购受骗交智商税，从此崇尚科学破除盲信。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2003_shourong_feichu",
+    "tier": "era",
+    "title": "收容遣送制度废除：公民权利与法治里程碑",
+    "yearRange": [
+      2003,
+      2004
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.8,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2003年春大学生孙志刚在广州因未带暂住证被收容并遭殴打致死。引发三位法学博士联名上书，国务院果断废止实施21年的《城市流浪乞讨人员收容遣送办法》，建立自愿救助管理制度。",
+    "narrative": "法制报头版整版刊发国务院令。各大城市派出所与收容站的铁栏杆与收容招牌悄然拆除，外来打工青年再也不用在下班路上因忘记带暂住证而提心吊胆、被巡警随时盘查遣送返乡。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 10,
+      "knowledge": 5
+    },
+    "choices": [
+      {
+        "text": "若为外来务工/白领，在租住地合法办理居住证，理直气壮在城市租房扎根发展",
+        "choiceTags": [
+          "时代：2003–2004",
+          "年龄：18–45",
+          "地域：全国大中城市",
+          "门槛：外来务工/创业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "摆脱被无端查证遣送的恐惧，放手拓展事业，把全家老小接进城平稳落户。",
+            "effect": {
+              "wealth": 25,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "见证公民人身自由法治红利，在城市踏实扎根繁衍生息。",
+            "status": "free_citizen_settler"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "参与社区法律义务宣讲，向同乡普及依法维护人身权利与工伤维权法条。",
+            "effect": {
+              "knowledge": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "学法用法维权，成为同乡工友信任的热心普法志愿者。"
+          }
+        ]
+      },
+      {
+        "text": "若为法律/政法系统工作人员，潜心研习行政法规违宪审查与现代救助制度建设",
+        "choiceTags": [
+          "时代：2003–2004",
+          "年龄：22–50",
+          "地域：政法机关/高校",
+          "门槛：法学/公职人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "参与起草地方民政救助管理新规，推动由强制收容向自愿救助的人性化转变。",
+            "effect": {
+              "knowledge": 25,
+              "wealth": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历法治中国重大制度飞跃，推动基层社会治理走向文明。",
+            "status": "rule_of_law_advocate"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "新旧制度交替期间基层救助站事务暴增，连续通宵值班心力交瘁。",
+            "effect": {
+              "health": -15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "治理转型过渡期基层操劳，但问心无愧履行公仆职责。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2003_shenzhou_wuhou",
+    "tier": "era",
+    "title": "“神舟五号”首飞成功：千年飞天梦圆",
+    "yearRange": [
+      2003,
+      2003
+    ],
+    "targetAge": [
+      6,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2003年10月15日我国第一艘载人飞船‘神舟五号’发射升空。航天员杨利伟代表中国人首次巡天漫游21小时并安全着陆内蒙古大草原，中华民族千年飞天梦想终成现实。",
+    "narrative": "电视直播屏上飞船返回舱拖着巨大的红白降落伞徐徐飘落，草地上杨利伟向祖国敬礼的身影传遍神州大江南北。教室里、厂房走廊贴满了飞船海报，全国青少年掀起航天科技崇尚狂潮。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15
+    },
+    "choices": [
+      {
+        "text": "守在电视机前见证飞船落地敬礼历史瞬间，买下长征二号F火箭模型立志发愤求索",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：6–75",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "备受航天报国精神鼓舞，在学业或岗位上以严谨细致追求零缺陷，大获长进。",
+            "effect": {
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历首次载人航天世纪壮举，铸就一丝不苟精益求精匠心。",
+            "status": "aerospace_inspired"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "带孩子去科技馆近距离参观飞船返回舱实物，点燃下一代科学梦想火种。",
+            "effect": {
+              "family": 20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以国家科技成就启迪下一代，亲子情怀深厚。"
+          }
+        ]
+      },
+      {
+        "text": "若为军工航天或精密仪器机械技师，主动请缨参与下一代运载构件精密数控试制",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：22–50",
+          "地域：军工三线/高校院所",
+          "门槛：精密机械技师"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "攻关薄壁钛合金构件微米级加工难关，获集团技术革新一等奖记功。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "作为大国工匠亲身参与载人航天配套攻坚，赢得崇高尊严。",
+            "status": "aerospace_craftsman"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "超高精度车削连续奋战数十小时导致严重视疲劳与慢性肩周炎。",
+            "effect": {
+              "health": -20,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "奉献韶华于国防航天尖端制造，手掌布满钢铁机油印记。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2006_nongyeshui_feizhi",
+    "tier": "era",
+    "title": "延续两千六百年农业税全面废止",
+    "yearRange": [
+      2006,
+      2006
+    ],
+    "targetAge": [
+      16,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2006年1月1日全国人大决定废止《中华人民共和国农业税条例》。延续两千六百多年的‘皇粮国税’彻底退出中国历史舞台，国家更出台粮食直补政策，极大减轻亿万农民负担。",
+    "narrative": "村头的大喇叭正式播发中央免征农业税公报。粮站门前再也没有排长队送公粮过磅的板车，老农捧着红头公报在麦田埂上热泪盈眶：种地不用交公粮，国家还给发种粮补贴，千古未有之大德！",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 15,
+      "mentality": 20
+    },
+    "choices": [
+      {
+        "text": "卸下沉重税赋包袱，把免征省下的资金全数投入改良良种与购置微耕机",
+        "choiceTags": [
+          "时代：2006",
+          "年龄：18–70",
+          "地域：全国农村",
+          "门槛：种粮农户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "机械化翻耕省力增产，卖粮净落几万元现钞，家里盖起两层小洋楼。",
+            "effect": {
+              "wealth": 35,
+              "health": 15,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享受农业税终结最大红利，机械化种粮实现家庭经济质的腾飞。",
+            "status": "free_grain_peasant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "操作新型微耕机时不慎被旋耕刀刮伤右脚背，敷药包扎休养一个月。",
+            "effect": {
+              "health": -20,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "操作农机安全生疏负轻伤，随后严格落实安全防护规程。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "因邻村代耕土地流转补贴归属发生轻微争执，经村委调解化解。",
+            "effect": {
+              "family": -10,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "农业补贴推行初期产权细化经历微小磨合。"
+          }
+        ]
+      },
+      {
+        "text": "将承包田流转给村里种粮大户托管，安心进城常年务工做室内装修",
+        "choiceTags": [
+          "时代：2006",
+          "年龄：20–50",
+          "地域：城乡结合",
+          "门槛：青壮劳力"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "既有田亩流转租金保底，又在城里做瓦木水电月入四千元，城乡两头受惠。",
+            "effect": {
+              "wealth": 40,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "乘农业免税与城镇化大潮两头获益，家庭迈入小康殷实生活。",
+            "status": "dual_income_builder",
+            "newCareerTrack": "worker"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "装修施工长期吸入滑石粉与油漆异味引发慢性支气管炎，多咳喘。",
+            "effect": {
+              "health": -20,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "室内装修粉尘伤及呼吸道，后佩戴专业防尘口罩。",
+            "newCareerTrack": "worker"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2007_gushi_6124",
+    "tier": "era",
+    "title": "2007大牛市冲上6124点与全民炒股狂潮",
+    "yearRange": [
+      2007,
+      2008
+    ],
+    "targetAge": [
+      20,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2007年10月上证综指创下历史巅峰6124点。股权分置改革推进，开户数突破一亿大关。买基金、炒股票成为街头巷尾全民狂热，买菜大妈与写字楼白领都在畅谈‘黄金十年’。",
+    "narrative": "证券公司营业部大厅水泄不通，红绿闪烁的行情大盘前全是挥舞存折的人群。连菜市场卖鱼小贩都在看K线图。然而盛极必衰，随后爆发的全球次贷危机引发狂跌，跌至1664点深度套牢千万人。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "在指数攀上五千点以上敏锐感到泡沫风险，果断清仓离场转买银行保本理财",
+        "choiceTags": [
+          "时代：2007–2008",
+          "年龄：22–60",
+          "地域：城镇市民",
+          "门槛：有数万积蓄基民股民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "成功在历史大顶全身而退锁定翻倍利润，避开随后惨烈的八成暴跌，保全家产。",
+            "effect": {
+              "wealth": 60,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在狂热癫狂前夕克制贪婪离场，战胜人性弱点守住财富成果。",
+            "status": "bull_market_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "虽清仓股票但忍不住在六千点买入封闭式基金，随后腰斩亏损三成浮亏。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "半知半解追买基金遭遇深套，经受资本市场洗礼。"
+          }
+        ]
+      },
+      {
+        "text": "听信‘一万点不是梦’借钱加杠杆冲入蓝筹股，高位接盘遭遇断崖暴跌",
+        "choiceTags": [
+          "时代：2007–2008",
+          "年龄：22–55",
+          "地域：城镇股民",
+          "门槛：盲从追高者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 65,
+            "log": "股票由高位暴跌七成深套，全副家当缩水大半，不得不卸载炒股软件长痛卧倒。",
+            "effect": {
+              "wealth": -45,
+              "mentality": -35,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在2007大牛市顶峰盲目追涨腰斩深套，承受惨痛人生财务教训。",
+            "status": "stock_bagholder"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "连续数十天暴跌引发突发性心绞痛心律失常急诊入院，身心大受打击。",
+            "effect": {
+              "health": -30,
+              "wealth": -40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "股市暴跌导致急性心脏急症，在家人照料下戒掉炒股恶习。"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "靠按月定投红利低吸摊薄成本，在多年后漫长震荡中奇迹般解套保本。",
+            "effect": {
+              "wealth": 10,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在漫长熊市中悟出价值定投之道，心智获得彻底涅槃。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2008_nanfang_xuezai",
+    "tier": "era",
+    "title": "2008南方特大低温雨雪冰冻灾害",
+    "yearRange": [
+      2008,
+      2008
+    ],
+    "targetAge": [
+      0,
+      80
+    ],
+    "applicableRegions": [
+      "华南",
+      "华中",
+      "华东",
+      "西南"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "guangdong",
+        "hunan",
+        "guizhou",
+        "jiangxi",
+        "guangxi",
+        "hubei",
+        "anhui",
+        "zhejiang"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2008年1月南方遭遇百年罕见特大冰雪冰冻灾害。京广铁路大动脉与国家电网骨干铁塔倒塌瘫痪，广州火车站数十万春运务工人员滞留风雨广场，全国军民展开除冰抢修大保畅。",
+    "narrative": "冻雨在电线和树枝上结出重重的透明冰甲，高压铁塔在重压下轰然弯折。广州火车站广场数十万人打着雨伞在冷风中瑟瑟发抖。部队官兵用铁锹砸碎钢轨坚冰，运送热姜汤和大衣。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处广州滞留人海，积极配合公安维持现场秩序，互相传递热开水与干粮抗冻",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：14–60",
+          "地域：广州/南方春运枢纽",
+          "门槛：滞留旅客"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "在广场坚忍熬过五天四夜，终于登上第一列抢修恢复的内燃绿皮车平安归家。",
+            "effect": {
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在数十万滞留人潮中互助守望挺过冰雪严冬，淬炼出强大同理心。",
+            "status": "ice_storm_survivor_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "极度拥挤寒冷导致严重冻伤脚趾并患急性支气管肺炎，回乡卧床打针两周。",
+            "effect": {
+              "health": -30,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "春运滞留受冻落下严重肺炎，在故乡温暖中疗愈休养。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "随身行李被雨雪浸透泡烂，丢失了带给老家父母的贵重礼物，心酸难过。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冰雪途中行囊受损，但阖家团圆胜过一切身外之物。"
+          }
+        ]
+      },
+      {
+        "text": "若为电力/铁道/交通系统职工，冒严寒风雪奔赴深山攀爬铁塔除冰抢险",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：20–50",
+          "地域：湖南/贵州高寒山区",
+          "门槛：电力交通职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "系好安全绳在零下低温中连爬数十基铁塔人工敲冰，保通京广动脉立大功。",
+            "effect": {
+              "mentality": 30,
+              "wealth": 20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "南网除冰前线铁血先锋，用冻红的双手点亮万家灯火。",
+            "status": "power_grid_hero_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "在结冰铁塔上作业被暴风雪吹落的坠冰砸伤左肩，多处软组织重度挫伤。",
+            "effect": {
+              "health": -35,
+              "mentality": 25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高空除冰抢险负伤荣立二等功，受到全行业致敬表彰。",
+            "status": "injured_lineman_2008"
+          },
+          {
+            "type": "fatal",
+            "weight": 5,
+            "log": "高压铁塔遭遇突发冰荷载倒塌不幸因公牺牲。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在抗冰抢修前线因铁塔突发倒塌光荣殉职。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2008_wenchuan_dizhen",
+    "tier": "era",
+    "title": "5·12汶川8.0级特大地震与举国抗震救灾",
+    "yearRange": [
+      2008,
+      2008
+    ],
+    "targetAge": [
+      0,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "sichuan",
+        "shaanxi",
+        "gansu",
+        "chongqing"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2008年5月12日14时28分四川汶川发生8.0级特大强震，破坏力极其巨大。十万解放军神兵天降、空降兵十五勇士冒死盲跳，全国十四亿同胞众志成城、倾力驰援，谱写抗震救灾壮丽史诗。",
+    "narrative": "大地狂暴撕裂，楼房山体在雷鸣声中轰然坍塌，尘烟遮天蔽日。都汶公路塌方阻断，救援冲锋舟劈波斩浪。全国大喇叭降半旗志哀，三分钟笛声长鸣，泪飞顿作倾盆雨。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处川陕甘震中废墟，咬紧牙关拼尽全力自救互救，从瓦砾中搜救同伴",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：10–65",
+          "地域：四川川渝震区",
+          "门槛：震区幸存者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 50,
+            "log": "在强烈余震中用双手刨挖废墟救出两名邻家幼童，全家幸存，被授予抗震自救模范。",
+            "effect": {
+              "health": -15,
+              "mentality": 30,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "汶川地震绝境自救互救英雄，经受生死洗礼铸就磐石般心性。",
+            "status": "earthquake_hero_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 38,
+            "log": "遭遇预制板坍塌砸断右小腿尺骨，在野战方舱医院接受紧急截肢手术保全生命。",
+            "effect": {
+              "health": -45,
+              "mentality": 15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "地震负重伤致残，在全国对口援建中坚强自立重建人生。",
+            "status": "disabled_survivor_2008"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "祖辈老房尽数化为废墟瓦砾，在活动板房中过渡生活整年，心痛缅怀逝去亲友。",
+            "effect": {
+              "wealth": -40,
+              "family": -25,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "痛失家园亲朋，在国家对口援建春风下重振旗鼓。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在剧烈地震初始瞬间遭遇楼房粉碎性坍塌不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在汶川特大地震强震瞬间不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若身处全国其他省份，主动报名参与民间救援志愿车队，连夜跨省运送帐篷与药品",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：18–55",
+          "地域：全国非灾区",
+          "门槛：热血同胞/志愿者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "驾驶卡车跨越千里将救灾物资送抵映秀都江堰一线，荣获抗震救灾优秀志愿者证书。",
+            "effect": {
+              "mentality": 30,
+              "knowledge": 15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千里奔袭驰援灾区一线，见证人间至纯大爱，升华人生境界。",
+            "status": "volunteer_rescuer_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在山道余震落石中被碎石砸裂车窗划伤前额留疤，包扎后继续搬运抢险。",
+            "effect": {
+              "health": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "前线运输遭遇落石负轻伤，以伤痕为荣守护生命通道。"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "在单位与街道连续排队三次献血并捐出一个月工资，奉献无私同胞深情。",
+            "effect": {
+              "wealth": -15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倾力捐款献血支援同胞，凝聚血脉相连民族力量。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2008_beijing_aoyun",
+    "tier": "era",
+    "title": "第29届北京奥运会开幕：同一个世界同一个梦想",
+    "yearRange": [
+      2008,
+      2008
+    ],
+    "targetAge": [
+      6,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2008年8月8日晚第29届奥林匹克运动会在北京国家体育场（鸟巢）隆重开幕。巨大的卷轴徐徐展开，李宁点燃主火炬塔，中国体育代表团斩获48枚金牌位列金牌榜首位，国际奥委会主席罗格盛赞‘无与伦比’。",
+    "narrative": "八时零八分，鸟巢上空二十九个历史大脚印烟花穿越中轴线。击缶而歌、活字印刷与丝路飞天震撼世界。大江南北的电视机前一片沸腾，十四亿同胞在历经磨难后向世界绽放最美微笑。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 20
+    },
+    "choices": [
+      {
+        "text": "通宵守在电视机前观看开幕式并珍藏整套福娃吉祥物与纪念邮票",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：6–80",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "见证无与伦比的民族盛典，大国自豪感达到顶峰，身心大受振奋与鼓舞。",
+            "effect": {
+              "mentality": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历北京奥运盛世高光，民族自信与世界视野深刻烙印。",
+            "status": "olympic_witness_2008"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "除夕与家人欢聚畅饮庆贺中国夺得金牌榜首位，生活充满欣欣向荣希望。",
+            "effect": {
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在奥运狂欢中凝聚家庭幸福，见证国家腾飞。"
+          }
+        ]
+      },
+      {
+        "text": "若为在京青年或涉外人员，报名担任奥运赛会场馆双语志愿者或赛事保障",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：18–45",
+          "地域：北京/青岛/香港分赛区",
+          "门槛：在京青年/高校师生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "作为‘微笑的名片’圆满完成水立方与鸟巢外宾保障，获评优秀奥运志愿者勋章。",
+            "effect": {
+              "knowledge": 25,
+              "mentality": 25,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "志愿服务奥运开眼界拓人脉，成为人生最自豪的高光履历。",
+            "status": "olympic_volunteer_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "高强度志愿服务暴晒中暑脱水并在看台台阶扭伤脚踝，调养一周痊愈。",
+            "effect": {
+              "health": -20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "志愿服务虽然劳碌脱水，但无怨无悔参与历史盛会。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2008_sanjuqingan",
+    "tier": "era",
+    "title": "三聚氰胺婴幼儿奶粉风波与食品安全大整顿",
+    "yearRange": [
+      2008,
+      2009
+    ],
+    "targetAge": [
+      20,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2008年9月甘肃、河北等多地发现多名婴儿患上双肾结石，随后查明三鹿等品牌奶粉中违规添加化工原料三聚氰胺。国家启动重大食品安全事故I级响应，严厉整肃乳品行业，推行最严食品安全标准。",
+    "narrative": "儿科医院B超室外排满了抱着婴儿痛哭的年轻父母，手里的奶粉包装袋揉得变了形。各大商超货架连夜下架问题奶粉，海关代购与海外进口奶粉掀起疯狂抢购潮。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若家中有嗷嗷待哺幼儿，连夜带孩子去市三甲医院做全面泌尿B超筛查",
+        "choiceTags": [
+          "时代：2008–2009",
+          "年龄：22–45",
+          "地域：全国",
+          "门槛：育儿家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "B超排查确认孩子肾脏健康无虞，虚惊一场，从此托海外亲友代购安全优质奶粉。",
+            "effect": {
+              "health": 10,
+              "family": 25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "及时筛查排除隐患，树立严格科学的食品安全鉴别习惯。",
+            "status": "cautious_parent_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "排查发现孩子有轻微泥沙样肾结晶，在儿科规范多饮水排石治疗痊愈。",
+            "effect": {
+              "health": -20,
+              "family": 15,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期轻度结晶经治疗排净，未留后遗症，日后格外注重天然辅食。",
+            "status": "cured_infant"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "因购买过批次问题奶粉与经销商退款交涉数月，心力交瘁。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "维权退款历尽波折，更加敬畏食品健康。"
+          }
+        ]
+      },
+      {
+        "text": "倡导坚持母乳喂养与绿色天然蔬菜辅食，远离工业合成深加工代乳制品",
+        "choiceTags": [
+          "时代：2008–2009",
+          "年龄：20–40",
+          "地域：城乡家庭",
+          "门槛：哺乳期家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "坚持母乳喂养两整年，孩子体质强健少生病，全家免受奶粉风波惊扰。",
+            "effect": {
+              "health": 20,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "秉持自然喂养理念避开毒奶粉风波，母慈子健其乐融融。",
+            "status": "breastfeeding_advocate"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "自种有机蔬菜给孩子磨制新鲜胡萝卜与苹果米糊，成为邻里育儿典范。",
+            "effect": {
+              "family": 20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "自制天然辅食健康省钱，深受家人赞誉。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2008_siwanyi_touzi",
+    "tier": "era",
+    "title": "应对国际金融危机：四万亿扩大内需投资",
+    "yearRange": [
+      2008,
+      2010
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2008年下半年由美国次贷危机引发的全球金融海啸席卷全球，我国外贸出口遭受严重冲击。中央果断出台扩大内需十项措施，实施总额达4万亿元的投资计划，大力推动高铁、公路、水利与保障房建设。",
+    "narrative": "沿海工厂纷纷缩减外贸工时，而内陆工地上塔吊林立、铲车轰鸣。中西部的高铁线、高速公路和保障性安居工程全面开花。银行信贷闸门大开，水泥、钢铁与重型装备制造迎来爆发式订单。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 10
+    },
+    "choices": [
+      {
+        "text": "顺应国家大基建方向，承包铁路隧道桥梁土石方或购置挖掘机加入工程队",
+        "choiceTags": [
+          "时代：2008–2010",
+          "年龄：24–55",
+          "地域：全国基建工程",
+          "门槛：有工程经验/机械驾驶员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "赶上高铁与高速建设黄金期，名下三台挖掘机昼夜满负荷作业，两年净落百万净利润。",
+            "effect": {
+              "wealth": 60,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住四万亿大基建世纪风口购置挖掘机，奠定坚实工程实业。",
+            "status": "heavy_machinery_boss",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在深山隧道施工遭遇滑坡泥石流砸坏挖机驾驶室，锁骨骨折休养三月。",
+            "effect": {
+              "health": -25,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "基建一线负伤受惊，但工程回款丰厚。",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "总包方拖欠三十万土方工程款垫资沉重，打官司一年方拿回本金。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "工程垫资遭遇回款拉锯，体会到大型基建资金链风险。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "坚守外贸或民营加工本业，加快技术升级转向开发内销与跨境电商新销路",
+        "choiceTags": [
+          "时代：2008–2010",
+          "年龄：22–50",
+          "地域：沿海制造城镇",
+          "门槛：中小微制造业主/白领"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成功打入内销各大商超并开拓中东拉美新兴市场，企业平稳渡过外贸寒冬。",
+            "effect": {
+              "wealth": 30,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "外贸转内销逆势突围，打造自主品牌抗风险能力大增。",
+            "status": "market_pioneer"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "欧美老客户接连破产取消订单，被迫裁员降薪三成，艰难度过寒冬期。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "受金融危机重创压缩产能，咬牙开源节流熬过萧条。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2009_xinnonghe_baoxian",
+    "tier": "era",
+    "title": "新型农村合作医疗（新农合）全面普及",
+    "yearRange": [
+      2009,
+      2011
+    ],
+    "targetAge": [
+      18,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "rural"
+    },
+    "preTags": [
+      "farmer"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2009年国家深化医药卫生体制改革，新型农村合作医疗制度（新农合）覆盖全国数亿农民。农民年缴数十元，住院大病可报销大半，千百年来‘一人得重病、全家致贫’的苦难逐步缓解。",
+    "narrative": "村卫生室门口挤满了缴费参保的老乡，十几块钱换回盖着卫生局红印的新农合医疗卡。乡亲们拿着报销单在县医院窗口核销住院费，原来不敢看的阑尾炎、胆结石，如今也能安心住院开刀手术。",
+    "isDecision": false,
+    "passiveImpact": {
+      "health": 15,
+      "family": 10
+    },
+    "choices": [
+      {
+        "text": "每年按时足额给全家老小缴纳新农合医保，带长年受慢性病折磨的老人进县医院手术根治",
+        "choiceTags": [
+          "时代：2009–2011",
+          "年龄：20–70",
+          "地域：全国农村",
+          "门槛：农村家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "报销七成手术医药费，老母亲多年的白内障/胆结石成功治愈，全家摆脱大病致贫重负。",
+            "effect": {
+              "health": 25,
+              "family": 30,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享受国家新农合制度庇护，解除后顾之忧，家庭幸福底气大增。",
+            "status": "insured_rural_family"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "虽然一年到头全家无大病未用上医保，但为村里互助兜底尽一份力，内心踏实宽慰。",
+            "effect": {
+              "family": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "树立互助共济医疗保险意识，日子越过越踏实。"
+          }
+        ]
+      },
+      {
+        "text": "心疼几十块钱参保费拒绝缴费，老人突发急性阑尾炎全自费东拼西凑借债就医",
+        "choiceTags": [
+          "时代：2009–2011",
+          "年龄：22–60",
+          "地域：偏远乡村",
+          "门槛：抱侥幸心理农户"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 70,
+            "log": "全自费花去三千元掏空积蓄并欠下亲友借款，痛定思痛第二年立即为全家补缴医保。",
+            "effect": {
+              "wealth": -25,
+              "family": -15,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因小失大经历全自费看病之痛，彻底转变参保观念。"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "因心疼昂贵手术费延误就医引发阑尾穿孔腹膜炎，抢救保全性命但落下一身虚弱。",
+            "effect": {
+              "health": -35,
+              "wealth": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拖延病情险遭不测，深刻领悟现代医疗保障的不可或缺。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2010_shanghai_shibo",
+    "tier": "era",
+    "title": "2010上海世界博览会盛况见证",
+    "yearRange": [
+      2010,
+      2010
+    ],
+    "targetAge": [
+      6,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2010年5月至10月中国2010年上海世界博览会在黄浦江畔成功举行，主题为‘城市，让生活更美好’。中国国家馆‘东方之冠’庄严巍峨，创下7308万人次入园参观的历史纪录。",
+    "narrative": "世博园区人潮涌动，沙特馆与中国馆门前排起数小时的长队。小白菜志愿者们顶着骄阳挥洒汗水递送遮阳帽与饮水。各色高科技低碳建筑在黄浦江两岸璀璨生辉，展现人类城市文明未来。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 10,
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "带全家乘坐高铁专程赴沪参观世博园，集齐数十国场馆纪念章",
+        "choiceTags": [
+          "时代：2010",
+          "年龄：6–75",
+          "地域：全国",
+          "门槛：普通国民家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "亲眼目睹世界前沿环保与未来科技展示，开拓眼界，全家人留下一生难忘美好回忆。",
+            "effect": {
+              "knowledge": 25,
+              "family": 20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲临上海世博会开眼界，深刻体会科技赋能美好生活。",
+            "status": "world_expo_visitor"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "烈日下暴走三万步严重中暑虚脱并在沙特馆排队扭伤右脚踝，休养数天。",
+            "effect": {
+              "health": -15,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "排队看展受酷暑考验，但大饱眼福满载而归。"
+          }
+        ]
+      },
+      {
+        "text": "若为上海或长三角青年，报名担任世博会园区‘小白菜’双语志愿者服务各国宾朋",
+        "choiceTags": [
+          "时代：2010",
+          "年龄：18–35",
+          "地域：上海长三角",
+          "门槛：高校青年/外语特长"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "在园区热情服务上万名海内外游客，获评世博会杰出青年志愿者称号荣记功勋。",
+            "effect": {
+              "knowledge": 30,
+              "mentality": 25,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "化身世博小白菜奉献青春，收获卓越涉外沟通能力。",
+            "status": "expo_volunteer_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "连续三周高强度烈日站立服务导致重度足底筋膜炎与急性脱水，挂水打针治疗。",
+            "effect": {
+              "health": -20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "志愿奉献汗水湿透绿白制服，以奉献精神为荣。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2010_yushu_dizhen",
+    "tier": "era",
+    "title": "青海玉树7.1级特大地震与高原生命大营救",
+    "yearRange": [
+      2010,
+      2010
+    ],
+    "targetAge": [
+      0,
+      75
+    ],
+    "applicableRegions": [
+      "西北",
+      "西南",
+      "ALL"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "qinghai",
+        "xizang",
+        "sichuan",
+        "gansu"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2010年4月14日青海省玉树藏族自治州发生7.1级强烈地震。震区海拔近4000米，高寒缺氧，藏汉军民在高原绝境中展开空前大营救，展现民族团结生死相依的伟大力量。",
+    "narrative": "结古镇断壁残垣，土木结构的藏式民居大面积倒塌。救援官兵背着沉重的氧气瓶与铁锹在碎石中搜救，严寒与高原反应折磨着每一个人，红幡在大风中飘扬，经幡下传出生命的微弱呼喊。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处玉树高原震区，临危不乱协助老弱乡亲撤离险境，共同抗击风雪严寒",
+        "choiceTags": [
+          "时代：2010",
+          "年龄：10–65",
+          "地域：青海玉树藏区",
+          "门槛：震区藏汉军民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 50,
+            "log": "在高原寒夜中生火互助保全家人与邻里平安，获评高原抗震模范荣誉证书。",
+            "effect": {
+              "family": 25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在玉树高寒地震绝境中坚韧互助幸存，展现高原儿女不屈脊梁。",
+            "status": "yushu_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 38,
+            "log": "在坍塌土墙中救人时腰椎被重物砸伤留残，且并发高原肺水肿抢救脱险。",
+            "effect": {
+              "health": -45,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高原救灾负重伤致残，在国家长期保障下安度岁月。",
+            "status": "injured_rescuer_yushu"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "家宅牲畜尽毁，在抗震帐篷学校与板房中坚韧重建新家园。",
+            "effect": {
+              "wealth": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "痛失家园在全国援建春风下重修藏式新居。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在剧烈地震初始瞬间遭遇土石房屋粉碎性坍塌不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在玉树强震突发瞬间不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若为医疗防疫或特种工程队，连夜跨越雪山奔赴海拔四千米灾区一线救死扶伤",
+        "choiceTags": [
+          "时代：2010",
+          "年龄：20–50",
+          "地域：青海/全国援青",
+          "门槛：特种医护/军警"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "克服剧烈高原反应在野战帐篷救治上百名受创藏胞，荣立抗震救灾个人一等功。",
+            "effect": {
+              "mentality": 30,
+              "knowledge": 20,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高原逆行救死扶伤，经受极限生理考验筑就大爱。",
+            "status": "plateau_medical_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "连续高强度急救作业引发严重急性高原肺水肿咳粉红泡沫痰，紧急直升机后送抢救。",
+            "effect": {
+              "health": -35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高原救援突发重症肺水肿脱险，用生命践行医者誓言。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2011_gaotie_tongche",
+    "tier": "era",
+    "title": "京沪高铁全线通车：中国全面跨入高铁时代",
+    "yearRange": [
+      2011,
+      2013
+    ],
+    "targetAge": [
+      12,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2011年6月京沪高速铁路全线正式通车运营，全长1318公里，千里京沪一日还。中国高铁运营里程突破一万公里，‘复兴号’、‘和谐号’动车组改变了国土时空距离与数亿人出行版图。",
+    "narrative": "银白色的动车组如离弦之箭滑出站台，车厢内硬币竖立不倒。电子显示屏上的时速飙升至300公里。原先需要坐整夜绿皮车的漫长旅途，如今只需不到五小时即可轻松抵达，双城生活成为寻常现实。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 5,
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "购买首趟京沪高铁二等座车票体验千里飞驰，开启跨城双城通勤与出差新工作模式",
+        "choiceTags": [
+          "时代：2011–2013",
+          "年龄：18–65",
+          "地域：高铁沿线各省",
+          "门槛：工薪大众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "出行效率翻倍，拓展多座一二线城市客户资源与求学机遇，生活圈与视野极大拓宽。",
+            "effect": {
+              "knowledge": 20,
+              "wealth": 25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享受中国高铁飞速发展红利，开启现代化跨城高速生活方式。",
+            "status": "hsr_commuter"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "带年迈父母体验平稳无晃动的高铁列车，在车窗前看齐鲁江南飞逝风光，尽享天伦。",
+            "effect": {
+              "family": 25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "带双亲体验现代化大国重器，共享时代发展红利。"
+          }
+        ]
+      },
+      {
+        "text": "若为铁道通信信号或线路维保工程师，坚守千里高铁沿线负责夜间天窗精调巡检",
+        "choiceTags": [
+          "时代：2011–2013",
+          "年龄：20–50",
+          "地域：铁路工务系统",
+          "门槛：铁路工程技师"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "掌握毫秒级高铁CTC列控与轨道微米级精调核心手艺，晋升为路局首席高铁大师傅。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "默默守护世界最长高铁大动脉，成为大国重器幕后功臣。",
+            "status": "hsr_master_technician"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "常年夜间凌晨天窗室外巡道劳累导致慢性腰肌劳损并患严重风湿性膝关节炎。",
+            "effect": {
+              "health": -25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "昼夜颠倒严守高铁安全，后半生落下慢性关节劳损。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2011_weibo_xinmeiti",
+    "tier": "era",
+    "title": "微博兴起：“围观改变中国”与移动互联网发声",
+    "yearRange": [
+      2011,
+      2013
+    ],
+    "targetAge": [
+      15,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2011年前后新浪微博等社交平台迅猛爆发，注册用户突破数亿。140字微型博客打破传统信息传播单向格局，‘微公益’、‘微博打拐’、随手拍引发全民围观，中国步入自媒体草根发声新时期。",
+    "narrative": "手机屏幕上不断刷新着带大V认证与热搜话题的动态。人们用键盘记录身边琐事，转发救助信息，参与公共议题讨论。智能手机电容屏的滑动取代了报纸，每个人都成了自带麦克风的自媒体传播者。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "开设个人实名微博，发表本行业专业分析见解，通过持续互动积累数万粉丝关注",
+        "choiceTags": [
+          "时代：2011–2013",
+          "年龄：18–45",
+          "地域：全国城镇",
+          "门槛：有专业见解青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成为垂类领域知名微博大V意见领袖，接洽广告商单与出书邀约，开启自媒体知识变现之路。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抢占自媒体初创期黄金红利，从普通工薪蜕变为知名网络博主。",
+            "status": "weibo_kol",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "因在争议热点事件中发表过激言论引发网络言论争议，承受严重网络言语攻击抑郁失眠。",
+            "effect": {
+              "mentality": -30,
+              "health": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遭遇网络恶意攻击经受心智洗礼，学会谨言慎行理性发言。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "沉迷刷微博熬夜通宵导致严重干眼症视网膜轻微脱落，住院激光治疗。",
+            "effect": {
+              "health": -25,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重度低头族熬夜伤眼，后严格控制每日屏幕使用时间。"
+          }
+        ]
+      },
+      {
+        "text": "仅将微博作为浏览新闻咨询工具，专心做好本职线下实业业务",
+        "choiceTags": [
+          "时代：2011–2013",
+          "年龄：18–60",
+          "地域：全国",
+          "门槛：低调大众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "免受网络口水战干扰，线下实体工作扎实推进，生活节奏从容安宁。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不为网络虚浮声浪所扰，专注现实生活脚踏实地。"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "通过微博成功帮老家找到被拐儿童线索并提供关键证明，积德行善深受乡邻爱戴。",
+            "effect": {
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "利用网络向善传递正能量，体会科技赋能人间的温暖。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2012_beijing_baoyu",
+    "tier": "era",
+    "title": "2012北京“7·21”特大特大自然暴雨内涝",
+    "yearRange": [
+      2012,
+      2012
+    ],
+    "targetAge": [
+      10,
+      75
+    ],
+    "applicableRegions": [
+      "华北"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "beijing",
+        "tianjin",
+        "hebei"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2012年7月21日北京及华北地区遭遇61年来最强特大暴雨。房山与广渠门等桥下发生严重积水积水，全市数万辆车辆涉水被淹。市民自发打双闪免费搭乘滞留乘客，在洪水中守望互助感动全城。",
+    "narrative": "雨幕如决堤天河轰鸣泼下，立交桥下积水迅速没过车顶。雨刷器开到最大依然看不清前路，街道变成了汹涌河流。出租车与私家车纷纷打起双闪，素不相识的市民手拉手筑起人墙在急流中疏导被困车辆。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若开车被困积水路段，果断在水位上升前弃车撤离至高处，并向滞留老人施以援手",
+        "choiceTags": [
+          "时代：2012",
+          "年龄：18–65",
+          "地域：北京/京津冀受淹区",
+          "门槛：积水区市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "果断弃车保命，手拉手护送被困幼童撤上桥面安全地带，全家平安脱险，车辆获保险理赔。",
+            "effect": {
+              "mentality": 25,
+              "family": 20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在暴雨内涝危急时刻沉着果断舍财保命，彰显过人应急自救本色。",
+            "status": "rainstorm_survivor_2012"
+          },
+          {
+            "type": "injured",
+            "weight": 28,
+            "log": "在没膝深水中涉水前行被冲开的铁篦下水道盖划伤小腿深达肌层，紧急注射破伤风缝针。",
+            "effect": {
+              "health": -25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "涉水救人腿部负外伤，但避免了更严重的人身意外。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "爱车被完全灭顶浸泡报废，保险理赔耗费数月奔波，生活通勤大受影响。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "车辆遭水淹全损承受经济折算，吸取恶劣天气避险常识。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在立交桥深积水涵洞内未能及时破窗逃生不幸溺水罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在特大暴雨桥下积水深潭中未能及时破窗脱险不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若身处安全干燥居所，主动为楼下涉水避雨路人打开单元门，提供热毛巾与充电宝",
+        "choiceTags": [
+          "时代：2012",
+          "年龄：14–70",
+          "地域：京津城市街道",
+          "门槛：热心市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "收留安置三名受困返家女工喝姜茶避雨直到天明，体会京城邻里大爱真情。",
+            "effect": {
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "风雨交加之夜善待落难路人，传递大城小温情。",
+            "status": "helpful_neighbor_2012"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "协助物业连夜在地下车库入口码放沙袋筑堤阻水，保住全小区数百台车辆安全。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "众志成城防汛自救，筑牢家园安全堤坝。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2012_weixin_yidong",
+    "tier": "era",
+    "title": "微信普及：朋友圈与移动社交生活时代",
+    "yearRange": [
+      2012,
+      2014
+    ],
+    "targetAge": [
+      12,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2012年前后微信推出朋友圈、语音通话与公众平台，用户数呈几何级爆发突破三亿。告别昂贵的按条计费短信与长途电话费，移动互联网即时通信彻底重塑了全中国人的社交与生活方式。",
+    "narrative": "绿色气泡的‘叮咚’提示音在大街小巷响起。老年人学会了按住说话给远方儿女发语音，年轻人忙着点赞朋友圈九宫格照片。公众号长文与扫一扫二维码，迅速成为获取资讯与人际交往的第一入口。",
+    "isDecision": false,
+    "passiveImpact": {
+      "family": 10,
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "敏锐开办微信公众订阅号，撰写高质量行业深度原创文章开拓私域流量",
+        "choiceTags": [
+          "时代：2012–2014",
+          "年龄：18–45",
+          "地域：全国",
+          "门槛：有文字/专业技能青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "公众号积累十万订阅读者，接洽知识付费与品牌推广商单，实现副业年入数十万。",
+            "effect": {
+              "wealth": 45,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住微信公众号早期流量红利窗口，建立个人独立品牌事业。",
+            "status": "wechat_publisher",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "常年深夜日更排版撰稿导致严重颈椎骨质增生与慢性失眠，视力骤降。",
+            "effect": {
+              "health": -25,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "公众号高强度日更透支健康，后组建团队科学分流排期。",
+            "newCareerTrack": "tech_whitecollar"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "文章涉及敏感版权图片纠纷遭遇索赔五千元，深刻吸取正规授权教训。",
+            "effect": {
+              "wealth": -10,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "早期自媒体版权意识薄弱交罚款学费，建立规范法务流程。"
+          }
+        ]
+      },
+      {
+        "text": "教会年迈父母使用微信语音视频通话，拉起全家老小三代同堂的家族微信群",
+        "choiceTags": [
+          "时代：2012–2014",
+          "年龄：12–75",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "每天在群里分享生活日常早晚安，视频通话拉近千里亲情，全家其乐融融。",
+            "effect": {
+              "family": 30,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "利用数字工具跨越时空阻隔连接亲情，尽享现代科技伦理之美。",
+            "status": "wechat_family_keeper"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "耐心向长辈科普防范朋友圈养生谣言与伪劣保健品推销，守护家庭财产健康。",
+            "effect": {
+              "family": 20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "成为家庭数字素养守门员，为长辈筑牢防骗防线。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2013_baxiang_guiding",
+    "tier": "era",
+    "title": "中央“八项规定”出台与全面从严治党",
+    "yearRange": [
+      2013,
+      2014
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "cadre_teacher"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2012年底中央出台改进工作作风、密切联系群众的‘八项规定’。公款吃喝、公车私用、天价月饼香烟等奢靡歪风被雷霆横扫，‘打虎拍蝇’深入推进，党风政风与社风民风实现根本性清朗扭转。",
+    "narrative": "机关食堂里大鱼大肉公款应酬烟消云散，换成了四菜一汤自助餐。高档酒楼包厢生意转冷，茅台五粮液价格腰斩。老百姓到政务大厅办准生证和营业执照，再也不用托关系递烟求人，办事效率焕然一新。",
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 10
+    },
+    "choices": [
+      {
+        "text": "带头坚决执行厉行节约反对浪费，严拒下属礼品卡券，在业务中公私分明一身清白",
+        "choiceTags": [
+          "时代：2013–2014",
+          "年龄：24–58",
+          "地域：全国党政机关企事业",
+          "门槛：体制内公职/中层"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "清风两袖廉洁奉公，凭过硬业务担当经受多轮巡视审计过关，获评勤廉兼优好干部晋升。",
+            "effect": {
+              "knowledge": 20,
+              "mentality": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应风清气正时代潮流，清白做人干净做事，走稳从政仕途大道。",
+            "status": "clean_cadre"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "从无休止的公款醉酒应酬中彻底解脱，晚上回家陪家人吃家常便饭，脂肪肝血脂全面好转。",
+            "effect": {
+              "health": 25,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "告别应酬重负回归家庭健康，身体指标全面好转。"
+          }
+        ]
+      },
+      {
+        "text": "若为高档餐饮酒楼经营者，主动斩断公款消费依赖，迅速转型大众亲民家常平价菜馆",
+        "choiceTags": [
+          "时代：2013–2014",
+          "年龄：22–55",
+          "地域：城镇餐饮界",
+          "门槛：餐饮实体老板"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "放下身段做老百姓吃得起的实惠招牌菜，翻台率激增，营业利润不降反升成功转型。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敏锐求变从高奢转向大众民生餐饮，闯出一片辽阔新天地。",
+            "status": "dining_transform_pioneer",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因转型不及时死守天价包厢，连续亏损半年关门停业，转行从事普通小吃加盟。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转型迟疑承受亏损阵痛，后转入小成本便民外卖。",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2013_yuebao_licai",
+    "tier": "era",
+    "title": "余额宝横空出世：零钱理财与利息觉醒",
+    "yearRange": [
+      2013,
+      2014
+    ],
+    "targetAge": [
+      18,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2013年6月支付宝联合天弘基金推出‘余额宝’，年化收益率一度飙升至6%以上。一元起购、随时消费取现的极低门槛，让数亿从未接触过基金的普通百姓首次体验到货币基金理财收益，颠覆传统银行存款格局。",
+    "narrative": "手机屏幕上每天清晨弹出的几块钱利息收益，成了年轻人早起最开心的仪式。‘把银行活期转入余额宝’成为网络热潮。老百姓第一次真切算明白了年化收益率与复利利息的概念。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "将工资零钱与活期存款全数转入余额宝，每天清晨查看收益并学习现代基金理财知识",
+        "choiceTags": [
+          "时代：2013–2014",
+          "年龄：18–60",
+          "地域：全国",
+          "门槛：智能手机用户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "每天稳稳落袋数十元利息收益，树立科学理财观念并建立稳健家庭应急备用金账户。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "乘余额宝东风完成大众金融理财启蒙，打牢稳健储蓄基底。",
+            "status": "smart_fund_saver"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "用理财收益全额支付了全家一整年的水电燃气费与手机话费，尽享数字金融便利。",
+            "effect": {
+              "wealth": 10,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "数字零钱理财惠及寻常家计，体验科技带来的日常确幸。"
+          }
+        ]
+      },
+      {
+        "text": "被过高收益冲昏头脑，转投年化超20%的高风险民间借贷担保公司，追求暴利",
+        "choiceTags": [
+          "时代：2013–2014",
+          "年龄：22–60",
+          "地域：民间借贷活跃区",
+          "门槛：贪图高息者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 70,
+            "log": "担保老板卷款跑路血本无归，五万元养老积蓄被骗光，四处维权无门以泪洗面。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "被民间高利贷贪念蒙蔽承受惨痛失财，深刻领悟‘你看中他的利息，他看中你的本金’。",
+            "status": "financial_fraud_victim"
+          },
+          {
+            "type": "safe",
+            "weight": 30,
+            "log": "听从银行工作亲友规劝及时撤出本息，虽然少赚了虚浮高息但避开了资金断裂大坑。",
+            "effect": {
+              "wealth": 10,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "悬崖勒马避开非法集资陷阱，树立清醒风险红线意识。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2013_yaan_dizhen",
+    "tier": "era",
+    "title": "四川芦山（雅安）7.0级地震与科学抗震抢险",
+    "yearRange": [
+      2013,
+      2013
+    ],
+    "targetAge": [
+      0,
+      75
+    ],
+    "applicableRegions": [
+      "西南",
+      "ALL"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "sichuan",
+        "chongqing",
+        "guizhou",
+        "yunnan"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2013年4月20日四川雅安市芦山县发生7.0级强烈地震。得益于汶川震后严格的建筑抗震设防标准与现代应急救援体系，救灾更加科学、有序、高效，生命绿色通道迅速打通。",
+    "narrative": "山谷间警报长鸣，滚落的巨石横断宝兴县生命线。无人机与生命探测仪第一时间升空排查，志愿者组织有序让出应急车道。帐篷小学在废墟旁迅速搭建，琅琅书声在瓦砾旁再次响起。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处芦山震区，沉着依托抗震防灾避险知识疏散至开阔广场，参与邻里物资分发",
+        "choiceTags": [
+          "时代：2013",
+          "年龄：10–65",
+          "地域：四川雅安震区",
+          "门槛：震区军民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "得益于震后自建房抗震构造柱加固，房屋未塌，全家人平安脱险并获评互助标兵。",
+            "effect": {
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学抗震设防筑牢生命安全堤坝，经受强震考验安然无恙。",
+            "status": "yaan_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 28,
+            "log": "在狭窄弄堂撤离时被震落的屋脊瓦片砸伤右肩胛骨，卫生院包扎缝合。",
+            "effect": {
+              "health": -20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "避险及时仅受外伤留痕，在关爱中迅速康复。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "老房出现大面积墙体贯通裂缝被鉴定为危房，搬入安置过渡板房生活半年。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "家产受损在政府补助下重建高标准抗震新居。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在老旧土石危房避难不及被倒塌山墙重创不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在突发地震中遭遇危旧房坍塌不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若为全国其他省市同胞，理性响应官方‘把生命通道留给专业救援队伍’呼吁，通过正规渠道捐款捐物",
+        "choiceTags": [
+          "时代：2013",
+          "年龄：14–70",
+          "地域：全国非灾区",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "通过正规红十字会捐款五百元并提供帐篷物资，展现理性成熟的现代公民慈善风貌。",
+            "effect": {
+              "wealth": -5,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性支持救灾大局，见证中国应急救援体系走向专业成熟。",
+            "status": "rational_charity_contributor"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "在网络发帖倡议私家车勿盲目自驾入川阻碍救护车生命大通道，获全网数万点赞转发。",
+            "effect": {
+              "knowledge": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "呼吁保障生命通道体现高素质公民担当。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2014_yidong_zhifu",
+    "tier": "era",
+    "title": "移动支付普及：不带现金出门时代到来",
+    "yearRange": [
+      2014,
+      2016
+    ],
+    "targetAge": [
+      12,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2014年微信红包除夕夜一战成名绑定数亿张银行卡，支付宝与微信扫码支付迅速席卷全国大中小城市。从出租车、大型百货到路边卖菜小摊，二维码贴遍神州，中国一跃成为全球移动支付第一大国。",
+    "narrative": "菜市场摊主挂出了印有塑料塑封的收款二维码，买一把芹菜扫码两块钱。皮夹里的现钞放了几个月都没动过。‘双十一’零点网购交易额以秒级突破百亿，快递三轮车把小区的快递柜塞得满满当当。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 5,
+      "knowledge": 10
+    },
+    "choices": [
+      {
+        "text": "将线下实体店铺全面接入微信/支付宝聚合收款码，开展满减促销与线上团购外卖",
+        "choiceTags": [
+          "时代：2014–2016",
+          "年龄：20–55",
+          "地域：全国城乡",
+          "门槛：实体店主/小商贩"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "告别假币与找零烦恼，线上客流与外卖订单暴增三成，成为街区数字化经营模范商户。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应移动扫码支付大浪潮，彻底打通线上线下财富新通道。",
+            "status": "digital_merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "常年盯着手机抢单核销过度劳损患上重度腱鞘炎与颈椎间盘突出。",
+            "effect": {
+              "health": -20,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "手机低头抢单引发腱鞘炎，后购置固定支架与语音播报器。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "遭遇不法分子用假截图骗单损失两百元货款，随后安装防作弊语音实时播报音箱。",
+            "effect": {
+              "wealth": -5,
+              "knowledge": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经历微小技术防骗漏洞，完善数字化防盗防假机制。"
+          }
+        ]
+      },
+      {
+        "text": "带头在全家普及移动支付与指纹安全识别，帮助家中老年人跨越‘数字鸿沟’",
+        "choiceTags": [
+          "时代：2014–2016",
+          "年龄：14–65",
+          "地域：全国",
+          "门槛：普通家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "手把手教会父母用手机刷医保码、水电气手机缴费，全家人尽享数字化生活便利。",
+            "effect": {
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "托举家庭跨越数字鸿沟，享受无现金社会的极速便利与温情。",
+            "status": "digital_bridge_builder"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "开启大额免密支付防线与亲属卡限额守护，为父母牢牢筑起数字资产防火墙。",
+            "effect": {
+              "family": 20,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "注重金融信息安全防护，家庭资产安全稳健。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2015_tianjin_baozha",
+    "tier": "era",
+    "title": "天津港“8·12”瑞海公司特大火灾爆炸事故",
+    "yearRange": [
+      2015,
+      2015
+    ],
+    "targetAge": [
+      0,
+      80
+    ],
+    "applicableRegions": [
+      "华北"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "tianjin",
+        "beijing",
+        "hebei"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2015年8月12日深夜天津港瑞海公司危险品仓库发生特别重大火灾爆炸事故。巨大蘑菇云腾空而起，数公里内门窗尽毁，165人不幸遇难（其中公安消防官兵及企业特勤队员110人），给危化品安全监管敲响警钟。",
+    "narrative": "深夜地动山摇，两声惊天动地的巨响把滨海新区的天空照得亮如白昼。冲击波震碎了方圆数里的居民楼玻璃，浓烈的化学烟雾遮天蔽日。消防官兵逆行奔赴火海前线，救护车呼啸穿梭于废墟之中。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处爆炸核心周边小区，在巨响瞬间远离窗户趴下抱头，随后带全家戴湿毛巾迅速撤离逆风高处",
+        "choiceTags": [
+          "时代：2015",
+          "年龄：10–70",
+          "地域：天津滨海新区",
+          "门槛：震感周边市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "沉着远离窗户避开飞溅碎玻璃，全家平安撤离至上风向安全体育场馆避险，房屋获政府回购修缮。",
+            "effect": {
+              "mentality": 25,
+              "family": 20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在突发重大工业灾害中依靠科学避险知识保全一家老小。",
+            "status": "explosion_escape_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "被强冲击波震碎的飞溅落地窗玻璃划伤手臂与面部深达皮下，就医缝合二十余针留疤。",
+            "effect": {
+              "health": -35,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "强冲击波破窗负外伤，在全社会爱心救治下平复创伤。",
+            "status": "injured_blast_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 3,
+            "log": "房屋受损严重不得不搬迁至过渡酒店居住半年，生活节奏遭受长期打乱。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "家园受损经漫长修缮过渡，更深刻领会生命平安的可贵。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "身处危化品仓库近距离核心爆心走避不及不幸罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在特大火灾爆炸事故极近距离核心区不幸遇难。"
+          }
+        ]
+      },
+      {
+        "text": "若为消防官兵或专业防化救援队员，明知前路刀山火海仍义无反顾逆行奔赴火场排险",
+        "choiceTags": [
+          "时代：2015",
+          "年龄：18–40",
+          "地域：天津/华北消防",
+          "门槛：现役消防救援人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 56,
+            "log": "在剧毒有毒气体与二次爆燃威胁下冒死搜救疏散数十名被困群众，被授予国家级一等功。",
+            "effect": {
+              "mentality": 40,
+              "knowledge": 25,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "逆行冲入爆炸火海舍己救人，写就时代最壮烈的白衣蓝甲传奇。",
+            "status": "firefighter_hero_2015"
+          },
+          {
+            "type": "injured",
+            "weight": 42,
+            "log": "遭遇二次剧烈二次冲击波掀翻导致多发性肋骨骨折与轻度化学品灼伤，在ICU抢救脱险。",
+            "effect": {
+              "health": -45,
+              "mentality": 30,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "火场负重伤致残，受到党和人民至高崇敬与终生荣誉保障。",
+            "status": "disabled_hero_2015"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在危化品集装箱二次剧烈猛烈爆炸中英勇牺牲。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在处置特大火灾爆炸事故一线壮烈牺牲，被追认为革命烈士。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2015_jingzhun_fupin",
+    "tier": "era",
+    "title": "脱贫攻坚战全面打响与“第一书记”驻村",
+    "yearRange": [
+      2015,
+      2019
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2015年底中央召开扶贫开发工作会议，立下坚决打赢脱贫攻坚战军令状。全国数百万名第一书记和驻村干部扎进深山贫困村。修水泥路、引自来水、搞特色产业、易地扶贫搬迁，书写人类减贫奇迹。",
+    "narrative": "崎岖泥泞的羊肠小道变成了平整坚硬的硬化水泥路，太阳能路灯照亮了原本漆黑的小山村。驻村工作队员踩着沾满黄泥的胶鞋入户建档立卡，牛羊养殖大棚与光伏电站给穷乡僻壤带来造血生机。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "主动请缨报名担任国家级贫困村‘第一书记’或扶贫工作队员，驻村吃住扎根大山三年",
+        "choiceTags": [
+          "时代：2015–2019",
+          "年龄：24–50",
+          "地域：全国贫困县乡村",
+          "门槛：党政机关公职骨干"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "带领全村发展高山猕猴桃与特色茶园整村脱贫摘帽，深受村民爱戴，荣立脱贫攻坚全省先进功勋。",
+            "effect": {
+              "knowledge": 30,
+              "wealth": 20,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "扎根深山带领全村奔小康，把论文写在祖国大地上，走上重要领导岗位。",
+            "status": "poverty_relief_cadre"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "深夜走访在山崖小路驾驶巡逻车不慎翻入水沟导致右臂骨折，打钢板休养三月。",
+            "effect": {
+              "health": -25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深山扶贫山道颠簸负伤，用汗水与热血铸就大山新貌。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "长年扎根大山无暇顾及子女幼小教育与家务，妻子独自承担重负难免抱怨生隙。",
+            "effect": {
+              "family": -20,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "舍小家为大家奉献青春，日后加倍补偿家庭亲情。"
+          }
+        ]
+      },
+      {
+        "text": "若为贫困建档立卡农户，抓住扶贫免息小额贷款机遇发展温棚香菇养殖与特色农旅",
+        "choiceTags": [
+          "时代：2015–2019",
+          "年龄：20–65",
+          "地域：全国扶贫乡村",
+          "门槛：贫困农户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "靠技术帮扶与保底收购香菇年入五万元，搬进政府补贴的易地搬迁两层新房，彻底摘帽。",
+            "effect": {
+              "wealth": 40,
+              "family": 25,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依靠精准扶贫春风与自力更生摘掉穷帽，开启现代富足新生活。",
+            "status": "lifted_out_of_poverty"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "在扶贫车间就近上班当打包工，每月有固定三千元薪水，又能照顾家中瘫痪老人。",
+            "effect": {
+              "wealth": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "家门口扶贫工坊上班增收，兼顾家庭生计两不误。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_fangjia_kuangbiao",
+    "tier": "era",
+    "title": "三四线棚改货币化与一二线“买房上车潮”",
+    "yearRange": [
+      2016,
+      2017
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2016年前后国家大力推进棚户区改造货币化安置与房地产‘去库存’。低利率与置业大潮推动全国一二三四线城市房价出现全面攀升，‘首付六个钱包’与‘买房上车’成为年轻一代最沉重也最紧迫的人生博弈。",
+    "narrative": "售楼处前排起百米长队，叫号声伴随着摇号机的转动。中介电话狂轰滥炸，一星期不买房、半年白干成了社交网络焦虑流行语。老旧瓦房被画上鲜红的大‘拆’字，挖掘机扬起漫天烟尘。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "动员双方父母‘六个钱包’凑足首付，顶格办理公积金与商业按揭贷款购入商品期房",
+        "choiceTags": [
+          "时代：2016–2017",
+          "年龄：23–45",
+          "地域：全国一二线/省城",
+          "门槛：能凑足首付家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "成功买入核心地段地铁房，两年内资产账面升值数十万，为子女锁定了优质对口学区。",
+            "effect": {
+              "wealth": 50,
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "搭上高杠杆置业红利末班车，实现房产资产定格与阶层跃迁。",
+            "status": "property_owner_2016"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "每月近万元房贷月供压得喘不过气，不敢辞职不敢生病，夫妻二人常因柴米油盐拌嘴。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -25,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重度房贷月供严重挤压生活品质，成为背负三十年负债的房奴。",
+            "status": "mortgage_slave_2016"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "高压加班还贷过度劳累突发急性耳聋与腰椎间盘脱出，卧床牵引治疗一月。",
+            "effect": {
+              "health": -30,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "还贷压力透支身心健康，后调整心态不求虚荣。"
+          }
+        ]
+      },
+      {
+        "text": "认定房价脱离收入基本面泡沫严重，坚决不背沉重房贷负债，选择长期租房生活从容投资",
+        "choiceTags": [
+          "时代：2016–2017",
+          "年龄：22–50",
+          "地域：全国城镇",
+          "门槛：清醒租客"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "手握大笔充裕现金存款不受房贷羁绊，自由旅行吃喝提升自我，避开后来的房产下行周期。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "清醒拒绝高位加杠杆接盘，保全宝贵流动现金，从容生活。",
+            "status": "happy_renter"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "因经常面临房东随意涨房租与转卖赶人，频繁搬家折腾心力交瘁。",
+            "effect": {
+              "wealth": -10,
+              "family": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "租房漂泊面对房东频繁违约赶人，饱尝无恒产者辛酸。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_quanmian_erhai",
+    "tier": "era",
+    "title": "“全面二孩”政策落地与家庭二胎博弈",
+    "yearRange": [
+      2016,
+      2018
+    ],
+    "targetAge": [
+      24,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2016年1月1日起我国正式实施‘全面两孩’政策，积极应对人口老龄化少子化挑战。医院产科门诊再次排起建档长队，高龄孕妇与二胎养育成本成为全社会热议的家庭话题。",
+    "narrative": "产检超声波室外坐满了三十多岁乃至四十岁的高龄二胎准妈妈。家里的大宝噘着嘴担心玩具被分走，长辈们喜上眉梢张罗着婴儿床。尿布、辅食与奶粉的开销在家庭账本上翻了一倍。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "积极响应政策迎来健康二宝降生，大宝学着做哥哥姐姐，享受儿女绕膝幸福",
+        "choiceTags": [
+          "时代：2016–2018",
+          "年龄：25–45",
+          "地域：全国",
+          "门槛：已育一孩夫妇"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "二胎健康成长，兄弟姐妹相伴不孤单，虽操持辛苦但晚年承欢膝下底气更足。",
+            "effect": {
+              "family": 35,
+              "mentality": 20,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应政策生养二胎，虽然生活开销翻倍但收获儿女绕膝至福。",
+            "status": "two_children_family"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "高龄妊娠合并妊娠期糖尿病与产后严重腰肌分离，调理康复花费上万元。",
+            "effect": {
+              "health": -30,
+              "family": 20,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高龄二胎分娩受生理重创，在全家人悉心照护下逐渐康复。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "大宝产生强烈被冷落逆反心理频频厌学哭闹，父母兼顾不暇身心俱疲。",
+            "effect": {
+              "family": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "多子女家庭心理平衡面临考验，耗费精力做好关爱疏导。"
+          }
+        ]
+      },
+      {
+        "text": "权衡教育内卷与经济精力成本，坚定选择不生二胎，全力精细托举培养独生大宝",
+        "choiceTags": [
+          "时代：2016–2018",
+          "年龄：25–45",
+          "地域：大中城市",
+          "门槛：工薪中产家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "集中家庭全部财力精力给独生子女提供优质兴趣班与课外研学，生活节奏从容从容。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性权衡家庭承受力坚守优生优育，家庭财务健康无虞。",
+            "status": "elite_single_child_parent"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "面对双方老人家‘不生二胎就是不孝’的频繁催生指责，偶尔产生家庭摩擦冷战。",
+            "effect": {
+              "family": -15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顶住长辈传统催生压力，坚守夫妻二人独立育儿规划。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2017_gongxiang_danche",
+    "tier": "era",
+    "title": "共享单车“彩虹大战”：最后一公里与街头乱象",
+    "yearRange": [
+      2017,
+      2018
+    ],
+    "targetAge": [
+      12,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2017年ofo小黄车、摩拜小橙车、小蓝单车等数十家共享单车站上资本风口。黄橙蓝绿的共享单车堆满大城市地铁口与马路牙子。扫码骑车解决‘最后一公里’，但也引发押金暴雷与乱停放治理危机。",
+    "narrative": "地铁口早高峰被密密麻麻的小黄车挤得寸步难行，手机一扫开锁铃声此起彼伏。资本狂烧补贴免费骑车。然而到了年底，街头单车站满了损坏废弃车，押金退款排号排到了数千万人开外。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "日常享受扫码骑车低碳通勤，并在ofo暴雷前夕机警申请退回99元押金全款",
+        "choiceTags": [
+          "时代：2017–2018",
+          "年龄：14–65",
+          "地域：全国大中城市",
+          "门槛：手机扫码族"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "畅享两块钱骑遍全城的绿色便利，且成功在暴雷前顺利提现拿回押金，毫发无损。",
+            "effect": {
+              "health": 15,
+              "wealth": 5,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "尽享共享出行技术红利，并机警避开资本泡沫押金风波。",
+            "status": "bike_sharing_commuter"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "骑行刹车失灵在人行道台阶连人带车摔翻擦伤双手掌与膝盖，敷药调养。",
+            "effect": {
+              "health": -15,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遭遇共享单车刹车损坏摔伤，从此骑车前必定先捏闸检查。"
+          }
+        ]
+      },
+      {
+        "text": "作为运维调度员或货车司机，承接各大平台潮汐调度装卸与清运违停破损车",
+        "choiceTags": [
+          "时代：2017–2018",
+          "年龄：22–50",
+          "地域：一二线城市",
+          "门槛：货车/搬运劳力"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "早出晚归搬运码放单车，按件计费月入过万现钞，赚取可观平台红利期补贴。",
+            "effect": {
+              "wealth": 35,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "勤恳搬运共享单车出大力流大汗，抢抓资本烧钱期高额补贴。",
+            "status": "bike_dispatch_master",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "单车堆叠过高倾倒砸中脚背骨裂住院，平台第三方外包拒不认工伤维权半年。",
+            "effect": {
+              "health": -25,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "平台外包用工保障缺失受工伤维权，体味灵活就业权益痛点。",
+            "newCareerTrack": "flexible_labor"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2018_p2p_baolei",
+    "tier": "era",
+    "title": "互联网金融去杠杆：P2P网贷大面积爆雷潮",
+    "yearRange": [
+      2018,
+      2019
+    ],
+    "targetAge": [
+      22,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.88,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2018年金融强监管与去杠杆深化，野蛮生长的P2P网络借贷平台大面积断粮暴雷。唐小僧、联璧金融等数百家宣称高息保本的平台轰然崩塌，警方查封立案，数百万投资人血本无归。",
+    "narrative": "经侦支队门前排满了拿着理财合同印鉴的大爷大妈与白领。曾经光鲜亮丽的网贷平台APP在一夜间无法提现，客服失联，写字楼人去楼空。几十万买房款与养老钱瞬间归零，满街是追偿维权的哭声。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "坚信‘天上不会掉馅饼’，抵制住15%保本高息诱惑，坚决把钱存在四大国有银行大额存单",
+        "choiceTags": [
+          "时代：2018–2019",
+          "年龄：24–65",
+          "地域：全国",
+          "门槛：有储蓄投资意识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "任凭他人炫耀高息理财毫不心动，在暴雷狂潮中安然保全家庭毕生血汗积蓄，内心无比庆幸。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 30,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敬畏金融常识克制投机贪念，在P2P崩盘血海中成功避险保全家业。",
+            "status": "p2p_crisis_survivor"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "极力劝阻老母亲提走三十万去投隔壁假冒国资网贷，挽狂澜于既倒，护佑家宅安宁。",
+            "effect": {
+              "family": 30,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断劝退家人非法集资，成为家庭财富定海神针。"
+          }
+        ]
+      },
+      {
+        "text": "听信同事朋友鼓动将全副首付与养老积蓄二十万分散买入三家P2P高息平台理财",
+        "choiceTags": [
+          "时代：2018–2019",
+          "年龄：24–60",
+          "地域：全国",
+          "门槛：重仓盲目投机者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 70,
+            "log": "三家平台全部被经侦立案查封，本金二十万化为乌有，夫妻反目家庭长年陷入冷战抑郁。",
+            "effect": {
+              "wealth": -60,
+              "mentality": -40,
+              "family": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重仓P2P暴雷血本无归掏空家底，承受人生毁灭性财务重创。",
+            "status": "financial_fraud_victim"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "在暴雷前夕察觉提现延期不对劲，果断打折割肉两成成功转让债权抢先提现逃出生天。",
+            "effect": {
+              "wealth": -10,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敏锐嗅觉割肉逃脱P2P庞氏骗局，虽受微损但保全主力大局。"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "暴雷后气急攻心突发急性胃穿孔与高血压危象入院急救，身心俱受重创。",
+            "effect": {
+              "health": -35,
+              "wealth": -50
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "财产血本无归诱发急性重病，在亲情慰藉中艰难重拾生活信念。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2018_xinpin_gongjian",
+    "tier": "era",
+    "title": "经贸摩擦与自主可控：芯片半导体产业链攻坚",
+    "yearRange": [
+      2018,
+      2020
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "tech_whitecollar",
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2018年中美经贸摩擦加剧，中兴、华为等科技企业遭遇芯片断供禁令。‘卡脖子’之痛倒逼全产业链加速国产替代，光刻胶、EDA软件、第三代半导体掀起全民攻坚狂潮。",
+    "narrative": "科技园区的大楼深夜灯火通明，黑板上画满了逻辑门与电路拓扑图。曾经依赖海外采购的工业软件与高端传感器被列为重点攻关清单，工程师们通宵达旦地重写基础代码，进行千万次仿真测试。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "作为半导体/软硬件研发工程师投身国产替代攻关专项，通宵重构底层驱动与微架构",
+        "choiceTags": [
+          "时代：2018–2020",
+          "年龄：22–45",
+          "地域：全国科技高新区",
+          "门槛：软硬件研发技术人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "成功自研出国产自主可控工业级控制芯片，获重大科技突破专项嘉奖并斩获核心期权。",
+            "effect": {
+              "knowledge": 35,
+              "wealth": 40,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "投身国家关键芯片攻关取得突破，成为国产半导体中坚栋梁。",
+            "status": "semiconductor_core_pioneer"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "连续高强度攻坚代码通宵熬夜患上心律失常早搏并重度干眼症，住院休养一个月。",
+            "effect": {
+              "health": -30,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "芯片自研高压劳累累及心脏，后注重科学作息保障研发持久战。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "因国际技术封锁导致原研项目试产流片两度失败，耗资千万承担巨大心理考核压力。",
+            "effect": {
+              "mentality": -25,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "前沿技术攻坚尝尽失败阵痛，在无数次试错中磨砺钢铁心智。"
+          }
+        ]
+      },
+      {
+        "text": "若为涉外传统外贸制造业，积极开辟共建‘一带一路’东盟拉美新市场化解关税冲击",
+        "choiceTags": [
+          "时代：2018–2020",
+          "年龄：24–55",
+          "地域：沿海制造产业带",
+          "门槛：外贸制造企业主/骨干"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "成功对接东盟自贸区与中东新订单，分散出口风险，企业逆势实现产值两成增长。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "跳出单一市场依赖走向多元全球化，展现中国民营制造顽强韧性。",
+            "status": "global_market_diver"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "被美方加征关税导致主力订单锐减两成，不得不压缩产能减员自保渡过震荡期。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "硬抗关税冲击减产求生，在风浪中学会降本增效精细化运营。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2019_996_cuisi",
+    "tier": "era",
+    "title": "大厂“996”工作制大讨论与青年健康反思",
+    "yearRange": [
+      2019,
+      2021
+    ],
+    "targetAge": [
+      20,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "tech_whitecollar"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2019年春程序员在GitHub发起‘996.ICU’项目（工作996，生病ICU），引发全社会对互联网平台无休止加班、大小周与年轻白领过劳猝死风险的空前大讨论，反内卷与身心健康成为时代呼声。",
+    "narrative": "深夜十一点的后厂村与科苑路依然灯火璀璨，网约车排起数百米长队。年轻人捂着隐隐作痛的胸口走出写字楼玻璃门。年度体检报告上的甲状腺结节、脂肪肝与颈椎曲度变直红字触目惊心。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "在体检频频亮红字后果断拒绝无序无效加班，严格准时下班坚持慢跑夜跑，注重身心养生",
+        "choiceTags": [
+          "时代：2019–2021",
+          "年龄：22–40",
+          "地域：一二线互联网大厂",
+          "门槛：大厂白领/程序员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "每天坚持五公里慢跑与八小时充足睡眠，脂肪肝彻底逆转，精力充沛工作效率反而大幅提升。",
+            "effect": {
+              "health": 35,
+              "mentality": 25,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在内卷漩涡中守住身心健康红线，以科学作息收获长期主义人生胜利。",
+            "status": "health_sovereign"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "因拒绝无意义假装加班被直属领导在绩效考核中打了中游‘三星’，奖金折损一成。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "对抗无序内卷承受短期绩效微损，但保全了一世健全体魄。"
+          }
+        ]
+      },
+      {
+        "text": "为冲刺年终丰厚期权与升职包揽全部核心脏活，连续通宵加班上线重大版本",
+        "choiceTags": [
+          "时代：2019–2021",
+          "年龄：22–38",
+          "地域：高科技大厂",
+          "门槛：拼命三郎白领"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "成功晋升为技术总监拿到丰厚股票期权，但看着镜子里早生的白发与疲惫眼眶心生感慨。",
+            "effect": {
+              "wealth": 55,
+              "health": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以透支健康为代价赢得世俗晋升期权，后开始注重团队健康平衡。",
+            "status": "tech_director_burned"
+          },
+          {
+            "type": "injured",
+            "weight": 42,
+            "log": "在工位连熬两夜突发频发性室性早搏与心绞痛晕倒，救护车呼啸送入急症监护室抢救保全性命。",
+            "effect": {
+              "health": -45,
+              "wealth": 20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "工位晕倒经重症抢救惊险还阳，从此彻底敬畏生命不再盲目玩命。",
+            "status": "burnout_survivor"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "在连续长达两周的通宵高强度高压熬夜后突发急性心源性猝死不幸英年早逝。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在高强度连续加班中突发心源性猝死不幸英年早逝。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2019_chaoji_zhuzhouqi",
+    "tier": "era",
+    "title": "“超级猪周期”：猪肉价格飞涨与民生稳产",
+    "yearRange": [
+      2019,
+      2020
+    ],
+    "targetAge": [
+      18,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2019年受非洲猪瘟疫情冲击与环保整治叠加影响，全国生猪产能大幅下滑，猪肉批发价一度飙升至40元/公斤以上。国家紧急投放中央储备肉，出台强力政策补贴支持复产保供。",
+    "narrative": "菜市场的猪肉摊位前挂着‘排骨三十八元一斤’的价签，市民们提着竹篮驻足犹豫。农业部门开着消毒车在养殖村喷洒白灰消毒液，标准化全封闭智能猪舍成为各地招商引资新热点。",
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": -5
+    },
+    "choices": [
+      {
+        "text": "若为生猪规模养殖户，严格执行生物安全全封闭消毒防护，保住存栏生猪迎接历史天价",
+        "choiceTags": [
+          "时代：2019–2020",
+          "年龄：22–60",
+          "地域：全国养殖大省",
+          "门槛：生猪养殖户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "全封闭防范成功抵御猪瘟，出栏五百头优质生猪净赚上百万暴利，彻底实现财富自由。",
+            "effect": {
+              "wealth": 65,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在超级猪周期顶峰靠严格生物安全赢得超级暴利，蜕变规模养殖大亨。",
+            "status": "swine_industry_tycoon",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "因消毒环节疏忽不幸沾染猪瘟导致整栏生猪无害化扑杀，所幸拿到政府政策性扑杀补贴保本。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遭遇猪瘟扑杀挫折，依托国家保险补贴止损，更加严格规范养殖。"
+          }
+        ]
+      },
+      {
+        "text": "面对高肉价，合理调整家庭膳食结构，多吃鸡鸭鱼肉与豆制品，营养均衡健康省钱",
+        "choiceTags": [
+          "时代：2019–2020",
+          "年龄：18–75",
+          "地域：全国",
+          "门槛：普通国民家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "多吃清蒸鱼虾与时令蔬菜不仅开支未增，全家人的低密度脂蛋白胆固醇反而大幅下降更健康。",
+            "effect": {
+              "health": 20,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "巧借物价波动优化家庭膳食营养，健康生活方式大获全胜。",
+            "status": "healthy_diet_pioneer"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "赶在平价政府储备冻猪肉投放点排队购买十斤优质平价后腿肉，包成饺子全家共享。",
+            "effect": {
+              "wealth": 5,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享用国家储备肉平抑物价红利，阖家包饺子其乐融融。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2020_covid_chuxi",
+    "tier": "era",
+    "title": "庚子新春突发新冠疫情与武汉保卫战",
+    "yearRange": [
+      2020,
+      2020
+    ],
+    "targetAge": [
+      0,
+      80
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2020年1月23日（腊月二十九）凌晨武汉宣布暂停离汉通道，关闭火车站与机场。全国三万余名医护白衣逆行跨省驰援湖北，火神山、雷神山医院十天奇迹拔地而起，全国十四亿人居家静默构筑铜墙铁壁。",
+    "narrative": "大年三十的街头空无一人，只有红绿灯在冬夜里孤独交替。电视里滚动播报着封城通告与前线告急。口罩被洗劫一空，千家万户围坐电视机前，为江城同胞祈福，为逆行英雄揪心落泪。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处湖北/武汉，严格遵从居家静默指令，守望相助，在阳台高唱国歌相互打气鼓励",
+        "choiceTags": [
+          "时代：2020",
+          "年龄：10–75",
+          "地域：湖北武汉及周边",
+          "门槛：封控核心区居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "坚忍熬过七十六个日夜封控，全家人零感染平安等到4月8日武汉解封，历经浩劫内心坚如磐石。",
+            "effect": {
+              "family": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在武汉封城76天严苛考验中生死守望幸存，成为坚韧抗疫英雄城市见证人。",
+            "status": "wuhan_lockdown_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 30,
+            "log": "初期不幸感染轻型新冠送入方舱医院隔离救治，在医护悉心照料下顺利康复转阴出舱。",
+            "effect": {
+              "health": -25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "方舱医院亲历人间真情痊愈，更加珍惜生命寻常可贵。",
+            "status": "fangcang_recovered"
+          },
+          {
+            "type": "fatal",
+            "weight": 5,
+            "log": "在早期医疗资源挤兑极度紧缺阶段不幸感染重症肺炎未能抢救脱险罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在2020年初武汉早期医疗挤兑阶段不幸染疫罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若为全国其他省份医护人员，除夕夜写下‘不计报酬、无论生死’请战书，逆行直飞武汉",
+        "choiceTags": [
+          "时代：2020",
+          "年龄：22–55",
+          "地域：全国援鄂医护队伍",
+          "门槛：三甲/公立医护骨干"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "在金银潭或重症ICU穿三层防护服连轴奋战两月抢救数十名危重患者，全队零感染凯旋荣归。",
+            "effect": {
+              "mentality": 40,
+              "knowledge": 30,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "援鄂医疗英雄，以生命护佑生命，荣膺国家功臣终身尊荣。",
+            "status": "anti_covid_national_hero"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "密闭护目镜面颊压疮重度破溃感染留疤，并在撤离后患上创伤后应激失眠，休养半年。",
+            "effect": {
+              "health": -35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战疫压疮留痕心力透支，深受全社会崇高致敬。",
+            "status": "injured_medic_hero"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2020_yunbangong_wangke",
+    "tier": "era",
+    "title": "健康码上线、云办公打卡与居家网课时代",
+    "yearRange": [
+      2020,
+      2021
+    ],
+    "targetAge": [
+      6,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2020年春‘健康码’在杭州首创并迅速推向全国，绿码通行成为公民日常生活新标配。数亿学生开启屏幕另一端的‘网课时代’，远程协同、视频会议与云办公彻底改写现代职场与教育生态。",
+    "narrative": "进超市、进地铁第一件事是掏出手机扫场所码、出示绿码。客厅的茶几变成了办公桌，屏幕里传来老师叫名字答题的声音。大人打着领带上半身开视频会议，下半身穿着睡裤，在数字网络中维系着生活运转。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 10,
+      "health": -5
+    },
+    "choices": [
+      {
+        "text": "若为中小学生，在屏幕前高度自律专心听讲，制定每日网课与居家体育锻炼作息表",
+        "choiceTags": [
+          "时代：2020–2021",
+          "年龄：6–18",
+          "地域：全国",
+          "门槛：在校学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "抵制住游戏短视频诱惑，利用网课拓展数字化自学能力，期末综合成绩拔得头筹。",
+            "effect": {
+              "knowledge": 30,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在网课居家大潮中展现超常自律品格，打牢终生自学底座。",
+            "status": "disciplined_digital_student"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "长久盯着小屏幕导致双眼近视度数加深两百度，并因缺乏户外运动长胖二十斤。",
+            "effect": {
+              "health": -25,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "网课久坐视力下降体重攀升，复学后加倍体育锻炼补回体魄。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "沉迷手机游戏在上课时分屏摸鱼被父母当场抓住，引发激烈家庭亲子冲突争吵。",
+            "effect": {
+              "family": -20,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "数字诱惑引发家庭摩擦，在长辈耐心开导下回归正轨。"
+          }
+        ]
+      },
+      {
+        "text": "若为职场白领/自由职业者，熟练掌握飞书、腾讯会议与在线协同工具，开展敏捷远程办公",
+        "choiceTags": [
+          "时代：2020–2021",
+          "年龄：22–55",
+          "地域：全国城镇",
+          "门槛：职场员工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "免去每天两小时挤地铁通勤之苦，办公效率反而提升，在家烹制三餐规律生活更健康。",
+            "effect": {
+              "wealth": 20,
+              "family": 25,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深度掌握远程数字化办公精髓，实现工作与生活的高效平衡。",
+            "status": "remote_work_master"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "居家办公边界模糊导致24小时随时在线秒回，严重颈椎疼痛与神经衰弱失眠。",
+            "effect": {
+              "health": -20,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "远程办公模糊生活界限患上手机焦虑，后建立严格下线规矩。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2021_shuangjian_jiaopei",
+    "tier": "era",
+    "title": "“双减”政策落地：学科培训重塑与教育回归",
+    "yearRange": [
+      2021,
+      2022
+    ],
+    "targetAge": [
+      8,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2021年7月中共中央办公厅、国务院办公厅印发《关于进一步减轻义务教育阶段学生作业负担和校外培训负担的意见》（双减）。校外K12学科类教培机构全面叫停转型，教育生态发生深远重构。",
+    "narrative": "各大写字楼里曾经铺天盖地的补习班招牌连夜摘下，曾经狂烧资本的教培大厂退租关门。周末背着重重书包辗转赶场的孩子们终于迎来周末喘息空间，操场、球馆与图书馆重现欢声笑语。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若为家长，坚决告别剧场效应内卷，停止盲目课外补习，周末带孩子去博物馆与绿道骑行",
+        "choiceTags": [
+          "时代：2021–2022",
+          "年龄：28–50",
+          "地域：全国城镇",
+          "门槛：中小学生家长"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "每年省下数万元昂贵补课费用于全家旅行研学，孩子身心健康活泼阳光，亲子关系大幅亲密升温。",
+            "effect": {
+              "wealth": 30,
+              "family": 30,
+              "health": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "顺应双减政策卸下教育焦虑重枷，以陪伴与运动呵护孩子快乐健康童年。",
+            "status": "enlightened_parent"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "面对中考五五分流焦虑依然心有余悸，私下托熟人花高价请一对一地下家教被查处受罚。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲目内卷焦虑难除请黑家教交罚款，最终想通顺其自然。"
+          }
+        ]
+      },
+      {
+        "text": "若为教培从业教师，积极拥抱转型，转向公立学校代课、成人职业考证培训或自媒体知识博主",
+        "choiceTags": [
+          "时代：2021–2022",
+          "年龄：22–40",
+          "地域：全国",
+          "门槛：教培从业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "凭借深厚教学功底考取公立编制教师岗位，工作稳定安宁，彻底告别周末无休与业绩考核。",
+            "effect": {
+              "knowledge": 25,
+              "wealth": 15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "由教培转型顺利考入公立编制教师，端上受人尊敬的长期稳健饭碗。",
+            "status": "certified_public_teacher",
+            "newCareerTrack": "cadre_teacher"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "教培机构破产倒闭遭遇两月欠薪裁员，不得不转做线上零工外卖自谋过渡生计。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "教培寒冬遭遇失业阵痛，在挫折中重新找寻自我转型定位。",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "失业压力大突发急性神经性斑秃与重度失眠，调养数月重拾生活信心。",
+            "effect": {
+              "health": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "职业剧变经受心理大考，在家人陪伴下走出低谷重振旗鼓。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2021_henan_720_baoyu",
+    "tier": "era",
+    "title": "河南郑州“7·20”特大特大自然暴雨灾害",
+    "yearRange": [
+      2021,
+      2021
+    ],
+    "targetAge": [
+      0,
+      75
+    ],
+    "applicableRegions": [
+      "华中"
+    ],
+    "exposureConditions": {
+      "provinces": [
+        "henan"
+      ]
+    },
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2021年7月20日河南郑州遭遇历史罕见特大暴雨，小时降雨量达201.9毫米突破中国大陆极值。地铁5号线与京广路隧道遭遇倒灌险情，全城内涝，全国救援力量与平民英雄展开生死大营救。",
+    "narrative": "昏黄的洪浪如万马奔腾漫过街道，地铁列车在隧道积水中断电停运，水慢慢没过了胸口。水下车厢里市民把唯一的救生垫让给怀孕妇女和孩子。京广隧道口有人拿着救生圈连救六人，大爱长歌感动神州。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若身处郑州被困地铁或隧道，临危不乱将老幼妇孺推向高处车座，组织互助自救并等待破窗抢通",
+        "choiceTags": [
+          "时代：2021",
+          "年龄：14–65",
+          "地域：河南郑州积水核心区",
+          "门槛：涉险幸存者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 55,
+            "log": "在灭顶洪水中咬牙坚持三个小时等待救援队破窗成功脱险，救出邻座幼童，被授予见义勇为先进称号。",
+            "effect": {
+              "mentality": 30,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在郑州特大暴雨生死一线互助脱险，经受极限考验铸就泰山般心魂。",
+            "status": "henan_flood_hero_2021"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "冰冷污水中浸泡过久导致重度失温酸中毒并划伤双腿，在ICU救治一周康复痊愈。",
+            "effect": {
+              "health": -35,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深潭涉险受重度失温外伤，在国家全力救治下平稳还阳。",
+            "status": "injured_flood_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 8,
+            "log": "沿街门面商铺与地库车辆全部遭洪水彻底浸泡报废，直接经济损失惨重，获政府保险理赔。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "家产车辆被淹全损，在全国救灾重建帮扶下逐步恢复生计。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "在隧道急速倒灌暗流中未能及时破窗逃生不幸溺水罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在郑州特大暴雨地下空间倒灌极度险情中不幸罹难。"
+          }
+        ]
+      },
+      {
+        "text": "若为全国其他省份同胞，连夜开着铲车与运粮大巴奔赴新乡、郑州一线义务抽水清淤",
+        "choiceTags": [
+          "时代：2021",
+          "年龄：18–55",
+          "地域：全国援豫力量",
+          "门槛：热心同胞/工程车主"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "驾驶抽水泵车连续四天四夜抢通京广隧道积水，获赠灾区群众‘胡辣汤永感大恩’锦旗。",
+            "effect": {
+              "mentality": 25,
+              "knowledge": 20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "星夜驰援中原腹地大义凛然，展现全国一盘棋的同胞大爱。",
+            "status": "henan_aid_rescuer"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在烂泥中搬运重型大口径排涝管扭伤腰肌并患严重浸润脚癣，治疗休养半月。",
+            "effect": {
+              "health": -20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抢险救灾累伤腰部，以平凡之躯守护中原平安。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2021_san_hai_zhengce",
+    "tier": "era",
+    "title": "三孩生育政策落地与生育支持探索",
+    "yearRange": [
+      2021,
+      2023
+    ],
+    "targetAge": [
+      24,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.85,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2021年5月中央政治局会议审议通过实施‘全面三孩’政策及配套支持措施。各地陆续探索发放育儿补贴、延长产假、提供普惠托育，积极构建生育友好型社会以应对深度老龄化。",
+    "narrative": "社区计生宣传栏换上了‘三孩乐融融’的崭新海报，妇幼保健院开设了优生优育咨询专窗。面对三孩政策，年轻人在社交网络上算着奶粉、房贷、学区与保姆的开支账本，理性权衡家庭决策。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若家境较为宽裕且喜欢热闹多子大家庭，顺应号召迎来三宝诞生，享受多子女天伦之乐",
+        "choiceTags": [
+          "时代：2021–2023",
+          "年龄：26–45",
+          "地域：全国",
+          "门槛：已育二孩宽裕家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "三宝健康活泼降生，申请领取每月地方育儿补贴，三个孩子热热闹闹，晚年家庭福气绵长。",
+            "effect": {
+              "family": 40,
+              "mentality": 20,
+              "wealth": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "迎接三孩降生构建多子大家庭，享受承欢膝下无尽天伦之乐。",
+            "status": "three_children_family"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "多孩养育精力严重透支导致夫妻长年慢性失眠与内分泌紊乱，雇请保姆帮忙料理。",
+            "effect": {
+              "health": -25,
+              "wealth": -35,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "养育三个孩子经济精力双重重负，后调整心态家庭协同分工。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "换购四居室大房子背负重度房贷月供，家庭流动资金见底，精打细算度日。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "为多子女改善住房承受重度负债压力，精打细算持家。"
+          }
+        ]
+      },
+      {
+        "text": "深思熟虑后认为精细化抚养一到两个孩子更为实际，不再生育，注重自我生活与品质发展",
+        "choiceTags": [
+          "时代：2021–2023",
+          "年龄：24–45",
+          "地域：一二线城市",
+          "门槛：现代年轻家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "财务从容无多孩重压，定期带孩子研学旅游发展个性特长，夫妻感情和睦舒适从容。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性权衡家庭承载力做最优决策，生活品质与育儿质量双丰收。",
+            "status": "modern_rational_family"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "将省下的育儿开销用于自身职业深造与健康体检，成为职场与家庭双料榜样。",
+            "effect": {
+              "knowledge": 20,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "投资自我成长为孩子树立终生学习榜样，从容生活。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2022_covid_lockdown_6strata",
+    "tier": "era",
+    "title": "2022常态化核酸、场所码与静态管理风波",
+    "yearRange": [
+      2022,
+      2022
+    ],
+    "targetAge": [
+      16,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2022年部分特大城市经历长时间静态管理与网格化多轮核酸筛查，物流供应链承压，餐饮、文旅、小微实体遭遇现金流考验，城乡推行常态化核酸与场所码查验。",
+    "narrative": "街道两旁的卷帘门紧闭，大白在空旷马路上喷洒消毒液。每天清晨定闹钟抢菜、下楼在两米线上排队做核酸成为共同记忆。无论工厂闭环、居家远程还是奔波保供，每个人都在特殊岁月经受现实大考。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "若为餐饮小微/实体店主：断臂求生，积极转型无接触社区保供盒饭团购与外卖配送自救",
+        "choiceTags": [
+          "时代：2022",
+          "年龄：22–58",
+          "地域：特大城市/受控城区",
+          "门槛：实体小微商户"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "办理保供通行证为封闭小区供应平价生鲜熟食，保住店面流水并结识大批忠实社区老顾客，安然度过寒冬。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在实体最艰难时期展现惊人商业应变力，靠保供团购杀出血路存活。",
+            "status": "community_supply_merchant"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "停业数月房租人工沉重亏损数万元，不得不退租闭店暂时回老家县城避风等待复苏。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "实体门店遭遇现金流断裂暂时关停，后等待转机东山再起。",
+            "status": "shop_closed_resilient"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "夜间连轴搬运保供大米蔬菜腰肌重度扭伤拉伤，卧床服药调养两周。",
+            "effect": {
+              "health": -25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "保供搬运劳碌负伤，但用汗水守护了街坊邻里菜篮子。"
+          }
+        ]
+      },
+      {
+        "text": "若为普通居民/白领：严格遵守社区网格防疫指引，参与楼道单元互助团购，以平和心态阅读烹饪自我提升",
+        "choiceTags": [
+          "时代：2022",
+          "年龄：16–75",
+          "地域：全国",
+          "门槛：居家普通居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "居家期间精心自制美食、看完全套历史名著并跟刘畊宏跳健身操，心态平和安然度过特殊考验。",
+            "effect": {
+              "mentality": 25,
+              "health": 15,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在外部喧嚣静默中修炼强大内心秩序，以平和乐观守护家宅安康。",
+            "status": "mindful_lockdown_survivor"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "长期足不出户缺乏社交与运动引发轻度焦虑与神经衰弱失眠，在阳台深呼吸逐步调节平复。",
+            "effect": {
+              "mentality": -20,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "长时期居家面对不确定性饱尝精神压力，经受心性淬炼。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "在团购搬运数十斤沉重水饮蔬菜上六楼爬楼梯时滑倒扭伤右脚踝肿胀。",
+            "effect": {
+              "health": -20,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "搬运团购重物负外伤，邻里热心送来云南白药喷雾相助。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2022_covid_reopening",
+    "tier": "era",
+    "title": "疫情防控平稳转段与首轮高烧波峰考验",
+    "yearRange": [
+      2022,
+      2023
+    ],
+    "targetAge": [
+      0,
+      85
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.95,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2022年12月国家出台‘新十条’，实施‘乙类乙管’，疫情防控平稳转段。全社会在寒冬中迎来首轮奥密克戎感染高峰，药店布洛芬与抗原试剂盒一盒难求，邻里互助送药，烟火气迅速回归。",
+    "narrative": "药店门口挂出‘今日退烧药已售完’的白板，社交网络上大家互相通报‘阳过’与‘阳康’。美团外卖骑手戴着双层口罩穿梭在寒风中，楼道门把手上挂着邻里共享的散装布洛芬胶囊。三周后，久违的早市与车水马龙再次喧嚣起来。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "家中常备退烧抗病毒药品与电解质水，感染高烧期间卧床多饮水休息，并向邻里分享富余药品",
+        "choiceTags": [
+          "时代：2022–2023",
+          "年龄：0–80",
+          "地域：全国",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "高烧三天后退热转阴，身体逐步康复，把家中富余的一板布洛芬赠予发烧邻居，收获真挚邻里情谊。",
+            "effect": {
+              "health": 10,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "平稳渡过首轮感染高峰顺利‘阳康’，在互助送药中见证中国邻里大爱。",
+            "status": "yangkang_survivor"
+          },
+          {
+            "type": "injured",
+            "weight": 22,
+            "log": "高烧后剧烈咳嗽连续三周并发轻度支气管炎与胸膜炎，中药调养两月彻底平复。",
+            "effect": {
+              "health": -25,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "感染后长新冠咳嗽经受病痛磨难，后注重扶正固本调养身体。",
+            "status": "cough_convalescent"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "若为高龄患有严重基础疾病老人，感染后并发重度低氧血症与呼吸衰竭不幸离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "在首轮高龄奥密克戎感染波峰中并发重度基础病不幸离世。"
+          }
+        ]
+      },
+      {
+        "text": "若为急诊发热门诊医护人员，带病坚守一线保急救通畅，全力抢救重症基础病老年患者",
+        "choiceTags": [
+          "时代：2022–2023",
+          "年龄：22–55",
+          "地域：全国各大三甲/二甲医院",
+          "门槛：急诊重症医护人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "高烧不下火线吞下退烧药连续值班，成功救治上百名高龄重症老人转危为安，受国家特级通令嘉奖。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在最艰难时刻以血肉之躯守住急诊生死大门，彰显大医精诚至高荣光。",
+            "status": "er_medic_guardian"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "过度劳累导致病毒性心肌炎与急性室上速，倒在值班室被同事紧急抢救脱险后强制卧床休养。",
+            "effect": {
+              "health": -35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "带病高强度抢救患者突发心肌炎脱险，用生命践行医者担当。",
+            "status": "injured_medic_reopening"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2023_ai_chatgpt",
+    "tier": "era",
+    "title": "生成式AI与大模型狂飙：职场技能重塑",
+    "yearRange": [
+      2023,
+      2024
+    ],
+    "targetAge": [
+      16,
+      50
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "tech_whitecollar",
+      "cadre_teacher"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2023年ChatGPT等生成式大语言模型席卷全球，国内大模型百花齐放。代码生成、文案写作、绘图与数据分析效率倍增，初级程序员、文案设计面临深刻技能替代与职场重新洗牌。",
+    "narrative": "屏幕上的对话框以秒级输出千字商业计划书与全套代码架构。写字楼里的白领们既震撼于生产力的狂飙，又深感本领恐慌。‘学会用AI的人将取代不用AI的人’成为热烈讨论的职场新法则。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "主动拥抱生成式AI，将Prompt工程与AI工具链深度融入日常工作流，工作效率提升三倍",
+        "choiceTags": [
+          "时代：2023–2024",
+          "年龄：18–45",
+          "地域：全国科技/现代服务",
+          "门槛：白领/创作者/程序员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "熟练驾驭AI工具一人兼具产品、全栈代码与设计能力，升任部门AI效能推进组长，薪酬逆势攀升。",
+            "effect": {
+              "knowledge": 35,
+              "wealth": 35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "前瞻拥抱人工智能生产力革命，完成由传统码农向人机协同超级个体的蜕变。",
+            "status": "ai_empowered_specialist"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "长久紧盯多屏进行AI数据清洗与调优过度用眼患上严重干眼症与飞蚊症，需每日滴眼药水。",
+            "effect": {
+              "health": -20,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "AI高强度重塑期用眼过度受劳损，但技能底座实现质的飞跃。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "部门因全员接入AI效率激增随后削减三成初级文案编制，同组实习生遭优化离职，心生唏嘘。",
+            "effect": {
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "亲历技术颠覆引发的用工调整，更加注重不可替代的核心创新。"
+          }
+        ]
+      },
+      {
+        "text": "坚信复杂人际沟通、实体手工与深度共情不可被算法替代，深耕线下实业与人文情感服务",
+        "choiceTags": [
+          "时代：2023–2024",
+          "年龄：20–55",
+          "地域：全国",
+          "门槛：传统人文/实操从业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "在深度心理咨询、高级定制手工或线下复杂会展统筹中展现无可替代的人情温度，客户口碑极佳。",
+            "effect": {
+              "wealth": 25,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "守住人类温情与实物匠心不可替代的护城河，在数字浪潮中稳立潮头。",
+            "status": "human_centric_master"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "基础文案排版业务遭遇廉价AI批量冲击流失部分低端客户，不得不转向高端定制业务。",
+            "effect": {
+              "wealth": -15,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倒逼脱离低端同质化劳动，转向高价值情感交付赛道。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2024_linghuo_kaogong",
+    "tier": "era",
+    "title": "大厂求稳、平台零工经济与考公考编大军",
+    "yearRange": [
+      2024,
+      2026
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2024年前后全国高校毕业生突破1100万人，‘考公考编’成为年轻人求稳主流选择，国考报名人数屡创新高。与此同时全国灵活就业人员突破两亿大关，外卖骑手、网约车、自媒体成为重要蓄水池。",
+    "narrative": "图书馆自习室里座无虚席，满桌都是行测申论红宝书与划重点的高光笔。而在烈日和寒风下，挂着充电宝的骑手手机频繁弹出派单提示音。‘稳健上岸’与‘零工打拼’在当代青年的选择中交相辉映。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "专心备考公务员或事业单位编制，戒掉娱乐在自习室闭关苦读申论行测刷题冲刺",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：20–35",
+          "地域：全国",
+          "门槛：大专及以上学历"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "以笔试面试双第一成绩成功上岸家乡县直事业单位，拥有稳定公薪五险一金，全家欣慰落泪。",
+            "effect": {
+              "wealth": 20,
+              "knowledge": 25,
+              "family": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千军万马过独木桥成功‘上岸’体制内，为家庭构筑坚不可摧的避风港。",
+            "status": "civil_servant_onshore",
+            "newCareerTrack": "cadre_teacher"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "连续两年以微弱分差在面试环节惜败，面对待业空窗期焦虑心酸，不得不转投私企或兼职打拼。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "考公两度落榜体味竞争残酷，在风雨中磨砺更加成熟的择业观。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "通宵刷题极度焦虑导致严重胃痉挛与一度神经衰弱，在父母陪伴下休养调理。",
+            "effect": {
+              "health": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "过度备考引发身心失衡，后学会放下包袱轻装前行。"
+          }
+        ]
+      },
+      {
+        "text": "放下身段不啃老，租一辆电动车/新能源车加入同城即时配送或网约车大军，自力更生踏实打拼",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：18–50",
+          "地域：全国大中城市",
+          "门槛：能吃苦守信青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "起早贪黑风雨无阻送单，靠勤劳双手每月净赚六七千元，按时还清助学贷款并给父母寄回生活费。",
+            "effect": {
+              "wealth": 30,
+              "health": -10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "自力更生不慕虚荣，靠外卖骑行双手撑起生活尊严，铸就坚韧品格。",
+            "status": "gold_delivery_rider",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "雨天送餐赶超时在湿滑斑马线上急刹车侧翻，右膝擦伤韧带轻度扭伤，休息一周。",
+            "effect": {
+              "health": -25,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "雨雪天配送遇滑倒轻伤，深刻铭记‘安全永远第一、绝不逆行超速’。",
+            "newCareerTrack": "flexible_labor"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "遭遇个别挑剔顾客无理差评被平台扣除五十元服务分，在大雨屋檐下擦干雨水继续接单。",
+            "effect": {
+              "wealth": -5,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "底层谋生体味人情冷暖，在坚守与理解中淬炼强大心力。",
+            "newCareerTrack": "flexible_labor"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2024_yanchi_tuixiu",
+    "tier": "era",
+    "title": "渐进式延迟法定退休年龄改革正式落地",
+    "yearRange": [
+      2024,
+      2026
+    ],
+    "targetAge": [
+      30,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 4,
+    "factLevel": "确证",
+    "historicalFact": "2024年9月全国人大常委会表决通过关于实施渐进式延迟法定退休年龄的决定。从2025年1月1日起，用15年时间逐步将男职工法定退休年龄延迟至63周岁，女职工延迟至55周岁和58周岁，完善养老金激励机制。",
+    "narrative": "办公室和厂房里大家纷纷拿起手机打开延迟退休计算器。测算着自己的退休年月与基本养老保险最低缴费年限。‘活到老、学到老、健康到老’成为中年一代必须面对的长期战略课题。",
+    "isDecision": false,
+    "passiveImpact": {
+      "knowledge": 5
+    },
+    "choices": [
+      {
+        "text": "理性面对延迟退休，注重个人长期健康管理与复合技能再学习，打造‘长寿时代’健康资本",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：30–60",
+          "地域：全国",
+          "门槛：工薪职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "坚持清淡饮食每天健步走一万步，保持身心敏捷，在岗位上展现资深导师价值，享受多缴多得丰厚养老金。",
+            "effect": {
+              "health": 30,
+              "knowledge": 20,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "树立积极老龄化健康观，以强健体魄与终身学习拥抱长寿时代。",
+            "status": "active_aging_champion"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "面对还要多干两三年的现实初感无奈，在与同辈交流中逐步接纳心态，平稳规划职业晚期。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性接纳政策调整，做好家庭财务与养老长远规划。"
+          }
+        ]
+      },
+      {
+        "text": "若为从事重体力劳动工种，积极申请内部转岗至轻体力技术指导与安全巡检岗位",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：45–60",
+          "地域：工矿制造企业",
+          "门槛：重体力岗位老技工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "凭一身过硬绝活转任车间青年学徒安全顾问与质检督导，既卸下体力重担又传承工匠手艺。",
+            "effect": {
+              "wealth": 20,
+              "health": 15,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重体力老工匠华丽转身技术顾问，老有所为受全厂敬重。",
+            "status": "mentor_craftsman"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "因常年体力劳损颈肩腰腿痛发作，在医院中医理疗科做小针刀牵引治疗，症状缓解。",
+            "effect": {
+              "health": -20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "积极治疗职业劳损旧疾，为平稳退休调养身体。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2025_yinfa_langchao",
+    "tier": "era",
+    "title": "银发浪潮与适老化智慧社区养老新生活",
+    "yearRange": [
+      2024,
+      2026
+    ],
+    "targetAge": [
+      50,
+      95
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.9,
+    "coolingPeriod": 3,
+    "factLevel": "确证",
+    "historicalFact": "2025年前后我国60岁及以上老年人口突破3亿人，全面步入中度老龄社会。老旧小区加装电梯、居家适老化改造、社区老年助餐食堂与长护险在全国千家万户生根发芽，托起幸福夕阳红。",
+    "narrative": "红砖老小区的单元楼外挂起了明亮的观光玻璃电梯，腿脚不便的老人们笑逐颜开乘电梯下楼晒太阳。社区食堂里十元一份荤素搭配的软烂老年餐热气腾腾，卫生间里装上了防跌倒扶手与紧急呼叫钮。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "积极申请政府补贴的家庭卫生间适老化防滑改造，每天去社区助餐点就餐并在老年大学结识新朋友",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：55–90",
+          "地域：全国城乡",
+          "门槛：中老年长者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "老旧电梯直达家门，防滑扶手杜绝摔跌隐患，在老年大学学书法水彩晚年生活丰盈充实，精神矍铄。",
+            "effect": {
+              "health": 25,
+              "family": 25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "安享适老化智慧养老红利，晚年生活尊严体面其乐融融。",
+            "status": "silver_age_active_elder"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "在社区日间照料中心担任银发志愿者给邻里讲百年历史故事，成为社区最受尊敬的长者。",
+            "effect": {
+              "family": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "老有所乐老有所为，把人生智慧回馈社会家园。"
+          }
+        ]
+      },
+      {
+        "text": "若为子女，耐心出资协助父母老宅完成防跌倒防滑改造，为二老配置智能跌倒报警手环",
+        "choiceTags": [
+          "时代：2024–2026",
+          "年龄：25–60",
+          "地域：全国",
+          "门槛：孝顺儿女"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "智能手环成功化解一次老人起夜险些滑倒意外，为远在他乡打拼的自己买下一份踏实安心，尽大孝道。",
+            "effect": {
+              "family": 35,
+              "mentality": 25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科技赋能尽孝道，为父母筑牢晚年安全防护网。",
+            "status": "filial_digital_guardian"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "每周定期视频通话倾听老人唠叨，给父母网购新鲜应季水果，亲情温润绵长。",
+            "effect": {
+              "family": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "细水长流尽孝心，让老人安享承欢膝下之福。"
+          }
+        ]
+      }
+    ]
+  }
+]

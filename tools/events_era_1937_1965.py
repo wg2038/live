@@ -185,7 +185,7 @@ def register_events_1937_1965():
                     make_outcome("injured", 25, "逃避纠缠中被枪托砸断左肋骨，在家中暗藏休养半月。", {"health": -20, "wealth": -15}, hidden_risk_log="反抗抓捕被打伤肋骨，留下陈旧内伤。"),
                     make_outcome("entangled", 14, "钱被保长吞没依然被绑走，押至半路伺机脱逃。", {"wealth": -25, "mentality": -20}, hidden_risk_log="被骗走巨款依然遭掳走，历尽艰险逃回乡里。"),
                     make_outcome("redirected", 6, "被迫远走高飞逃入解放区参加生产支前队翻身。", {"mentality": 25, "knowledge": 10}, new_career_track="worker", hidden_risk_log="为避抓丁逃入解放区，彻底翻身成为建设骨干。"),
-                    make_outcome("fatal", 0, "押解途中被枪击（概率极微，归为逃生分支）")
+                    make_outcome("fatal", 0, "押解途中被枪击（概率极微，归为逃生分支）", hidden_risk_log="押解途中险遭枪击，九死一生。")
                 ]
             },
             {

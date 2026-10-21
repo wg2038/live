@@ -1,0 +1,1217 @@
+[
+  {
+    "id": "evt_life_xiangqin_jiehun",
+    "tier": "life_chain",
+    "title": "人生转折：适龄婚恋与携手组建家庭",
+    "yearRange": [
+      1937,
+      2026
+    ],
+    "targetAge": [
+      20,
+      38
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "married"
+    ],
+    "triggerProbability": 0.35,
+    "coolingPeriod": 2,
+    "factLevel": "确证",
+    "historicalFact": "婚姻是人生的重要里程碑。不同时代有不同的婚俗特征：50年代倡导新婚姻法自主结婚，70年代流行‘三转一响’，80年代流行电视机摩托车，新世纪以来注重住房教育与三观契合。",
+    "narrative": "媒人热心登门提亲，父母也开始频频念叨成家立业的大事。公园的长椅上、相亲茶馆的靠窗小桌前，两人初次相对而坐。彼此聊着工作与家境，眼神里带着几分腼腆与对未来过日子的憧憬。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "情投意合彼此看重人品性格，以朴素真挚的方式携手步入婚姻殿堂，共同领证成家",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：20–35",
+          "地域：全国",
+          "门槛：适婚青年男女"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "伴侣勤劳体贴通情达理，夫妻同心同德操持家务，家庭和睦美满蒸蒸日上。",
+            "effect": {
+              "family": 40,
+              "mentality": 30,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "寻得良伴结为连理，彼此扶持在风雨人生中稳步前行。",
+            "status": "married"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "婚后共同省吃俭用精打细算添置起全套家具电器，日子过得有滋有味。",
+            "effect": {
+              "family": 30,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "白手起家共筑爱巢，奠定稳固深厚的婚姻情感基石。",
+            "status": "married"
+          }
+        ]
+      },
+      {
+        "text": "因彩礼金银或住房条件分歧过大而冷静叫停婚事，决定把精力先投入自身事业打拼",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：20–35",
+          "地域：全国",
+          "门槛：务实未婚青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "不勉强不委曲求全，将全副心力投入技能进修与升职攒钱，一年后在行业站稳脚跟成为骨干。",
+            "effect": {
+              "wealth": 25,
+              "knowledge": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性对待婚事条件博弈，以事业自立重塑个人核心竞争力。",
+            "status": "career_focused_single"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "因退亲引来部分旧亲族短时议论非议，父母有些叹息，经半年沉淀释怀。",
+            "effect": {
+              "mentality": -15,
+              "family": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经历一次婚恋波折淬炼出更加独立的精神心性。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_yuer_jiahua",
+    "tier": "life_chain",
+    "title": "血脉相传：迎来新生命诞生与家庭重心转移",
+    "yearRange": [
+      1937,
+      2026
+    ],
+    "targetAge": [
+      21,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [
+      "has_children"
+    ],
+    "triggerProbability": 0.4,
+    "coolingPeriod": 2,
+    "factLevel": "确证",
+    "historicalFact": "生儿育女是千家万户最深沉的情感纽带。从几十年前的一家多孩到独生子女政策、全面二孩、全面三孩政策演进，抚育下一代始终是每个家庭倾注心血的核心命题。",
+    "narrative": "产房门口传来一声清脆嘹亮的婴儿啼哭，护士抱着襁褓笑盈盈走出来报喜。新晋父母颤抖着伸出双手接过小生命，那双清澈的大眼睛骨碌碌转动。整个家庭的柴米油盐与未来规划，从此有了最温暖的牵挂。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "全心全意承担为人父母责任，夜起换尿布冲奶粉，科学搭配营养悉心抚育孩子茁壮成长",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：21–45",
+          "地域：全国",
+          "门槛：已婚为人父母者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "孩子身体结实聪明懂事，牙牙学语中喊出第一声‘爸爸妈妈’，全家其乐融融沉浸在天伦之乐中。",
+            "effect": {
+              "family": 45,
+              "mentality": 35,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "迎来新生命诞生传承血脉，在为人父母的劳碌中体会生命至深圆满。",
+            "status": "has_children"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "初为人父母日夜颠倒熬夜抱哄婴儿严重缺乏睡眠引发重度偏头痛，伴侣接力悉心调适。",
+            "effect": {
+              "health": -20,
+              "family": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "育儿艰辛透支睡眠但甘之如饴，淬炼出成熟持家的担当。",
+            "status": "has_children"
+          }
+        ]
+      },
+      {
+        "text": "在长辈岳父母的无私协助下共同接力照料幼童，夫妻二人不耽误本职工作两头兼顾",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：22–45",
+          "地域：城乡家庭",
+          "门槛：双职工父母"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "老少两代人同心协力托举孩子平安渡过婴儿期，夫妻二人工作连年晋升加薪，家境日益殷实。",
+            "effect": {
+              "wealth": 25,
+              "family": 35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "三代同堂互助育儿，家庭结构稳固祥和，兼顾事业与家庭。",
+            "status": "has_children"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "在科学育儿理念与老式传统观念上与长辈发生过几次小口角，通过摆事实讲科学达成共识。",
+            "effect": {
+              "mentality": -10,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "磨合两代人育儿观念增进理解，家庭更加包容团结。",
+            "status": "has_children"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_xuequfang_jiaoyu",
+    "tier": "life_chain",
+    "title": "望子成龙：倾尽积蓄置换名校学区房",
+    "yearRange": [
+      1998,
+      2026
+    ],
+    "targetAge": [
+      28,
+      48
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "has_children"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.15,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "随着城市义务教育就近免试入学制度深化，名校周边的‘学区房’成为无数普通家庭倾注财力争夺优质教育资源的核心战场。",
+    "narrative": "斑驳泛黄的红砖老破小过道里堆满了杂物，三十多平米的老房子昏暗局促。房产中介拿着厚厚的产权证滔滔不绝：‘虽然房子老，但对口全区第一梯队百年名校，名额毫无争议！’看着墙上名校的红榜，父母咬紧了牙关。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙卖掉远郊宽敞大房，动用两代人六个钱包积蓄并背负按揭，买下老破小学区房锁定名校名额",
+        "choiceTags": [
+          "时代：1998–2026",
+          "年龄：28–48",
+          "地域：城镇中心",
+          "门槛：重视教育家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "孩子顺利入读重点小学并在优质师资熏陶下品学兼优考取重点中学，家庭教育投资大获全胜。",
+            "effect": {
+              "knowledge": 35,
+              "family": 35,
+              "wealth": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倾尽全力置换学区房成功托举孩子跨入优质名校，实现教育跃迁。",
+            "status": "school_district_homeowner"
+          },
+          {
+            "type": "entangled",
+            "weight": 25,
+            "log": "一家三口蜗居老破小空间狭窄每月紧巴巴还房贷，节衣缩食五年直至孩子毕业转手解套。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "背负沉重学区房贷紧缩生活，深刻体会当代家长的奉献与不易。",
+            "status": "school_district_homeowner"
+          }
+        ]
+      },
+      {
+        "text": "保持理性不盲目高位炒作学区房，选择在对口普通公立学校就近入学，注重家庭言传身教与自主陪伴",
+        "choiceTags": [
+          "时代：1998–2026",
+          "年龄：28–48",
+          "地域：全国",
+          "门槛：理性教育家长"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "免去数百万房贷重压生活从容宽松，通过每晚高质量亲子阅读陪伴，孩子性格阳光身心健康自主学习优良。",
+            "effect": {
+              "wealth": 25,
+              "family": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拒绝被学区房焦虑裹挟，以充裕现金流与温暖陪伴培育出阳光少年。",
+            "status": "relaxed_nurturing_parent"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "用省下的房贷资金带孩子每年走访名山大川与科技馆开阔眼界，培养出极宽广博雅眼界。",
+            "effect": {
+              "knowledge": 30,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "读万卷书行万里路，以体验式教育胜过刷题焦虑。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_chuguo_liuxue",
+    "tier": "life_chain",
+    "title": "求知求索：走出国门留学深造的历史窗口",
+    "yearRange": [
+      1978,
+      2026
+    ],
+    "targetAge": [
+      20,
+      35
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "1978年邓小平作出扩大派遣留学生重要战略决策，开启公派留学先河。80年代托福热与自费留学兴起，无数青年漂洋过海‘洋插队’半工半读，90年代后留学走向大众化普及，大批学成归国英才成为国家栋梁。",
+    "narrative": "泛黄的托福红宝书被翻得卷起毛边，磁带录音机里反复倒带放着听力真题。厚重的牛皮纸大信封里装着海外大学的录取通知书与I-20表格。手提箱里塞着两双千层底布鞋与字典，踏上首都机场舷梯的那一刻，浩瀚大洋在前方铺开。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "凭借过硬数理功底考取公派留学资格或奖学金，远赴欧美知名学府攻读前沿工程科技博士学位",
+        "choiceTags": [
+          "时代：1978–2026",
+          "年龄：20–35",
+          "地域：海外高校",
+          "门槛：青年优秀学者/高学历"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "攻克尖端学术前沿发表多篇顶刊论文，学成毅然归国加盟国家重点科研院所，成为领军特聘专家。",
+            "effect": {
+              "knowledge": 45,
+              "wealth": 30,
+              "mentality": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "公派留学攀登世界科学高峰学成报国，奠定国家级科技权威地位。",
+            "status": "overseas_phd_scholar",
+            "newCareerTrack": "cadre_teacher"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "异国他乡语言文化隔阂与高压实验室科研连轴转引发严重胃炎与轻度抑郁，答辩毕业后回国痊愈。",
+            "effect": {
+              "health": -25,
+              "knowledge": 40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "海外求学经受孤独高压磨砺，铸就独立刚毅的学术风骨。",
+            "status": "returned_scholar",
+            "newCareerTrack": "cadre_teacher"
+          }
+        ]
+      },
+      {
+        "text": "自费半工半读留学，在异国中餐馆端盘子洗碗攒足学费，系统学完现代商科与计算机硕士",
+        "choiceTags": [
+          "时代：1985–2026",
+          "年龄：20–35",
+          "地域：海外",
+          "门槛：吃苦耐劳留学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "白天上课夜晚打工练就极强国际经贸实战本领，回国创办涉外科技外贸企业斩获成功。",
+            "effect": {
+              "wealth": 40,
+              "knowledge": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "半工半读海外留学开阔全球商业眼界，回国乘风破浪成就实业。",
+            "status": "self_made_returnee_entrepreneur",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "餐馆端滚烫油锅不慎烫伤右小臂留疤，咬牙打工攒齐全部学费顺利毕业。",
+            "effect": {
+              "health": -20,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "海外打工负轻烫伤，以汗水换取知识敲开命运大门。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_hukou_qianju",
+    "tier": "life_chain",
+    "title": "跨越山海：户籍壁垒破冰与异地迁居安家",
+    "yearRange": [
+      1970,
+      2026
+    ],
+    "targetAge": [
+      20,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.1,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "从计划经济时期的严格城乡户籍分割，到改革开放后‘农转非’、小城镇落户、购房落户，再到新时代的居住证制度与积分落户，数亿国人完成了跨越地理与阶层的历史性迁徙。",
+    "narrative": "派出所户籍科的红木柜台前，手中的深红色户口簿翻到了新的一页。戳着崭新钢印的落户审批表盖上了红色公章。几代人种地的农家户口本上，第一次赫然印着‘非农业家庭户’，窗外的城市车水马龙。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "通过自身求学进修或过硬工匠技能考核，成功办理“农转非”迁入省城或工业大厂落户",
+        "choiceTags": [
+          "时代：1970–2026",
+          "年龄：20–50",
+          "地域：城市城镇",
+          "门槛：奋斗进城人员"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "彻底解决一家老小城市定量口粮与子女在城里就读统筹医疗，在省城分得福利住房安家立足。",
+            "effect": {
+              "wealth": 35,
+              "family": 35,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "凭借硬核奋斗完成阶层跨越成功落户城市，改写家族数代人命运轨迹。",
+            "status": "urban_hukou_settler"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "初入城市面对高物价与邻里口音隔阂经历两年生活调适，逐步彻底融入市民生活。",
+            "effect": {
+              "mentality": -10,
+              "wealth": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "适应城市生活经历微小磨合，在繁华中为下一代打下扎实基石。",
+            "status": "urban_hukou_settler"
+          }
+        ]
+      },
+      {
+        "text": "在新世纪顺应户籍放开大潮，凭借在沿海打工积分或买房置业顺利换领大都市常住户口",
+        "choiceTags": [
+          "时代：2000–2026",
+          "年龄：22–55",
+          "地域：沿海大中城市",
+          "门槛：务工创业新市民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "拿到崭新城市身份证与市民卡，子女无障碍参加中考高考，彻底告别异乡漂泊感成为新市民代表。",
+            "effect": {
+              "family": 40,
+              "wealth": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "享受户籍制度改革红利扎根沿海大都市，实现真正安居乐业。",
+            "status": "new_city_citizen"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "在社区积极参与新市民互助联谊会，帮助数百名新来打工同乡排难解纷。",
+            "effect": {
+              "knowledge": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "从异乡漂泊到社区主心骨，展现新时代奋斗者风采。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_hunyin_weiji",
+    "tier": "life_chain",
+    "title": "情感考验：中年柴米油盐磨损与理性抉择",
+    "yearRange": [
+      1980,
+      2026
+    ],
+    "targetAge": [
+      35,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.05,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "现代社会生活节奏加快、经济负担与性格三观差异使得中年婚姻面临磨合大考。理性的沟通包容或文明的和平分手，折射出当代人对婚姻质量与自我价值的深层反思。",
+    "narrative": "客厅里的空气压抑得令人窒息，茶几两端相对无言。曾经的海誓山盟在十几年鸡毛蒜皮的争吵、两家老人的照料分歧与经济压力下被磨蚀殆尽。离婚协议书的白纸黑字在台灯下格外刺目，必须做出清醒抉择。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "夫妻秉持开诚布公长谈，坦诚反思各自短处，放下怨怼重新找回互谅互让，重归于好",
+        "choiceTags": [
+          "时代：1980–2026",
+          "年龄：35–55",
+          "地域：全国",
+          "门槛：已婚中年夫妻"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "冰释前嫌重修旧好，共同走过婚姻最严峻危机坎坷，感情经风雨洗礼愈发沉稳醇厚。",
+            "effect": {
+              "family": 35,
+              "mentality": 30,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以深沉包容化解中年婚姻危机，夫妻携手白头偕老安度晚年。",
+            "status": "marriage_healed_stable"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "虽重归于好但心头仍留少许芥蒂，约定彼此多留独立兴趣空间，相敬如宾平稳过日子。",
+            "effect": {
+              "mentality": 10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "理性调整夫妻相处模式，在烟火寻常中维持家庭平稳大局。"
+          }
+        ]
+      },
+      {
+        "text": "深知彼此志不同道不合，理性友好签署离婚财产分割协议和平分手，共同尽心抚育子女",
+        "choiceTags": [
+          "时代：1980–2026",
+          "年龄：35–55",
+          "地域：全国",
+          "门槛：理智和平分手者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "无撕扯无内耗体面解除婚姻，各自轻装上阵重掌人生主动权，孩子在双方共同关爱下健康成长。",
+            "effect": {
+              "mentality": 30,
+              "wealth": -10,
+              "knowledge": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "体面文明结束不合婚姻重获新生，以成熟人格开启独立人生新篇。",
+            "status": "divorced_independent"
+          },
+          {
+            "type": "entangled",
+            "weight": 20,
+            "log": "短时间内面对独居空房产生轻度孤独落差，通过投身工作与老友结伴重拾生活节奏。",
+            "effect": {
+              "mentality": -15,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经历离婚阵痛逐步走出低谷，生活更加独立自主。",
+            "status": "divorced_independent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_sangou_chongjian",
+    "tier": "life_chain",
+    "title": "夕阳孤影：伴侣溘然长逝与重寻晚年精神寄托",
+    "yearRange": [
+      1950,
+      2026
+    ],
+    "targetAge": [
+      62,
+      85
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.04,
+    "coolingPeriod": 999,
+    "factLevel": "确证",
+    "historicalFact": "老来丧偶是老年人面临的最严峻心理危机。走出阴霾、依靠兴趣爱好或寻找志同道合的夕阳红搭伙伴侣，体现了老年生命坚韧的自我修复力。",
+    "narrative": "老伴生前的空藤椅静静摆在阳台，墙上挂着几十年前金婚相片。空荡荡的屋子里只剩下时钟的滴答声，夜里醒来习惯性伸手去摸身旁却只有冰凉的被褥。子女常年在异地工作，晚年的孤独如潮水般涌来。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "化悲痛为怀念走出家门，报名老年大学书法与合唱团，将日子安排得丰富充实",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：62–85",
+          "地域：全国",
+          "门槛：丧偶老人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "在墨香与歌声中结识数十位同龄挚友，重燃对生活的热忱，作品在市老年书画展荣获银奖。",
+            "effect": {
+              "mentality": 35,
+              "knowledge": 25,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在艺术与银发社交中走出丧偶创伤，晚年活出充实从容风采。",
+            "status": "active_senior_scholar"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "常在日记本里用毛笔给逝去的老伴写信寄托哀思，内心恬淡平静无怨无悔。",
+            "effect": {
+              "mentality": 25,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "深情守候心灵深处纯粹伴侣，精神世界平静而富足。"
+          }
+        ]
+      },
+      {
+        "text": "经老工友热心牵线结识一位性情温和、通情达理的退休老教师，搭伙相伴共度余生",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：62–80",
+          "地域：全国",
+          "门槛：明达老人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "互相买菜做饭提醒吃药，散步聊天相依为命，子女也深感欣慰支持，夕阳余晖温暖如春。",
+            "effect": {
+              "family": 35,
+              "mentality": 30,
+              "health": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "打破世俗成见寻得晚年互助良伴，相濡以沫安享暖心黄昏。",
+            "status": "remarried_elder_couple"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "初期因双方子女在房产继承口头协议上有过细微疑虑，经公证处规范公证彻底打消顾虑。",
+            "effect": {
+              "mentality": 15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依法公证处理晚年财产，扫清晚晴再婚障碍。",
+            "status": "remarried_elder_couple"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_shanyang_fumu",
+    "tier": "life_chain",
+    "title": "反哺之恩：父母年迈重病卧床与床前悉心尽孝",
+    "yearRange": [
+      1950,
+      2026
+    ],
+    "targetAge": [
+      35,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.1,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "‘百善孝为先’是中华民族千百年传统美德。面对父母脑梗偏瘫、阿尔茨海默病或慢性重病，子女在病榻前喂饭翻身、倾力照料，展现人间至诚大孝。",
+    "narrative": "白发苍苍的老父亲突发脑梗塞半身瘫痪卧床不起，说话言语不清。医院走廊里弥漫着消毒水气味，厚厚的药费单据一张接着一张。床前摆着吸痰器和轮椅，年迈的母亲也在一旁默默流泪。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "兄弟姐妹齐心协力轮流排班值夜，每日按时给老人翻身擦洗、喂流食并辅助推拿肢体康复",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：35–65",
+          "地域：全国",
+          "门槛：孝顺儿女"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "老人卧床三年无一处褥疮并发症，在温暖照料下奇迹般能扶拐走动，全家孝老美德被全村邻里传颂立碑。",
+            "effect": {
+              "family": 45,
+              "mentality": 35,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "久病床前有孝子，以纯粹孝心回报父母养育深恩，积善之家庆有余。",
+            "status": "filial_piety_role_model"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "日夜抱扶老人上下轮椅导致急性腰肌扭伤，戴着护腰带依然坚守床前尽孝侍奉。",
+            "effect": {
+              "health": -20,
+              "family": 40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "尽孝侍奉劳损腰脊，无愧于天地良心。",
+            "status": "filial_piety_role_model"
+          }
+        ]
+      },
+      {
+        "text": "多方考察出资选定一家医养结合的专业优质养老康复中心，自己坚持隔天下班探望陪伴聊天",
+        "choiceTags": [
+          "时代：1995–2026",
+          "年龄：35–65",
+          "地域：大中城市",
+          "门槛：现代务实家庭"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "专业医护全天候康复训练使老人肌肉未萎缩，自身工作亦未耽误，老人晚年生活体面尊严安详。",
+            "effect": {
+              "family": 35,
+              "wealth": -25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借助现代专业医养机构科学尽孝，统筹解决照护与工作矛盾。",
+            "status": "professional_eldercare_champion"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "初期被个别守旧老亲戚指责‘送养老院不孝’，待亲戚实地探视看到优质环境后心服口服。",
+            "effect": {
+              "mentality": 15,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以科学明达理念突破旧俗偏见，推动现代孝道文明。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_xiagang_chuangye",
+    "tier": "life_chain",
+    "title": "铁饭碗砸碎：国企转制下岗阵痛与自主创业翻盘",
+    "yearRange": [
+      1993,
+      2003
+    ],
+    "targetAge": [
+      30,
+      52
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {
+      "urbanRural": "urban"
+    },
+    "preTags": [
+      "worker"
+    ],
+    "excludeTags": [],
+    "triggerProbability": 0.4,
+    "coolingPeriod": 999,
+    "factLevel": "确证",
+    "historicalFact": "90年代中后期国企深化改革改制攻坚，数千万产业工人经历‘减员增效、下岗分流’的历史阵痛。千千万万下岗工人以‘看成败人生豪迈，只不过是从头再来’的顽强毅力，在市场大潮中自谋生路再立新功。",
+    "narrative": "纺织厂的大烟囱不再冒烟，厂门口的大铁门贴上了重组封条。领到了几千块买断工龄的安置费和一本绿色的下岗证，走出曾经庇护了一生的大厂厂区。街头风凉，老伴递过来一顶围裙和推车车把：‘天塌不下来，咱有手有脚！’",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "放下原大厂八级工的身段架子，在菜市场门口支起早点摊炸油条、包薄皮大馄饨，起早贪黑自食其力",
+        "choiceTags": [
+          "时代：1993–2003",
+          "年龄：30–50",
+          "地域：全国城镇",
+          "门槛：下岗再创业职工"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "凭用料实在味道正宗三年内由地摊发展成拥有三家连锁店的特色早点王，年收入翻番超越以往数倍。",
+            "effect": {
+              "wealth": 45,
+              "mentality": 35,
+              "knowledge": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在国企下岗绝境中自强不息创业翻盘，成为市场大潮弄潮儿。",
+            "status": "laid_off_entrepreneur_hero",
+            "newCareerTrack": "merchant"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "常年凌晨两点揉面炸油条手臂被滚油烫伤多处小疤，咬牙拼搏终于供出家中名牌大学生。",
+            "effect": {
+              "health": -20,
+              "wealth": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以滚烫油锅与汗水换来全家新立业，谱写下岗职工悲壮史诗。",
+            "status": "resilient_breakfast_boss",
+            "newCareerTrack": "merchant"
+          }
+        ]
+      },
+      {
+        "text": "参加政府免费开设的电工、家电维修或数控机床转岗培训班，转战民营高新企业再当技术大拿",
+        "choiceTags": [
+          "时代：1993–2003",
+          "年龄：30–48",
+          "地域：城镇工业区",
+          "门槛：好学转型工人"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "凭深厚机械功底迅速考取高级数控技工证，被民营机械厂重金聘为车间技术主管，工资涨至两千元。",
+            "effect": {
+              "wealth": 35,
+              "knowledge": 30,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "通过技能升级实现下岗再就业华丽转身，牢牢端稳现代产业金饭碗。",
+            "status": "re_employed_technical_master"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "初入私企高强度考勤打卡很不适应，经半年磨合凭借不可替代的排障本领赢得老板绝对信任。",
+            "effect": {
+              "mentality": 15,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "融入民营经济体制重塑自我，生命更具抗风险韧劲。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_wanxian_lingyang",
+    "tier": "life_chain",
+    "title": "大爱无疆：无子之憾与福利院合法领养弃儿",
+    "yearRange": [
+      1950,
+      2026
+    ],
+    "targetAge": [
+      32,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [
+      "married"
+    ],
+    "excludeTags": [
+      "has_children"
+    ],
+    "triggerProbability": 0.05,
+    "coolingPeriod": 999,
+    "factLevel": "确证",
+    "historicalFact": "因身体原因无法生育是许多家庭难以言说的隐痛。《中华人民共和国收养法》确立了有利于被收养人成长的合法收养制度，大批弃婴孤儿在养父母无私抚育下重获温暖家庭与新生。",
+    "narrative": "福利院的小木床前，一个半岁大的女婴裹在旧花被里，小手伸出被窝抓住了你的手指不松开，脸上挂着纯净无邪的笑容。院长温和地递过厚厚的收养登记评估表：‘这孩子跟你们有天大的缘分啊！’",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "依法在民政部门办理全套收养手续，视如己出倾注毕生心血，用满满的爱抚育孩子成长成人",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：32–50",
+          "地域：全国",
+          "门槛：仁爱无子夫妇"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "孩子在温暖呵护下健康聪慧金榜题名考上大学，对养父母极其孝顺贴心，家庭天伦圆满幸福美满。",
+            "effect": {
+              "family": 50,
+              "mentality": 35,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "收养孤儿视为掌上明珠倾心托举，以博大人性大爱收获最美天伦。",
+            "status": "loving_adoptive_parent"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "抚育孩子从体弱多病调养至体格健壮，全家生活充满欢声笑语，重拾人生无限希望。",
+            "effect": {
+              "health": 15,
+              "family": 45
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "善举改变孤儿命运，亦彻底治愈自身心灵遗憾。",
+            "status": "loving_adoptive_parent"
+          }
+        ]
+      },
+      {
+        "text": "决定坦然接纳没有孩子的丁克现实，夫妻二人相濡以沫相伴一生，投身助学希望工程公益",
+        "choiceTags": [
+          "时代：1985–2026",
+          "年龄：32–55",
+          "地域：城镇",
+          "门槛：豁达丁克夫妇"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "资助贫困山区数十名失学女童读完大学改变命运，夫妻携手自驾旅行眼界宽广，晚年从容自在。",
+            "effect": {
+              "wealth": 20,
+              "mentality": 40,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "豁达超脱于传统香火观念，以助学博爱回馈社会，活出独立丰盈人生。",
+            "status": "dink_philanthropist_couple"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "面对老家个别封建守旧亲友的嚼舌根闲话置若罔闻，过好属于自己的精彩日子。",
+            "effect": {
+              "mentality": 20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不惧世俗偏见活出真我风采，精神世界无比丰饶。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_yimin_chuhai",
+    "tier": "life_chain",
+    "title": "时代博弈：海外务工移民与扎根国内腾飞机遇",
+    "yearRange": [
+      1990,
+      2026
+    ],
+    "targetAge": [
+      25,
+      50
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.05,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "90年代及新世纪初随着全球化浪潮，部分国人选择远赴东南亚、非洲或欧美打工经商甚至移民；与此同时，中国经济腾飞与城镇化大潮为扎根国内的奋斗者创造了前所未有的广阔空间。",
+    "narrative": "海外务工中介公司的门前挂着醒目的外文招牌，宣讲着赴非矿山、赴欧商超或澳洲打工的高薪前景。同期的国内沿海高铁网正如火如荼建设，电商与新工业园区热火朝天，人生的十字路口正展现在眼前。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "坚信中国经济澎湃后劲，坚决扎根国内深耕先进制造与数字经济，陪伴父母家人共同发展",
+        "choiceTags": [
+          "时代：1990–2026",
+          "年龄：25–50",
+          "地域：全国",
+          "门槛：扎根本土实干者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "充分享受中国加入WTO与现代基础设施腾飞红利，事业连升三级积累雄厚资产，全家齐整团聚。",
+            "effect": {
+              "wealth": 45,
+              "family": 35,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "扎根祖国大地共享时代腾飞红利，家庭美满事业辉煌。",
+            "status": "domestic_growth_beneficiary"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "参与国内重大工程技术突破荣获省部级科技进步奖，名利双收。",
+            "effect": {
+              "knowledge": 35,
+              "wealth": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在本土工业大潮中建功立业，铸就扎实实业底气。"
+          }
+        ]
+      },
+      {
+        "text": "随外派工程队赴非洲或中东开拓基建工程，在异国他乡风沙荒漠中苦干五年攒下一笔美金资产",
+        "choiceTags": [
+          "时代：1995–2026",
+          "年龄：25–48",
+          "地域：海外工程前线",
+          "门槛：外派建设者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "圆满完成一带一路援建重大港口铁路项目载誉归国，带回百万储蓄在省城全款购房置业。",
+            "effect": {
+              "wealth": 50,
+              "knowledge": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "投身海外基建拼搏攒得厚实家底，开阔全球化视野。",
+            "status": "belt_and_road_builder"
+          },
+          {
+            "type": "injured",
+            "weight": 25,
+            "log": "在热带工区感染恶性疟疾高热卧床三周，经我国援非医疗队抗疟中药救治康复。",
+            "effect": {
+              "health": -25,
+              "wealth": 40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "海外吃尽风沙疾疫之苦换来全家殷实，深感祖国后盾温暖。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_life_laonian_daxue",
+    "tier": "life_chain",
+    "title": "银发新生：晚年空巢独居与老年大学乐学天伦",
+    "yearRange": [
+      1990,
+      2026
+    ],
+    "targetAge": [
+      60,
+      85
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.1,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "人口老龄化背景下，空巢老人普遍面临情感失落。老年大学的兴起、智慧助老以及社区银发活动的普及，让数千万中国老人迎来了有作为、有进步、有快乐的‘金色晚年’。",
+    "narrative": "孩子们各自成家搬到了新城区，大平层的家里常常只有老两口相对而坐。居委会门口挂出‘老年大学春季招生简章’，国画、太极拳、智能手机摄影课名额格外火爆。晨光熹微，背着轻便画夹的老人们精神抖擞地踏入校门。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "积极报名老年大学摄影与太极拳班，学会熟练使用智能手机修图网购，与老同学结伴周边漫游",
+        "choiceTags": [
+          "时代：1990–2026",
+          "年龄：60–85",
+          "地域：全国",
+          "门槛：乐学银发族"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "晚年生活多姿多彩焕发青春活力，摄影作品在社区大展夺得金奖，身心舒畅远离慢性病困扰，寿至期颐。",
+            "effect": {
+              "health": 35,
+              "mentality": 35,
+              "knowledge": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "老有所乐老有所学，活出精彩自信的银发风采，晚年健康长寿。",
+            "status": "silver_age_active_scholar"
+          },
+          {
+            "type": "safe",
+            "weight": 10,
+            "log": "在社区义务开办太极拳公益晨练班带动上百位老人锻炼，被评为社区健康大使。",
+            "effect": {
+              "family": 25,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "银发助老播撒阳光，晚年生命丰盈且受人尊敬。"
+          }
+        ]
+      },
+      {
+        "text": "乐此不疲主动承担帮子女照看带第三代孙辈的重任，每天接送上下学买菜做可口饭菜",
+        "choiceTags": [
+          "时代：通用时代",
+          "年龄：58–78",
+          "地域：全国",
+          "门槛：慈爱祖辈"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "孙辈健康聪明活泼贴心，看着第三代茁壮成长心中充满无尽欣慰自豪，家庭四世同堂其乐融融。",
+            "effect": {
+              "family": 45,
+              "mentality": 30,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以甘为人梯的奉献照料第三代，尽享四世同堂天伦深福。",
+            "status": "happy_grandparent"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "抱孙子时扭伤手腕软组织，贴膏药调理两周，孙辈奶声奶气给吹吹手腕彻底暖化心房。",
+            "effect": {
+              "health": -15,
+              "family": 40
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "照拂儿孙负轻劳损但甜在心头，家道兴盛血脉绵延。",
+            "status": "happy_grandparent"
+          }
+        ]
+      }
+    ]
+  }
+]

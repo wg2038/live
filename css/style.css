@@ -1547,6 +1547,205 @@ img {
 }
 
 /* ==========================================================================
+   2026 Continue Section (.continue-section)
+   ========================================================================== */
+
+.continue-section {
+  width: min(720px, 100%);
+  margin: 20px auto 0;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  padding: 20px 24px;
+  text-align: center;
+  animation: slideUp 0.4s ease;
+}
+
+.continue-badge {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .03em;
+}
+
+.continue-sub {
+  font-size: 13.5px;
+  color: var(--ink2);
+  margin: 6px 0 14px;
+}
+
+.continue-stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.continue-stats .stat-pill {
+  background: var(--card2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 8px 16px;
+  min-width: 140px;
+}
+
+.continue-stats .stat-pill .lbl {
+  display: block;
+  font-size: 11px;
+  color: var(--ink3);
+  margin-bottom: 3px;
+}
+
+.continue-stats .stat-pill b {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.continue-disclaimer {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink3);
+  background: var(--card2);
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--rule2);
+}
+
+/* ==========================================================================
+   Causality Retrospective Section (.causality-section)
+   ========================================================================== */
+
+.causality-section {
+  width: min(720px, 100%);
+  margin: 20px auto 0;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  animation: slideUp 0.4s ease;
+}
+
+.causality-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.causality-badge {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--stamp);
+}
+
+.causality-sub {
+  font-size: 13px;
+  color: var(--ink2);
+  margin-top: 4px;
+}
+
+.causality-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.causality-item {
+  background: var(--card2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.causality-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--ink3);
+  border-bottom: 1px dashed var(--rule2);
+  padding-bottom: 4px;
+}
+
+.causality-choice {
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.causality-risk {
+  color: var(--ink2);
+  font-size: 12.5px;
+  background: var(--card);
+  padding: 6px 10px;
+  border-radius: 3px;
+  border-left: 3px solid var(--rule);
+}
+
+.badge-outcome {
+  display: inline-block;
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.badge-outcome.safe {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+
+.badge-outcome.injured {
+  background: #FFF3E0;
+  color: #E65100;
+  border: 1px solid #FFE0B2;
+}
+
+.badge-outcome.entangled {
+  background: #EDE7F6;
+  color: #512DA8;
+  border: 1px solid #D1C4E9;
+}
+
+.badge-outcome.redirected {
+  background: #E1F5FE;
+  color: #0277BD;
+  border: 1px solid #B3E5FC;
+}
+
+.badge-outcome.fatal {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+/* Choice Tags in Decision Modal */
+.choice-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.choice-tag-pill {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--card2);
+  color: var(--ink3);
+  border: 1px solid var(--rule);
+  letter-spacing: .01em;
+}
+
+/* ==========================================================================
    Animations
    ========================================================================== */
 

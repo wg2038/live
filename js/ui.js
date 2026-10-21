@@ -492,7 +492,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     choices.forEach((c, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.innerHTML = `<b>${escapeHtml(c.text)}</b><small style="display:block;color:var(--ink3);margin-top:2px;">${escapeHtml(c.desc || '')}</small>`;
+      let tagsHtml = '';
+      if (c.choiceTags && Array.isArray(c.choiceTags) && c.choiceTags.length > 0) {
+        tagsHtml = `<div class="choice-tags-container">` +
+          c.choiceTags.map(t => `<span class="choice-tag-pill">${escapeHtml(t)}</span>`).join('') +
+          `</div>`;
+      }
+      btn.innerHTML = `<b>${escapeHtml(c.text)}</b>${c.desc ? `<small style="display:block;color:var(--ink3);margin-top:2px;">${escapeHtml(c.desc)}</small>` : ''}${tagsHtml}`;
       btn.addEventListener('click', () => {
         resolveChoice(evt.id, idx);
       });
@@ -564,6 +570,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 4. 绘制 Canvas 生命轨迹图 (Lifeline Chart)
     drawLifelineChart(char.lifelineHistory, death.age);
+
+    // 4.5 2026在世未完待续专栏渲染
+    const continueSection = document.getElementById('continueSection');
+    const isAlive2026 = death.isAliveIn2026 || death.year >= 2026;
+    if (continueSection) {
+      if (isAlive2026) {
+        continueSection.hidden = false;
+        const act = char.actuarialExpectancy || {};
+        const ageEl = document.getElementById('contCurrentAge');
+        const remEl = document.getElementById('contRemaining');
+        const totEl = document.getElementById('contTotalAge');
+        if (ageEl) ageEl.textContent = `${death.age} 岁`;
+        if (remEl) remEl.textContent = act.remainingRange || '45–52 年';
+        if (totEl) totEl.textContent = act.totalExpectedAgeRange || '78–85 岁';
+      } else {
+        continueSection.hidden = true;
+      }
+    }
+
+    // 4.6 因果回顾专栏渲染 (蝴蝶效应)
+    const causalitySection = document.getElementById('causalitySection');
+    const causalityList = document.getElementById('causalityList');
+    if (causalitySection && causalityList) {
+      const reviews = char.causalityReview || [];
+      if (reviews.length > 0) {
+        causalitySection.hidden = false;
+        causalityList.innerHTML = reviews.map(r => {
+          let badgeClass = 'safe';
+          let badgeLabel = '安然无恙';
+          if (r.outcomeType === 'injured') { badgeClass = 'injured'; badgeLabel = '负伤受创'; }
+          else if (r.outcomeType === 'entangled') { badgeClass = 'entangled'; badgeLabel = '受到牵连'; }
+          else if (r.outcomeType === 'redirected') { badgeClass = 'redirected'; badgeLabel = '人生转向'; }
+          else if (r.outcomeType === 'fatal') { badgeClass = 'fatal'; badgeLabel = '不幸罹难'; }
+
+          return `
+            <div class="causality-item">
+              <div class="causality-meta">
+                <span>${r.age}岁 · ${r.year}年 · ${escapeHtml(r.eventTitle || '关键关卡')}</span>
+                <span class="badge-outcome ${badgeClass}">${badgeLabel}</span>
+              </div>
+              <div class="causality-choice">选择：${escapeHtml(r.choiceText || '')}</div>
+              <div class="causality-risk">因果注脚：${escapeHtml(r.hiddenRisk || '')}</div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        causalitySection.hidden = true;
+      }
+    }
 
     // 5. 晚出生角色“传承视角”检测与渲染 (出生>=2010且2026年存活)
     const lineageSection = document.getElementById('lineageSection');

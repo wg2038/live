@@ -11,6 +11,8 @@ class SimulationEngine {
     this.cities = [];
     this.disasters = [];
     this.naming = null;
+    this.transitions = null;
+    this.details = null;
     this.isLoaded = false;
 
     // 当前角色状态
@@ -30,8 +32,11 @@ class SimulationEngine {
       health: 25
     };
 
-    // 状态标记
+    // 状态标记与历史事件冷却表
     this.statusFlags = new Set();
+    this.eventCooldowns = {};
+    this.usedDetailSnippets = new Set();
+    this.lastSentenceOpener = '';
     this.currentPendingDecision = null;
   }
 
@@ -40,13 +45,15 @@ class SimulationEngine {
    */
   async init() {
     try {
-      const [provRes, statRes, evtRes, cityRes, disRes, nameRes] = await Promise.all([
+      const [provRes, statRes, evtRes, cityRes, disRes, nameRes, transRes, detRes] = await Promise.all([
         fetch('data/province.json'),
         fetch('data/stats.json'),
         fetch('data/events.json'),
         fetch('data/cities.json'),
         fetch('data/disasters.json'),
-        fetch('data/naming.json')
+        fetch('data/naming.json'),
+        fetch('data/transitions.json'),
+        fetch('data/details.json')
       ]);
       this.provinces = await provRes.json();
       this.stats = await statRes.json();
@@ -54,16 +61,21 @@ class SimulationEngine {
       this.cities = await cityRes.json();
       this.disasters = await disRes.json();
       this.naming = await nameRes.json();
+      this.transitions = await transRes.json();
+      this.details = await detRes.json();
       this.isLoaded = true;
     } catch (err) {
       console.warn('Fetch 失败（可能由于本地 file:// 协议），采用内置回退数据', err);
-      if (window.EMBEDDED_DATA) {
-        this.provinces = window.EMBEDDED_DATA.provinces;
-        this.stats = window.EMBEDDED_DATA.stats;
-        this.events = window.EMBEDDED_DATA.events;
-        this.cities = window.EMBEDDED_DATA.cities;
-        this.disasters = window.EMBEDDED_DATA.disasters;
-        this.naming = window.EMBEDDED_DATA.naming;
+      const embedded = (typeof window !== 'undefined' && window.EMBEDDED_DATA) ? window.EMBEDDED_DATA : null;
+      if (embedded) {
+        this.provinces = embedded.provinces || [];
+        this.stats = embedded.stats || null;
+        this.events = embedded.events || [];
+        this.cities = embedded.cities || [];
+        this.disasters = embedded.disasters || [];
+        this.naming = embedded.naming || null;
+        this.transitions = embedded.transitions || null;
+        this.details = embedded.details || null;
         this.isLoaded = true;
       } else {
         throw new Error('无法加载历史与城市数据库');
@@ -326,6 +338,30 @@ class SimulationEngine {
     // 9. 智能历史人名生成
     const name = this.generateAuthenticName(birthYear, sex, province.id, ethnicity);
 
+    const initCareerTrack = this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob);
+    const initialTags = new Set([
+      urbanRural,
+      sex === '男' ? 'male' : 'female',
+      province.id,
+      initCareerTrack,
+      economicLevel
+    ]);
+
+    // 根据年代、地域与性别初始化生活习惯/爱好倾向
+    const smokerRate = (sex === '男' ? 0.35 : 0.05) * (birthYear < 1980 ? 1.2 : 0.8);
+    if (Math.random() < smokerRate) initialTags.add('smoker');
+    const drinkerRate = (sex === '男' ? 0.30 : 0.08);
+    if (Math.random() < drinkerRate) initialTags.add('drinker');
+    if (['hubei', 'hunan', 'jiangsu', 'zhejiang', 'guangdong', 'fujian', 'jiangxi', 'anhui'].includes(province.id) && Math.random() < 0.35) {
+      initialTags.add('swimmer');
+    }
+    if (['sichuan', 'guizhou', 'yunnan', 'shaanxi', 'gansu', 'chongqing'].includes(province.id) && Math.random() < 0.30) {
+      initialTags.add('hiker');
+    }
+    if (birthYear >= 1980 && Math.random() < 0.25) {
+      initialTags.add('stay_up_late');
+    }
+
     this.character = {
       name,
       sex,
@@ -347,9 +383,13 @@ class SimulationEngine {
       siblingsCount,
       attributes,
       educationLevel: '未入学',
-      careerTrack: this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob),
+      careerTrack: initCareerTrack,
       careerRank: '初生幼年',
       occupation: isUrban ? '城镇孩童' : '乡野幼童',
+      tags: initialTags,
+      causalityReview: [],
+      maritalStatus: '未婚',
+      hasChildren: false,
       milestones: [],
       survivedDisasters: [],
       lifelineHistory: [
@@ -364,6 +404,9 @@ class SimulationEngine {
       ]
     };
 
+    this.eventCooldowns = {};
+    this.usedDetailSnippets = new Set();
+    this.lastSentenceOpener = '';
     this.currentYear = birthYear;
     this.currentAge = 0;
     this.updateCareerStage();
@@ -469,27 +512,108 @@ class SimulationEngine {
   }
 
   /**
-   * 检查当年是否有待触发的历史大事件
+   * 检验角色是否具备指定状态标签（支持Set、statusFlags、基础属性、婚姻学历与职业别名）
+   */
+  characterHasTag(tag) {
+    if (!tag) return true;
+    if (this.character.tags && this.character.tags.has(tag)) return true;
+    if (this.statusFlags.has(tag)) return true;
+    if (this.character.careerTrack === tag) return true;
+    if (this.character.urbanRural === tag) return true;
+    if (this.character.provinceId === tag) return true;
+    if (this.character.economicLevel === tag) return true;
+    if (this.character.sex === '男' && (tag === 'male' || tag === '男')) return true;
+    if (this.character.sex === '女' && (tag === 'female' || tag === '女')) return true;
+    if (tag === 'married' && this.character.maritalStatus === '已婚') return true;
+    if (tag === 'single' && this.character.maritalStatus !== '已婚') return true;
+    if (tag === 'has_children' && this.character.hasChildren) return true;
+    if (tag === 'worker' && (this.character.careerTrack === 'worker' || (this.character.occupation && this.character.occupation.includes('工')))) return true;
+    if (tag === 'farmer' && (this.character.careerTrack === 'farmer' || (this.character.occupation && (this.character.occupation.includes('农') || this.character.occupation.includes('社员'))))) return true;
+    if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || (this.character.occupation && (this.character.occupation.includes('师') || this.character.occupation.includes('医') || this.character.occupation.includes('干'))))) return true;
+    if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || (this.character.occupation && (this.character.occupation.includes('商') || this.character.occupation.includes('店') || this.character.occupation.includes('板'))))) return true;
+    if (tag === 'primary' && this.character.educationLevel && this.character.educationLevel.includes('小')) return true;
+    if (tag === 'junior_high' && this.character.educationLevel && (this.character.educationLevel.includes('初') || this.character.educationLevel.includes('中'))) return true;
+    if (tag === 'high_school' && this.character.educationLevel && (this.character.educationLevel.includes('高') || this.character.educationLevel.includes('中专'))) return true;
+    if (tag === 'college' && this.character.educationLevel && (this.character.educationLevel.includes('大') || this.character.educationLevel.includes('本') || this.character.educationLevel.includes('研'))) return true;
+    if (tag === 'higher_ed_degree' && this.character.educationLevel && (this.character.educationLevel.includes('大专') || this.character.educationLevel.includes('本') || this.character.educationLevel.includes('研') || this.character.educationLevel.includes('大学'))) return true;
+    return false;
+  }
+
+  /**
+   * 检验角色是否满足事件的曝光条件 (exposureConditions)
+   */
+  characterMeetsExposure(exposure) {
+    if (!exposure || Object.keys(exposure).length === 0) return true;
+    if (exposure.provinces && exposure.provinces.length > 0) {
+      if (!exposure.provinces.includes(this.character.provinceId) && !exposure.provinces.includes('ALL')) {
+        return false;
+      }
+    }
+    if (exposure.urbanRural && exposure.urbanRural !== 'all') {
+      if (exposure.urbanRural !== this.character.urbanRural) return false;
+    }
+    if (exposure.economicLevels && exposure.economicLevels.length > 0) {
+      if (!exposure.economicLevels.includes(this.character.economicLevel)) return false;
+    }
+    if (exposure.minYear && this.currentYear < exposure.minYear) return false;
+    if (exposure.maxYear && this.currentYear > exposure.maxYear) return false;
+    return true;
+  }
+
+  /**
+   * 检查当年是否有待触发的历史大事件（严格遵循曝光条件、冷却期、前置与排除标签）
    */
   findEligibleEvents() {
     const list = [];
     for (const evt of this.events) {
-      if (this.statusFlags.has(`done_${evt.id}`)) continue;
+      // 冷却期检查
+      if (this.eventCooldowns[evt.id] && this.currentYear < this.eventCooldowns[evt.id]) {
+        continue;
+      }
+      if (this.statusFlags.has(`done_${evt.id}`)) {
+        continue;
+      }
 
+      // 年份窗口
       const [start, end] = evt.yearRange;
       if (this.currentYear < start || this.currentYear > end) continue;
 
+      // 适用年龄
       if (evt.targetAge) {
         const [minAge, maxAge] = evt.targetAge;
         if (this.currentAge < minAge || this.currentAge > maxAge) continue;
       }
 
-      if (evt.urbanRural && evt.urbanRural !== 'all' && evt.urbanRural !== this.character.urbanRural) {
-        continue;
-      }
-
+      // 地域覆盖
       if (evt.applicableRegions && !evt.applicableRegions.includes('ALL')) {
         if (!evt.applicableRegions.includes(this.character.region)) continue;
+      }
+
+      // 曝光条件
+      if (!this.characterMeetsExposure(evt.exposureConditions)) continue;
+
+      // 前置必备标签 (全部满足)
+      if (evt.preTags && evt.preTags.length > 0) {
+        let allMatch = true;
+        for (const t of evt.preTags) {
+          if (!this.characterHasTag(t)) {
+            allMatch = false;
+            break;
+          }
+        }
+        if (!allMatch) continue;
+      }
+
+      // 互斥排除标签 (任一命中即排除)
+      if (evt.excludeTags && evt.excludeTags.length > 0) {
+        let anyMatch = false;
+        for (const t of evt.excludeTags) {
+          if (this.characterHasTag(t)) {
+            anyMatch = true;
+            break;
+          }
+        }
+        if (anyMatch) continue;
       }
 
       list.push(evt);
@@ -498,7 +622,7 @@ class SimulationEngine {
   }
 
   /**
-   * 人生固定重要抉择节点
+   * 人生固定重要抉择节点（义务教育自动推进，不弹重复选项，仅在升学分流、高考与婚育分水岭弹决策）
    */
   checkLifeMilestone() {
     const age = this.currentAge;
@@ -516,11 +640,13 @@ class SimulationEngine {
           choices: [
             {
               text: '报读少儿兴趣与思维启蒙班',
+              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：重视素质启蒙家庭'],
               effect: { "knowledge": 20, "wealth": -15, "health": -5 },
               log: '周末穿梭于各个校外培训班，虽略显疲累，但眼界与思维打下了扎实基础。'
             },
             {
               text: '坚持快乐童年，多跑跳户外运动',
+              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：崇尚天性自然家庭'],
               effect: { "health": 15, "family": 15, "wealth": 5 },
               log: '放学后与邻里小伙伴在小区楼下自由奔跑玩耍，享受无忧无虑的纯真童年。'
             }
@@ -538,11 +664,13 @@ class SimulationEngine {
           choices: [
             {
               text: '高度自律专心网课，主动做拓展题',
+              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：自律求知学童'],
               effect: { "knowledge": 25, "mentality": 10, "health": -5 },
               log: '抵制住了游戏短视频诱惑，利用数字终端汲取海量知识，成绩名列前茅。'
             },
             {
               text: '沉迷手机游戏与短视频，熬夜摸鱼',
+              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：数字娱乐沉浸者'],
               effect: { "mentality": 15, "health": -10, "knowledge": -10 },
               log: '在虚拟网络世界中获得极高满足感，但也让视力下降，课业偶有落伍。'
             }
@@ -560,11 +688,13 @@ class SimulationEngine {
           choices: [
             {
               text: '开启题海战术冲刺重点示范普高',
+              choiceTags: ['时代：普职分流', '年龄：14–16', '地域：全国', '门槛：应试奋进学子'],
               effect: { "knowledge": 30, "health": -10, "mentality": -5 },
               log: '挑灯夜战刷完几十套模拟卷，顺利拿到重点高中录取通知书，迈入人生新起点。'
             },
             {
               text: '报考艺术特长或特色职业技术院校',
+              choiceTags: ['时代：多元成才', '年龄：14–16', '地域：全国', '门槛：特长与职教路线'],
               effect: { "mentality": 15, "wealth": 10, "knowledge": 10 },
               log: '结合自身爱好走向特色技能赛道，卸下过重考学包袱，走上一条踏实务实之路。'
             }
@@ -575,54 +705,152 @@ class SimulationEngine {
       return null;
     }
 
-    // 1. 启蒙上学 (6-8岁)
-    if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_school')) {
-      this.statusFlags.add('decision_school');
-      return {
-        id: 'node_school',
-        title: '适龄读书与做工抉择',
-        isDecision: true,
-        narrative: `你已到学龄，本地学堂传来朗朗书声。但家里${this.character.cityType}生计吃紧，长辈为书本与工分发愁，这决定了你一生的文化底子。`,
-        choices: [
-          {
-            text: '克服困难坚持上学读书',
-            effect: { "knowledge": 25, "wealth": -10, "health": 5 },
-            log: '在贫瘠与困顿中坚持念书，背着用粗布缝合的书包迈进学堂。'
-          },
-          {
-            text: '早早辍学务农或当学徒做工',
-            effect: { "wealth": 15, "family": 15, "knowledge": -10 },
-            status: 'status_dropped_out',
-            log: `懂事地辍学帮衬家门，在${this.character.industryPillar}的尘土中流下第一滴汗水。`
-          }
-        ]
-      };
+    // 针对 1980 年后出生的义务教育默认路径（自动推进，不弹重复选项）
+    const isCompulsoryEra = this.character.birthYear >= 1980 || this.currentYear >= 1986;
+
+    if (isCompulsoryEra) {
+      // 7岁：小学自动入学推进
+      if (age >= 7 && this.character.educationLevel === '未入学') {
+        this.character.educationLevel = '小学在读';
+        this.character.tags.add('primary');
+        this.character.milestones.push({
+          year: this.currentYear,
+          age: this.currentAge,
+          title: '步入校门：九年义务教育启蒙',
+          detail: '依照义务教育法按时免试就近入学，背上书包领到崭新的语文算术课本。'
+        });
+      }
+
+      // 12岁：初中自动直升推进
+      if (age >= 12 && (this.character.educationLevel === '小学在读' || this.character.tags.has('primary')) && !this.character.tags.has('junior_high')) {
+        this.character.educationLevel = '初中在读';
+        this.character.tags.add('junior_high');
+        this.character.milestones.push({
+          year: this.currentYear,
+          age: this.currentAge,
+          title: '升入初中：迈入少年求知新阶段',
+          detail: '小学毕业直升划片初级中学，开设代数几何与物理历史，眼界更加开阔。'
+        });
+      }
+
+      // 15–16岁：中考分流关口（弹出关键决策）
+      if (age >= 15 && age <= 16 && (this.character.educationLevel === '初中在读' || this.character.tags.has('junior_high')) && !this.statusFlags.has('decision_zhongkao_fenliu')) {
+        this.statusFlags.add('decision_zhongkao_fenliu');
+        return {
+          id: 'node_zhongkao_fenliu',
+          title: '中考分流：普高与职教技校十字路口',
+          isDecision: true,
+          narrative: `初三中考放榜在即，面对普职分流的现实分水岭，教室里的空气格外凝重。摆在面前的是两条迥然不同的人生赛道。`,
+          choices: [
+            {
+              text: '全力冲刺重点普高，志在三年后参加高考',
+              choiceTags: ['时代：现代教育', '年龄：15–16', '地域：全国', '门槛：学术考学追求者'],
+              outcomes: [
+                { type: 'safe', weight: 80, log: '中考成绩优异被重点示范性普通高中录取，进入高强度题海冲刺高考。', effect: { knowledge: 25, mentality: 10, health: -5 }, status: 'high_school_student', hiddenRiskLog: '顺利考入重点高中，叩开通往全日制高等学府的大门。' },
+                { type: 'safe', weight: 20, log: '压线被普通高中普通班录取，虽然底子偏弱但依然保留高考冲刺机会。', effect: { knowledge: 15, mentality: 5 }, status: 'high_school_student', hiddenRiskLog: '勉强踏入普通高中门槛，需在高中三年加倍发奋苦读。' }
+              ]
+            },
+            {
+              text: '报考特色职业技术学校或中专，专攻实用立身技能',
+              choiceTags: ['时代：现代教育', '年龄：15–16', '地域：全国', '门槛：技能实践导向者'],
+              outcomes: [
+                { type: 'safe', weight: 90, log: '入读中专职校王牌专业，扎实掌握一门过硬实操手艺，毕业后直通对口单位。', effect: { wealth: 15, mentality: 15, knowledge: 10 }, status: 'vocational_student', hiddenRiskLog: '早学一技之长立足社会，避开高考内卷走出务实道路。' },
+                { type: 'safe', weight: 10, log: '在职校期间表现突出，代表学校参加全省技能大赛获二等奖。', effect: { knowledge: 20, wealth: 10 }, status: 'vocational_student', hiddenRiskLog: '职校磨砺出精湛技能，成为行业骨干后备力量。' }
+              ]
+            }
+          ]
+        };
+      }
+
+      // 18–19岁：高考关口（针对高中生）
+      if (age >= 18 && age <= 19 && (this.character.tags.has('high_school_student') || this.character.educationLevel === '普通高中') && !this.statusFlags.has('decision_gaokao_jueze')) {
+        this.statusFlags.add('decision_gaokao_jueze');
+        return {
+          id: 'node_gaokao_jueze',
+          title: '六月高考：千军万马过独木桥',
+          isDecision: true,
+          narrative: `蝉鸣夏日的考场外围满了焦急翘首的家长。十二载寒窗苦读换来黑板上的倒计时归零，考卷翻动的沙沙声叩响人生转折大门。`,
+          choices: [
+            {
+              text: '冲击全日制本科院校（若失利则调剂专科）',
+              choiceTags: ['时代：高考时代', '年龄：18–19', '地域：全国', '门槛：普高应届毕业生'],
+              outcomes: [
+                { type: 'safe', weight: 55, log: '发挥沉稳超常发挥，顺利被全日制本科大学录取，跨入高等学府象牙塔。', effect: { knowledge: 35, mentality: 20, wealth: -15 }, status: 'college_degree', hiddenRiskLog: '金榜题名迈入本科高校，为一生学术与职业奠定最高底色。' },
+                { type: 'safe', weight: 35, log: '考分略有遗憾但被省属公办高等专科学校王牌专业录取，学制三年。', effect: { knowledge: 20, mentality: 10, wealth: -10 }, status: 'junior_college_degree', hiddenRiskLog: '入读高职大专踏实修习，为后续专升本或高薪就业铺路。' },
+                { type: 'redirected', weight: 10, log: '发挥失常痛定思痛决定在县一中复读高四再战一年。', effect: { knowledge: 10, mentality: -10, health: -5 }, status: 'repeating_gaokao', hiddenRiskLog: '背水一战选择复读高四，经历常人难忍的精神洗礼。' }
+              ]
+            },
+            {
+              text: '放弃升学直接进入社会就业创业，早日自立减轻家庭负担',
+              choiceTags: ['时代：通用时代', '年龄：18–20', '地域：全国', '门槛：自立打拼者'],
+              outcomes: [
+                { type: 'safe', weight: 85, log: '脱离书卷投身社会大熔炉，在同乡引荐下入职当地骨干企业或商贸实体。', effect: { wealth: 25, mentality: 15, family: 15 }, status: 'early_employment', hiddenRiskLog: '早早步入社会自食其力，在摸爬滚打中积累人情世故与第一桶金。' },
+                { type: 'safe', weight: 15, log: '敏锐捕捉商机在批发市场支起摊位自力更生，当月实现盈利扭亏。', effect: { wealth: 35, mentality: 20 }, status: 'early_merchant', hiddenRiskLog: '青年下海敢为人先，自主创业走出一番天地。' }
+              ]
+            }
+          ]
+        };
+      }
+    } else {
+      // 1980年前出生者：适龄读书与做工抉择 (6-8岁)
+      if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_school')) {
+        this.statusFlags.add('decision_school');
+        return {
+          id: 'node_school',
+          title: '适龄读书与做工抉择',
+          isDecision: true,
+          narrative: `你已到学龄，本地学堂传来朗朗书声。但家里${this.character.cityType}生计吃紧，长辈为书本与工分发愁，这决定了你一生的文化底子。`,
+          choices: [
+            {
+              text: '克服困难坚持上学读书',
+              choiceTags: ['时代：前义务教育', '年龄：6–8', '地域：全国', '门槛：求学向进者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '在贫瘠与困顿中坚持念书，背着用粗布缝合的书包迈进学堂。', effect: { knowledge: 25, wealth: -10, health: 5 }, status: 'primary', hiddenRiskLog: '启蒙读书识字明理，彻底摆脱文盲困境。' }
+              ]
+            },
+            {
+              text: '早早辍学务农或当学徒做工',
+              choiceTags: ['时代：前义务教育', '年龄：6–8', '地域：全国', '门槛：生计所迫者'],
+              outcomes: [
+                { type: 'redirected', weight: 100, log: `懂事地辍学帮衬家门，在${this.character.industryPillar}的尘土中流下第一滴汗水。`, effect: { wealth: 15, family: 15, knowledge: -10 }, status: 'status_dropped_out', hiddenRiskLog: '年幼失学过早步入劳作，文化水平受限成为一生憾事。' }
+              ]
+            }
+          ]
+        };
+      }
     }
 
-    // 2. 青年婚育抉择 (21-25岁)
-    if (age >= 21 && age <= 25 && !this.statusFlags.has('decision_marriage')) {
-      this.statusFlags.add('decision_marriage');
-      return {
-        id: 'node_marriage',
-        title: '成家立业关口',
-        isDecision: true,
-        narrative: `行至青年成家关口，媒人提亲或与心仪之人相知提上了日程。需置办聘礼家具，这是人生的一大转折点。`,
-        choices: [
-          {
-            text: '依照习俗顺理成章成家完婚',
-            effect: { "family": 25, "wealth": -15, "mentality": 10 },
-            log: '按当年规制办了喜酒成家立业，夫妻相濡以沫操持生计。'
-          },
-          {
-            text: '推迟婚期，专心打拼本职或求学',
-            effect: { "knowledge": 15, "wealth": 15, "family": -10 },
-            log: '暂缓个人婚事，把满腔热忱投入到本职工作与打拼当中。'
-          }
-        ]
-      };
+    // 青年婚育抉择 (21-35岁，未婚且不在冷却期)
+    if (age >= 21 && age <= 35 && this.character.maritalStatus !== '已婚') {
+      if (!this.eventCooldowns['node_marriage'] || this.currentYear >= this.eventCooldowns['node_marriage']) {
+        this.eventCooldowns['node_marriage'] = this.currentYear + 3;
+        return {
+          id: 'node_marriage',
+          title: '成家立业关口',
+          isDecision: true,
+          narrative: `行至青年成家关口，媒人提亲或与心仪之人相知提上了日程。需置办聘礼家具，这是人生的一大转折点。`,
+          choices: [
+            {
+              text: '依照习俗顺理成章成家完婚',
+              choiceTags: ['时代：传统婚恋', '年龄：21–35', '地域：全国', '门槛：适龄青年'],
+              outcomes: [
+                { type: 'safe', weight: 90, log: '按当年规制办了喜酒成家立业，夫妻相濡以沫操持生计。', effect: { family: 25, wealth: -15, mentality: 10 }, status: 'married', hiddenRiskLog: '寻得终身伴侣喜结连理，携手抵御人间风雨。' },
+                { type: 'safe', weight: 10, log: '喜结良缘且夫妻双方勤俭持家，小家庭积蓄蒸蒸日上。', effect: { family: 35, wealth: 10, mentality: 15 }, status: 'married', hiddenRiskLog: '得遇贤能良偶，齐心协力改善家境。' }
+              ]
+            },
+            {
+              text: '推迟婚期，专心打拼本职或求学',
+              choiceTags: ['时代：事业优先', '年龄：21–35', '地域：全国', '门槛：打拼奋斗者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '暂缓个人婚事，把满腔热忱投入到本职工作与打拼当中。', effect: { knowledge: 15, wealth: 15, family: -10 }, hiddenRiskLog: '暂缓成家立业，积蓄个人实力等待更佳良缘。' }
+              ]
+            }
+          ]
+        };
+      }
     }
 
-    // 3. 中年大病求医抉择 (45-65岁，若健康较低)
+    // 中年大病求医抉择 (48-65岁，若健康较低)
     if (age >= 48 && age <= 65 && this.character.attributes.health < 45 && !this.statusFlags.has('decision_medical')) {
       this.statusFlags.add('decision_medical');
       return {
@@ -633,19 +861,25 @@ class SimulationEngine {
         choices: [
           {
             text: '动用全部积蓄积极住院治疗',
-            effect: { "health": 25, "wealth": -30, "mentality": 10 },
-            log: '四处借钱并动用积蓄积极就医，病情得以控制稳定。'
+            choiceTags: ['时代：医疗救治', '年龄：48–65', '地域：全国', '门槛：重病患者'],
+            outcomes: [
+              { type: 'safe', weight: 85, log: '四处借钱并动用积蓄积极就医，病情得以控制稳定。', effect: { health: 25, wealth: -30, mentality: 10 }, hiddenRiskLog: '倾尽积蓄治愈恶疾，虽耗光钱财但保住宝贵生命。' },
+              { type: 'injured', weight: 15, log: '住院手术历经凶险虽保住性命，但需常年服药调养。', effect: { health: 15, wealth: -40 }, hiddenRiskLog: '大病初愈落下慢性病根，需谨遵医嘱长期调理。' }
+            ]
           },
           {
             text: '抓草药硬扛，把钱留给儿女开销',
-            effect: { "health": -20, "family": 15, "wealth": 5 },
-            log: '不忍拖累家人选择硬撑苦挨，身体逐渐落下严重宿疾。'
+            choiceTags: ['时代：保守求生', '年龄：48–65', '地域：全国', '门槛：省吃俭用者'],
+            outcomes: [
+              { type: 'injured', weight: 80, log: '不忍拖累家人选择硬撑苦挨，身体逐渐落下严重宿疾。', effect: { health: -20, family: 15, wealth: 5 }, hiddenRiskLog: '舍身顾念家庭延误医治，身体机能不可逆衰退。' },
+              { type: 'fatal', weight: 20, log: '病情迅速恶化引发全身感染多器官衰竭，抢救无效溘然长逝。', isFatal: true, hiddenRiskLog: '重病延误医治不幸早逝。' }
+            ]
           }
         ]
       };
     }
 
-    // 4. 人生至暗时刻抉择 (成年后心态极低且财富极低，处于破产与绝望边缘)
+    // 人生至暗时刻抉择 (成年后心态极低且财富极低，处于破产与绝望边缘)
     if (age >= 20 && this.character.attributes.mentality < 22 && this.character.attributes.wealth < 20 && !this.statusFlags.has('decision_darkest_hour')) {
       this.statusFlags.add('decision_darkest_hour');
       return {
@@ -657,21 +891,24 @@ class SimulationEngine {
         choices: [
           {
             text: '万念俱灰，松开栏杆走入冰冷黑夜（绝境弃生）',
-            effect: { "health": -100 },
-            isSuicide: true,
-            log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。'
+            choiceTags: ['时代：深渊时刻', '门槛：极度绝望者'],
+            outcomes: [
+              { type: 'fatal', weight: 100, isFatal: true, log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。', hiddenRiskLog: '在人生的至暗绝境中走完了一生。' }
+            ]
           },
           {
-            text: '嚼碎屈辱，哪怕去扛大包、跑夜班外卖也要替家人还债（负重苟活）',
-            effect: { "health": -25, "wealth": 10 },
-            isStoicSurvival: true,
-            log: '在桥头痛哭一场后咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。'
+            text: '嚼碎屈辱，哪怕出尽苦力也要替家人还债（负重苟活）',
+            choiceTags: ['时代：深渊时刻', '门槛：坚韧求生者'],
+            outcomes: [
+              { type: 'safe', weight: 100, log: '在桥头痛哭一场后咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。', effect: { health: -25, wealth: 10, mentality: 25 }, hiddenRiskLog: '嚼碎绝望重新站起，在最苦最累的生计中重塑尊严。' }
+            ]
           },
           {
-            text: '推开破旧老屋柴门，父母的一碗热汤将自己从悬崖边缘硬生生拉回（至亲救赎）',
-            effect: { "family": 20, "mentality": 35 },
-            isFamilyRedeem: true,
-            log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。'
+            text: '推开破旧老屋柴门，父母的一碗热汤将自己从悬崖边缘拉回（至亲救赎）',
+            choiceTags: ['时代：深渊时刻', '门槛：亲情羁绊者'],
+            outcomes: [
+              { type: 'safe', weight: 100, log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。', effect: { family: 20, mentality: 35 }, hiddenRiskLog: '在血脉至亲的包容与温暖中重拾活下去的勇气。' }
+            ]
           }
         ]
       };
@@ -1238,9 +1475,9 @@ class SimulationEngine {
   }
 
   /**
-   * 自动生成当年纪实叙事 (严格 80-150 字，千人千面四重线索交织：宏观切片 + 职业工种感官 + 家底温饱 + 精力印记)
+   * 自动生成当年纪实叙事 (严格 80-150 字，千人千面四重线索交织：起承转合 + 宏观切片/被动历史 + 时代生活细节 + 职业感官 + 家境温饱)
    */
-  generateNarrative(era, triggeredEvent, disasterStrike) {
+  generateNarrative(era, triggeredEvent, disasterStrike, passiveNarratives = []) {
     const age = this.currentAge;
     const year = this.currentYear;
     const char = this.character;
@@ -1252,25 +1489,69 @@ class SimulationEngine {
       return disasterStrike.disaster.hitNarrative;
     }
 
-    // 2. 线程一：宏观时代脉搏 (约 30-55 字)
+    // 2. 句首起承转合 (句式多样，禁止连续两年相同开头)
+    let opener = '';
+    if (this.details && this.details.sentenceOpeners && this.details.sentenceOpeners.length > 0) {
+      const candidates = this.details.sentenceOpeners.filter(op => op !== this.lastSentenceOpener);
+      opener = candidates[Math.floor(Math.random() * candidates.length)] || this.details.sentenceOpeners[0];
+      this.lastSentenceOpener = opener;
+    } else {
+      opener = `${year}年，`;
+    }
+
+    // 3. 线程一：宏观时代脉搏与被动历史大事件
     let macro = '';
-    if (triggeredEvent && triggeredEvent.narrative) {
-      macro = triggeredEvent.narrative.slice(0, 55);
+    if (passiveNarratives && passiveNarratives.length > 0) {
+      macro = `${passiveNarratives[0]}。`;
+    } else if (triggeredEvent && triggeredEvent.narrative) {
+      macro = triggeredEvent.narrative.slice(0, 50);
     } else {
       macro = this.getYearMacroSnippet(year, era);
     }
 
-    // 3. 线程二：职业工种感官与劳作细节 (约 35-55 字)
+    // 4. 线程二：时代生活细节库 (饮食、居住、交通、通讯、娱乐，同一细节一生最多出现2次)
+    let lifeDetail = '';
+    if (this.details && this.details.eras) {
+      let eraKey = '1937_1949';
+      if (year >= 1950 && year <= 1965) eraKey = '1950_1965';
+      else if (year >= 1966 && year <= 1977) eraKey = '1966_1977';
+      else if (year >= 1978 && year <= 1992) eraKey = '1978_1992';
+      else if (year >= 1993 && year <= 2009) eraKey = '1993_2009';
+      else if (year >= 2010) eraKey = '2010_2026';
+
+      const eraDetails = this.details.eras[eraKey];
+      if (eraDetails) {
+        const classKey = (char.urbanRural === 'rural')
+          ? 'rural'
+          : (char.careerTrack === 'cadre_teacher' ? 'cadre_intellectual' : 'urban_worker');
+
+        const dims = ['diet', 'housing', 'transport', 'communication', 'entertainment'];
+        const chosenDim = dims[Math.floor(Math.random() * dims.length)];
+        const pool = (eraDetails[chosenDim] && eraDetails[chosenDim][classKey]) ? eraDetails[chosenDim][classKey] : [];
+
+        for (const item of pool) {
+          if (!this.usedDetailSnippets.has(item)) {
+            lifeDetail = item;
+            this.usedDetailSnippets.add(item);
+            break;
+          }
+        }
+      }
+    }
+
+    // 5. 线程三：职业工种感官与劳作细节
     const labor = this.getLaborSensorySnippet(char, age, year, cityDisp);
 
-    // 4. 线程三：家境温饱与身心承载 (约 20-35 字)
+    // 6. 线程四：家境温饱与身心承载
     const household = this.getHouseholdSensorySnippet(char, age);
 
-    // 5. 线程四：精力灌注之印记 (约 15-25 字)
-    const energyFocus = this.getEnergySensorySnippet(this.energy);
-
     // 综合编织
-    let full = `${macro} ${labor} ${household} ${energyFocus}`.trim();
+    let full = '';
+    if (lifeDetail) {
+      full = `${opener}${macro} ${labor} ${lifeDetail}`.trim();
+    } else {
+      full = `${opener}${macro} ${labor} ${household}`.trim();
+    }
 
     // 长度与节奏严格钳制在 80 - 150 汉字
     if (full.length > 150) {
@@ -1402,6 +1683,19 @@ class SimulationEngine {
     // 0. 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
     this.updateCareerStage();
 
+    // 0.5 义务教育默认路径自动推进 (1980年后出生或1986年后，不再跳弹出工/辍学弹窗，仅在分流节点弹出)
+    const isCompulsoryEra = this.character.birthYear >= 1980 || this.currentYear >= 1986;
+    if (isCompulsoryEra && this.character.birthYear < 2010) {
+      if (this.currentAge >= 7 && this.character.educationLevel === '未入学') {
+        this.character.educationLevel = '小学在读';
+        this.character.tags.add('primary');
+      }
+      if (this.currentAge >= 12 && (this.character.educationLevel === '小学在读' || this.character.tags.has('primary')) && !this.character.tags.has('junior_high')) {
+        this.character.educationLevel = '初中在读';
+        this.character.tags.add('junior_high');
+      }
+    }
+
     // 1. 自然灾害碰撞命中检验（这是人生的残酷天谴）
     const disasterStrike = this.checkNaturalDisaster();
     if (disasterStrike && disasterStrike.isHit) {
@@ -1497,29 +1791,73 @@ class SimulationEngine {
       }
     }
 
-    // 2. 检查是否有历史事件待触发
+    // 2. 检查当年所有合格事件（时代层、轨迹层、人生链条、偶发层）
     const eligibleEvents = this.findEligibleEvents();
-    let pendingEvent = null;
-    if (eligibleEvents.length > 0) {
-      pendingEvent = eligibleEvents[0];
-      this.statusFlags.add(`done_${pendingEvent.id}`);
+
+    // 2.1 分离并立即结算被动时代宏观大事件 (isDecision === false)
+    const passiveEvents = eligibleEvents.filter(e => !e.isDecision);
+    const passiveNarrativeAdditions = [];
+    for (const pevt of passiveEvents) {
+      this.statusFlags.add(`done_${pevt.id}`);
+      if (pevt.passiveImpact) {
+        for (const [k, v] of Object.entries(pevt.passiveImpact)) {
+          if (this.character.attributes[k] !== undefined) {
+            this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
+          }
+        }
+      }
+      this.character.milestones.push({
+        year: this.currentYear,
+        age: this.currentAge,
+        title: pevt.title,
+        detail: pevt.historicalFact ? pevt.historicalFact.slice(0, 50) : pevt.title
+      });
+      passiveNarrativeAdditions.push(pevt.title);
     }
 
-    // 3. 检查人生重要节点抉择
-    let pendingMilestone = null;
-    if (!pendingEvent) {
-      pendingMilestone = this.checkLifeMilestone();
+    // 2.2 筛选主动决策候选事件 (isDecision === true)
+    const decisionCandidates = eligibleEvents.filter(e => e.isDecision);
+
+    // 3. 检查人生重要节点抉择 (义务教育推进、中考分流、高考、婚育、至暗时刻等)
+    const pendingMilestone = this.checkLifeMilestone();
+
+    // 4. 决策挑选逻辑（严格分级：时代层重大参与 > 人生里程碑节点 > 人生链条 > 职业与习惯轨迹 > 偶发意外）
+    let activeDecision = null;
+
+    // 4.1 时代层关键参与决策
+    const eraDecisions = decisionCandidates.filter(e => e.tier === 'era' && Math.random() < (e.triggerProbability || 0.8));
+    if (eraDecisions.length > 0) {
+      activeDecision = eraDecisions[0];
+    } else if (pendingMilestone) {
+      // 4.2 人生里程碑节点
+      activeDecision = pendingMilestone;
+    } else {
+      // 4.3 人生链条决策 (结婚、育儿、学区房、下岗创业、赡养父母等)
+      const lifeChainDecisions = decisionCandidates.filter(e => e.tier === 'life_chain' && Math.random() < (e.triggerProbability || 0.35));
+      if (lifeChainDecisions.length > 0) {
+        activeDecision = lifeChainDecisions[0];
+      } else {
+        // 4.4 职业与习惯轨迹决策 (职业险情、提拔、吸烟体检、作息等)
+        const trajDecisions = decisionCandidates.filter(e => e.tier === 'trajectory' && Math.random() < (e.triggerProbability || 0.12));
+        if (trajDecisions.length > 0) {
+          activeDecision = trajDecisions[0];
+        } else {
+          // 4.5 偶发层 (低概率黑天鹅事件)
+          const contDecisions = decisionCandidates.filter(e => e.tier === 'contingency' && Math.random() < (e.triggerProbability || 0.03));
+          if (contDecisions.length > 0) {
+            activeDecision = contDecisions[0];
+          }
+        }
+      }
     }
 
-    let activeDecision = (pendingEvent && pendingEvent.isDecision) ? pendingEvent : pendingMilestone;
-
-    // 4. 正常年度死亡检测
+    // 5. 正常年度死亡检测
     const deathRate = this.calculateAnnualMortalityRate(era);
     const deathRoll = Math.random();
     const hasDied = deathRoll < deathRate || this.character.attributes.health <= 0;
 
     if (hasDied) {
-      this.triggerDeath(era, pendingEvent);
+      this.triggerDeath(era, activeDecision);
       return {
         isGameOver: true,
         deathInfo: this.deathInfo,
@@ -1528,7 +1866,7 @@ class SimulationEngine {
       };
     }
 
-    // 5. 若有重大历史抉择，暂停推进等待玩家选择 (动态圈层千人千面适配)
+    // 6. 若有主动决策触发，暂停推进等待玩家选择 (千人千面适配)
     if (activeDecision && activeDecision.isDecision) {
       activeDecision = this.adaptDecisionToPersona(activeDecision);
       this.currentPendingDecision = activeDecision;
@@ -1540,26 +1878,11 @@ class SimulationEngine {
       };
     }
 
-    // 6. 若为被动事件，直接应用属性影响
-    if (pendingEvent && !pendingEvent.isDecision && pendingEvent.passiveImpact) {
-      for (const [k, v] of Object.entries(pendingEvent.passiveImpact)) {
-        if (this.character.attributes[k] !== undefined) {
-          this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
-        }
-      }
-      this.character.milestones.push({
-        year: this.currentYear,
-        age: this.currentAge,
-        title: pendingEvent.title,
-        detail: pendingEvent.log || pendingEvent.historicalFact.slice(0, 45)
-      });
-    }
-
-    // 7. 应用精力结算
+    // 7. 若当年为平静岁月 (无决策)，应用精力结算并自然推进
     this.applyEnergyEffects(stepYears);
 
-    // 8. 生成当年纪实叙事 (80-150字)
-    const narrativeText = this.generateNarrative(era, pendingEvent, null);
+    // 8. 生成当年纪实叙事 (融合宏观背景与生活细节)
+    const narrativeText = this.generateNarrative(era, null, null, passiveNarrativeAdditions);
 
     // 9. 记录历史轨迹
     const turnRecord = {
@@ -1568,7 +1891,7 @@ class SimulationEngine {
       eraName: era.name,
       narrative: narrativeText,
       attributes: { ...this.character.attributes },
-      eventTitle: pendingEvent ? pendingEvent.title : null
+      eventTitle: passiveNarrativeAdditions.length > 0 ? passiveNarrativeAdditions[0] : '平静岁月'
     };
     this.history.push(turnRecord);
 
@@ -1577,7 +1900,7 @@ class SimulationEngine {
     this.currentAge += stepYears;
     this.recordLifeline();
 
-    // 11. 到达 2026 年或百岁正常圆满
+    // 11. 到达 2026 年或百岁圆满
     if (this.currentYear > 2026 || this.currentAge >= 98) {
       this.triggerNaturalEnding();
       return {
@@ -1596,18 +1919,77 @@ class SimulationEngine {
   }
 
   /**
-   * 玩家确认抉择后的结算处理
+   * 玩家确认抉择后的结算处理（支持加权分支 outcomes、因果回顾 hiddenRiskLog、职业跃迁与致命分支）
    */
   resolveDecision(decisionId, choiceIndex) {
     let evt = (this.currentPendingDecision && this.currentPendingDecision.id === decisionId)
       ? this.currentPendingDecision
       : this.events.find(e => e.id === decisionId);
+
     if (!evt) {
-      if (decisionId === 'node_school') {
+      if (decisionId === 'node_zhongkao_fenliu') {
         evt = {
+          title: '中考分流：普高与职教技校十字路口',
           choices: [
-            { text: '坚持上学', effect: { "knowledge": 25, "wealth": -10 }, log: '在困境中坚持上学，打下了扎实的文化底子。' },
-            { text: '辍学做工', effect: { "wealth": 15, "knowledge": -10 }, status: 'status_dropped_out', log: '早早挑起家庭生计重担，在劳动中磨砺手茧。' }
+            {
+              text: '全力冲刺重点普高，志在三年后参加高考',
+              choiceTags: ['时代：现代教育', '年龄：15–16', '地域：全国', '门槛：学术考学追求者'],
+              outcomes: [
+                { type: 'safe', weight: 80, log: '中考成绩优异被重点示范性普通高中录取，进入高强度题海冲刺高考。', effect: { knowledge: 25, mentality: 10, health: -5 }, status: 'high_school_student', hiddenRiskLog: '顺利考入重点高中，叩开通往全日制高等学府的大门。' },
+                { type: 'safe', weight: 20, log: '压线被普通高中普通班录取，虽然底子偏弱但依然保留高考冲刺机会。', effect: { knowledge: 15, mentality: 5 }, status: 'high_school_student', hiddenRiskLog: '勉强踏入普通高中门槛，需在高中三年加倍发奋苦读。' }
+              ]
+            },
+            {
+              text: '报考特色职业技术学校或中专，专攻实用立身技能',
+              choiceTags: ['时代：现代教育', '年龄：15–16', '地域：全国', '门槛：技能实践导向者'],
+              outcomes: [
+                { type: 'safe', weight: 90, log: '入读中专职校王牌专业，扎实掌握一门过硬实操手艺，毕业后直通对口单位。', effect: { wealth: 15, mentality: 15, knowledge: 10 }, status: 'vocational_student', hiddenRiskLog: '早学一技之长立足社会，避开高考内卷走出务实道路。' },
+                { type: 'safe', weight: 10, log: '在职校期间表现突出，代表学校参加全省技能大赛获二等奖。', effect: { knowledge: 20, wealth: 10 }, status: 'vocational_student', hiddenRiskLog: '职校磨砺出精湛技能，成为行业骨干后备力量。' }
+              ]
+            }
+          ]
+        };
+      } else if (decisionId === 'node_gaokao_jueze') {
+        evt = {
+          title: '六月高考：千军万马过独木桥',
+          choices: [
+            {
+              text: '冲击全日制本科院校（若失利则调剂专科）',
+              choiceTags: ['时代：高考时代', '年龄：18–19', '地域：全国', '门槛：普高应届毕业生'],
+              outcomes: [
+                { type: 'safe', weight: 55, log: '发挥沉稳超常发挥，顺利被全日制本科大学录取，跨入高等学府象牙塔。', effect: { knowledge: 35, mentality: 20, wealth: -15 }, status: 'college_degree', hiddenRiskLog: '金榜题名迈入本科高校，为一生学术与职业奠定最高底色。' },
+                { type: 'safe', weight: 35, log: '考分略有遗憾但被省属公办高等专科学校王牌专业录取，学制三年。', effect: { knowledge: 20, mentality: 10, wealth: -10 }, status: 'junior_college_degree', hiddenRiskLog: '入读高职大专踏实修习，为后续专升本或高薪就业铺路。' },
+                { type: 'redirected', weight: 10, log: '发挥失常痛定思痛决定在县一中复读高四再战一年。', effect: { knowledge: 10, mentality: -10, health: -5 }, status: 'repeating_gaokao', hiddenRiskLog: '背水一战选择复读高四，经历常人难忍的精神洗礼。' }
+              ]
+            },
+            {
+              text: '放弃升学直接进入社会就业创业，早日自立减轻家庭负担',
+              choiceTags: ['时代：通用时代', '年龄：18–20', '地域：全国', '门槛：自立打拼者'],
+              outcomes: [
+                { type: 'safe', weight: 85, log: '脱离书卷投身社会大熔炉，在同乡引荐下入职当地骨干企业或商贸实体。', effect: { wealth: 25, mentality: 15, family: 15 }, status: 'early_employment', hiddenRiskLog: '早早步入社会自食其力，在摸爬滚打中积累人情世故与第一桶金。' },
+                { type: 'safe', weight: 15, log: '敏锐捕捉商机在批发市场支起摊位自力更生，当月实现盈利扭亏。', effect: { wealth: 35, mentality: 20 }, status: 'early_merchant', hiddenRiskLog: '青年下海敢为人先，自主创业走出一番天地。' }
+              ]
+            }
+          ]
+        };
+      } else if (decisionId === 'node_school') {
+        evt = {
+          title: '适龄读书与做工抉择',
+          choices: [
+            {
+              text: '克服困难坚持上学读书',
+              choiceTags: ['时代：前义务教育', '年龄：6–8', '地域：全国', '门槛：求学向进者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '在贫瘠与困顿中坚持念书，背着用粗布缝合的书包迈进学堂。', effect: { knowledge: 25, wealth: -10, health: 5 }, status: 'primary', hiddenRiskLog: '启蒙读书识字明理，彻底摆脱文盲困境。' }
+              ]
+            },
+            {
+              text: '早早辍学务农或当学徒做工',
+              choiceTags: ['时代：前义务教育', '年龄：6–8', '地域：全国', '门槛：生计所迫者'],
+              outcomes: [
+                { type: 'redirected', weight: 100, log: '懂事地辍学帮衬家门，在尘土与汗水中挑起家庭生计重担。', effect: { wealth: 15, family: 15, knowledge: -10 }, status: 'status_dropped_out', hiddenRiskLog: '年幼失学过早步入劳作，文化水平受限成为一生憾事。' }
+              ]
+            }
           ]
         };
       } else if (decisionId === 'node_child_interest') {
@@ -1636,25 +2018,72 @@ class SimulationEngine {
         };
       } else if (decisionId === 'node_marriage') {
         evt = {
+          title: '成家立业关口',
           choices: [
-            { text: '遵从习俗成家', effect: { "family": 25, "wealth": -15 }, log: '遵从风俗完婚成家，与伴侣合力撑起小家。' },
-            { text: '推迟婚期拼事业', effect: { "knowledge": 15, "wealth": 15 }, log: '暂缓婚事，全副身心投入到工作打拼中。' }
+            {
+              text: '依照习俗顺理成章成家完婚',
+              choiceTags: ['时代：传统婚恋', '年龄：21–35', '地域：全国', '门槛：适龄青年'],
+              outcomes: [
+                { type: 'safe', weight: 90, log: '按当年规制办了喜酒成家立业，夫妻相濡以沫操持生计。', effect: { family: 25, wealth: -15, mentality: 10 }, status: 'married', hiddenRiskLog: '寻得终身伴侣喜结连理，携手抵御人间风雨。' },
+                { type: 'safe', weight: 10, log: '喜结良缘且夫妻双方勤俭持家，小家庭积蓄蒸蒸日上。', effect: { family: 35, wealth: 10, mentality: 15 }, status: 'married', hiddenRiskLog: '得遇贤能良偶，齐心协力改善家境。' }
+              ]
+            },
+            {
+              text: '推迟婚期，专心打拼本职或求学',
+              choiceTags: ['时代：事业优先', '年龄：21–35', '地域：全国', '门槛：打拼奋斗者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '暂缓个人婚事，把满腔热忱投入到本职工作与打拼当中。', effect: { knowledge: 15, wealth: 15, family: -10 }, hiddenRiskLog: '暂缓成家立业，积蓄个人实力等待更佳良缘。' }
+              ]
+            }
           ]
         };
       } else if (decisionId === 'node_medical') {
         evt = {
+          title: '顽疾缠身与就医抉择',
           choices: [
-            { text: '耗尽积蓄就医', effect: { "health": 25, "wealth": -30 }, log: '动用全部积蓄寻医问药，病情得以平稳控制。' },
-            { text: '保守硬抗省钱', effect: { "health": -20, "wealth": 5 }, log: '为给家中儿女省钱硬扛病痛，身体每况愈下。' }
+            {
+              text: '动用全部积蓄积极住院治疗',
+              choiceTags: ['时代：医疗救治', '年龄：48–65', '地域：全国', '门槛：重病患者'],
+              outcomes: [
+                { type: 'safe', weight: 85, log: '四处借钱并动用积蓄积极就医，病情得以控制稳定。', effect: { health: 25, wealth: -30, mentality: 10 }, hiddenRiskLog: '倾尽积蓄治愈恶疾，虽耗光钱财但保住宝贵生命。' },
+                { type: 'injured', weight: 15, log: '住院手术历经凶险虽保住性命，但需常年服药调养。', effect: { health: 15, wealth: -40 }, hiddenRiskLog: '大病初愈落下慢性病根，需谨遵医嘱长期调理。' }
+              ]
+            },
+            {
+              text: '抓草药硬扛，把钱留给儿女开销',
+              choiceTags: ['时代：保守求生', '年龄：48–65', '地域：全国', '门槛：省吃俭用者'],
+              outcomes: [
+                { type: 'injured', weight: 80, log: '不忍拖累家人选择硬撑苦挨，身体逐渐落下严重宿疾。', effect: { health: -20, family: 15, wealth: 5 }, hiddenRiskLog: '舍身顾念家庭延误医治，身体机能不可逆衰退。' },
+                { type: 'fatal', weight: 20, log: '病情迅速恶化引发全身感染多器官衰竭，抢救无效溘然长逝。', isFatal: true, hiddenRiskLog: '重病延误医治不幸早逝。' }
+              ]
+            }
           ]
         };
       } else if (decisionId === 'node_darkest_hour') {
         evt = {
           title: '人生至暗时刻：深渊边缘的寒夜',
           choices: [
-            { text: '万念俱灰绝境弃生', isSuicide: true, log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。' },
-            { text: '嚼碎屈辱负重苟活还债', isStoicSurvival: true, log: '咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。' },
-            { text: '推开柴门接受至亲救赎', isFamilyRedeem: true, log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。' }
+            {
+              text: '万念俱灰，松开栏杆走入冰冷黑夜（绝境弃生）',
+              choiceTags: ['时代：深渊时刻', '门槛：极度绝望者'],
+              outcomes: [
+                { type: 'fatal', weight: 100, isFatal: true, log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。', hiddenRiskLog: '在人生的至暗绝境中走完了一生。' }
+              ]
+            },
+            {
+              text: '嚼碎屈辱，哪怕出尽苦力也要替家人还债（负重苟活）',
+              choiceTags: ['时代：深渊时刻', '门槛：坚韧求生者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '在桥头痛哭一场后咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。', effect: { health: -25, wealth: 10, mentality: 25 }, hiddenRiskLog: '嚼碎绝望重新站起，在最苦最累的生计中重塑尊严。' }
+              ]
+            },
+            {
+              text: '推开破旧老屋柴门，父母的一碗热汤将自己从悬崖边缘拉回（至亲救赎）',
+              choiceTags: ['时代：深渊时刻', '门槛：亲情羁绊者'],
+              outcomes: [
+                { type: 'safe', weight: 100, log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。', effect: { family: 20, mentality: 35 }, hiddenRiskLog: '在血脉至亲的包容与温暖中重拾活下去的勇气。' }
+              ]
+            }
           ]
         };
       }
@@ -1663,56 +2092,123 @@ class SimulationEngine {
     if (!evt || !evt.choices || !evt.choices[choiceIndex]) return;
 
     const choice = evt.choices[choiceIndex];
+    let selectedOutcome = null;
 
-    // 针对“至暗时刻”的特殊命运走向
-    if (decisionId === 'node_darkest_hour') {
-      if (choiceIndex === 0) {
-        this.isGameOver = true;
-        const cause = '于人生至暗时刻心力枯竭，在绝境深渊面前永远闭上了双眼';
-        this.deathInfo = {
-          age: this.currentAge,
-          year: this.currentYear,
-          cause,
-          isNatural: false,
-          isDarkestHour: true
-        };
-        this.character.milestones.push({
-          year: this.currentYear,
-          age: this.currentAge,
-          title: '魂断深渊',
-          detail: `于${this.currentYear}年（享年${this.currentAge}岁）在人生至暗绝境中走完了一生。`
-        });
-        return;
-      } else if (choiceIndex === 1) {
-        this.character.attributes.mentality = 25;
-        this.character.attributes.wealth = Math.max(10, this.character.attributes.wealth);
-      } else if (choiceIndex === 2) {
-        this.character.attributes.mentality = 45;
-        this.character.attributes.family = Math.max(35, this.character.attributes.family);
-      }
-    }
-
-    if (choice.status) {
-      this.statusFlags.add(choice.status);
-    }
-
-    if (choice.effect) {
-      for (const [k, v] of Object.entries(choice.effect)) {
-        if (this.character.attributes[k] !== undefined) {
-          this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
+    // 检查 outcomes 加权分支
+    if (choice.outcomes && choice.outcomes.length > 0) {
+      const totalWeight = choice.outcomes.reduce((acc, o) => acc + (o.weight || 0), 0);
+      let roll = Math.random() * (totalWeight || 1);
+      for (const o of choice.outcomes) {
+        if (roll <= (o.weight || 0)) {
+          selectedOutcome = o;
+          break;
         }
+        roll -= (o.weight || 0);
+      }
+      if (!selectedOutcome) selectedOutcome = choice.outcomes[choice.outcomes.length - 1];
+    }
+
+    // 致命分支结算
+    if (selectedOutcome && selectedOutcome.isFatal) {
+      this.isGameOver = true;
+      const deathCause = selectedOutcome.log || `${evt.title}：不幸身亡`;
+      this.deathInfo = {
+        age: this.currentAge,
+        year: this.currentYear,
+        cause: deathCause,
+        isNatural: false,
+        isEventFatal: true,
+        eventTitle: evt.title
+      };
+      this.character.causalityReview.push({
+        year: this.currentYear,
+        age: this.currentAge,
+        eventTitle: evt.title || '突发变故',
+        choiceText: choice.text,
+        outcomeType: 'fatal',
+        hiddenRisk: selectedOutcome.hiddenRiskLog || deathCause
+      });
+      this.character.milestones.push({
+        year: this.currentYear,
+        age: this.currentAge,
+        title: evt.title,
+        detail: selectedOutcome.log
+      });
+      this.currentPendingDecision = null;
+      return;
+    }
+
+    // 属性影响处理
+    const effect = (selectedOutcome && selectedOutcome.effect) ? selectedOutcome.effect : (choice.effect || {});
+    for (const [k, v] of Object.entries(effect)) {
+      if (this.character.attributes[k] !== undefined) {
+        this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
       }
     }
 
-    this.updateCareerStage();
-    this.currentPendingDecision = null;
+    // 状态标签与人生状态处理
+    const outcomeStatus = (selectedOutcome && selectedOutcome.status) ? selectedOutcome.status : choice.status;
+    if (outcomeStatus) {
+      this.character.tags.add(outcomeStatus);
+      this.statusFlags.add(outcomeStatus);
 
+      if (outcomeStatus === 'married') {
+        this.character.maritalStatus = '已婚';
+      }
+      if (outcomeStatus === 'has_children') {
+        this.character.hasChildren = true;
+      }
+      if (outcomeStatus === 'college_degree' || outcomeStatus === 'class_of_77_elite' || outcomeStatus === 'expanded_college_student' || outcomeStatus === 'lianda_scholar_elite' || outcomeStatus === 'overseas_scholar' || outcomeStatus === 'overseas_phd_scholar') {
+        this.character.educationLevel = '大学本科';
+        this.character.tags.add('higher_ed_degree');
+      } else if (outcomeStatus === 'junior_college_degree' || outcomeStatus === 'highschool_to_college' || outcomeStatus === 'self_made_scholar_1977') {
+        this.character.educationLevel = '大专学历';
+        this.character.tags.add('higher_ed_degree');
+      } else if (outcomeStatus === 'high_school_student') {
+        this.character.educationLevel = '普通高中';
+      } else if (outcomeStatus === 'vocational_student') {
+        this.character.educationLevel = '中专技校';
+      } else if (outcomeStatus === 'primary') {
+        this.character.educationLevel = '小学文化';
+      }
+    }
+
+    // 职业赛道跃迁
+    if (selectedOutcome && selectedOutcome.newCareerTrack) {
+      this.character.careerTrack = selectedOutcome.newCareerTrack;
+      this.character.tags.add(selectedOutcome.newCareerTrack);
+    }
+
+    // 记录因果回顾 (hiddenRiskLog)
+    const hiddenRiskLog = (selectedOutcome && selectedOutcome.hiddenRiskLog)
+      ? selectedOutcome.hiddenRiskLog
+      : (choice.log || choice.text);
+    this.character.causalityReview.push({
+      year: this.currentYear,
+      age: this.currentAge,
+      eventTitle: evt.title || '人生抉择',
+      choiceText: choice.text,
+      outcomeType: (selectedOutcome && selectedOutcome.type) ? selectedOutcome.type : 'safe',
+      hiddenRisk: hiddenRiskLog
+    });
+
+    // 记录里程碑
+    const outcomeLog = (selectedOutcome && selectedOutcome.log) ? selectedOutcome.log : (choice.log || choice.text);
     this.character.milestones.push({
       year: this.currentYear,
       age: this.currentAge,
-      title: evt.title || '人生关键抉择',
-      detail: choice.log || choice.text
+      title: evt.title || '关键抉择',
+      detail: outcomeLog
     });
+
+    // 设置冷却时间与完成标记
+    if (evt.id) {
+      this.eventCooldowns[evt.id] = this.currentYear + (evt.coolingPeriod || 999);
+      this.statusFlags.add(`done_${evt.id}`);
+    }
+
+    this.currentPendingDecision = null;
+    this.updateCareerStage();
 
     let stepYears = this.getStepYears();
     if (this.currentYear < 2026 && this.currentYear + stepYears > 2026) {
@@ -1720,12 +2216,9 @@ class SimulationEngine {
     }
     const era = this.getEraForYear(this.currentYear);
 
-    // 0. 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
-    this.updateCareerStage();
-
     this.applyEnergyEffects(stepYears);
 
-    const narrativeText = `${evt.narrative || ''} 面对命运的十字路口，你选择了【${choice.text}】。${choice.log || ''}`;
+    const narrativeText = `${evt.narrative || ''} 面对命运关口，你选择了【${choice.text}】。${outcomeLog}`;
     let trimmedNarrative = narrativeText.trim();
     if (trimmedNarrative.length > 150) trimmedNarrative = trimmedNarrative.slice(0, 146) + '……';
 
@@ -1929,6 +2422,38 @@ class SimulationEngine {
       isDisaster: false,
       isAliveIn2026: true
     };
+
+    // 统计学预期余命区间（基于国家统计局分年龄分性别生命表，严禁预测2026年后的具体事件）
+    let remainingRange = '45–52 年';
+    let totalExpectedAgeRange = '78–85 岁';
+    if (finalAge <= 16) {
+      remainingRange = '65–72 年';
+      totalExpectedAgeRange = '79–86 岁';
+    } else if (finalAge <= 30) {
+      remainingRange = '50–57 年';
+      totalExpectedAgeRange = '78–85 岁';
+    } else if (finalAge <= 50) {
+      remainingRange = '32–38 年';
+      totalExpectedAgeRange = '79–85 岁';
+    } else if (finalAge <= 70) {
+      remainingRange = '15–20 年';
+      totalExpectedAgeRange = '80–86 岁';
+    } else {
+      remainingRange = '7–12 年';
+      totalExpectedAgeRange = '83–89 岁';
+    }
+
+    this.character.actuarialExpectancy = {
+      currentAge: finalAge,
+      remainingRange,
+      totalExpectedAgeRange,
+      disclaimer: '基于统计规律的典型轨迹推演，非真实个人经历；2026年之后的人生充满无限可能。'
+    };
+
+    // 若为 2010 年及以后出生角色，解锁传承视角（推演父辈与祖辈典型轨迹）
+    if (this.character.birthYear >= 2010) {
+      this.character.lineageHistory = this.generateLineageHistory(this.character);
+    }
 
     this.character.milestones.push({
       year: finalYear,
@@ -2262,5 +2787,10 @@ class SimulationEngine {
   }
 }
 
-// 挂载至全局
-window.SimulationEngine = SimulationEngine;
+// 挂载至全局与 Node 模块导出
+if (typeof window !== 'undefined') {
+  window.SimulationEngine = SimulationEngine;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = SimulationEngine;
+}
