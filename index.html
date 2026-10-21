@@ -1,231 +1,379 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>live · 人间一瞬 (中国出生模拟器 1937–2026)</title>
-  <!-- 引入中文字体 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="live · 14亿分之1（中国出生模拟器 1937–2026）：随机出生为过去近百年里诞生的中国普通人之一，在全国31省149城的真实统计与历史大事件中，把一次的人生走到最后。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏮</text></svg>">
+  <meta name="theme-color" content="#8C1D3C">
+  <title>live · 14亿分之1 (中国历史人生模拟 1937–2026)</title>
+
+  <!-- Google Fonts: Noto Serif SC for display & IBM Plex Mono for figures -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="app-container">
-    <!-- 报头文献公文栏 -->
-    <header class="archive-header">
-      <div class="archive-top-bar">
-        <span class="archive-mark">编号：ZH-1937-2026</span>
-        <span class="archive-seal">人间一瞬</span>
+<main id="app">
+
+  <!-- ======================================================================
+       1. 首页介绍与选项配置 (1:1 1in8b.life #intro)
+       ====================================================================== -->
+  <section id="intro" class="wrap">
+    <nav class="langsw" aria-label="设置与主题">
+      <div class="nw-tag">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 8h13M8 1.5c2 2 2.8 4.2 2.8 6.5S10 12.5 8 14.5M8 1.5C6 3.5 5.2 5.7 5.2 8S6 12.5 8 14.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+        <span>中文 (简体) · 历史人口档案模拟</span>
       </div>
-      <h1>
-        <span class="live-title-en">live</span>
-        <span class="live-title-cn">人间一瞬</span>
-      </h1>
-      <div class="archive-sub">中国出生模拟器（1937 — 2026）· 走完风云激荡的一生</div>
+      <button class="themebtn" id="themeBtn" type="button" aria-label="画面明暗切换" title="画面明暗切换">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </nav>
+
+    <div class="hero">
+      <div class="herotext">
+        <div class="kicker">
+          <span class="pill" id="verTag">v1.0 正式版</span>
+          <span class="pill">中国历史人生模拟</span>
+          <span class="pill">基于全国31省149城真实统计与地方志</span>
+          <span class="pill" id="ageTag">15岁以上</span>
+        </div>
+
+        <h1 class="brand-title">live · 14亿分之<em>1</em></h1>
+
+        <p class="lede">就在此刻，时间倒流或前行。在漫长的一百年前至今，无数普通人诞生于这片土地。你将成为其中一个，把仅此一次的人生走到最后。在哪里出生、生于哪个年代、成为谁的孩子，都无法选择。就像你当初一样。</p>
+
+        <!-- 实时人口流动统计计数器 -->
+        <div class="counter" aria-live="off">
+          <div><strong id="cBirth">0</strong><span>打开这个页面后出生的同胞</span></div>
+          <div><strong id="cDeath">0</strong><span>同一段时间里离世的人</span></div>
+        </div>
+
+        <!-- 模拟配置选择器 (Segmented Controls) -->
+        <div class="opts">
+          <div class="optgroup">
+            <span class="lbl">出生的时代</span>
+            <div class="seg seg-era" id="segEra" role="group" aria-label="出生的时代">
+              <button type="button" data-val="all" aria-pressed="true">全部年代 (1937–2026)</button>
+              <button type="button" data-val="1937_1949" aria-pressed="false">战火建国 (1937–1949)</button>
+              <button type="button" data-val="1950_1977" aria-pressed="false">探索曲折 (1950–1977)</button>
+              <button type="button" data-val="1978_1999" aria-pressed="false">改革开放 (1978–1999)</button>
+              <button type="button" data-val="2000_2026" aria-pressed="false">千禧现代 (2000–2026)</button>
+            </div>
+            <span class="hint" id="eraHint">按全国历史人口分布随机抽取年代，亲身跨越近百年的时代激荡。</span>
+          </div>
+
+          <div class="optgroup">
+            <span class="lbl">出生地的抽选方式</span>
+            <div class="seg seg-city" id="segCity" role="group" aria-label="出生地的抽选方式">
+              <button type="button" data-val="weighted" aria-pressed="true">按历史人口加权</button>
+              <button type="button" data-val="random" aria-pressed="false">全国完全随机</button>
+              <button type="button" data-val="county" aria-pressed="false">特色工业与偏远县市</button>
+            </div>
+            <span class="hint">人口加权依各省市历史真实规模；偏远县市将更频繁领略如塔什库尔干、墨脱、攀枝花等山河皱褶。</span>
+          </div>
+
+          <div class="optgroup">
+            <span class="lbl">一段人生的长度与节奏</span>
+            <div class="seg seg-pace" id="segPace" role="group" aria-label="一段人生的长度">
+              <button type="button" data-val="medium" aria-pressed="true">标准沉浸 (逐年推进)</button>
+              <button type="button" data-val="short" aria-pressed="false">极速推演 (大步向前)</button>
+              <button type="button" data-val="step" aria-pressed="false">手动掌控 (单步推进)</button>
+            </div>
+            <span class="hint">逐年感受时光流转，配合倍速播放（1×/2×/4×）掌控人生的沉浸感。</span>
+          </div>
+        </div>
+
+        <div class="ctarow">
+          <button class="cta" id="startBtn" type="button">成为某个人出生 <span aria-hidden="true">→</span></button>
+          <span class="ctahint">免费 · 无需登录 · 真实天灾与重大历史关卡碰撞</span>
+        </div>
+
+        <!-- 追思馆档案预览 -->
+        <div class="pastlives" id="pastLivesBox">
+          <h3>安放在追思馆的人生</h3>
+          <div class="pastlives-grid" id="pastLivesGrid">
+            <div class="memo-card">
+              <div class="mc-head"><span>1942 — 2018 · 享年 76 岁</span><span>河南 洛阳</span></div>
+              <div class="mc-name">赵树声 (工人家庭)</div>
+              <div class="mc-note">“一辈子干拖拉机厂机械维修，平平安安，看着三个娃都成了大学生，知足了。”</div>
+            </div>
+            <div class="memo-card">
+              <div class="mc-head"><span>1958 — 2023 · 享年 65 岁</span><span>辽宁 鞍山</span></div>
+              <div class="mc-name">李秀芬 (鞍钢职工)</div>
+              <div class="mc-note">“经历过转炉热火，也扛过下岗的风霜，老头子走得早，但我挺过来了。”</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 史料说明 -->
+        <div class="notes">
+          <div>
+            <h4>真实历史统计</h4>
+            <p>人口死亡率、人均期望寿命、城镇化率取自国家统计局与历次人口普查公报。149座城市历史前身地名与主导产业变迁忠实还原历史进程。</p>
+          </div>
+          <div>
+            <h4>天灾撞击与生命沉浮</h4>
+            <p>真实收录1938年花园口、1942年河南大旱、1976年唐山地震、2008年汶川地震等19场自然浩劫与近年疫情大事件，同城碰撞随机定生死。</p>
+          </div>
+          <div>
+            <h4>活着本身的力量</h4>
+            <p>向余华《活着》致敬。“人是为活着本身而活着的，而不是为了活着之外的任何事物所活着。” 在苦难与平凡中品味坚韧的生命底色。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       2. 投胎轮盘与出生登记证 (1:1 1in8b.life #roll & #cert)
+       ====================================================================== -->
+  <section id="roll" class="wrap" hidden>
+    <div class="roller" id="roller">
+      <div class="lbl">正在决定出生地与年代</div>
+      <div class="country" id="rollName">辽宁省 鞍山市</div>
+      <div class="meta" id="rollMeta">1958年 · 戊戌年 · 工人家庭</div>
+    </div>
+
+    <div class="cert" id="cert" hidden>
+      <div class="band">
+        <b>出生登记 · RESIDENCE & BIRTH RECORD</b>
+        <span id="certNo">NO. 1937-2026-0001</span>
+      </div>
+      <div class="body">
+        <div class="lbl-small">名字</div>
+        <h2 id="certName">李建国</h2>
+        <p class="story" id="certStory">你出生在1958年深秋的辽宁省鞍山市铁西区工人村。父亲是鞍钢炼铁厂第一代转炉工人，母亲在街道缝纫组做杂工。你有一个哥哥和一个妹妹。</p>
+
+        <div class="fields" id="certFields">
+          <div><small>出生年份</small><b id="cfYear">1958年</b></div>
+          <div><small>出生地点</small><b id="cfPlace">辽宁 鞍山</b></div>
+          <div><small>城乡身份</small><b id="cfUrban">城镇职工</b></div>
+          <div><small>预期寿命</small><b id="cfLife">44.6 岁</b></div>
+          <div><small>主导产业</small><b id="cfInd">钢铁冶炼与重工</b></div>
+          <div><small>家庭同胞</small><b id="cfSiblings">1兄 1妹</b></div>
+        </div>
+
+        <div class="odds-line" id="certOdds">
+          在1958年出生的中国人中，约有 18.2% 像你一样出生在城镇职工家庭，81.8% 出生在农村贫寒家庭。
+        </div>
+      </div>
+      <div class="foot">
+        <button class="ghost" id="reRollBtn" type="button">重新投胎</button>
+        <button class="cta" id="beginBtn" type="button">开始这一生 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       3. 核心人生推演主界面 (1:1 1in8b.life #lifeview)
+       ====================================================================== -->
+  <section id="lifeview" hidden>
+    <!-- 顶部状态与时间控制栏 -->
+    <header class="topbar">
+      <div class="wrap">
+        <div class="brand">live · 14亿分之<em>1</em></div>
+        <div class="agebox">
+          <div class="age" id="ageNum">0<small>岁</small></div>
+          <div class="yr">
+            <span class="t" id="ageYear">1958 年 (戊戌狗年)</span>
+            <div class="prog" aria-hidden="true"><i id="prog" style="transform: scaleX(0);"></i></div>
+          </div>
+        </div>
+
+        <div class="speed" role="group" aria-label="时间控制">
+          <button id="pauseBtn" type="button" aria-pressed="false" title="暂停或恢复推演">❚❚ 暂停</button>
+          <span class="sps" id="spSet">
+            <button type="button" data-speed="1" aria-pressed="true">1×</button>
+            <button type="button" data-speed="2" aria-pressed="false">2×</button>
+            <button type="button" data-speed="4" aria-pressed="false">4×</button>
+          </span>
+          <button class="ff" id="stepBtn" type="button" title="单步推进一年">推进一年 »</button>
+          <button class="ff themebtn2" id="themeBtn2" type="button" title="切换明暗画面">◐</button>
+        </div>
+      </div>
     </header>
 
-    <!-- 1. 开局界面 -->
-    <section id="view-start" class="view-section active">
-      <div class="start-box">
-        <div class="intro-manifesto">
-          <p class="lead-quote">“人是为活着本身而活着的，而不是为了活着之外的任何事物所活着。” —— 余华《活着》</p>
-          <p>这是一场无法选择出身的人生模拟。时光定格在 1937 至 2026 年间已发生的真实历史之中，不作任何未来臆测。</p>
-          <p>你的出生年份、全国 31 个省市 149 个区县籍贯、家庭成分、门第生计与兄弟姐妹人数，均由真实历史人口统计加权随机决定。在近一个世纪的风云激荡中，特大天灾、时代洗牌与人生命运将随时与你狭路相逢。</p>
-          <p>分配你的精力，做出每一次抉择，静静体味属于中国普通人的一生。</p>
-        </div>
-
-        <div class="setting-group">
-          <label>选择人生历程节奏：</label>
-          <div class="pace-selector">
-            <button class="pace-btn" data-pace="short">短（极速）</button>
-            <button class="pace-btn active" data-pace="medium">中（速读）</button>
-            <button class="pace-btn" data-pace="long">长（沉浸）</button>
+    <!-- 主体双栏响应式布局 -->
+    <div class="wrap life">
+      <!-- 左栏：身份卡、状态仪表盘、精力重心、产业变迁 -->
+      <div class="col">
+        <!-- 身份证档案卡 -->
+        <div class="panel idcard">
+          <div class="top">
+            <span>中华人民共和国居民档案</span>
+            <span id="idSerial">ZH-1937-2026</span>
           </div>
-          <div id="paceDesc" class="pace-desc">标准速读：每次前进 2-3 年，重点经历重大历史关卡与天灾转折，约 25-35 回合。</div>
-        </div>
-
-        <button id="btnStart" class="btn-primary">开始人生 · 随机入世</button>
-      </div>
-    </section>
-
-    <!-- 2. 游戏主界面 -->
-    <section id="view-game" class="view-section">
-      <!-- 角色基本档案卡 -->
-      <div class="dossier-card">
-        <div class="dossier-title">
-          <span>档案底册：<strong id="dossierName">张建国</strong></span>
-          <span class="dossier-seal-tag">【户籍生计】</span>
-        </div>
-        <div class="dossier-grid">
-          <div class="dossier-item">出生信息：<span id="dossierBirth">1952年 (男·汉族)</span></div>
-          <div class="dossier-item">祖籍地域：<span id="dossierPlace">河南省 · 周口市 (乡村)</span></div>
-          <div class="dossier-item">门第生计：<span id="dossierClass">传统农业劳务型 · 麦客短工</span></div>
-          <div class="dossier-item">同辈兄弟：<span id="dossierSiblings">4 人</span></div>
-        </div>
-      </div>
-
-      <!-- 时代时钟指示条 -->
-      <div class="era-ticker">
-        <div>时期：<span id="eraTickerName" class="era-name">建国初期与一五计划</span></div>
-        <div id="eraTickerYear" class="era-year">1953 年 (1 岁)</div>
-      </div>
-
-      <!-- 个人五维属性状态条 -->
-      <div class="stats-strip">
-        <div class="stat-col">
-          <div class="stat-label">健康</div>
-          <div id="statHealth" class="stat-val" style="color:var(--bar-health);">75</div>
-          <div class="stat-bar-box"><div id="barHealth" class="stat-bar-fill" style="background:var(--bar-health); width:75%;"></div></div>
-        </div>
-        <div class="stat-col">
-          <div class="stat-label">财富</div>
-          <div id="statWealth" class="stat-val" style="color:var(--bar-wealth);">35</div>
-          <div class="stat-bar-box"><div id="barWealth" class="stat-bar-fill" style="background:var(--bar-wealth); width:35%;"></div></div>
-        </div>
-        <div class="stat-col">
-          <div class="stat-label">学识</div>
-          <div id="statKnowledge" class="stat-val" style="color:var(--bar-knowledge);">20</div>
-          <div class="stat-bar-box"><div id="barKnowledge" class="stat-bar-fill" style="background:var(--bar-knowledge); width:20%;"></div></div>
-        </div>
-        <div class="stat-col">
-          <div class="stat-label">家庭</div>
-          <div id="statFamily" class="stat-val" style="color:var(--bar-family);">70</div>
-          <div class="stat-bar-box"><div id="barFamily" class="stat-bar-fill" style="background:var(--bar-family); width:70%;"></div></div>
-        </div>
-        <div class="stat-col">
-          <div class="stat-label">心态</div>
-          <div id="statMentality" class="stat-val" style="color:var(--bar-mentality);">70</div>
-          <div class="stat-bar-box"><div id="barMentality" class="stat-bar-fill" style="background:var(--bar-mentality); width:70%;"></div></div>
-        </div>
-      </div>
-
-      <!-- 岁月纪实流 (80-150字叙事) -->
-      <div id="narrativeStream" class="narrative-stream"></div>
-
-      <!-- 精力分配面板 (学业/工作/家庭/健康，总和 100) -->
-      <div class="energy-panel">
-        <div class="energy-title">
-          <span>当年精力分配（总和 100%）</span>
-          <button id="btnResetEnergy" class="btn-secondary" style="padding:2px 8px; font-size:0.75rem;">重置均衡</button>
-        </div>
-        <div class="energy-sliders">
-          <div class="slider-row">
-            <span class="slider-label">学业/修养：</span>
-            <input type="range" id="sliderStudy" min="0" max="100" value="25">
-            <span id="valStudy" class="slider-val">25%</span>
-          </div>
-          <div class="slider-row">
-            <span class="slider-label">劳作/事业：</span>
-            <input type="range" id="sliderWork" min="0" max="100" value="25">
-            <span id="valWork" class="slider-val">25%</span>
-          </div>
-          <div class="slider-row">
-            <span class="slider-label">家庭/伴侣：</span>
-            <input type="range" id="sliderFamily" min="0" max="100" value="25">
-            <span id="valFamily" class="slider-val">25%</span>
-          </div>
-          <div class="slider-row">
-            <span class="slider-label">休养/健康：</span>
-            <input type="range" id="sliderHealth" min="0" max="100" value="25">
-            <span id="valHealth" class="slider-val">25%</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 控制前进按钮 -->
-      <div class="action-buttons">
-        <button id="btnAdvance" class="btn-advance">度过此年 · 推进岁月</button>
-      </div>
-    </section>
-
-    <!-- 3. 结局页 -->
-    <section id="view-ending" class="view-section">
-      <div class="ending-box">
-        <div class="epitaph-banner">
-          <div class="epitaph-seal">生平终局</div>
-          <div id="epitaphName" class="epitaph-name">张建国</div>
-          <div id="epitaphLifespan" class="epitaph-lifespan">（1952 — 2018，享年 66 岁）</div>
-          <div id="epitaphCause" class="epitaph-cause">因突发心肌梗死送医抢救无效安详离世</div>
-        </div>
-
-        <!-- 与同龄人对比 -->
-        <div class="peer-section">
-          <div class="peer-title">与同龄人统计估算对比</div>
-          <div class="peer-grid">
-            <div class="peer-item">
-              <div class="peer-item-label" id="peerLifespanDesc">寿命：超过同代 68% 的同龄人</div>
-              <div class="peer-bar-box"><div id="peerLifespanBar" class="peer-bar-fill" style="width:68%;"></div></div>
+          <div class="in">
+            <div class="portrait" id="portrait" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             </div>
-            <div class="peer-item">
-              <div class="peer-item-label" id="peerEduDesc">受教育程度：超过同代 45% 的同龄人</div>
-              <div class="peer-bar-box"><div id="peerEduBar" class="peer-bar-fill" style="width:45%;"></div></div>
-            </div>
-            <div class="peer-item">
-              <div class="peer-item-label" id="peerWealthDesc">家境生计：处于同代前 35% 区间</div>
-              <div class="peer-bar-box"><div id="peerWealthBar" class="peer-bar-fill" style="width:65%;"></div></div>
+            <div>
+              <div class="nm" id="idName">李建国</div>
+              <dl id="idDl">
+                <dt>籍贯</dt><dd id="idPlace">辽宁省 鞍山市</dd>
+                <dt>身份</dt><dd id="idClass">城市职工户口</dd>
+                <dt>工种</dt><dd id="idJob">孩童</dd>
+              </dl>
             </div>
           </div>
-          <div class="peer-subnote">* 注：以上对比基于国家统计年鉴、全国人口普查历次数据及历史人口学模型估算。</div>
         </div>
 
-        <!-- 一生里程碑时间轴 -->
-        <div class="milestones-box">
-          <div class="milestones-title">一生关键印记与历史轨迹</div>
-          <div id="milestoneTimeline" class="timeline-list"></div>
-        </div>
-
-        <!-- 追思馆 -->
-        <div class="memorial-section">
-          <div class="memorial-title">
-            <span>追思馆</span>
-            <span style="font-size:0.75rem; color:#8c7b68;">留下一纸悼词与感怀</span>
+        <!-- 四维生命状态与资产面板 -->
+        <div class="panel p-stats">
+          <h3><span>状态</span><span class="lbl">0–100</span></h3>
+          <div id="statBars">
+            <div class="stat"><span>健康</span><span class="bar"><i id="barHealth" style="width: 80%; background: var(--good);"></i></span><span class="v" id="valHealth">80</span></div>
+            <div class="stat"><span>心气</span><span class="bar"><i id="barMentality" style="width: 70%; background: var(--stamp);"></i></span><span class="v" id="valMentality">70</span></div>
+            <div class="stat"><span>文化</span><span class="bar"><i id="barKnowledge" style="width: 25%; background: var(--gold);"></i></span><span class="v" id="valKnowledge">25</span></div>
+            <div class="stat"><span>亲缘</span><span class="bar"><i id="barFamily" style="width: 75%; background: var(--good);"></i></span><span class="v" id="valFamily">75</span></div>
           </div>
-          <div class="memorial-input-box">
-            <textarea id="memorialInput" placeholder="写下一两句对这位虚拟角色的生平悼念或感悟……"></textarea>
-            <button id="btnSubmitMemorial" class="btn-secondary" style="width:100%; background:#fff; border-color:var(--stamp-red); color:var(--stamp-red);">写入追思馆</button>
+
+          <div class="money" id="moneyInfo">
+            <div><small>当年总收入</small><b id="txtIncome">¥ 0</b></div>
+            <div><small>家门累积净资产</small><b id="txtWealth">¥ 400</b></div>
+            <div class="money-purchasing" id="txtPurchasing">购买力基准：计划经济供给制，折合当年口粮标准</div>
           </div>
-          <div id="memorialList" class="memorial-list"></div>
         </div>
 
-        <!-- 按钮组 -->
-        <div style="display:flex; gap:10px;">
-          <button id="btnOpenShare" class="btn-primary" style="flex:1;">生成生平档案卡</button>
-          <button id="btnRestart" class="btn-secondary" style="padding:10px 18px;">重新入世</button>
+        <!-- 精力重心调节器 (Focus Chips) -->
+        <div class="panel p-focus">
+          <h3><span>今年的精力重心</span><span class="lbl">点击随时切换</span></h3>
+          <div class="chips" id="focusChips">
+            <button class="chip" data-focus="study" aria-pressed="false" type="button">
+              <span class="c-name">📖 读书求学</span>
+              <span class="c-sub">提升文化知识与个人技能</span>
+            </button>
+            <button class="chip" data-focus="work" aria-pressed="true" type="button">
+              <span class="c-name">🔨 勤奋劳作</span>
+              <span class="c-sub">多赚薪资财帛，略微耗体力</span>
+            </button>
+            <button class="chip" data-focus="family" aria-pressed="false" type="button">
+              <span class="c-name">👨‍👩‍👧 顾家陪伴</span>
+              <span class="c-sub">照料高堂幼子，滋养心气</span>
+            </button>
+            <button class="chip" data-focus="health" aria-pressed="false" type="button">
+              <span class="c-name">🌿 养生疗愈</span>
+              <span class="c-sub">静养调理，降低伤病猝死风险</span>
+            </button>
+          </div>
+          <p class="fohint" id="focusHint">当前重心：勤奋劳作。积极赚取银钱与家产，略微耗损体力。</p>
+        </div>
+
+        <!-- 时代产业与地理环境 -->
+        <div class="panel p-macro">
+          <h3><span>当地产业与时代</span></h3>
+          <div class="macro-grid" id="macroInfo">
+            <div class="macro-item"><small>所在地工业底色</small><b id="macroIndustry">钢铁冶炼与重工装备制造</b></div>
+            <div class="macro-item"><small>宏观历史格局</small><b id="macroEra">全面建设时期（一五计划与重工业基建）</b></div>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- 抉择弹窗 Modal -->
-    <div id="decisionModal" class="modal-overlay">
-      <div class="modal-card">
-        <div class="modal-stamp">命运抉择</div>
-        <div id="modalTitle" class="modal-title">关卡抉择</div>
-        <div id="modalFact" class="modal-fact">【史料背景】……</div>
-        <div id="modalNarrative" class="modal-narrative">面临前路……</div>
-        <div id="modalChoices" class="modal-choices"></div>
-      </div>
-    </div>
-
-    <!-- 分享卡片弹窗 Modal -->
-    <div id="shareModal" class="modal-overlay">
-      <div class="modal-card share-canvas-container">
-        <canvas id="shareCanvas"></canvas>
-        <div style="display:flex; gap:10px; width:100%;">
-          <button id="btnDownloadShare" class="btn-primary" style="flex:1;">保存生平卡片 (PNG)</button>
-          <button id="btnCloseShare" class="btn-secondary">关闭</button>
+      <!-- 右栏：人生流年纪事与天灾碰撞流 -->
+      <div class="col">
+        <div class="panel p-feed">
+          <h3><span>人生纪事</span><span class="lbl">最新的在前 · 滚动回顾</span></h3>
+          <ul class="feed" id="lifeFeed"></ul>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- 底部声明 -->
-    <footer class="disclaimer-footer">
-      《live · 人间一瞬》基于公开国家统计年鉴、地方方志与历史文献的模拟模型。谨供体味人生与思考，不代表任何个体真实经历。
-    </footer>
+  <!-- ======================================================================
+       4. 结案与终局人生档案 (1:1 1in8b.life #dead)
+       ====================================================================== -->
+  <section id="dead" class="wrap" hidden>
+    <div class="cert dcert">
+      <div class="band">
+        <b>生平档案 · 终局</b>
+        <span id="deadCertNo">NO. 1937-2026-END</span>
+      </div>
+      <div class="body">
+        <h2 id="deadName">李建国 (1958 — 2024 · 享年 66 岁)</h2>
+        <div class="cause" id="deadCause">死因：突发急性脑梗死安详离世</div>
+        <p class="ctx" id="deadCtx">在1958年同一年出生的中国人中，约有 72.4% 活得比你久。你比当年同代人的平均预期寿命（44.6岁）多活了 21.4 年。</p>
+
+        <div class="summary" id="deadSummary">
+          <div><small>最高文化程度</small><b id="dSumEdu">初中文化</b></div>
+          <div><small>生前最高职业</small><b id="dSumJob">钢厂机械车工</b></div>
+          <div><small>家庭与婚姻</small><b id="dSumFamily">成家生子，儿女绕膝</b></div>
+          <div><small>一生财富积累</small><b id="dSumWealth">平稳温饱有余</b></div>
+          <div><small>亲历并幸存的天灾</small><b id="dSumDisaster">1976年唐山大地震波及</b></div>
+          <div><small>走过的岁月</small><b id="dSumYears">历经计划经济、改革开放至新时代</b></div>
+        </div>
+
+        <div class="certcomps" id="deadComps">
+          <span class="lbl" style="font-size:12px;color:var(--ink3);display:block;margin-bottom:6px;">同代人百分位数排名（基于真实人口统计）</span>
+          <ul id="deadCompsList">
+            <li><b>寿命水平</b><span id="cmpLife">超过了同代 78% 的中国人</span></li>
+            <li><b>文化程度</b><span id="cmpEdu">超越了同代 65% 的同龄人</span></li>
+            <li><b>资产积累</b><span id="cmpWealth">位列同代人前 32% 区间</span></li>
+          </ul>
+        </div>
+
+        <!-- Canvas 生命轨迹图 (Health and Wealth lifespan curve) -->
+        <figure class="lifemap" id="lifeMapF">
+          <canvas id="lifeMap" width="640" height="180" role="img" aria-label="生命轨迹图"></canvas>
+          <figcaption><b>生命轨迹（健康与生活质量）</b><span>绿色实线展示身体与健康起伏，金色虚线展示家门生计累积</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- 追思馆留念与分享卡 -->
+    <div class="deadstack">
+      <div class="panel farewell">
+        <h3><span>留给这一生的话</span><span class="lbl">会保存在追思馆与生平分享卡中</span></h3>
+        <div class="fwrow">
+          <textarea id="farewellInput" maxlength="60" rows="2" placeholder="例：辛苦了，这一世在风雨中走过，无悔人间。"></textarea>
+          <button class="cta" id="farewellBtn" type="button">留在追思馆</button>
+        </div>
+      </div>
+
+      <div class="panel sharebox">
+        <h3><span>分享这一生</span><span class="lbl">高清图片卡 + 生平文字</span></h3>
+        <div class="sharegrid">
+          <button class="cardprev" id="cardPrevBtn" type="button" aria-label="点击下载放大查看人生卡片">
+            <img id="cardImg" alt="生平档案记录卡" hidden>
+            <span id="cardWait">正在生成生平档案卡…</span>
+          </button>
+          <div>
+            <p class="sharetext" id="shareText">生平总结文字生成中…</p>
+            <div class="endbtns">
+              <button class="cta" id="cardDownloadBtn" type="button">保存生平档案卡片</button>
+              <button class="ghost" id="copyShareBtn" type="button">复制生平文字</button>
+              <button class="cta" id="restartBtn" type="button">再活一生 ↻</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. 人生重大抉择 / 至暗时刻弹窗 (#modal)
+       ====================================================================== -->
+  <div id="modal" class="scrim" hidden>
+    <div class="dec" role="dialog" aria-modal="true" aria-labelledby="decTitle">
+      <div class="hd">
+        <span id="decType">关键人生抉择</span>
+        <span id="decMeta">24岁 · 1980年</span>
+      </div>
+      <div class="bd">
+        <h2 id="decTitle">命运的抉择</h2>
+        <p id="decNarrative">时代潮流激荡，你面临人生的十字路口。</p>
+        <div class="fact" id="decFact" hidden>背景资料</div>
+        <div class="choices" id="decChoices"></div>
+      </div>
+    </div>
   </div>
 
-  <script src="data/embedded.js"></script>
-  <script src="js/engine.js"></script>
-  <script src="js/ui.js"></script>
+</main>
+
+<!-- 数据与核心引擎脚本 -->
+<script src="data/embedded.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
 </body>
 </html>

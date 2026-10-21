@@ -217,23 +217,56 @@ class SimulationEngine {
   }
 
   /**
-   * 创建新角色（开局玩家无法选择出身）
+   * 创建新角色（开局玩家无法选择出身，支持时代与抽选模式参数）
    */
-  createCharacter(paceMode = 'medium') {
+  createCharacter(options = 'medium') {
+    let paceMode = 'medium';
+    let eraFilter = 'all';
+    let cityFilter = 'weighted';
+
+    if (typeof options === 'object' && options !== null) {
+      paceMode = options.paceMode || 'medium';
+      eraFilter = options.eraFilter || 'all';
+      cityFilter = options.cityFilter || 'weighted';
+    } else if (typeof options === 'string') {
+      paceMode = options;
+    }
+
     this.paceMode = paceMode;
     this.history = [];
     this.statusFlags.clear();
     this.isGameOver = false;
     this.deathInfo = null;
 
-    // 1. 出生年份
-    const birthYear = this.sampleBirthYear();
+    // 1. 出生年份 (支持年代段抽取)
+    let birthYear;
+    if (eraFilter === '1937_1949') {
+      birthYear = Math.floor(1937 + Math.random() * (1949 - 1937 + 1));
+    } else if (eraFilter === '1950_1977') {
+      birthYear = Math.floor(1950 + Math.random() * (1977 - 1950 + 1));
+    } else if (eraFilter === '1978_1999') {
+      birthYear = Math.floor(1978 + Math.random() * (1999 - 1978 + 1));
+    } else if (eraFilter === '2000_2026') {
+      birthYear = Math.floor(2000 + Math.random() * (2026 - 2000 + 1));
+    } else {
+      birthYear = this.sampleBirthYear();
+    }
     const era = this.getEraForYear(birthYear);
     const indEraKey = this.getIndustryEraKey(birthYear);
 
-    // 2. 出生省份与城市/区县
-    const province = this.sampleProvince();
-    const city = this.sampleCityInProvince(province.id);
+    // 2. 出生省份与城市/区县 (支持不同抽选机制)
+    let province, city;
+    if (cityFilter === 'county') {
+      const countyPool = this.cities.filter(c => c.type.includes('县') || c.type.includes('资源') || c.type.includes('贫瘠') || c.type.includes('特色'));
+      city = countyPool.length > 0 ? countyPool[Math.floor(Math.random() * countyPool.length)] : this.cities[0];
+      province = this.provinces.find(p => p.id === city.provinceId) || this.provinces[0];
+    } else if (cityFilter === 'random') {
+      city = this.cities[Math.floor(Math.random() * this.cities.length)];
+      province = this.provinces.find(p => p.id === city.provinceId) || this.provinces[0];
+    } else {
+      province = this.sampleProvince();
+      city = this.sampleCityInProvince(province.id);
+    }
     const cityDisplay = this.resolveCityDisplay(city, birthYear);
 
     // 3. 城乡判定（结合宏观时期与省份基准）
@@ -314,7 +347,17 @@ class SimulationEngine {
       educationLevel: '未入学',
       occupation: isUrban ? '城镇孩童' : '乡野幼童',
       milestones: [],
-      survivedDisasters: []
+      survivedDisasters: [],
+      lifelineHistory: [
+        {
+          age: 0,
+          year: birthYear,
+          health: attributes.health,
+          wealth: attributes.wealth,
+          mentality: attributes.mentality,
+          knowledge: attributes.knowledge
+        }
+      ]
     };
 
     this.currentYear = birthYear;
@@ -355,19 +398,30 @@ class SimulationEngine {
   }
 
   /**
+   * 记录生命轨迹点（用于绘制人生轨迹线图）
+   */
+  recordLifeline() {
+    if (!this.character) return;
+    this.character.lifelineHistory.push({
+      age: this.currentAge,
+      year: this.currentYear,
+      health: this.character.attributes.health,
+      wealth: this.character.attributes.wealth,
+      mentality: this.character.attributes.mentality,
+      knowledge: this.character.attributes.knowledge
+    });
+  }
+
+  /**
    * 计算步长（根据游戏时长选项）
    */
   getStepYears() {
-    if (this.paceMode === 'long') return 1;
+    if (this.paceMode === 'step' || this.paceMode === 'long' || this.paceMode === 'medium') return 1;
     if (this.paceMode === 'short') {
-      if (this.currentAge < 16) return 4;
-      if (this.currentAge < 55) return 6;
-      return 5;
+      if (this.currentAge < 16) return 2;
+      return 3;
     }
-    // medium
-    if (this.currentAge < 18) return 2;
-    if (this.currentAge < 60) return 3;
-    return 2;
+    return 1;
   }
 
   /**
@@ -820,6 +874,7 @@ class SimulationEngine {
 
       this.currentYear += stepYears;
       this.currentAge += stepYears;
+      this.recordLifeline();
 
       if (this.currentYear > 2026 || this.currentAge >= 98) {
         this.triggerNaturalEnding();
@@ -930,6 +985,7 @@ class SimulationEngine {
     // 10. 年份递增
     this.currentYear += stepYears;
     this.currentAge += stepYears;
+    this.recordLifeline();
 
     // 11. 到达 2026 年或百岁正常圆满
     if (this.currentYear > 2026 || this.currentAge >= 98) {
@@ -1059,6 +1115,7 @@ class SimulationEngine {
 
     this.currentYear += stepYears;
     this.currentAge += stepYears;
+    this.recordLifeline();
 
     if (this.currentYear > 2026 || this.currentAge >= 98) {
       this.triggerNaturalEnding();
@@ -1306,6 +1363,10 @@ class SimulationEngine {
         desc: `处在同代人中约前 ${100 - wealthPercentile}% 的生计水平区间`
       }
     };
+  }
+
+  evaluateLifeResults() {
+    return this.calculatePeerComparisons();
   }
 }
 

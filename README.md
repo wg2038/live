@@ -1,12 +1,14 @@
-# live · 人间一瞬 (中国出生模拟器 1937–2026)
+# live · 14亿分之1 (中国历史人生模拟 1937–2026)
 
 > “人是为活着本身而活着的，而不是为了活着之外的任何事物所活着。” —— 余华《活着》
 
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-success.svg)](#一键开启-github-pages-免费在线试玩)
-[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile%20First-blue.svg)](index.html)
+[![GitHub Pages](https://img.shields.io/badge/Online%20Play-GitHub%20Pages-success.svg)](https://wg2038.github.io/live/)
+[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile%20First-blue.svg)](https://wg2038.github.io/live/)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 
-《live · 人间一瞬》（China Birth Simulator）是一款受《80亿分之1》启发而创作的历史数据与人生沉浸网页游戏。玩家无法选择自己的出身，在**真实历史统计加权**与**客观历史浪潮**下，一年一年走完属于中国普通人的一生。
+在线试玩体验地址：👉 **[https://wg2038.github.io/live/](https://wg2038.github.io/live/)**
+
+《live · 14亿分之1》（China Birth Simulator）是一款深度参考并致敬《80亿分之1》(1in8b.life) 的现代极简典雅风历史人生模拟网页游戏。网页采用 1:1 现代简约杂志风排版、支持深色/浅色模式平滑切换，以客观冷峻的真实人口历史统计为基石。玩家无法选择出身，在近百年风云变迁与自然天灾浩劫中，一年一年走完属于中国普通人的一生。
 
 ---
 
