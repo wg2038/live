@@ -795,7 +795,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const comp = engine.evaluateLifeResults();
     const era = engine.getEraForYear(char.birthYear);
 
-    const isAlive2026 = death.isAliveIn2026 || death.year >= 2026;
+    const isAlive2026 = death.isAliveIn2026 === true;
     archiveCurrentLife(char, death, isAlive2026);
 
     // 1. 证书核心信息 (严格区分在世与离世)
@@ -883,7 +883,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 5. 晚出生角色“传承视角”检测与渲染 (出生>=2010且2026年存活)
     const lineageSection = document.getElementById('lineageSection');
-    const isLateBornSurvivor = char.birthYear >= 2010 && (death.isAliveIn2026 || death.year >= 2026);
+    const isLateBornSurvivor = char.birthYear >= 2010 && death.isAliveIn2026 === true;
 
     if (lineageSection) {
       if (isLateBornSurvivor) {
@@ -973,10 +973,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnReplayParent = document.getElementById('btnReplayParent');
     if (btnReplayParent && p && p.profile) {
       btnReplayParent.onclick = () => {
-        engine.createCharacterFromParent(p.profile);
-        showSection(secLifeview);
-        initLifeviewUI();
-        resumeGame();
+        try {
+          engine.createCharacterFromParent(p.profile);
+          showSection(secLifeview);
+          initLifeviewUI();
+          resumeGame();
+        } catch (err) {
+          console.error('传承模式启动失败:', err);
+        }
       };
     }
   }
@@ -1104,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.font = 'bold 36px "Noto Serif SC", serif';
     ctx.fillText(char.name, 40, 126);
 
-    const isSurvivor = death.isAliveIn2026 || death.year >= 2026;
+    const isSurvivor = death.isAliveIn2026 === true;
     let subTitle;
     if (isSurvivor) {
       const ageLabel = death.age < 18 ? '岁少年' : '岁';

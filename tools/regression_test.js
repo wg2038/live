@@ -313,6 +313,75 @@ test('P0-5 1980 年不会把普通角色识别为智能手机用户', async () =
 });
 
 // ---------------------------------------------------------------------------
+// P0-5c 2020/2022 硬编码人群分支不得错配
+// ---------------------------------------------------------------------------
+test('P0-5c 2022 年 22 岁农民不会被套用高校考研剧情', async () => {
+  const e = await freshEngine(57);
+  makeCharacter(e, { birthYear: 2000, educationLevel: '初中文化', careerTrack: 'farmer', occupation: '种粮农民' });
+  e.currentYear = 2022;
+  e.currentAge = 22;
+  const d = e.adaptDecisionToPersona({
+    id: 'evt_2022_covid_lockdown', title: '疫情', historicalFact: '疫情', choices: []
+  });
+  const text = `${d.title} ${d.narrative}`;
+  assert.ok(!/高校|考研|答辩|春招/.test(text), `农民被套用高校剧情: ${text}`);
+  assert.ok(/春耕|农资|保供|农产品/.test(text), `农民未获得务农分支: ${text}`);
+});
+
+test('P0-5c 2022 年 12 岁儿童获得居家网课分支而不是考研就业', async () => {
+  const e = await freshEngine(58);
+  makeCharacter(e, { birthYear: 2010, educationLevel: '小学在读' });
+  e.currentYear = 2022;
+  e.currentAge = 12;
+  const d = e.adaptDecisionToPersona({
+    id: 'evt_2022_covid_lockdown', title: '疫情', historicalFact: '疫情', choices: []
+  });
+  const text = `${d.title} ${d.narrative}`;
+  assert.ok(/网课|居家|线上/.test(text), `儿童未获得网课分支: ${text}`);
+  assert.ok(!/考研|考公|就业大盘/.test(text), `儿童被套用成人就业剧情: ${text}`);
+});
+
+test('P0-5c 2020 年普通教师不会被误判为医护', async () => {
+  const e = await freshEngine(59);
+  makeCharacter(e, {
+    birthYear: 1980,
+    occupation: '公办学校青年教师',
+    educationLevel: '大学本科',
+    careerTrack: 'cadre_teacher'
+  });
+  e.character.tags.delete('doctor');
+  e.character.tags.delete('nurse');
+  e.currentYear = 2020;
+  e.currentAge = 40;
+  const d = e.adaptDecisionToPersona({
+    id: 'evt_2020_covid_chuxi', title: '疫情', historicalFact: '疫情', choices: []
+  });
+  assert.ok(!/白衣执甲|援鄂|医护/.test(d.title), `普通教师被误判为医护: ${d.title}`);
+  assert.ok(/全民抗疫|举国同心/.test(d.title), `普通教师未获得居民分支: ${d.title}`);
+});
+
+test('P0-5c 2020 年湖北儿童不会拿到志愿者/请战成人选项', async () => {
+  const e = await freshEngine(60);
+  const city = firstCityOf(e, 'hubei');
+  makeCharacter(e, {
+    birthYear: 2008,
+    provinceId: 'hubei',
+    cityId: city.id,
+    cityName: city.name,
+    educationLevel: '小学在读'
+  });
+  e.currentYear = 2020;
+  e.currentAge = 12;
+  const d = e.adaptDecisionToPersona({
+    id: 'evt_2020_covid_chuxi', title: '疫情', historicalFact: '疫情', choices: []
+  });
+  const filtered = e.filterAndPolishChoices(d);
+  const text = filtered.choices.map(c => c.text).join('|');
+  assert.ok(!/志愿者|请战|医疗队|红袖标/.test(text), `儿童拿到成人选项: ${text}`);
+  assert.ok(/作业|家务|锻炼|父母/.test(text), `儿童分支缺少适龄选项: ${text}`);
+});
+
+// ---------------------------------------------------------------------------
 // P1-6 标签子串碰撞
 // ---------------------------------------------------------------------------
 test('P1-6 “数控技师”不会被识别为教师/干部', async () => {

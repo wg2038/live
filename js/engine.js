@@ -623,22 +623,25 @@ class SimulationEngine {
     if (tag === 'married' && this.character.maritalStatus === '已婚') return true;
     if (tag === 'single' && this.character.maritalStatus !== '已婚') return true;
     if (tag === 'has_children' && this.character.hasChildren) return true;
-    if (tag === 'worker' && (this.character.careerTrack === 'worker' || (this.character.occupation && this.character.occupation.includes('工')))) return true;
-    if (tag === 'farmer' && (this.character.careerTrack === 'farmer' || (this.character.occupation && (this.character.occupation.includes('农') || this.character.occupation.includes('社员'))))) return true;
-    if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || (this.character.occupation && (this.character.occupation.includes('师') || this.character.occupation.includes('医') || this.character.occupation.includes('干'))))) return true;
-    if (tag === 'tech_whitecollar' && (this.character.careerTrack === 'tech_whitecollar' || (this.character.occupation && (this.character.occupation.includes('软件') || this.character.occupation.includes('程序') || this.character.occupation.includes('研发') || this.character.occupation.includes('工程师'))))) return true;
-    if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || (this.character.occupation && (this.character.occupation.includes('商') || this.character.occupation.includes('店') || this.character.occupation.includes('板'))))) return true;
+    const occ = this.character.occupation || '';
+    if (tag === 'worker' && (this.character.careerTrack === 'worker' || /工人|技工|车工|钳工|焊工|电工|矿工|操作工|装配|流水线|技师|机修|施工|搬运|司机|骑手/.test(occ))) return true;
+    if (tag === 'farmer' && (this.character.careerTrack === 'farmer' || /农民|农户|社员|农耕|养殖|种植|生产队/.test(occ))) return true;
+    if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || /教师|老师|教授|讲师|校长|园长|教研|干部|公务员|科员|主任|书记|局长|科长|干事|医师|医生|护士/.test(occ))) return true;
+    if (tag === 'tech_whitecollar' && (this.character.careerTrack === 'tech_whitecollar' || /软件|程序|研发|工程师|技术员|设计师|分析师|白领/.test(occ))) return true;
+    if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || /商人|商户|店主|老板|摊|商贸|个体户|经营/.test(occ))) return true;
     if (tag === 'uneducated') {
       const edu = this.character.educationLevel;
       const isNone = !edu || edu === '未入学' || edu === '文盲';
       const hasDiploma = this.character.tags && (this.character.tags.has('status_literate') || this.character.tags.has('status_high_school_diploma') || this.character.tags.has('status_college_diploma') || this.character.tags.has('primary') || this.character.tags.has('junior_high') || this.character.tags.has('high_school'));
       if (isNone && !hasDiploma) return true;
     }
-    if (tag === 'primary' && this.character.educationLevel && this.character.educationLevel.includes('小')) return true;
-    if (tag === 'junior_high' && this.character.educationLevel && (this.character.educationLevel.includes('初') || this.character.educationLevel.includes('中'))) return true;
-    if (tag === 'high_school' && this.character.educationLevel && (this.character.educationLevel.includes('高') || this.character.educationLevel.includes('中专'))) return true;
-    if (tag === 'college' && this.character.educationLevel && (this.character.educationLevel.includes('大') || this.character.educationLevel.includes('本') || this.character.educationLevel.includes('研'))) return true;
-    if (tag === 'higher_ed_degree' && this.character.educationLevel && (this.character.educationLevel.includes('大专') || this.character.educationLevel.includes('本') || this.character.educationLevel.includes('研') || this.character.educationLevel.includes('大学'))) return true;
+    const eduLevel = this.character.educationLevel || '';
+    const isDegree = /大学本科|大专学历|本科|硕士|博士|研究生/.test(eduLevel) && !/在读/.test(eduLevel);
+    if (tag === 'primary' && /小学|初小|高小|识字班/.test(eduLevel) && !/初中/.test(eduLevel)) return true;
+    if (tag === 'junior_high' && /初中|初级中学/.test(eduLevel)) return true;
+    if (tag === 'high_school' && /高中|普通高中|完中|中专|中职|技校|中等专业/.test(eduLevel) && !/高等院校|大学|大专/.test(eduLevel)) return true;
+    if (tag === 'college' && /大学|本科|大专|专科|研究生|硕士|博士|高等院校/.test(eduLevel)) return true;
+    if (tag === 'higher_ed_degree' && isDegree) return true;
     return false;
   }
 
@@ -816,29 +819,8 @@ class SimulationEngine {
     const isCompulsoryEra = this.character.birthYear >= 1980 || this.currentYear >= 1986;
 
     if (isCompulsoryEra) {
-      // 7岁：小学自动入学推进
-      if (age >= 7 && this.character.educationLevel === '未入学') {
-        this.character.educationLevel = '小学在读';
-        this.character.tags.add('primary');
-        this.character.milestones.push({
-          year: this.currentYear,
-          age: this.currentAge,
-          title: '步入校门：九年义务教育启蒙',
-          detail: '依照义务教育法按时免试就近入学，背上书包领到崭新的语文算术课本。'
-        });
-      }
-
-      // 12岁：初中自动直升推进
-      if (age >= 12 && (this.character.educationLevel === '小学在读' || this.character.tags.has('primary')) && !this.character.tags.has('junior_high')) {
-        this.character.educationLevel = '初中在读';
-        this.character.tags.add('junior_high');
-        this.character.milestones.push({
-          year: this.currentYear,
-          age: this.currentAge,
-          title: '升入初中：迈入少年求知新阶段',
-          detail: '小学毕业直升划片初级中学，开设代数几何与物理历史，眼界更加开阔。'
-        });
-      }
+      // 7 岁入学与 12 岁升初中统一在 advanceYear() 中自动推进并记录里程碑，
+      // 这里只保留 15–16 岁的中考分流关口，避免重复判定与重复里程碑。
 
       // 15–16岁：中考分流关口（弹出关键决策）
       if (age >= 15 && age <= 16 && (this.character.educationLevel === '初中在读' || this.character.tags.has('junior_high')) && !this.statusFlags.has('decision_zhongkao_fenliu')) {
@@ -869,12 +851,16 @@ class SimulationEngine {
         };
       }
 
-      // 18–19岁：高考关口（针对高中生）
-      if (age >= 18 && age <= 19 && (this.character.tags.has('high_school_student') || this.character.educationLevel === '普通高中') && !this.statusFlags.has('decision_gaokao_jueze')) {
-        this.statusFlags.add('decision_gaokao_jueze');
+      // 18–19岁：高考关口（针对高中生）；复读生 19–20 岁可再考一次
+      const isGaokaoRetry = age >= 19 && age <= 20 &&
+        this.statusFlags.has('repeating_gaokao') &&
+        !this.statusFlags.has('decision_gaokao_retry');
+      if ((age >= 18 && age <= 19 && (this.character.tags.has('high_school_student') || this.character.educationLevel === '普通高中') && !this.statusFlags.has('decision_gaokao_jueze')) || isGaokaoRetry) {
+        if (isGaokaoRetry) this.statusFlags.add('decision_gaokao_retry');
+        else this.statusFlags.add('decision_gaokao_jueze');
         return {
-          id: 'node_gaokao_jueze',
-          title: '六月高考：千军万马过独木桥',
+          id: isGaokaoRetry ? 'node_gaokao_retry' : 'node_gaokao_jueze',
+          title: isGaokaoRetry ? '高四复读：再战六月考场' : '六月高考：千军万马过独木桥',
           isDecision: true,
           narrative: `蝉鸣夏日的考场外围满了焦急翘首的家长。十二载寒窗苦读换来黑板上的倒计时归零，考卷翻动的沙沙声叩响人生转折大门。`,
           choices: [
@@ -1226,14 +1212,22 @@ class SimulationEngine {
       char.careerTrack = this.determineInitialCareerTrack(isUrban, null, char.familyClass, char.parentJob);
     }
 
-    // 1. 动态轨道迁跃校准 (基于重大历史抉择与玩家精力)
-    if (flags.has('college_graduate') || flags.has('attended_gaokao')) {
+    // 1. 学历毕业结算与动态轨道迁跃
+    // 高考录取只记录“入学与毕业年份”，到毕业年才结算学位；在读期间不得提前写成大学本科。
+    if (char.collegeGraduationYear && year >= char.collegeGraduationYear && !flags.has('college_graduate')) {
+      flags.add('college_graduate');
+      char.educationLevel = char.degreeType === '大专' ? '大专学历' : '大学本科';
+      char.tags.add('higher_ed_degree');
+    }
+    if (flags.has('college_graduate')) {
       if (year >= 2000 && (char.cityType === '综合科教中心' || energy.study >= 30)) {
         char.careerTrack = 'tech_whitecollar';
       } else {
         char.careerTrack = 'cadre_teacher';
       }
-      char.educationLevel = '大学本科';
+      if (!char.educationLevel || char.educationLevel === '高等院校在读') {
+        char.educationLevel = char.degreeType === '大专' ? '大专学历' : '大学本科';
+      }
     } else if (flags.has('chose_south_artisan') || flags.has('township_worker') || flags.has('certified_technician')) {
       char.careerTrack = 'worker';
     } else if (flags.has('chose_iron_bowl') || flags.has('vocational_talent')) {
@@ -1249,6 +1243,8 @@ class SimulationEngine {
 
     // 2. 年龄阶段进阶与身份定格
     let title = '平民';
+    // 1986 年义务教育法实施后（或 1980 年后出生）才有稳定的直升初中路径。
+    const isCompulsoryEra = char.birthYear >= 1980 || year >= 1986;
 
     // (A) 幼年期 (0-5岁)
     if (age <= 2) {
@@ -1258,8 +1254,7 @@ class SimulationEngine {
     }
     // (B) 少年求学与帮工期 (6-14岁)
     else if (age <= 14) {
-      const isCompulsory = char.birthYear >= 1980 || year >= 1986;
-      const isEnrolled = isCompulsory || char.tags.has('primary') || char.tags.has('junior_high') || char.educationLevel === '小学在读' || char.educationLevel === '初中在读';
+      const isEnrolled = char.tags.has('primary') || char.tags.has('junior_high') || char.educationLevel === '小学在读' || char.educationLevel === '初中在读';
 
       if (flags.has('status_dropped_out') || !isEnrolled) {
         if (!char.educationLevel || char.educationLevel === '未入学') {
@@ -1278,8 +1273,8 @@ class SimulationEngine {
           else if (year < 2000) title = '小学少先队员';
           else title = '小学学生';
         } else {
-          // 在非义务教育时代，必须读完小学且未辍学才进入初中
-          if (isCompulsory || char.tags.has('primary') || char.tags.has('junior_high')) {
+          // 读完小学且已按学制升入初中，才进入初中阶段；12 岁才补录入学的孩子先读小学。
+          if (char.tags.has('junior_high') || (isCompulsoryEra && char.tags.has('primary') && age > 12)) {
             char.educationLevel = '初中在读';
             if (year < 1950) title = '新制初中学校生';
             else if (year < 1978) title = '初中学校红卫兵';
@@ -1311,7 +1306,7 @@ class SimulationEngine {
       if (!hasDroppedOut && isHighSchool && age <= 18) {
         char.educationLevel = '高中在读';
         title = year < 1977 ? '完高学生/学农青年' : '示范高中学子';
-      } else if (!hasDroppedOut && isHigherEd && age <= 22) {
+      } else if (!hasDroppedOut && isHigherEd && age <= 22 && !flags.has('college_graduate')) {
         char.educationLevel = '高等院校在读';
         if (year < 1977) title = '工农兵推荐学员';
         else if (year < 1999) title = '全日制公费大学生';
@@ -1473,7 +1468,103 @@ class SimulationEngine {
       }
     }
 
+    // 学籍结算：超过义务教育年龄仍未升学者，不能终身停留在“小学在读/初中在读”。
+    if (age > 16) {
+      if (char.educationLevel === '小学在读') char.educationLevel = '小学文化';
+      else if (char.educationLevel === '初中在读') char.educationLevel = '初中文化';
+      else if (char.educationLevel === '高中在读') char.educationLevel = '普通高中';
+    }
+    // 高等院校在读：有明确毕业年份的保留到毕业年；无学籍凭据的按高中/中专结算。
+    if (age > 22 && char.educationLevel === '高等院校在读' && !char.collegeGraduationYear && !flags.has('college_graduate')) {
+      char.educationLevel = '普通高中';
+    }
+
     char.occupation = title;
+  }
+
+  /**
+   * 从文本中解析出明确的地理省份，用于选项级地域门槛和身份门槛。
+   * 只识别具体地名；"城市社区""沿江码头"等场景描述返回空数组，不做误杀。
+   */
+  getPlaceRuleIds(text) {
+    if (!text) return [];
+    const placeRules = [
+      { id: 'hubei', re: /湖北|武汉|鄂东|鄂北|鄂西/ },
+      { id: 'henan', re: /河南|郑州|豫东|豫南|豫北|豫西|驻马店|黄泛区/ },
+      { id: 'beijing', re: /北京|北平|京郊|京城/ },
+      { id: 'shanghai', re: /上海|沪上|淞沪/ },
+      { id: 'tianjin', re: /天津|津门|滨海/ },
+      { id: 'chongqing', re: /重庆|陪都|山城/ },
+      { id: 'hebei', re: /河北|唐山|邢台|石家庄|冀中|冀东|冀南/ },
+      { id: 'shanxi', re: /山西|太原|晋察冀|晋东北|晋东南|晋西北|正太路/ },
+      { id: 'shaanxi', re: /陕西|西安|延安|陕北|关中|陕南/ },
+      { id: 'shandong', re: /山东|济南|鲁南|鲁中|鲁西|沂蒙/ },
+      { id: 'jiangsu', re: /江苏|南京|苏州|苏北|苏南|江淮/ },
+      { id: 'zhejiang', re: /浙江|杭州|浙北|浙南/ },
+      { id: 'anhui', re: /安徽|合肥|皖北|皖南/ },
+      { id: 'fujian', re: /福建|福州|厦门|闽南|闽北/ },
+      { id: 'jiangxi', re: /江西|南昌|赣北|赣南|赣东/ },
+      { id: 'hunan', re: /湖南|长沙|湘西|湘南|湘北/ },
+      { id: 'guangdong', re: /广东|广州|深圳|珠三角|粤东|粤西|粤北/ },
+      { id: 'guangxi', re: /广西|南宁|桂林/ },
+      { id: 'hainan', re: /海南/ },
+      { id: 'sichuan', re: /四川|成都|雅安|汶川|芦山|川西|川北|川南|川陕甘/ },
+      { id: 'guizhou', re: /贵州|贵阳/ },
+      { id: 'yunnan', re: /云南|昆明|滇西|滇南|滇东/ },
+      { id: 'gansu', re: /甘肃|兰州|陇南|陇东/ },
+      { id: 'qinghai', re: /青海|玉树|西宁/ },
+      { id: 'ningxia', re: /宁夏|银川/ },
+      { id: 'xinjiang', re: /新疆|乌鲁木齐|南疆|北疆/ },
+      { id: 'xizang', re: /西藏|拉萨|藏北|藏南/ },
+      { id: 'liaoning', re: /辽宁|沈阳|大连|辽南|辽东/ },
+      { id: 'jilin', re: /吉林|长春/ },
+      { id: 'heilongjiang', re: /黑龙江|哈尔滨|北大荒/ },
+      { id: 'neimenggu', re: /内蒙古|呼和浩特|塞北/ },
+      { id: 'taiwan', re: /台湾|台北|台南/ },
+      { id: 'hongkong', re: /香港/ },
+      { id: 'macau', re: /澳门/ }
+    ];
+    return placeRules.filter(rule => rule.re.test(text)).map(rule => rule.id);
+  }
+
+  /**
+   * 校验 choiceTags 中的时代门槛。
+   * 支持 1937 / 1937–1949 / 1937-1949 以及少量语义化时代名。
+   */
+  choiceMatchesEraTag(value) {
+    const v = (value || '').trim();
+    if (!v || v === '通用时代' || v === '深渊时刻') return true;
+    if (v === '前义务教育') return this.currentYear < 1986;
+    if (v === '现代教育') return this.currentYear >= 1986;
+    if (v === '高考时代') return this.currentYear >= 1977;
+    const m = v.match(/^(\d{4})(?:\s*[-–—~至]\s*(\d{4}))?$/);
+    if (!m) return true; // 未知写法不误杀
+    const start = parseInt(m[1], 10);
+    const end = m[2] ? parseInt(m[2], 10) : start;
+    return this.currentYear >= start && this.currentYear <= end;
+  }
+
+  /**
+   * 校验 choiceTags 中的年龄门槛。
+   */
+  choiceMatchesAgeTag(value) {
+    const m = (value || '').trim().match(/^(\d+)(?:\s*[-–—~至]\s*(\d+))?$/);
+    if (!m) return true;
+    const start = parseInt(m[1], 10);
+    const end = m[2] ? parseInt(m[2], 10) : start;
+    return this.currentAge >= start && this.currentAge <= end;
+  }
+
+  /**
+   * 校验 choiceTags 中的地域门槛。全国性标签直接放行；只对明确地名做本地校验。
+   */
+  choiceMatchesRegionTag(value) {
+    const v = (value || '').trim();
+    if (!v || v === '全国' || v.startsWith('全国')) return true;
+    if (/其他省份|其他省市|其他地区|非灾区/.test(v)) return true;
+    const ids = this.getPlaceRuleIds(v);
+    if (ids.length === 0) return true; // 场景描述，不是可校验的行政地域
+    return ids.includes(this.character.provinceId);
   }
 
   /**
@@ -1492,33 +1583,18 @@ class SimulationEngine {
     const cityName = (city && city.name) || '';
     const cityShort = (city && city.shortName) || '';
     const provId = (char && char.provinceId) || '';
-    const provName = (char && char.province) || '';
+    const provinceObj = (this.provinces && this.provinces.find(p => p.id === provId)) || null;
+    const provName = (provinceObj && (provinceObj.name || provinceObj.shortName)) || '';
 
     if (/身处|处于|居于/.test(r)) {
-      if (/湖北|武汉/.test(r)) {
-        return provId === 'hubei' || cityName.includes('武汉') || cityName.includes('湖北');
+      // 明确点名“非灾区/全国其他省份”的，不做本地匹配。
+      if (/非灾区|其他省份|其他省市|其他地区/.test(r)) return true;
+      const hits = this.getPlaceRuleIds(r);
+      if (hits.length > 0) {
+        return hits.includes(provId);
       }
-      if (/郑州|河南/.test(r)) {
-        return provId === 'henan' || cityName.includes('郑州') || cityName.includes('河南');
-      }
-      if (/北京|京津/.test(r)) {
-        return provId === 'beijing' || cityName.includes('北京');
-      }
-      if (/上海|长三角/.test(r)) {
-        return provId === 'shanghai' || ['上海', '江苏', '浙江'].some(p => cityName.includes(p) || provName.includes(p));
-      }
-      if (/四川|成都|雅安|汶川|芦山/.test(r)) {
-        return provId === 'sichuan' || ['四川', '成都', '雅安', '汶川', '芦山'].some(p => cityName.includes(p));
-      }
-      if (/天津|滨海/.test(r)) {
-        return provId === 'tianjin' || cityName.includes('天津');
-      }
-      if (/青海|玉树/.test(r)) {
-        return provId === 'qinghai' || cityName.includes('青海') || cityName.includes('玉树');
-      }
-      if (/唐山/.test(r)) {
-        return provId === 'hebei' && (cityName.includes('唐山') || cityShort.includes('唐山'));
-      }
+      // “沿江/南方/北方/边区”等区域描述：方向性判断，无法精确到省时放行。
+      return true;
     }
 
     // 全国其他省份 / 其他省市 / 广大同胞 (若当前角色身处核心疫区/震中，则不作为“其他省份同胞”)
@@ -1526,6 +1602,34 @@ class SimulationEngine {
       if (/湖北|武汉/.test(r) && (provId === 'hubei' || cityName.includes('武汉'))) return false;
       if (/郑州|河南/.test(r) && (provId === 'henan' || cityName.includes('郑州'))) return false;
       return true;
+    }
+
+    // 海外/港澳台亲属关系门槛
+    if (/侨属|侨眷|台属|涉台|台胞|华侨|港澳台亲属|海外亲属/.test(r)) {
+      return this.characterHasTag('overseas_chinese_relative') ||
+             this.characterHasTag('taiwan_relative') ||
+             this.characterHasTag('华侨') ||
+             this.characterHasTag('侨属') ||
+             this.characterHasTag('台属') ||
+             /侨|台属|台胞/.test(occ);
+    }
+
+    // 智能终端/网民门槛（1980 年代不可能拥有智能手机）
+    if (/智能手机|手机用户|网民|微信|短视频|数字原住民/.test(r)) {
+      return this.currentYear >= 2010;
+    }
+
+    // 支前/民工/百姓等群众角色：不要求军人身份
+    if (/支前|民工|担架|老乡|船工|艄公|百姓|群众|军民|妇孺/.test(r)) {
+      return age >= 12;
+    }
+
+    // 军队/战争身份：普通工人、农民不得被误认作八路军/野战军将士
+    if (/八路军|新四军|解放军|志愿军|红军|华野|东野|野战军|战将|将士|战士|官兵|军人|老兵|民兵|游击|武工队|军属|烈属|敢死队|守军|远征军|飞虎队/.test(r)) {
+      if (this.characterHasTag('military') || this.characterHasTag('pilot')) return true;
+      if (/军|兵|警|战|部队|飞行|空勤/.test(occ)) return true;
+      // 抗战/解放战争时期的支前民兵与地方武装，另由上面的群众分支处理。
+      return false;
     }
 
     // 1. 医护与公卫专业人员
@@ -1658,12 +1762,27 @@ class SimulationEngine {
         }
       }
 
-      // 2. 校验 choiceTags 中的门槛标签
+      // 2. 校验 choiceTags 中的全部可执行门槛：时代 / 年龄 / 地域 / 身份
       if (isEligible && c.choiceTags && Array.isArray(c.choiceTags)) {
         for (const t of c.choiceTags) {
+          if (typeof t !== 'string') continue;
           if (t.startsWith('门槛：')) {
-            const gate = t.slice(3);
-            if (!this.characterMatchesPersonaRole(gate)) {
+            if (!this.characterMatchesPersonaRole(t.slice(3))) {
+              isEligible = false;
+              break;
+            }
+          } else if (t.startsWith('时代：')) {
+            if (!this.choiceMatchesEraTag(t.slice(3))) {
+              isEligible = false;
+              break;
+            }
+          } else if (t.startsWith('年龄：')) {
+            if (!this.choiceMatchesAgeTag(t.slice(3))) {
+              isEligible = false;
+              break;
+            }
+          } else if (t.startsWith('地域：')) {
+            if (!this.choiceMatchesRegionTag(t.slice(3))) {
               isEligible = false;
               break;
             }
@@ -1677,8 +1796,8 @@ class SimulationEngine {
     }
 
     // 若原事件存在特定人群分支且过滤后留下了合规选项
-    if (hadPersonaChoices && matched.length > 0) {
-      if (matched.length === 1) {
+    if (matched.length > 0) {
+      if (hadPersonaChoices && matched.length === 1) {
         matched.push({
           text: '立足自身当下岗位与家庭实际，遵从公共指引，平稳理性应对外部变局',
           choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：理性国民'],
@@ -1698,50 +1817,39 @@ class SimulationEngine {
       return cloned;
     }
 
-    // 若过滤后完全没有剩下选项（例如全是飞行员/核专家的极端选项），自动生成合情合理的大众应对
-    if (hadPersonaChoices && matched.length === 0) {
-      cloned.choices = [
-        {
-          text: '严格遵从国家号召与后方调度指引，安守本职岗位，密切关注战事与局势发展',
-          choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：普通国民'],
-          outcomes: [
-            {
-              type: 'safe',
-              weight: 90,
-              log: '在时代洪流中安分守己做好本职工作，平稳度过风暴期。',
-              effect: { mentality: 15, family: 10 },
-              isFatal: false,
-              hiddenRiskLog: '在重大时代历史关头坚守平凡岗位，护卫小家安宁。'
-            },
-            {
-              type: 'safe',
-              weight: 10,
-              log: '积极参与社区或街道组织的爱心互助活动，略尽公民绵薄之力。',
-              effect: { mentality: 20, wealth: -5 },
-              isFatal: false,
-              hiddenRiskLog: '在大时代变局中奉献微光温情。'
-            }
-          ]
-        },
-        {
-          text: '以家庭为重心做好日常生活保障与防范，关照老人孩子平稳度日',
-          choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：家庭支柱'],
-          outcomes: [
-            {
-              type: 'safe',
-              weight: 100,
-              log: '未盲目冲动卷入风暴中心，守住家庭基本盘安稳如常。',
-              effect: { family: 20, mentality: 10 },
-              isFatal: false,
-              hiddenRiskLog: '坚韧守护家庭避开外部动荡冲击。'
-            }
-          ]
-        }
-      ];
-      return cloned;
-    }
-
-    return decision;
+    // 若过滤后完全没有剩下选项（例如全是飞行员/核专家的极端选项），
+    // 必须生成任何普通角色都能执行的兜底选项，避免空弹窗卡死流程。
+    cloned.choices = [
+      {
+        text: '冷静评估自身年龄、职业与家庭处境，选择最稳妥的应对方式',
+        choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：普通国民'],
+        outcomes: [
+          {
+            type: 'safe',
+            weight: 100,
+            log: '权衡利弊后采取稳妥做法，避免因一时冲动造成不可逆的损失。',
+            effect: { mentality: 10, family: 10 },
+            isFatal: false,
+            hiddenRiskLog: '在不确定的处境中保持克制与理性。'
+          }
+        ]
+      },
+      {
+        text: '以家庭生计与健康为重，先守住眼前的生活基本盘',
+        choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：普通国民'],
+        outcomes: [
+          {
+            type: 'safe',
+            weight: 100,
+            log: '把有限的时间与资源先用于家人和生计，平稳度过这段时期。',
+            effect: { family: 20, mentality: 10 },
+            isFatal: false,
+            hiddenRiskLog: '在变局中优先守护家庭的基本安稳。'
+          }
+        ]
+      }
+    ];
+    return cloned;
   }
 
   /**
@@ -1752,6 +1860,7 @@ class SimulationEngine {
     if (decision.id === 'evt_2022_covid_lockdown' || decision.id === 'evt_2022_covid_lockdown_6strata') {
       const age = this.currentAge;
       const track = this.character ? this.character.careerTrack : 'worker';
+      const edu = this.character ? (this.character.educationLevel || '') : '';
       const eventId = decision.id;
 
       // 1. 高龄退养群体 (>=60岁)
@@ -1779,8 +1888,38 @@ class SimulationEngine {
         };
       }
 
-      // 2. 青少年与在读学子 (<23岁)
-      if (age < 23) {
+      // 2. 学龄儿童与中小学生 (<16岁)：居家网课，而不是考研/就业话题
+      if (age < 16) {
+        return {
+          id: eventId,
+          title: '居家网课、核酸打卡与特殊学期',
+          isDecision: true,
+          historicalFact: '2022年多地中小学阶段性转入线上教学，校园实行闭环管理，家庭成为学习与防疫的最小单元。',
+          narrative: '书包里除了课本，还多了一沓核酸抗原试剂和备用口罩。课堂搬进了平板电脑的直播间，体育课变成客厅里的跳绳打卡。父母一边远程办公，一边盯着你按时上传作业，窗外的街道安静得能听见风声。',
+          choices: [
+            {
+              text: '按学校课表认真上网课，课后主动帮家里分担家务',
+              effect: { "knowledge": 15, "mentality": 10, "family": 15 },
+              status: "covid_child_online",
+              log: '在特殊学期里守住了学习节奏，也体会到父母操持家务的不易。'
+            },
+            {
+              text: '利用居家时间多读课外书，坚持室内锻炼保护视力',
+              effect: { "knowledge": 10, "health": 15, "mentality": 10 },
+              status: "covid_child_reading",
+              log: '把居家的日子过成了充实的阅读与锻炼时光，身心都得到舒展。'
+            }
+          ]
+        };
+      }
+
+      // 3. 高校在读学子 (18-22岁)：闭环管理、线上答辩与考公考研
+      const isHigherEdStudent = age >= 18 && (
+        /大学|大专|本科|专科|高等院校/.test(edu) ||
+        this.characterHasTag('college_degree') ||
+        this.characterHasTag('junior_college_degree')
+      );
+      if (isHigherEdStudent && age < 23) {
         return {
           id: eventId,
           title: '高校闭环管理、线上答辩与考公考研大潮',
@@ -1804,7 +1943,58 @@ class SimulationEngine {
         };
       }
 
-      // 3. 体制内/教师/医护群组
+      // 4. 高中/中职在读学子 (16-22岁)：网课、考试调整与升学选择
+      if (age < 23 && (/高中|中专|技校|中职/.test(edu) || this.characterHasTag('high_school_student') || this.characterHasTag('vocational_student'))) {
+        return {
+          id: eventId,
+          title: '高中网课、考试调整与升学关口',
+          isDecision: true,
+          historicalFact: '2022年部分高中与中职学校阶段性开展线上教学，各类考试安排随防疫形势动态调整。',
+          narrative: '黑板换成了屏幕，早读改在云端打卡。老师反复提醒注意考试时间调整，家长在群里接力打印复习资料。面对不确定的升学节奏，你只能把书桌收拾得更整齐，把每一天的计划排得更满。',
+          choices: [
+            {
+              text: '紧跟学校网课节奏，按计划复习备考',
+              effect: { "knowledge": 20, "mentality": -5, "health": -5 },
+              status: "covid_secondary_study",
+              log: '在反复调整的考试安排中稳住复习节奏，把不确定性降到最低。'
+            },
+            {
+              text: '文化课之外学一门实用技能，为升学与就业留后路',
+              effect: { "knowledge": 10, "wealth": 10, "mentality": 10 },
+              status: "covid_secondary_skill",
+              log: '利用居家时间掌握了实用技能，为未来多留了一条踏实的出路。'
+            }
+          ]
+        };
+      }
+
+      // 5. 医护与公卫人员：核酸采样、发热门诊与院感防控
+      if (this.characterHasTag('doctor') || this.characterHasTag('nurse') || this.characterHasTag('barefoot_doctor') ||
+          (this.character.occupation && /医|护|卫生|防疫|疾控|药剂/.test(this.character.occupation))) {
+        return {
+          id: eventId,
+          title: '发热门诊、核酸采样与院感防线',
+          isDecision: true,
+          historicalFact: '2022年医疗机构承担大规模核酸筛查、发热门诊值守与院感防控任务，医护与公卫人员长期处于高负荷状态。',
+          narrative: '防护服一穿就是六七个小时，面屏上的水汽模糊了视线。发热门诊、核酸采样点和病房三头轮转，手机里家人的未接来电越积越多。面对不断变化的防控方案，你必须在疲惫中保持专业与冷静。',
+          choices: [
+            {
+              text: '坚守发热门诊与采样一线，严格执行院感防护流程',
+              effect: { "knowledge": 20, "mentality": 15, "health": -20 },
+              status: "covid_medic_frontline",
+              log: '在高负荷轮转中守住了院感底线，也赢得了同事与患者的敬重。'
+            },
+            {
+              text: '主动申请轮休调整，利用间隙学习最新诊疗方案',
+              effect: { "health": 15, "knowledge": 15, "mentality": 10 },
+              status: "covid_medic_rest",
+              log: '在连轴转之后及时调整状态，以更稳妥的方式继续守住岗位。'
+            }
+          ]
+        };
+      }
+
+      // 6. 体制内/教师/公职人员群组
       if (track === 'cadre_teacher') {
         return {
           id: eventId,
@@ -1879,7 +2069,81 @@ class SimulationEngine {
         };
       }
 
-      // 6. 商户、个体与灵活人员
+      // 7. 农业劳动者：春耕备耕、农资运输与农产品保供
+      if (track === 'farmer') {
+        return {
+          id: eventId,
+          title: '春耕备耕、农资下摆与农产品保供',
+          isDecision: true,
+          historicalFact: '2022年各地在防控同时统筹春耕备耕与农产品保供，农资运输、返乡务农与产销对接面临阶段性困难。',
+          narrative: '化肥和种子还堵在县城的卡口，田里的秧苗却等不得。村干部一遍遍核对返乡人员名单，收购商的大车进不了村。你蹲在田埂上盘算着农时，手机里是不断跳动的农资价格和收购信息。',
+          choices: [
+            {
+              text: '主动对接村里与供销社，想办法把农资运进田、把农产品卖出去',
+              effect: { "wealth": 15, "mentality": 10, "health": -10 },
+              status: "covid_farmer_supply",
+              log: '跑前跑后打通农资与销路，在特殊年份里保住了地里的收成。'
+            },
+            {
+              text: '稳扎稳打先保口粮与基本生活，缩减高风险的经济作物',
+              effect: { "family": 20, "mentality": 10, "wealth": -5 },
+              status: "covid_farmer_subsistence",
+              log: '把风险降到最低，先守住一家人的口粮与基本生计。'
+            }
+          ]
+        };
+      }
+
+      // 8. 灵活就业与物流配送人员：保供链条上的奔波
+      if (track === 'flexible_labor') {
+        return {
+          id: eventId,
+          title: '保供配送、卡口通行与平台订单波动',
+          isDecision: true,
+          historicalFact: '2022年保供物流与同城配送承担重要民生通道作用，骑手、司机与灵活就业者面临通行、隔离与订单波动的多重压力。',
+          narrative: '手机里的订单提示音和核酸倒计时交替响起。封控小区门口堆满待送的米面蔬菜，通行证、健康码与行程卡缺一不可。你一边盘算今天的油钱和单量，一边担心回不了家。',
+          choices: [
+            {
+              text: '办好通行手续，优先接下社区保供与老人药品的急单',
+              effect: { "wealth": 15, "mentality": 15, "health": -20 },
+              status: "covid_delivery_supply",
+              log: '在保供链条上跑出了最忙的一段路，也收获了街坊邻里的真心感谢。'
+            },
+            {
+              text: '减少跨区流动，转做就近零单与线上兼职，先保住安全',
+              effect: { "health": 15, "wealth": -10, "family": 15 },
+              status: "covid_delivery_safe",
+              log: '主动收缩活动范围，宁可少赚一点也要守住自身与家人的安全。'
+            }
+          ]
+        };
+      }
+
+      // 9. 商户、个体经营者
+      if (track !== 'merchant') {
+        return {
+          id: eventId,
+          title: '特殊时期的日常生计与家庭守护',
+          isDecision: true,
+          historicalFact: '2022年不同行业与家庭都在防控调整中重新安排工作与生活节奏。',
+          narrative: '出入小区要扫码，上班与买菜都要掐着核酸时间。工作节奏被打乱，家里的老人孩子需要照顾，收入与开支却一样不能少。你在不确定的日子里反复权衡，寻找最稳妥的安排。',
+          choices: [
+            {
+              text: '服从社区安排，稳住现有工作与收入，减少不必要流动',
+              effect: { "wealth": 10, "health": 10, "mentality": 5 },
+              status: "covid_general_work",
+              log: '在特殊时期守住了工作与生活的基本盘。'
+            },
+            {
+              text: '把更多时间留给家人，照顾老人孩子并料理好家中储备',
+              effect: { "family": 20, "mentality": 10, "wealth": -5 },
+              status: "covid_general_family",
+              log: '在不确定的日子里，家人的平安与陪伴成了最踏实的依靠。'
+            }
+          ]
+        };
+      }
+
       return {
         id: eventId,
         title: '实体客流冲击、社区保供团长与现金流生死线',
@@ -1911,12 +2175,37 @@ class SimulationEngine {
         (this.character.cityHistoricalName && this.character.cityHistoricalName.includes('武汉'))
       );
       const isMedic = this.character && (
-        (this.character.occupation && (this.character.occupation.includes('医') || this.character.occupation.includes('护'))) ||
-        (this.character.careerTrack === 'cadre_teacher' && !this.statusFlags.has('certified_public_teacher'))
+        this.characterHasTag('doctor') ||
+        this.characterHasTag('nurse') ||
+        this.characterHasTag('barefoot_doctor') ||
+        (this.character.occupation && /医|护|卫生|防疫|疾控|药剂/.test(this.character.occupation))
       );
 
       // 1. 湖北及武汉封控核心区居民
       if (isHubei) {
+        if (this.currentAge < 16) {
+          return {
+            id: decision.id,
+            title: '庚子寒假：封城之下的居家童年',
+            isDecision: true,
+            historicalFact: decision.historicalFact,
+            narrative: '寒假被无限拉长，开学日期一再推迟。窗外的小区安静下来，电视里反复播放着戴口罩、勤洗手的提醒。你趴在窗边看楼下穿防护服的叔叔阿姨送菜，第一次知道“封城”两个字有多重。',
+            choices: [
+              {
+                text: '听父母的话乖乖待在家里，按老师要求完成线上作业',
+                effect: { "knowledge": 15, "family": 15, "health": 10 },
+                status: "wuhan_child_home",
+                log: '在漫长的封城寒假里守住了学习和健康，也记住了那段特殊的日子。'
+              },
+              {
+                text: '帮父母分担家务，给楼上的独居老人送菜递药',
+                effect: { "family": 20, "mentality": 15, "health": -5 },
+                status: "wuhan_child_helper",
+                log: '在力所能及的互助中体会到邻里守望的温暖。'
+              }
+            ]
+          };
+        }
         return {
           id: decision.id,
           title: '庚子新春突发新冠疫情与武汉保卫战',
@@ -2043,7 +2332,32 @@ class SimulationEngine {
         };
       }
 
-      // 3. 全国其他省市普通居民
+      // 3. 全国其他省市未成年学生
+      if (this.currentAge < 16) {
+        return {
+          id: decision.id,
+          title: '庚子寒假：居家防疫与线上课堂',
+          isDecision: true,
+          historicalFact: decision.historicalFact,
+          narrative: '春节的串门拜年被取消，开学日期一推再推。老师第一次在屏幕那头布置作业，父母每天出门前都要检查口罩。你待在家里，透过窗户看着空荡荡的街道，盼着能早点回到学校和同学见面。',
+          choices: [
+            {
+              text: '认真完成线上作业，坚持在家锻炼身体',
+              effect: { "knowledge": 15, "health": 10, "mentality": 5 },
+              status: "covid_child_homework",
+              log: '在特殊假期里保持了学习与锻炼的习惯。'
+            },
+            {
+              text: '帮父母做力所能及的家务，提醒家人勤洗手戴口罩',
+              effect: { "family": 20, "mentality": 10, "knowledge": 5 },
+              status: "covid_child_family",
+              log: '在居家防疫中学会了照顾家人，也懂得了健康的重要。'
+            }
+          ]
+        };
+      }
+
+      // 4. 全国其他省市普通居民
       return {
         id: decision.id,
         title: '庚子新春突发新冠疫情：举国同心与全民抗疫',
@@ -2378,21 +2692,35 @@ class SimulationEngine {
     }
     const era = this.getEraForYear(this.currentYear);
 
-    // 0. 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
-    this.updateCareerStage();
-
-    // 0.5 义务教育默认路径自动推进 (1980年后出生或1986年后，不再跳弹出工/辍学弹窗，仅在分流节点弹出)
+    // 0. 义务教育默认路径自动推进 (1980年后出生或1986年后，不再跳弹出工/辍学弹窗，仅在分流节点弹出)
+    // 仅对适龄少年生效：超过 16 岁仍未入学的成年人不再被“补录”为小学/初中在读。
     const isCompulsoryEra = this.character.birthYear >= 1980 || this.currentYear >= 1986;
-    if (isCompulsoryEra && this.character.birthYear < 2010) {
-      if (this.currentAge >= 7 && this.character.educationLevel === '未入学') {
+    if (isCompulsoryEra && this.currentAge >= 7 && this.currentAge <= 16) {
+      const wasPrimaryBefore = this.character.educationLevel === '小学在读' || this.character.tags.has('primary');
+      if (this.character.educationLevel === '未入学') {
         this.character.educationLevel = '小学在读';
         this.character.tags.add('primary');
+        this.character.milestones.push({
+          year: this.currentYear,
+          age: this.currentAge,
+          title: '步入校门：九年义务教育启蒙',
+          detail: '依照义务教育法按时免试就近入学，背上书包领到崭新的语文算术课本。'
+        });
       }
-      if (this.currentAge >= 12 && (this.character.educationLevel === '小学在读' || this.character.tags.has('primary')) && !this.character.tags.has('junior_high')) {
+      if (this.currentAge >= 12 && wasPrimaryBefore && !this.character.tags.has('junior_high') && this.character.educationLevel === '小学在读') {
         this.character.educationLevel = '初中在读';
         this.character.tags.add('junior_high');
+        this.character.milestones.push({
+          year: this.currentYear,
+          age: this.currentAge,
+          title: '升入初中：迈入少年求知新阶段',
+          detail: '小学毕业直升划片初级中学，开设代数几何与物理历史，眼界更加开阔。'
+        });
       }
     }
+
+    // 0.1 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
+    this.updateCareerStage();
 
     // 1. 自然灾害碰撞命中检验（这是人生的残酷天谴）
     const disasterStrike = this.checkNaturalDisaster();
@@ -2574,7 +2902,9 @@ class SimulationEngine {
 
     // 6. 若有主动决策触发，暂停推进等待玩家选择 (千人千面适配)
     if (activeDecision && activeDecision.isDecision) {
-      activeDecision = this.adaptDecisionToPersona(activeDecision);
+      // 适配后的千人千面分支同样要经过时代/年龄/地域/身份门槛过滤，
+      // 避免儿童拿到成人选项、普通职工被套上医护/商户剧情。
+      activeDecision = this.filterAndPolishChoices(this.adaptDecisionToPersona(activeDecision));
       this.currentPendingDecision = activeDecision;
       return {
         isDecision: true,
@@ -2691,7 +3021,7 @@ class SimulationEngine {
             }
           ]
         };
-      } else if (decisionId === 'node_gaokao_jueze') {
+      } else if (decisionId === 'node_gaokao_jueze' || decisionId === 'node_gaokao_retry') {
         evt = {
           title: '六月高考：千军万马过独木桥',
           choices: [
@@ -2914,13 +3244,24 @@ class SimulationEngine {
       this.character.tags.add(outcomeStatus);
       this.statusFlags.add(outcomeStatus);
 
+      const isGaokaoDecision = decisionId === 'node_gaokao_jueze' || decisionId === 'node_gaokao_retry';
+
       if (outcomeStatus === 'married') {
         this.character.maritalStatus = '已婚';
       }
       if (outcomeStatus === 'has_children') {
         this.character.hasChildren = true;
       }
-      if (outcomeStatus === 'college_degree' || outcomeStatus === 'class_of_77_elite' || outcomeStatus === 'expanded_college_student' || outcomeStatus === 'lianda_scholar_elite' || outcomeStatus === 'overseas_scholar' || outcomeStatus === 'overseas_phd_scholar') {
+      if (isGaokaoDecision && (outcomeStatus === 'college_degree' || outcomeStatus === 'junior_college_degree')) {
+        // 录取不等于毕业：记录学制，到毕业年份再由 updateCareerStage 结算学位。
+        this.statusFlags.add('attended_gaokao');
+        this.character.degreeType = outcomeStatus === 'junior_college_degree' ? '大专' : '本科';
+        this.character.collegeGraduationYear = this.currentYear + (outcomeStatus === 'junior_college_degree' ? 3 : 4);
+        this.character.educationLevel = '高等院校在读';
+      } else if (isGaokaoDecision && outcomeStatus === 'repeating_gaokao') {
+        this.statusFlags.add('attended_gaokao');
+        this.character.educationLevel = '普通高中';
+      } else if (outcomeStatus === 'college_degree' || outcomeStatus === 'class_of_77_elite' || outcomeStatus === 'expanded_college_student' || outcomeStatus === 'lianda_scholar_elite' || outcomeStatus === 'overseas_scholar' || outcomeStatus === 'overseas_phd_scholar') {
         this.character.educationLevel = '大学本科';
         this.character.tags.add('higher_ed_degree');
       } else if (outcomeStatus === 'junior_college_degree' || outcomeStatus === 'highschool_to_college' || outcomeStatus === 'self_made_scholar_1977') {
@@ -3483,7 +3824,7 @@ class SimulationEngine {
     const era = this.getEraForYear(birthYear);
     const expectedLife = era.lifeExpectancy;
 
-    const isAlive2026 = (this.deathInfo && this.deathInfo.isAliveIn2026) || this.currentYear >= 2026;
+    const isAlive2026 = !!(this.deathInfo && this.deathInfo.isAliveIn2026 === true);
 
     // 针对 2026 年依然在世的角色（未完待续，根据生命表展现健康余命）
     if (isAlive2026) {
@@ -3744,6 +4085,7 @@ class SimulationEngine {
       parentJob = this.sampleRuralJob(indEraKey);
     }
     const familyClass = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
+    const initCareerTrack = this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob);
 
     const attributes = {
       health: 82,
@@ -3778,9 +4120,19 @@ class SimulationEngine {
       siblingsCount: 2,
       attributes,
       educationLevel: '未入学',
-      careerTrack: this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob),
+      careerTrack: initCareerTrack,
       careerRank: '初生幼年',
       occupation: isUrban ? '城镇孩童' : '乡野幼童',
+      tags: new Set([
+        urbanRural,
+        sex === '男' ? 'male' : 'female',
+        province.id,
+        initCareerTrack,
+        '温饱'
+      ]),
+      causalityReview: [],
+      maritalStatus: '未婚',
+      hasChildren: false,
       milestones: [],
       survivedDisasters: [],
       lifelineHistory: [
