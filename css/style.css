@@ -204,6 +204,10 @@ img {
   padding-top: 10px;
 }
 
+.herotext {
+  max-width: 800px;
+}
+
 .kicker {
   font-family: var(--f-mono);
   font-size: 12.5px;
@@ -790,6 +794,21 @@ img {
 .speed .ff {
   font-family: var(--f-body);
   font-weight: 500;
+}
+
+.sps {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.themebtn2 {
+  min-width: 34px;
+  height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 
 /* Life 2-Column Responsive Layout */
@@ -1560,6 +1579,10 @@ img {
   padding: 20px 24px;
   text-align: center;
   animation: slideUp 0.4s ease;
+}
+
+.continue-header {
+  margin-bottom: 12px;
 }
 
 .continue-badge {

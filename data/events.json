@@ -17786,6 +17786,41 @@
             "hiddenRiskLog": "职业剧变经受心理大考，在家人陪伴下走出低谷重振旗鼓。"
           }
         ]
+      },
+      {
+        "text": "若为在读中小学生，甩掉周末赶场补习的沉重书包包袱，把精力投入操场锻炼、科普探索与课外素质阅读",
+        "choiceTags": [
+          "时代：2021–2022",
+          "年龄：8–18",
+          "地域：全国城镇",
+          "门槛：中小学在校学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "周末告别做不完的补习卷子，在绿茵场踢球强健体魄，广泛涉猎人文历史与科学书籍，身心阳光开朗。",
+            "effect": {
+              "health": 25,
+              "knowledge": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在双减减负中重拾童真与运动爱好，身心全面发展打下坚实人生基石。",
+            "status": "all_round_student"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "课业减负后自主探索编程与绘画特长，在青少年创新科创比赛中摘得奖项。",
+            "effect": {
+              "knowledge": 30,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "校外减负激发了自主科创潜能与创新求知欲。"
+          }
+        ]
       }
     ]
   },
@@ -20282,9 +20317,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "higher_ed_degree"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.08,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "1978年邓小平作出扩大派遣留学生重要战略决策，开启公派留学先河。80年代托福热与自费留学兴起，无数青年漂洋过海‘洋插队’半工半读，90年代后留学走向大众化普及，大批学成归国英才成为国家栋梁。",
@@ -22070,11 +22107,10 @@
       "urbanRural": "urban"
     },
     "preTags": [
-      "worker",
-      "cadre_teacher"
+      "tech_whitecollar"
     ],
     "excludeTags": [],
-    "triggerProbability": 0.12,
+    "triggerProbability": 0.2,
     "coolingPeriod": 8,
     "factLevel": "确证",
     "historicalFact": "中国互联网与软件信息技术产业飞速发展，催生了数百万研发工程师。高强度高脑力劳作下，‘996’加班、颈椎病和腰椎间盘突出成为普遍的职业健康挑战。",
@@ -22276,9 +22312,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "smoker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "烟草消费在中国历史悠久，从早期的旱烟袋到卷烟。医学明确证明吸烟是慢阻肺（COPD）、冠心病和肺癌的首要危险因素，戒烟越早健康获益越大。",
@@ -22382,9 +22420,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "drinker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "饮酒应酬文化在人情社会广泛存在。酗酒不仅增加脂肪肝、肝硬化风险，暴饮暴食更极易诱发致命的急性重症胰腺炎。",
@@ -22487,9 +22527,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "swimmer"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.12,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "夏日野泳是许多青少年和水乡居民的爱好。未开发野外水域水温温差大、水草缠足和水下暗流漩涡常常是溺水事故的元凶。",
@@ -22592,9 +22634,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "hiker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.12,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "高山徒步探险风靡全国。高海拔地区天气瞬息万变，大风、降水和低温叠加极易迅速带走人体热量导致致命的‘失温’（Hypothermia）。",
@@ -22917,9 +22961,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "stay_up_late"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "长期颠倒昼夜、通宵熬夜追剧刷手机或加班，会导致交感神经过度兴奋、内分泌紊乱，引发功能性频发室性早搏乃至恶性心律失常。",

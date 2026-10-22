@@ -3987,6 +3987,41 @@
             "hiddenRiskLog": "职业剧变经受心理大考，在家人陪伴下走出低谷重振旗鼓。"
           }
         ]
+      },
+      {
+        "text": "若为在读中小学生，甩掉周末赶场补习的沉重书包包袱，把精力投入操场锻炼、科普探索与课外素质阅读",
+        "choiceTags": [
+          "时代：2021–2022",
+          "年龄：8–18",
+          "地域：全国城镇",
+          "门槛：中小学在校学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "周末告别做不完的补习卷子，在绿茵场踢球强健体魄，广泛涉猎人文历史与科学书籍，身心阳光开朗。",
+            "effect": {
+              "health": 25,
+              "knowledge": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在双减减负中重拾童真与运动爱好，身心全面发展打下坚实人生基石。",
+            "status": "all_round_student"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "课业减负后自主探索编程与绘画特长，在青少年创新科创比赛中摘得奖项。",
+            "effect": {
+              "knowledge": 30,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "校外减负激发了自主科创潜能与创新求知欲。"
+          }
+        ]
       }
     ]
   },

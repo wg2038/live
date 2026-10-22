@@ -896,11 +896,10 @@
       "urbanRural": "urban"
     },
     "preTags": [
-      "worker",
-      "cadre_teacher"
+      "tech_whitecollar"
     ],
     "excludeTags": [],
-    "triggerProbability": 0.12,
+    "triggerProbability": 0.2,
     "coolingPeriod": 8,
     "factLevel": "确证",
     "historicalFact": "中国互联网与软件信息技术产业飞速发展，催生了数百万研发工程师。高强度高脑力劳作下，‘996’加班、颈椎病和腰椎间盘突出成为普遍的职业健康挑战。",
@@ -1102,9 +1101,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "smoker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "烟草消费在中国历史悠久，从早期的旱烟袋到卷烟。医学明确证明吸烟是慢阻肺（COPD）、冠心病和肺癌的首要危险因素，戒烟越早健康获益越大。",
@@ -1208,9 +1209,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "drinker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "饮酒应酬文化在人情社会广泛存在。酗酒不仅增加脂肪肝、肝硬化风险，暴饮暴食更极易诱发致命的急性重症胰腺炎。",
@@ -1313,9 +1316,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "swimmer"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.12,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "夏日野泳是许多青少年和水乡居民的爱好。未开发野外水域水温温差大、水草缠足和水下暗流漩涡常常是溺水事故的元凶。",
@@ -1418,9 +1423,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "hiker"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.12,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "高山徒步探险风靡全国。高海拔地区天气瞬息万变，大风、降水和低温叠加极易迅速带走人体热量导致致命的‘失温’（Hypothermia）。",
@@ -1743,9 +1750,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "stay_up_late"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.05,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "长期颠倒昼夜、通宵熬夜追剧刷手机或加班，会导致交感神经过度兴奋、内分泌紊乱，引发功能性频发室性早搏乃至恶性心律失常。",

@@ -489,14 +489,18 @@ class SimulationEngine {
       if (hitCity || hitProvince) {
         this.statusFlags.add(`disaster_done_${dis.id}`);
 
-        // 城市直接在震中/溃坝名单中，遭击中概率倍增
-        const severityMultiplier = hitCity ? 1.0 : 0.6;
+        // 核心受灾城市（震中/直溃口）按完整灾难伤亡概率判定
+        // 外围波及省份城市主要承受震感、物价冲击与后方救助，伤亡率大幅衰减至写实区间，避免百万非灾区人口异常灭绝
+        const deathMult = hitCity ? 1.0 : 0.015;
+        const injuryMult = hitCity ? 1.0 : 0.08;
+        const familyLossMult = hitCity ? 1.0 : 0.06;
+        const wealthWipeMult = hitCity ? 1.0 : 0.10;
         const rolls = dis.casualtyRoll;
 
-        const isKilled = Math.random() < (rolls.deathProb * severityMultiplier);
-        const isInjured = !isKilled && (Math.random() < (rolls.injuryProb * severityMultiplier));
-        const isFamilyLost = Math.random() < (rolls.familyLossProb * severityMultiplier);
-        const isWealthWiped = Math.random() < (rolls.wealthWipeProb * severityMultiplier);
+        const isKilled = Math.random() < (rolls.deathProb * deathMult);
+        const isInjured = !isKilled && (Math.random() < (rolls.injuryProb * injuryMult));
+        const isFamilyLost = Math.random() < (rolls.familyLossProb * familyLossMult);
+        const isWealthWiped = Math.random() < (rolls.wealthWipeProb * wealthWipeMult);
 
         return {
           disaster: dis,
@@ -504,7 +508,8 @@ class SimulationEngine {
           isInjured,
           isFamilyLost,
           isWealthWiped,
-          isHit: true
+          isHit: true,
+          isPeripheral: !hitCity
         };
       }
     }
@@ -530,6 +535,7 @@ class SimulationEngine {
     if (tag === 'worker' && (this.character.careerTrack === 'worker' || (this.character.occupation && this.character.occupation.includes('工')))) return true;
     if (tag === 'farmer' && (this.character.careerTrack === 'farmer' || (this.character.occupation && (this.character.occupation.includes('农') || this.character.occupation.includes('社员'))))) return true;
     if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || (this.character.occupation && (this.character.occupation.includes('师') || this.character.occupation.includes('医') || this.character.occupation.includes('干'))))) return true;
+    if (tag === 'tech_whitecollar' && (this.character.careerTrack === 'tech_whitecollar' || (this.character.occupation && (this.character.occupation.includes('软件') || this.character.occupation.includes('程序') || this.character.occupation.includes('研发') || this.character.occupation.includes('工程师'))))) return true;
     if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || (this.character.occupation && (this.character.occupation.includes('商') || this.character.occupation.includes('店') || this.character.occupation.includes('板'))))) return true;
     if (tag === 'primary' && this.character.educationLevel && this.character.educationLevel.includes('小')) return true;
     if (tag === 'junior_high' && this.character.educationLevel && (this.character.educationLevel.includes('初') || this.character.educationLevel.includes('中'))) return true;
@@ -820,10 +826,13 @@ class SimulationEngine {
       }
     }
 
-    // 青年婚育抉择 (21-35岁，未婚且不在冷却期)
+    // 青年婚育抉择 (21-35岁，未婚且不在冷却期，与相亲结婚事件共享冷却)
     if (age >= 21 && age <= 35 && this.character.maritalStatus !== '已婚') {
-      if (!this.eventCooldowns['node_marriage'] || this.currentYear >= this.eventCooldowns['node_marriage']) {
-        this.eventCooldowns['node_marriage'] = this.currentYear + 3;
+      const isMarriageCooling = (this.eventCooldowns['node_marriage'] && this.currentYear < this.eventCooldowns['node_marriage']) ||
+                                (this.eventCooldowns['evt_life_xiangqin_jiehun'] && this.currentYear < this.eventCooldowns['evt_life_xiangqin_jiehun']);
+      if (!isMarriageCooling) {
+        this.eventCooldowns['node_marriage'] = this.currentYear + 4;
+        this.eventCooldowns['evt_life_xiangqin_jiehun'] = this.currentYear + 4;
         return {
           id: 'node_marriage',
           title: '成家立业关口',
@@ -935,9 +944,11 @@ class SimulationEngine {
     let baseRate = 0.001;
 
     // 分年龄段真实生命表基准率（参考国家统计局分年龄死亡率生命表，乘以时代修正系数）
-    if (age <= 1) {
+    if (age === 0) {
+      // 婴儿死亡率（0岁至1周岁前）
       baseRate = (era.infantMortality || 50) / 1000.0;
     } else if (age < 5) {
+      // 1-4岁幼儿期（死亡率回归幼儿正常生命表基准）
       baseRate = 0.0012 * eraFactor;
     } else if (age < 15) {
       baseRate = 0.0005 * eraFactor;
@@ -1132,7 +1143,13 @@ class SimulationEngine {
     }
     // (B) 少年求学与帮工期 (6-14岁)
     else if (age <= 14) {
-      if (flags.has('status_dropped_out')) {
+      const isCompulsory = char.birthYear >= 1980 || year >= 1986;
+      const isEnrolled = isCompulsory || char.tags.has('primary') || char.tags.has('junior_high') || char.educationLevel === '小学在读' || char.educationLevel === '初中在读';
+
+      if (flags.has('status_dropped_out') || !isEnrolled) {
+        if (!char.educationLevel || char.educationLevel === '未入学') {
+          char.educationLevel = '未入学';
+        }
         if (isUrban) {
           title = year < 1980 ? '手工作坊学徒' : '市井跑腿杂工';
         } else {
@@ -1146,29 +1163,45 @@ class SimulationEngine {
           else if (year < 2000) title = '小学少先队员';
           else title = '小学学生';
         } else {
-          char.educationLevel = '初中在读';
-          if (year < 1950) title = '新制初中学校生';
-          else if (year < 1978) title = '初中学校红卫兵';
-          else title = '初级中学在读生';
+          // 在非义务教育时代，必须读完小学且未辍学才进入初中
+          if (isCompulsory || char.tags.has('primary') || char.tags.has('junior_high')) {
+            char.educationLevel = '初中在读';
+            if (year < 1950) title = '新制初中学校生';
+            else if (year < 1978) title = '初中学校红卫兵';
+            else title = '初级中学在读生';
+          } else {
+            char.educationLevel = '小学文化';
+            title = isUrban ? '作坊初级小工' : '生产队半劳力社员';
+          }
         }
       }
     }
     // (C) 青年起步与深造期 (15-22岁)
     else if (age <= 22) {
-      const isStudying = flags.has('college_graduate') || 
+      const hasDroppedOut = flags.has('status_dropped_out');
+      const isHigherEd = flags.has('college_graduate') || 
+                         char.tags.has('higher_ed_degree') ||
+                         char.tags.has('college_degree') ||
+                         char.tags.has('class_of_77_elite') ||
                          char.educationLevel === '大学本科' || 
-                         char.educationLevel === '高等院校在读' ||
-                         (age <= 18 && (energy.study >= 25 || attr.knowledge >= 45));
+                         char.educationLevel === '大专学历' ||
+                         char.educationLevel === '高等院校在读';
+      const isHighSchool = char.tags.has('high_school_student') ||
+                           char.educationLevel === '普通高中' ||
+                           char.educationLevel === '高中在读';
+      const isVocational = char.tags.has('vocational_student') ||
+                           char.educationLevel === '中专技校' ||
+                           char.educationLevel === '中等专业';
 
-      if (isStudying && age <= 18) {
+      if (!hasDroppedOut && isHighSchool && age <= 18) {
         char.educationLevel = '高中在读';
         title = year < 1977 ? '完高学生/学农青年' : '示范高中学子';
-      } else if (isStudying && age <= 22) {
+      } else if (!hasDroppedOut && isHigherEd && age <= 22) {
         char.educationLevel = '高等院校在读';
         if (year < 1977) title = '工农兵推荐学员';
         else if (year < 1999) title = '全日制公费大学生';
         else title = '全日制大学本科生';
-      } else if (char.educationLevel === '中等专业' || flags.has('chose_iron_bowl')) {
+      } else if (!hasDroppedOut && (isVocational || flags.has('chose_iron_bowl'))) {
         title = age <= 18 ? '省属中专技校实习生' : '国营大厂分配青年技工';
       } else {
         switch (char.careerTrack) {
@@ -1333,14 +1366,15 @@ class SimulationEngine {
    */
   adaptDecisionToPersona(decision) {
     if (!decision) return decision;
-    if (decision.id === 'evt_2022_covid_lockdown') {
+    if (decision.id === 'evt_2022_covid_lockdown' || decision.id === 'evt_2022_covid_lockdown_6strata') {
       const age = this.currentAge;
       const track = this.character ? this.character.careerTrack : 'worker';
+      const eventId = decision.id;
 
       // 1. 高龄退养群体 (>=60岁)
       if (age >= 60) {
         return {
-          id: 'evt_2022_covid_lockdown',
+          id: eventId,
           title: '常态化防控、社区静默与慢病保供',
           isDecision: true,
           historicalFact: '2022年部分特大城市经历长时间静态管理与网格化多轮核酸筛查，社区成为老幼互助的最小单元，各级保障通道全力守护高龄慢病群体的生命线。',
@@ -1365,7 +1399,7 @@ class SimulationEngine {
       // 2. 青少年与在读学子 (<23岁)
       if (age < 23) {
         return {
-          id: 'evt_2022_covid_lockdown',
+          id: eventId,
           title: '高校闭环管理、线上答辩与考公考研大潮',
           isDecision: true,
           historicalFact: '2022年高校广泛推行闭环管理与线上双选会，应届毕业生规模创下历史新高，数以百万计的年轻人投入考研与公考大军。',
@@ -1390,7 +1424,7 @@ class SimulationEngine {
       // 3. 体制内/教师/医护群组
       if (track === 'cadre_teacher') {
         return {
-          id: 'evt_2022_covid_lockdown',
+          id: eventId,
           title: '常态化防控、线上教学与下沉网格包保',
           isDecision: true,
           historicalFact: '2022年广大党员干部、教师和医护工作者践行初心使命，坚守讲台停课不停学，多轮下沉社区网格充实基层保供与流调排查一线。',
@@ -1415,7 +1449,7 @@ class SimulationEngine {
       // 4. 工矿与制造技工
       if (track === 'worker') {
         return {
-          id: 'evt_2022_covid_lockdown',
+          id: eventId,
           title: '闭环泡泡生产、驻厂保产与供应链承压',
           isDecision: true,
           historicalFact: '2022年重点工业企业推行‘气泡式’闭环管理，广大产业工人和工程师吃住在厂、封闭连轴运转，全力保住关键产业链供应链稳定。',
@@ -1440,7 +1474,7 @@ class SimulationEngine {
       // 5. 知识白领与科技人员
       if (track === 'tech_whitecollar') {
         return {
-          id: 'evt_2022_covid_lockdown',
+          id: eventId,
           title: '居家远程办公、腾讯会议与降本增效阴云',
           isDecision: true,
           historicalFact: '2022年现代科技与商务服务业全面推行远程办公，各平台会议日活激增，同时面临降本增效与组织架构调整带来的职场挑战。',
@@ -1464,7 +1498,7 @@ class SimulationEngine {
 
       // 6. 商户、个体与灵活人员
       return {
-        id: 'evt_2022_covid_lockdown',
+        id: eventId,
         title: '实体客流冲击、社区保供团长与现金流生死线',
         isDecision: true,
         historicalFact: '2022年部分线下餐饮、文旅与小微商贸遭遇停业与现金流严峻考验，许多商户主动转型社区保供团购，在坚守与转型中搏击生机。',
@@ -1579,34 +1613,34 @@ class SimulationEngine {
   }
 
   getYearMacroSnippet(year, era) {
-    if (year >= 1937 && year <= 1938) return `${year}年卢沟桥烽火骤起，沿海高校与工矿仓促西撤，流民车马塞满官道。`;
-    if (year >= 1939 && year <= 1941) return `${year}年大后方警报声不绝于耳，黑烟滚滚，街市在空袭与物价飞涨中勉力维系。`;
-    if (year >= 1942 && year <= 1943) return `${year}年中原旱蝗成灾与战事胶着，粮盐定量紧缩，家家在煤油灯下苦苦捱过饥馑。`;
-    if (year >= 1944 && year <= 1945) return `${year}年抗战胜利号外传遍大街小巷，爆竹碎屑染红青石板，百废待兴复员还乡。`;
-    if (year >= 1946 && year <= 1948) return `${year}年法币金圆券如废纸般贬值，商铺关门物价如脱缰野马，局势急剧动荡。`;
-    if (year >= 1949 && year <= 1950) return `${year}年开国礼炮响彻神州，城乡秧歌腰鼓震天，扫盲夜校与分田界碑遍布乡野。`;
-    if (year >= 1951 && year <= 1953) return `${year}年抗美援朝保家卫国动员如火如荼，大后方工厂夜以继日赶制支前被服弹药。`;
-    if (year >= 1954 && year <= 1956) return `${year}年“一五”重工奠基与三大改造高潮涌动，公私合营与手工业入社红榜挂满街头。`;
-    if (year >= 1957 && year <= 1959) return `${year}年土高炉火光映红夜空，大炼钢铁与公社大食堂号角齐鸣，标语刷满白灰墙。`;
-    if (year >= 1960 && year <= 1962) return `${year}年粮票布票按两称重，稀粥照出人影，工矿精简职工退粮还乡共克时艰。`;
-    if (year >= 1963 && year <= 1965) return `${year}年第一颗原子弹在戈壁升空，“备战备荒”三线建设号召大批骨干扎入深山。`;
-    if (year >= 1966 && year <= 1970) return `${year}年红色浪潮席卷城乡，语录歌在大喇叭里终日回响，知青打起背包上山下乡。`;
-    if (year >= 1971 && year <= 1975) return `${year}年街道地下防空工事叮当作响，乒乓外交叩开国门，车间里悄然抓紧规章整顿。`;
-    if (year >= 1976 && year <= 1977) return `${year}年唐山余震未平，紧接着高考之门重新开启，数十万学子挑灯夜战奔赴考场。`;
-    if (year >= 1978 && year <= 1981) return `${year}年改革春风拂面，小岗村承包红手印传开，街头巷尾探讨着实践真理与按劳分配。`;
-    if (year >= 1982 && year <= 1985) return `${year}年女排夺冠万人空巷，黑白电视机围满邻里，特区蛇口开山炮声震动南国。`;
-    if (year >= 1986 && year <= 1989) return `${year}年港台卡带情歌回响街头，物价闯关牵动人心，孔雀东南飞与进厂学徒潮并起。`;
-    if (year >= 1990 && year <= 1992) return `${year}年亚运盼盼走红，邓小平南巡讲话掀起新一轮热潮，股市认购证排起长龙。`;
-    if (year >= 1993 && year <= 1996) return `${year}年商品经济狂飙，三角债与下海大潮激荡，腰间寻呼机BP机的嘀嘀声不绝于耳。`;
-    if (year >= 1997 && year <= 1999) return `${year}年维港焰火映照香港回归，国企三年脱困下岗阵痛袭来，高校大扩招带来新希望。`;
-    if (year >= 2000 && year <= 2003) return `${year}年千禧钟声长鸣，入世集装箱货轮扬帆起航，非典突袭与收容遣送废止铭刻历史。`;
-    if (year >= 2004 && year <= 2007) return `${year}年沿海世界工厂机器昼夜轰鸣，春运列车满载务工老乡，延续两千余年的农业税彻底废除。`;
-    if (year >= 2008 && year <= 2009) return `${year}年汶川浩劫举国大救援，奥运五环点亮北京夜空，四万亿基建列车高速启动。`;
-    if (year >= 2010 && year <= 2014) return `${year}年白色高铁银龙飞驰成网，智能手机与扫码支付融入市井，电商快递堆满驿站。`;
-    if (year >= 2015 && year <= 2019) return `${year}年棚改货币化拆平老街旧巷，脱贫攻坚建档立卡，新能源汽车开始驶入寻常巷陌。`;
-    if (year >= 2020 && year <= 2022) return `${year}年场所码与24小时核酸成为通行日常，多轮网格化筛查与供应链考验着万千生计。`;
-    if (year >= 2023 && year <= 2026) return `${year}年生成式AI狂飙迭代，绿牌电车无声流过街头，延迟退休与银发时代悄然落地。`;
-    return `${year}年时代车轮滚滚向前，千家万户的喜怒哀乐交织成奔涌的历史长河。`;
+    if (year >= 1937 && year <= 1938) return `卢沟桥烽火骤起，沿海高校与工矿仓促西撤，流民车马塞满官道。`;
+    if (year >= 1939 && year <= 1941) return `大后方警报声不绝于耳，黑烟滚滚，街市在空袭与物价飞涨中勉力维系。`;
+    if (year >= 1942 && year <= 1943) return `中原旱蝗成灾与战事胶着，粮盐定量紧缩，家家在煤油灯下苦苦捱过饥馑。`;
+    if (year >= 1944 && year <= 1945) return `抗战胜利号外传遍大街小巷，爆竹碎屑染红青石板，百废待兴复员还乡。`;
+    if (year >= 1946 && year <= 1948) return `法币金圆券如废纸般贬值，商铺关门物价如脱缰野马，局势急剧动荡。`;
+    if (year >= 1949 && year <= 1950) return `开国礼炮响彻神州，城乡秧歌腰鼓震天，扫盲夜校与分田界碑遍布乡野。`;
+    if (year >= 1951 && year <= 1953) return `抗美援朝保家卫国动员如火如荼，大后方工厂夜以继日赶制支前被服弹药。`;
+    if (year >= 1954 && year <= 1956) return `“一五”重工奠基与三大改造高潮涌动，公私合营与手工业入社红榜挂满街头。`;
+    if (year >= 1957 && year <= 1959) return `土高炉火光映红夜空，大炼钢铁与公社大食堂号角齐鸣，标语刷满白灰墙。`;
+    if (year >= 1960 && year <= 1962) return `粮票布票按两称重，稀粥照出人影，工矿精简职工退粮还乡共克时艰。`;
+    if (year >= 1963 && year <= 1965) return `第一颗原子弹在戈壁升空，“备战备荒”三线建设号召大批骨干扎入深山。`;
+    if (year >= 1966 && year <= 1970) return `红色浪潮席卷城乡，语录歌在大喇叭里终日回响，知青打起背包上山下乡。`;
+    if (year >= 1971 && year <= 1975) return `街道地下防空工事叮当作响，乒乓外交叩开国门，车间里悄然抓紧规章整顿。`;
+    if (year >= 1976 && year <= 1977) return `唐山余震未平，紧接着高考之门重新开启，数十万学子挑灯夜战奔赴考场。`;
+    if (year >= 1978 && year <= 1981) return `改革春风拂面，小岗村承包红手印传开，街头巷尾探讨着实践真理与按劳分配。`;
+    if (year >= 1982 && year <= 1985) return `女排夺冠万人空巷，黑白电视机围满邻里，特区蛇口开山炮声震动南国。`;
+    if (year >= 1986 && year <= 1989) return `港台卡带情歌回响街头，物价闯关牵动人心，孔雀东南飞与进厂学徒潮并起。`;
+    if (year >= 1990 && year <= 1992) return `亚运盼盼走红，邓小平南巡讲话掀起新一轮热潮，股市认购证排起长龙。`;
+    if (year >= 1993 && year <= 1996) return `商品经济狂飙，三角债与下海大潮激荡，腰间寻呼机BP机的嘀嘀声不绝于耳。`;
+    if (year >= 1997 && year <= 1999) return `维港焰火映照香港回归，国企三年脱困下岗阵痛袭来，高校大扩招带来新希望。`;
+    if (year >= 2000 && year <= 2003) return `千禧钟声长鸣，入世集装箱货轮扬帆起航，非典突袭与收容遣送废止铭刻历史。`;
+    if (year >= 2004 && year <= 2007) return `沿海世界工厂机器昼夜轰鸣，春运列车满载务工老乡，延续两千余年的农业税彻底废除。`;
+    if (year >= 2008 && year <= 2009) return `汶川浩劫举国大救援，奥运五环点亮北京夜空，四万亿基建列车高速启动。`;
+    if (year >= 2010 && year <= 2014) return `白色高铁银龙飞驰成网，智能手机与扫码支付融入市井，电商快递堆满驿站。`;
+    if (year >= 2015 && year <= 2019) return `棚改货币化拆平老街旧巷，脱贫攻坚建档立卡，新能源汽车开始驶入寻常巷陌。`;
+    if (year >= 2020 && year <= 2022) return `场所码与24小时核酸成为通行日常，多轮网格化筛查与供应链考验着万千生计。`;
+    if (year >= 2023 && year <= 2026) return `生成式AI狂飙迭代，绿牌电车无声流过街头，延迟退休与银发时代悄然落地。`;
+    return `时代车轮滚滚向前，千家万户的喜怒哀乐交织成奔涌的历史长河。`;
   }
 
   getLaborSensorySnippet(char, age, year, cityDisp) {
@@ -1623,6 +1657,11 @@ class SimulationEngine {
 
     // 2. 学童与青年求学 (6-14 或高等求学)
     if (age <= 14 || occ.includes('学生') || occ.includes('学员') || occ.includes('少先队')) {
+      if (this.statusFlags.has('status_dropped_out') && age <= 14) {
+        return char.urbanRural === 'urban'
+          ? '在手工作坊当小工学徒，搬运原料打磨粗坯，掌心沾满污迹，早早尝到谋生艰辛。'
+          : '在生产队和家中田头放牛割草帮工，脚踩泥泞面朝黄土，过早挑起家门半副生计。';
+      }
       if (char.birthYear >= 2010) {
         if (age <= 11) return `书包沉沉压在肩上，教室里齐刷刷朗读课文，放学路队穿行于车流，盼着路边一串热烤肠。`;
         return `教室顶上日光灯嗡嗡作响，模拟题与错题本堆满课桌，指关节磨出薄茧，课间讨论着新网络话题。`;
@@ -1663,6 +1702,9 @@ class SimulationEngine {
   getHouseholdSensorySnippet(char, age) {
     const attr = char.attributes;
     if (attr.health < 30) {
+      if (age <= 5) {
+        return `自幼体质孱弱易患风寒夜咳，长辈彻夜守在摇篮边悉心照料。`;
+      }
       return `常年劳碌落下陈年腰腿疾，阴雨天隐隐酸痛，抽屉里常备膏药。`;
     }
     if (attr.wealth < 25) {
@@ -1747,7 +1789,11 @@ class SimulationEngine {
         disasterEffectsDesc.push('家产田宅尽数被毁');
       }
 
-      const disasterNarrative = `${dis.hitNarrative} 经此大难，你虽侥幸捡回一条命，但【${disasterEffectsDesc.join('、') || '惊魂未定'}】。`;
+      let baseNarrative = dis.hitNarrative;
+      if (disasterStrike.isPeripheral) {
+        baseNarrative = `虽非震中或决口核心区，但【${dis.name}】强烈波及全省，地动山摇，万千军民同胞投入生死大救援。`;
+      }
+      const disasterNarrative = `${baseNarrative} 经此大难，你虽侥幸脱险，但【${disasterEffectsDesc.join('、') || '惊魂未定，守望相助共渡难关'}】。`;
       let trimmedNarrative = disasterNarrative.trim();
       if (trimmedNarrative.length > 150) trimmedNarrative = trimmedNarrative.slice(0, 146) + '……';
 
@@ -1930,6 +1976,41 @@ class SimulationEngine {
       turnRecord,
       character: this.character
     };
+  }
+
+  /**
+   * 检验职业状态机跃迁合法性 (根据 data/transitions.json 规则库)
+   */
+  validateCareerTransition(currentTrack, targetTrack, year, age, tags, wealth) {
+    if (!currentTrack || !targetTrack) return true;
+    if (currentTrack === targetTrack) return true;
+    if (!this.transitions || !this.transitions.careerTracks) return true;
+
+    const trackConfig = this.transitions.careerTracks[currentTrack];
+    if (!trackConfig || !trackConfig.allowedNext) return true;
+
+    // 检查 allowedNext 列表
+    const rule = trackConfig.allowedNext.find(r => r.target === targetTrack);
+    if (rule) {
+      if (rule.minYear && year < rule.minYear) return false;
+      if (rule.maxYear && year > rule.maxYear) return false;
+      if (rule.minAge && age < rule.minAge) return false;
+      if (rule.maxAge && age > rule.maxAge) return false;
+      if (rule.requiresWealth && wealth < rule.requiresWealth) return false;
+      if (rule.requiresTags && rule.requiresTags.length > 0) {
+        for (const t of rule.requiresTags) {
+          if (!this.characterHasTag(t)) return false;
+        }
+      }
+      return true;
+    }
+
+    // 若未在直接转移列表中，检查高阶门槛
+    if (targetTrack === 'cadre_teacher' || targetTrack === 'tech_whitecollar') {
+      return this.characterHasTag('higher_ed_degree') || this.characterHasTag('college');
+    }
+
+    return true;
   }
 
   /**
@@ -2148,6 +2229,24 @@ class SimulationEngine {
         title: evt.title,
         detail: selectedOutcome.log
       });
+
+      const era = this.getEraForYear(this.currentYear);
+      const outcomeLog = selectedOutcome.log || deathCause;
+      const narrativeText = `${evt.narrative || ''} 面对命运关口，你选择了【${choice.text}】。${outcomeLog}`;
+      let trimmedNarrative = narrativeText.trim();
+      if (trimmedNarrative.length > 150) trimmedNarrative = trimmedNarrative.slice(0, 146) + '……';
+
+      const turnRecord = {
+        year: this.currentYear,
+        age: this.currentAge,
+        eraName: era.name,
+        narrative: trimmedNarrative,
+        attributes: { ...this.character.attributes },
+        eventTitle: evt.title || '关键抉择'
+      };
+      this.history.push(turnRecord);
+      this.recordLifeline();
+
       this.currentPendingDecision = null;
       return;
     }
@@ -2187,10 +2286,13 @@ class SimulationEngine {
       }
     }
 
-    // 职业赛道跃迁
+    // 职业赛道跃迁（接入 transitions 状态机合法性检验）
     if (selectedOutcome && selectedOutcome.newCareerTrack) {
-      this.character.careerTrack = selectedOutcome.newCareerTrack;
-      this.character.tags.add(selectedOutcome.newCareerTrack);
+      const target = selectedOutcome.newCareerTrack;
+      if (this.validateCareerTransition(this.character.careerTrack, target, this.currentYear, this.currentAge, this.character.tags, this.character.attributes.wealth)) {
+        this.character.careerTrack = target;
+        this.character.tags.add(target);
+      }
     }
 
     // 记录因果回顾 (hiddenRiskLog)
@@ -2219,6 +2321,12 @@ class SimulationEngine {
     if (evt.id) {
       this.eventCooldowns[evt.id] = this.currentYear + (evt.coolingPeriod || 999);
       this.statusFlags.add(`done_${evt.id}`);
+
+      // 婚育关卡冷却联动
+      if (evt.id === 'node_marriage' || evt.id === 'evt_life_xiangqin_jiehun') {
+        this.eventCooldowns['node_marriage'] = this.currentYear + 4;
+        this.eventCooldowns['evt_life_xiangqin_jiehun'] = this.currentYear + 4;
+      }
     }
 
     this.currentPendingDecision = null;
@@ -2359,8 +2467,8 @@ class SimulationEngine {
 
     const year = this.currentYear;
 
-    // 1. 婴儿期 (0–1 岁)
-    if (age <= 1) {
+    // 1. 婴儿期 (0 岁)
+    if (age === 0) {
       if (year < 1950) {
         const pool = [
           '因当年严峻的新生儿破伤风与脐带感染夭折',
@@ -2392,7 +2500,7 @@ class SimulationEngine {
       }
     }
 
-    // 2. 幼童与少儿期 (2–14 岁)
+    // 2. 幼童与少儿期 (1–14 岁)
     if (age <= 14) {
       if (year < 1950) {
         const pool = [
@@ -2432,7 +2540,7 @@ class SimulationEngine {
     // 3. 青年与年轻壮年期 (15–35 岁)
     if (age <= 35) {
       // 习惯与生活标签响应
-      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion'))) {
+      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion')) && Math.random() < 0.28) {
         return '因长期高强度通宵熬夜与极度过劳，突发急性心源性猝死';
       }
       if (tags && tags.has('drinker') && Math.random() < 0.6) {
@@ -2491,7 +2599,7 @@ class SimulationEngine {
 
     // 4. 中青年与中年期 (36–59 岁)
     if (age <= 59) {
-      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion'))) {
+      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion')) && Math.random() < 0.28) {
         return '中年肩负家庭与工作双重重压，长期严重透支引发突发急性心梗猝死';
       }
       if (tags && tags.has('smoker') && Math.random() < 0.6) {
@@ -2723,25 +2831,32 @@ class SimulationEngine {
     const era = this.getEraForYear(birthYear);
     const expectedLife = era.lifeExpectancy;
 
-    // 针对 2010 年及以后出生且存活至 2026 年的少年
-    if (this.character.birthYear >= 2010 && (this.deathInfo && this.deathInfo.isAliveIn2026)) {
-      const eduLevel = age <= 6 ? '学前幼儿阶段' : (age <= 12 ? '小学义务教育阶段' : '初级中等教育在读');
+    const isAlive2026 = (this.deathInfo && this.deathInfo.isAliveIn2026) || this.currentYear >= 2026;
+
+    // 针对 2026 年依然在世的角色（未完待续，根据生命表展现健康余命）
+    if (isAlive2026) {
+      let eduLevel = this.character.educationLevel || '初级中等教育在读';
+      if (this.character.birthYear >= 2010) {
+        eduLevel = age <= 6 ? '学前幼儿阶段' : (age <= 12 ? '小学义务教育阶段' : '初级中等教育在读');
+      }
+      const lifePct = Math.min(96, Math.max(50, Math.round(50 + (age / (expectedLife || 75)) * 45)));
+
       return {
         lifespan: {
           val: age,
           expected: expectedLife,
-          percentile: 98,
-          desc: `现代公共卫生条件下，该世代人均预期寿命已达 ${expectedLife} 岁，平稳健康成长中`
+          percentile: lifePct,
+          desc: `健康平稳行至2026新时代，继续见证日新月异的神州大地（当年新生儿预期寿命约 ${expectedLife} 岁）`
         },
         education: {
           level: eduLevel,
-          percentile: 88,
-          desc: `全面普及九年义务教育环境，知识技能基础良好`
+          percentile: 85,
+          desc: `顺应国家教育普及发展浪潮，知识技能基础良好`
         },
         wealth: {
           tier: this.character.economicLevel || '寻常温饱',
-          percentile: 72,
-          desc: `依托父辈两代人的积累，享有较完备的现代物质生活与家庭托举`
+          percentile: 70,
+          desc: `依托两代人的汗水积累，享有稳定的现代物质生活与家庭托举`
         }
       };
     }
@@ -2755,21 +2870,25 @@ class SimulationEngine {
     else if (diff > -15) lifePercentile = 30;
     else lifePercentile = 12;
 
-    const knowledge = this.character.attributes.knowledge;
-    let eduLevel = '小学及以下';
+    const edu = this.character.educationLevel || '未入学';
+    let eduLevel = edu;
     let eduPercentile = 40;
-    if (knowledge > 80) {
-      eduLevel = '大专或大学本科以上';
+
+    if (edu.includes('大') || edu.includes('本') || edu.includes('研') || this.character.tags.has('higher_ed_degree')) {
+      eduLevel = edu.includes('大专') ? '大专学历' : '大学本科及以上';
       eduPercentile = 96;
-    } else if (knowledge > 60) {
-      eduLevel = '高中 / 技校中专';
-      eduPercentile = 82;
-    } else if (knowledge > 35) {
-      eduLevel = '初中文化';
+    } else if (edu.includes('高') || edu.includes('中专') || this.character.tags.has('high_school_student') || this.character.tags.has('vocational_student')) {
+      eduLevel = (edu.includes('中专') || this.character.tags.has('vocational_student')) ? '中专 / 职校技校' : '普通高中学历';
+      eduPercentile = 80;
+    } else if (edu.includes('初') || this.character.tags.has('junior_high')) {
+      eduLevel = '初中文化程度';
       eduPercentile = 60;
-    } else {
-      eduLevel = '小学或识字扫盲班水平';
+    } else if (edu.includes('小') || this.character.tags.has('primary')) {
+      eduLevel = '小学文化程度';
       eduPercentile = 35;
+    } else {
+      eduLevel = this.character.attributes.knowledge >= 30 ? '识字水平（扫盲/自学）' : '未入学（文化底子薄）';
+      eduPercentile = 15;
     }
 
     const wealth = this.character.attributes.wealth;
@@ -2794,7 +2913,7 @@ class SimulationEngine {
         val: age,
         expected: expectedLife,
         percentile: lifePercentile,
-        desc: `在同年代出生人群中排前 ${100 - lifePercentile}% 左右（当年新生儿平均预期寿命约为 ${expectedLife} 岁）`
+        desc: `在同年代出生人群中寿命排前 ${Math.max(1, 100 - lifePercentile)}% 左右（当年新生儿平均预期寿命约为 ${expectedLife} 岁）`
       },
       education: {
         level: eduLevel,

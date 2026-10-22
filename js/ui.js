@@ -544,14 +544,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     const comp = engine.evaluateLifeResults();
     const era = engine.getEraForYear(char.birthYear);
 
-    // 1. 死亡证书核心信息
-    document.getElementById('deadCertNo').textContent = `NO. 1937-2026-RIP-${Math.floor(1000 + Math.random() * 9000)}`;
-    document.getElementById('deadName').textContent = `${char.name} (${char.birthYear} — ${death.year} · 享年 ${death.age} 岁)`;
-    document.getElementById('deadCause').textContent = `死因：${death.cause}`;
+    const isAlive2026 = death.isAliveIn2026 || death.year >= 2026;
 
-    const diff = death.age - era.lifeExpectancy;
-    const diffText = diff >= 0 ? `多活了 ${diff.toFixed(1)} 年` : `少活了 ${Math.abs(diff).toFixed(1)} 年`;
-    document.getElementById('deadCtx').textContent = `在 ${char.birthYear} 年同一年出生的中国人中，约有 ${100 - comp.lifespan.percentile}% 活得比你久。你比当年同代人的平均预期寿命（${era.lifeExpectancy} 岁）${diffText}。`;
+    // 1. 证书核心信息 (严格区分在世与离世)
+    if (isAlive2026) {
+      document.getElementById('deadCertNo').textContent = `NO. 1937-2026-LIVE-${Math.floor(1000 + Math.random() * 9000)}`;
+      document.getElementById('deadName').textContent = `${char.name} (${char.birthYear} — 2026 · 现年 ${death.age} 岁 · 在世)`;
+      document.getElementById('deadCause').textContent = `当前状态：${death.cause}`;
+      document.getElementById('deadCtx').textContent = `在 ${char.birthYear} 年同一年出生的中国人中，你健康平稳地行至2026年，继续见证日新月异的神州大地。当年同代人的平均预期寿命约为 ${era.lifeExpectancy} 岁。`;
+      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.cityHistoricalName}，在时代洪流中奋进成长`;
+    } else {
+      document.getElementById('deadCertNo').textContent = `NO. 1937-2026-RIP-${Math.floor(1000 + Math.random() * 9000)}`;
+      document.getElementById('deadName').textContent = `${char.name} (${char.birthYear} — ${death.year} · 享年 ${death.age} 岁)`;
+      document.getElementById('deadCause').textContent = `死因：${death.cause}`;
+
+      const diff = death.age - era.lifeExpectancy;
+      const diffText = diff >= 0 ? `多活了 ${diff.toFixed(1)} 年` : `少活了 ${Math.abs(diff).toFixed(1)} 年`;
+      document.getElementById('deadCtx').textContent = `在 ${char.birthYear} 年同一年出生的中国人中，约有 ${Math.max(1, 100 - comp.lifespan.percentile)}% 活得比你久。你比当年同代人的平均预期寿命（${era.lifeExpectancy} 岁）${diffText}。`;
+      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.cityHistoricalName}，在近一个世纪的风云变迁中走完一生`;
+    }
 
     // 2. 一生履历摘要
     document.getElementById('dSumEdu').textContent = comp.education.level;
@@ -561,7 +572,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const disasterStr = char.survivedDisasters && char.survivedDisasters.length > 0 ? char.survivedDisasters.join('、') : '一生未逢特大毁灭性浩劫';
     document.getElementById('dSumDisaster').textContent = disasterStr;
-    document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.cityHistoricalName}，在近一个世纪的风云变迁中走完一生`;
 
     // 3. 同代人排名
     document.getElementById('cmpLife').textContent = comp.lifespan.desc;
@@ -573,7 +583,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 4.5 2026在世未完待续专栏渲染
     const continueSection = document.getElementById('continueSection');
-    const isAlive2026 = death.isAliveIn2026 || death.year >= 2026;
     if (continueSection) {
       if (isAlive2026) {
         continueSection.hidden = false;
@@ -843,10 +852,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.font = 'bold 36px "Noto Serif SC", serif';
     ctx.fillText(char.name, 40, 126);
 
-    const isLateBornSurvivor = char.birthYear >= 2010 && (death.isAliveIn2026 || death.year >= 2026);
-    const subTitle = isLateBornSurvivor
-      ? `${char.birthYear} — 2026 · 现年 ${death.age} 岁少年 (${char.sex} · ${char.ethnicity})`
-      : `${char.birthYear} — ${death.year} · 享年 ${death.age} 岁 (${char.sex} · ${char.ethnicity})`;
+    const isSurvivor = death.isAliveIn2026 || death.year >= 2026;
+    let subTitle;
+    if (isSurvivor) {
+      const ageLabel = death.age < 18 ? '岁少年' : '岁';
+      subTitle = `${char.birthYear} — 2026 · 现年 ${death.age} ${ageLabel} (${char.sex} · ${char.ethnicity} · 在世)`;
+    } else {
+      subTitle = `${char.birthYear} — ${death.year} · 享年 ${death.age} 岁 (${char.sex} · ${char.ethnicity})`;
+    }
 
     ctx.font = '16px "IBM Plex Mono", monospace';
     ctx.fillStyle = '#4A5A61';
@@ -857,7 +870,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.fillRect(40, 180, w - 80, 48);
     ctx.fillStyle = '#0F6E68';
     ctx.font = 'bold 16px "Noto Serif SC", serif';
-    const causeText = isLateBornSurvivor ? `状态：${death.cause}` : `死因：${death.cause}`;
+    const causeText = isSurvivor ? `当前状态：${death.cause}` : `死因：${death.cause}`;
     ctx.fillText(causeText, 56, 210);
 
     // 5. 出生与家门基准
@@ -911,7 +924,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 8. 留给这一生的话
-    const defaultQuote = isLateBornSurvivor
+    const defaultQuote = isSurvivor
       ? '三代人八十载寒暑接力，终见人间安宁与繁盛。'
       : '辛苦操劳了一生，在人间风雨里平平淡淡走过，无悔于世。';
     const quote = farewell || defaultQuote;
@@ -1030,10 +1043,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function calculatePurchasingPower(year, wealthScore, age) {
     if (age < 15) {
+      if (year <= 1949) {
+        const silverYuan = Math.max(1, Math.round((wealthScore / 10) * 0.8));
+        return {
+          annualIncome: '无独立收入 (长辈供养)',
+          netWorth: `家底约折合 ${silverYuan} 块大洋`,
+          description: '未成年阶段，靠父母长辈劳作口粮抚育度日。'
+        };
+      }
+      if (year <= 1978) {
+        return {
+          annualIncome: '¥ 0 (由长辈抚养)',
+          netWorth: `家存储蓄约 ¥ ${Math.round(wealthScore * 6)} 元`,
+          description: '未成年阶段，全凭父母工分粮票与微薄工资供给衣食。'
+        };
+      }
+      if (year <= 1999) {
+        return {
+          annualIncome: '¥ 0 (由长辈抚养)',
+          netWorth: `家境资产约 ¥ ${(wealthScore * 90).toLocaleString()} 元`,
+          description: '求学成长期，衣食起居主要依赖家庭工薪与结余。'
+        };
+      }
       return {
-        annualIncome: '¥ 0 (由长辈抚养)',
-        netWorth: `¥ ${Math.round(wealthScore * 10)}`,
-        description: '未成年阶段，衣食口粮由家中父母统筹供给。'
+        annualIncome: '¥ 0 (在读/抚养中)',
+        netWorth: `家庭资产支持约 ¥ ${(wealthScore * 6000).toLocaleString()} 元`,
+        description: '求学成长阶段，衣食学费由父母长辈全力支持。'
       };
     }
 

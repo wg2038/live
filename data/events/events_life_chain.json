@@ -323,9 +323,11 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "higher_ed_degree"
+    ],
     "excludeTags": [],
-    "triggerProbability": 0.08,
+    "triggerProbability": 0.15,
     "coolingPeriod": 10,
     "factLevel": "确证",
     "historicalFact": "1978年邓小平作出扩大派遣留学生重要战略决策，开启公派留学先河。80年代托福热与自费留学兴起，无数青年漂洋过海‘洋插队’半工半读，90年代后留学走向大众化普及，大批学成归国英才成为国家栋梁。",
