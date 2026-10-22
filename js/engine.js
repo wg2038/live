@@ -85,6 +85,26 @@ class SimulationEngine {
         throw new Error('无法加载历史与城市数据库');
       }
     }
+    this.prepareEventPerspectives();
+  }
+
+  /**
+   * 1937 年出生起点意味着任何角色在 1937–1949 年都不可能是成年人。
+   * 对“目标年龄下限超过该年份窗口内最大可能年龄”的事件，转为父辈口述的被动历史，
+   * 不再把成年人的选择硬塞给儿童，也不再让这些事件永远无法触发。
+   */
+  prepareEventPerspectives() {
+    if (!Array.isArray(this.events)) return;
+    for (const evt of this.events) {
+      if (!evt || !evt.targetAge || !evt.yearRange) continue;
+      const latestPossibleAge = evt.yearRange[1] - 1937;
+      if (evt.targetAge[0] <= latestPossibleAge) continue;
+      evt.isDecision = false;
+      evt.perspective = 'oral_history';
+      evt.targetAge = [0, Math.max(0, latestPossibleAge)];
+      evt.oralHistoryNarrative = `长辈们后来常讲起${evt.title}：${evt.historicalFact || evt.narrative || ''}`;
+      evt.passiveImpact = evt.passiveImpact || { mentality: 2 };
+    }
   }
 
   /**
@@ -167,16 +187,19 @@ class SimulationEngine {
    */
   sampleBirthYear() {
     const cohorts = this.stats.birthCohorts;
-    const totalWeight = cohorts.reduce((acc, c) => acc + c.weight, 0);
+    // 每个队列的总出生规模 = 年均出生人口 × 队列年数，避免宽队列被窄队列压低概率。
+    const cohortMass = c => (c.avgAnnualBirthM || 1) * (c.range[1] - c.range[0] + 1);
+    const totalWeight = cohorts.reduce((acc, c) => acc + cohortMass(c), 0);
     let rand = Math.random() * totalWeight;
     let selectedCohort = cohorts[0];
 
     for (const c of cohorts) {
-      if (rand < c.weight) {
+      const mass = cohortMass(c);
+      if (rand < mass) {
         selectedCohort = c;
         break;
       }
-      rand -= c.weight;
+      rand -= mass;
     }
 
     const [start, end] = selectedCohort.range;
@@ -478,6 +501,7 @@ class SimulationEngine {
       causalityReview: [],
       maritalStatus: '未婚',
       hasChildren: false,
+      lastChildbirthYear: null,
       milestones: [],
       survivedDisasters: [],
       lifelineHistory: [
@@ -1459,11 +1483,12 @@ class SimulationEngine {
         } else if (char.careerTrack === 'tech_whitecollar') {
           title = '企业退休资深技术顾问';
         } else if (char.careerTrack === 'farmer') {
-          title = '乡村退养农户/享基础养老金';
+          title = year >= 2009 ? '乡村退养农户/享基础养老金' : '乡村退养农户/靠儿女赡养';
         } else if (char.careerTrack === 'merchant') {
           title = '退养商界名宿/老街坊';
         } else {
-          title = isUrban ? '城镇退休居民/享社保' : '乡村退养长者/享养老金';
+          if (isUrban) title = year >= 1991 ? '城镇退休居民/享社保' : '城镇退养居民/靠单位劳保';
+          else title = year >= 2009 ? '乡村退养长者/享养老金' : '乡村退养长者/靠儿女赡养';
         }
       }
     }
@@ -2593,12 +2618,25 @@ class SimulationEngine {
       return `挑灯自习到深夜，算草纸写满密密麻麻的公式，煤油灯或日光灯照亮年轻求知的眼睛。`;
     }
 
-    // 3. 退休与退养老者 (60+)
+    // 3. 退休与退养老者 (60+)：退休金/养老金制度必须与年代匹配
     if (age >= 60) {
-      if (track === 'cadre_teacher' || track === 'worker' || track === 'tech_whitecollar' || char.urbanRural === 'urban') {
-        return `身为【${occ}】，晨起拎着茶缸在公园看人杀棋，每月按时领退休金，戴着老花镜在阳台翻阅晚报。`;
+      const isSystemRetiree = track === 'cadre_teacher' || track === 'worker' || track === 'tech_whitecollar' || char.urbanRural === 'urban';
+      if (isSystemRetiree) {
+        if (year < 1951) {
+          return `身为【${occ}】，年老后失去固定俸禄，靠儿女赡养与街坊接济度日，常坐在门槛上晒着太阳回忆旧事。`;
+        }
+        if (year < 1978) {
+          return `身为【${occ}】，按单位劳动保险领取退休补助，晨起拎着茶缸在公园看人杀棋，戴着老花镜翻阅旧报纸。`;
+        }
+        if (year < 1991) {
+          return `身为【${occ}】，按单位劳保领取退休金，晨起拎着茶缸在公园看人杀棋，戴着老花镜在阳台翻阅晚报。`;
+        }
+        return `身为【${occ}】，每月按时领取退休金/养老金，晨起在公园散步看人下棋，戴着老花镜翻阅报刊。`;
       }
-      return `身为【${occ}】，在自留菜园给水葱青菜浇水除草，傍晚守在村口看着儿孙，领着基础养老金颐养天年。`;
+      if (year < 2009) {
+        return `身为【${occ}】，在自留菜园给水葱青菜浇水除草，晚年主要靠儿女赡养，傍晚守在村口看着儿孙归家。`;
+      }
+      return `身为【${occ}】，在自留菜园给水葱青菜浇水除草，按月领取城乡居民基础养老金，傍晚守在村口看着儿孙。`;
     }
 
     // 4. 各行业在岗劳动感官细节
@@ -2843,7 +2881,7 @@ class SimulationEngine {
         title: pevt.title,
         detail: pevt.historicalFact ? pevt.historicalFact.slice(0, 50) : pevt.title
       });
-      passiveNarrativeAdditions.push(pevt.title);
+      passiveNarrativeAdditions.push(pevt.oralHistoryNarrative || pevt.title);
     }
 
     // 2.2 筛选主动决策候选事件 (isDecision === true)
@@ -3252,6 +3290,16 @@ class SimulationEngine {
       if (outcomeStatus === 'has_children') {
         this.character.hasChildren = true;
       }
+      // 只有真正发生生育的结局才记录产育年份，供产妇死亡风险使用。
+      const birthStatuses = new Set([
+        'has_children', 'multi_children', 'millennium_baby_parent',
+        'two_children_family', 'three_children_family',
+        'safe_cesarean_mother', 'resilient_brave_mother'
+      ]);
+      if (birthStatuses.has(outcomeStatus)) {
+        this.character.lastChildbirthYear = this.currentYear;
+        this.character.hasChildren = true;
+      }
       if (isGaokaoDecision && (outcomeStatus === 'college_degree' || outcomeStatus === 'junior_college_degree')) {
         // 录取不等于毕业：记录学制，到毕业年份再由 updateCareerStage 结算学位。
         this.statusFlags.add('attended_gaokao');
@@ -3542,8 +3590,10 @@ class SimulationEngine {
         return '因长期吸烟诱发突发自发性张力性气胸急性衰竭离世';
       }
 
-      // 性别特定死因 (产育仅限育龄女性)
-      if (sex === '女' && tags && tags.has('married') && Math.random() < 0.25) {
+      // 性别特定死因：只有近一年内真实发生过生育的女性，才进入产妇死亡风险。
+      const recentBirth = this.character && this.character.lastChildbirthYear &&
+        this.currentYear - this.character.lastChildbirthYear <= 1;
+      if (sex === '女' && tags && tags.has('married') && recentBirth && Math.random() < 0.25) {
         if (year < 1978) {
           return '在农村土法接生中遭遇严重难产与产后大出血感染不幸离世';
         } else {
@@ -3752,7 +3802,19 @@ class SimulationEngine {
     let title = '见证盛世';
     let detail = `从${this.character.birthYear}年风雨中一路走来，终在2026年与时代相拥，一生平凡而丰厚。`;
 
-    if (finalAge < 18) {
+    if (finalAge <= 2) {
+      cause = '于2026年平安降生，在家人日夜守护下初识这个世界';
+      title = '襁褓新生';
+      detail = `于${this.character.birthYear}年降生，尚在襁褓之中，在家人的呵护下开始打量这个崭新的世界。`;
+    } else if (finalAge <= 5) {
+      cause = '在当今时代家庭的悉心照护下平稳成长，正是牙牙学语的幼年';
+      title = '稚子幼年';
+      detail = `于${this.character.birthYear}年降生，在祖辈与父辈的照护下蹒跚学步，于2026年长成稚嫩幼童。`;
+    } else if (finalAge <= 11) {
+      cause = '在当今时代家庭的倾力托举与照护中平稳成长，正值童年求学之时';
+      title = '童年学子';
+      detail = `于${this.character.birthYear}年降生，在祖辈与父辈的倾力托举下，于2026年成长为求学少年。`;
+    } else if (finalAge < 18) {
       cause = '在当今时代家庭的倾力托举与照护中平稳成长，正值少年求学之时';
       title = '风华少年';
       detail = `于${this.character.birthYear}年降生，在祖辈与父辈的倾力托举下，于2026年成长为风华少年。`;
@@ -3944,77 +4006,128 @@ class SimulationEngine {
     const parentName = this.generateAuthenticName(parentBirthYear, '男', char.provinceId, char.ethnicity);
     const grandName = this.generateAuthenticName(grandBirthYear, '男', char.provinceId, char.ethnicity);
 
-    // 1. 祖辈轨迹 (约 1950s-1970s 成长)
-    const grandTimeline = [
-      {
-        period: `${grandBirthYear} — ${grandBirthYear + 15} 年`,
-        stage: '童年与三年困难时期',
-        detail: `生于新中国初建时期，童年亲历三年困难时期（1959–1961），靠红薯干与国家定粮度日，在朴素清贫中扎下勤俭家风。`
-      },
-      {
-        period: `${grandBirthYear + 16} — ${grandBirthYear + 25} 年`,
-        stage: '青年劳作与集体建设',
-        detail: isUrban
-          ? `青年期按政策招工进入${char.cityName}国营厂矿做工，历经工业建设岁月，按八级工规制领取粮票工资。`
-          : `在公社生产大队挣工分、修筑水库水利设施，参加农业集体劳动，打下吃苦耐劳的体力底子。`
-      },
-      {
-        period: `${grandBirthYear + 28} — ${grandBirthYear + 40} 年`,
-        stage: '改革开放与家门立业',
-        detail: isUrban
-          ? `迎来改革开放与国企转轨浪潮，享受单位福利分房，操持一家温饱，抚育下一代成长。`
-          : `赶上家庭联产承包责任制，大包干解决一家温饱，农闲兼做零工运输，支撑儿女学杂开支。`
-      },
-      {
-        period: `2000 年代至今`,
-        stage: '晚年桑榆与照看幼孙',
-        detail: `迈入晚年领取基础养老退休金，常在老家小院侍弄菜圃，或进城帮衬照护孙辈（即你），在安宁中守望家族生生不息。`
-      }
-    ];
+    const clampYear = y => Math.min(y, 2026);
+    const pushStage = (timeline, start, end, stage, detail) => {
+      if (start > 2026) return;
+      timeline.push({ period: `${start} — ${clampYear(Math.max(start, end))} 年`, stage, detail });
+    };
 
-    // 2. 父辈轨迹 (约 1975-1990s 成长)
-    const parentTimeline = [
-      {
-        period: `${parentBirthYear} — ${parentBirthYear + 18} 年`,
-        stage: '求学与升学改制',
-        detail: isUrban
-          ? `在九年义务教育普惠中读完初高中，适逢高校大扩招浪潮，考入大专院校就读，成为家族首代知识白领。`
-          : `完成乡村初中学业后就读中专技校或拜师学手艺，立志通过技术走出土地。`
-      },
-      {
-        period: `${parentBirthYear + 19} — ${parentBirthYear + 26} 年`,
-        stage: '就业打拼与经济转轨',
-        detail: isUrban
-          ? `步入社会直面国企重组与外资民企蓬勃期，进入现代企业竞争打拼，经历市场风浪与行业周期。`
-          : `搭上南下民工大潮的绿皮火车，在沿海制造业车间、建筑工地或物流网点奔波，凭辛勤汗水汇款安家。`
-      },
-      {
-        period: `${parentBirthYear + 26} — ${childBirthYear} 年`,
-        stage: '房改安家与成家立业',
-        detail: isUrban
-          ? `适逢福利分房终结与商品房市场化，倾注两代人积蓄背负按揭贷款在城市购置首套住房，建立家庭。`
-          : `在老家宅基地翻建二层红砖楼房，或在务工城市租房栖身，省吃俭用为新生命到来做好准备。`
-      },
-      {
-        period: `${childBirthYear} — 2026 年`,
-        stage: '托举子女与中年重任',
-        detail: `迎来你的出生。人到中年承担上有老下有小的重担，经历校外辅导班热潮、疫情三年陪读与生活转段，倾尽所能护佑你平安成长。`
-      }
-    ];
+    // 1. 祖辈轨迹：按实际出生年份生成，不能把 1961 年后出生者写成亲历三年困难时期
+    const grandTimeline = [];
+    let grandChildhood;
+    if (grandBirthYear <= 1958) {
+      grandChildhood = `生于新中国初建时期，童年亲历三年困难时期（1959–1961），靠红薯干与国家定粮度日，在朴素清贫中扎下勤俭家风。`;
+    } else if (grandBirthYear <= 1961) {
+      grandChildhood = `出生于困难时期前后，幼年在票证与定量供应中度过，靠粗粮和邻里互助熬过清苦岁月。`;
+    } else if (grandBirthYear <= 1977) {
+      grandChildhood = `在集体化与票证岁月中度过童年，穿着补丁衣服上学，放学后帮家里割草、拾柴、照看弟妹。`;
+    } else {
+      grandChildhood = `在改革开放初期度过童年，物质仍不宽裕，但街市渐渐热闹，家里第一次添置了收音机或黑白电视。`;
+    }
+    pushStage(grandTimeline, grandBirthYear, grandBirthYear + 15,
+      grandBirthYear <= 1961 ? '童年与困难时期记忆' : '童年与集体岁月', grandChildhood);
 
-    // 3. 角色自身（2010-2026 童年）
-    const childTimeline = [
-      {
-        period: `${childBirthYear} — ${childBirthYear + 5} 年`,
-        stage: '数字时代的学前生活',
-        detail: `降生于中国综合国力腾飞与移动互联网时代，在家庭的照拂、早教绘本与智能终端的陪伴中步入童年。`
-      },
-      {
-        period: `${childBirthYear + 6} — 2026 年`,
-        stage: '求学岁月与同龄记忆',
-        detail: `背上书包走进校园，亲历了三年疫情网课居家打卡、校外“双减”落地、中考素质教育改革，在飞速演进的时代中成长为风华少年。`
+    if (grandBirthYear + 16 <= 2026) {
+      const youthDetail = isUrban
+        ? `青年期按政策招工进入${char.cityName}国营厂矿或街道单位做工，历经工业建设岁月，按工龄与级别领取粮票工资。`
+        : `在公社生产大队挣工分、修筑水库水利设施，参加农业集体劳动，打下吃苦耐劳的体力底子。`;
+      pushStage(grandTimeline, grandBirthYear + 16, grandBirthYear + 25, '青年劳作与集体建设', youthDetail);
+    }
+
+    if (grandBirthYear + 28 <= 2026) {
+      const reformDetail = isUrban
+        ? `迎来改革开放与国企转轨浪潮，经历单位福利分房或房改购房，操持一家温饱，抚育下一代成长。`
+        : `赶上家庭联产承包责任制，大包干解决一家温饱，农闲兼做零工运输，支撑儿女学杂开支。`;
+      pushStage(grandTimeline, grandBirthYear + 28, grandBirthYear + 40, '改革开放与家门立业', reformDetail);
+    }
+
+    const grandLateStart = Math.max(grandBirthYear + 41, 2000);
+    if (grandLateStart <= 2026) {
+      const grandAge2026 = 2026 - grandBirthYear;
+      const lateStage = grandAge2026 >= 60 ? '晚年桑榆与照看幼孙' : '中年操持与照看孙辈';
+      const pensionLine = grandAge2026 >= 60
+        ? (grandBirthYear <= 1949 ? '领取退休金' : '领取基础养老金')
+        : '仍在操持家务或打零工';
+      pushStage(grandTimeline, grandLateStart, 2026, lateStage,
+        `${grandAge2026 >= 60 ? '步入晚年' : '步入中年'}，${pensionLine}，常在老家小院侍弄菜圃，或进城帮衬照护孙辈（即你），在安宁中守望家族生生不息。`);
+    }
+
+    // 2. 父辈轨迹：教育、就业与住房文案由 parentJob 驱动，避免“下岗待业”被写成知识白领
+    const parentJob = char.parentJob || '';
+    const parentIsLaidOff = /下岗|待业|失业|无业|裁员/.test(parentJob);
+    const parentIsKnowledge = /教师|医生|医护|工程师|科研|干部|公务员|会计|律师|白领|知识分子/.test(parentJob);
+    const parentIsFarmer = /农|种植|养殖|社员|生产队/.test(parentJob);
+    const parentIsMerchant = /商|店|摊|个体|买卖|生意/.test(parentJob);
+
+    const parentTimeline = [];
+    let parentEducation;
+    if (!isUrban || parentIsFarmer) {
+      parentEducation = `完成乡村初中学业后就读中专技校或拜师学手艺，立志通过技术走出土地。`;
+    } else if (parentIsLaidOff) {
+      parentEducation = `在国企子弟学校读完初高中，毕业后按政策进入国营企业当工人，捧过几年“铁饭碗”。`;
+    } else if (parentIsKnowledge) {
+      parentEducation = `在九年义务教育普惠中读完初高中，适逢高校大扩招浪潮，考入大专院校就读，成为家族首代知识白领。`;
+    } else {
+      parentEducation = `在九年义务教育中读完初高中，毕业后进入工厂、商店或服务行业谋生，靠勤恳踏实站稳脚跟。`;
+    }
+    pushStage(parentTimeline, parentBirthYear, parentBirthYear + 18, '求学与升学改制', parentEducation);
+
+    let parentEmployment;
+    if (!isUrban || parentIsFarmer) {
+      parentEmployment = `搭上南下民工大潮的绿皮火车，在沿海制造业车间、建筑工地或物流网点奔波，凭辛勤汗水汇款安家。`;
+    } else if (parentIsLaidOff) {
+      parentEmployment = `遭遇国企改制与下岗分流，靠摆摊、蹬三轮、做保安等零工维持一家生计，在市场化浪潮中咬牙支撑。`;
+    } else if (parentIsKnowledge) {
+      parentEmployment = `步入社会直面国企重组与外资民企蓬勃期，进入学校、医院、机关或现代企业打拼，经历市场风浪与行业周期。`;
+    } else if (parentIsMerchant) {
+      parentEmployment = `在街边开店、跑批发或做小生意，起早贪黑核算进销差价，在市场竞争中一点点攒下家底。`;
+    } else {
+      parentEmployment = `进入国营或民营工厂、物流仓储与城市服务行业，靠加班和手艺支撑家庭开支。`;
+    }
+    pushStage(parentTimeline, parentBirthYear + 19, parentBirthYear + 26, '就业打拼与经济转轨', parentEmployment);
+
+    if (parentBirthYear + 27 < childBirthYear) {
+      const familyDetail = !isUrban || parentIsFarmer
+        ? `在老家宅基地翻建二层红砖楼房，或在务工城市租房栖身，省吃俭用为新生命到来做好准备。`
+        : parentIsLaidOff
+          ? `在国企改制后靠积蓄与亲友帮衬成家，租住或购买小户型住房，精打细算迎接新生命。`
+          : `适逢福利分房终结与商品房市场化，倾注两代人积蓄背负按揭贷款在城市购置首套住房，建立家庭。`;
+      pushStage(parentTimeline, parentBirthYear + 27, childBirthYear - 1, '房改安家与成家立业', familyDetail);
+    }
+
+    const parentAge2026 = 2026 - parentBirthYear;
+    const childcareEra = childBirthYear <= 2019
+      ? '经历校外辅导班热潮、疫情三年陪读与生活转段'
+      : '经历疫情后的生活转段、育儿成本上升与教育政策调整';
+    const parentStage = parentAge2026 >= 40 ? '托举子女与中年重任' : '初为人父母与事业爬坡';
+    pushStage(parentTimeline, childBirthYear, 2026, parentStage,
+      `迎来你的出生。${parentAge2026 >= 40 ? '人到中年承担上有老下有小的重担' : '初为人父母，在事业与家庭之间来回奔忙'}，${childcareEra}，倾尽所能护佑你平安成长。`);
+
+    // 3. 角色自身（2010-2026 童年）：只描述出生后真实经历过的年份，禁止倒序与出生前记忆
+    const childTimeline = [];
+    const childAge2026 = 2026 - childBirthYear;
+    const earlyEnd = clampYear(childBirthYear + 5);
+    let earlyDetail;
+    if (childAge2026 <= 2) {
+      earlyDetail = `于${childBirthYear}年降生，尚在襁褓之中，在家人日夜守护下认识这个崭新的世界。`;
+    } else if (childBirthYear >= 2016) {
+      earlyDetail = `降生于移动互联网与智能终端普及的时代，在家庭的照拂、早教绘本与亲子陪伴中度过学前时光。`;
+    } else {
+      earlyDetail = `降生于中国综合国力腾飞与移动互联网兴起的年代，在家庭的照拂、早教绘本与智能终端的陪伴中步入童年。`;
+    }
+    pushStage(childTimeline, childBirthYear, earlyEnd, '数字时代的学前生活', earlyDetail);
+
+    if (childBirthYear + 6 <= 2026) {
+      let schoolDetail;
+      if (childBirthYear <= 2014) {
+        schoolDetail = `背上书包走进校园，亲历了三年疫情网课居家打卡、校外“双减”落地与中考改革，在飞速演进的时代中成长。`;
+      } else if (childBirthYear <= 2019) {
+        schoolDetail = `背上书包走进校园，在疫情后的校园生活中适应线上线下混合教学，经历“双减”与素质教育改革。`;
+      } else {
+        schoolDetail = `背上书包走进校园，在移动互联网与素质教育改革的环境中开始求学岁月。`;
       }
-    ];
+      pushStage(childTimeline, childBirthYear + 6, 2026, '求学岁月与同龄记忆', schoolDetail);
+    }
 
     return {
       disclaimer: '基于统计规律的典型轨迹推演，非真实个人经历。不涉及 2026 年之后的任何预测。',
@@ -4133,6 +4246,7 @@ class SimulationEngine {
       causalityReview: [],
       maritalStatus: '未婚',
       hasChildren: false,
+      lastChildbirthYear: null,
       milestones: [],
       survivedDisasters: [],
       lifelineHistory: [
