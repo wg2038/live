@@ -626,6 +626,12 @@ class SimulationEngine {
     if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || (this.character.occupation && (this.character.occupation.includes('师') || this.character.occupation.includes('医') || this.character.occupation.includes('干'))))) return true;
     if (tag === 'tech_whitecollar' && (this.character.careerTrack === 'tech_whitecollar' || (this.character.occupation && (this.character.occupation.includes('软件') || this.character.occupation.includes('程序') || this.character.occupation.includes('研发') || this.character.occupation.includes('工程师'))))) return true;
     if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || (this.character.occupation && (this.character.occupation.includes('商') || this.character.occupation.includes('店') || this.character.occupation.includes('板'))))) return true;
+    if (tag === 'uneducated') {
+      const edu = this.character.educationLevel;
+      const isNone = !edu || edu === '未入学' || edu === '文盲';
+      const hasDiploma = this.character.tags && (this.character.tags.has('status_literate') || this.character.tags.has('status_high_school_diploma') || this.character.tags.has('status_college_diploma') || this.character.tags.has('primary') || this.character.tags.has('junior_high') || this.character.tags.has('high_school'));
+      if (isNone && !hasDiploma) return true;
+    }
     if (tag === 'primary' && this.character.educationLevel && this.character.educationLevel.includes('小')) return true;
     if (tag === 'junior_high' && this.character.educationLevel && (this.character.educationLevel.includes('初') || this.character.educationLevel.includes('中'))) return true;
     if (tag === 'high_school' && this.character.educationLevel && (this.character.educationLevel.includes('高') || this.character.educationLevel.includes('中专'))) return true;

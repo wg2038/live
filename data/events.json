@@ -4535,6 +4535,1551 @@
     ]
   },
   {
+    "id": "evt_1937_1949_a1_xuetudang",
+    "tier": "era",
+    "title": "战乱避难：老字号国药铺拜师做学徒",
+    "yearRange": [
+      1937,
+      1948
+    ],
+    "targetAge": [
+      12,
+      22
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student",
+      "status_high_official"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "抗战时期大量失学难童投奔后方或租界中药铺、铁匠铺做三年零一节的学徒，管吃住无工钱，依靠苦力换取一门谋生手艺。",
+    "narrative": "战火烧毁了家乡的屋舍，你流落到后方市镇，鞋底磨穿饥肠辘辘。街角同仁堂分号的老掌柜见你手脚勤快眼神老实，问你愿不愿立下字据三年学徒出师。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "跪地磕头立保约，甘愿起早贪黑打杂碾药三年，换取立足安身",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：12–22",
+          "地域：全国城镇",
+          "门槛：无正规文凭者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 78,
+            "log": "冬练三九夏练三伏，你记熟了上百味中草药炮制手艺，获掌柜赏识转为正式伙计，免受流民饥馑之苦。",
+            "effect": {
+              "health": 5,
+              "wealth": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "乱世中以三年学徒之苦习得一技之长，奠定一生谋生根基。",
+            "status": "status_apprentice_certified"
+          },
+          {
+            "type": "injured",
+            "weight": 20,
+            "log": "研磨砒霜雄黄时粉尘吸入致慢性咽喉溃烂，虽学成出师但落下顽固咳嗽。",
+            "effect": {
+              "health": -20,
+              "wealth": 10,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "药铺研药落下呼吸道旧疾，劳动力略有受损。",
+            "status": "sequelae_respiratory"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "日寇敌机突袭市镇药铺中弹坍塌，在药窖中不幸被火舌吞没罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "抗战乱世空袭无常，学徒生涯终断于战火。"
+          }
+        ]
+      },
+      {
+        "text": "嫌弃学徒规矩苛刻非打即骂，谢绝掌柜挽留，继续在码头做临时散工挑夫",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：12–22",
+          "地域：沿江码头",
+          "门槛：向往自由散漫者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 90,
+            "log": "每天在码头扛大包出苦力，虽然日结两枚铜板自由自在，但一身皮肉多处拉伤，未来依然前途未卜。",
+            "effect": {
+              "health": -10,
+              "wealth": 5,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "未能抓住学徒学艺之机，长期停留在底层苦力阶层。"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "在雨夜跳板上滑倒，百斤麻袋重重砸在小腿上骨裂，卧床大半个月花光微薄积蓄。",
+            "effect": {
+              "health": -25,
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "码头苦力负伤缺乏保障，生活愈发窘迫。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_a2_saomang_zixue",
+    "tier": "era",
+    "title": "战火求知：桐油灯下借报识字扫盲",
+    "yearRange": [
+      1938,
+      1949
+    ],
+    "targetAge": [
+      10,
+      30
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student",
+      "status_high_official"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "民国时期文盲率高达80%以上，后方战时民众教育馆与夜间识字班零星兴办，青年常借铅字旧报纸与桐油灯自学脱盲。",
+    "narrative": "白天打柴劳作，夜晚在低矮土屋里点起如豆的桐油灯。你从教书先生门前捡回几张撕碎的《大公报》，用树枝沾水在青砖上反复临摹生字。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "省下口粮换桐油，每夜坚持临摹苦读两小时，向邻家老秀才虚心请教",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：10–30",
+          "地域：全国城乡",
+          "门槛：好学自律者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "一年下来你学会了八百常用字，能读懂布告家信与账册，被村里举荐为粮秣记账员。",
+            "effect": {
+              "mentality": 30,
+              "wealth": 15,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战乱岁月中自学脱盲，成功打破文盲宿命改变社会阶层。",
+            "status": "status_literate"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "因长期在昏暗桐油烟气下用眼过度，双目严重近视红肿，视力大受折损。",
+            "effect": {
+              "health": -15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "苦读脱盲虽成，但过早落下重度眼疾。"
+          }
+        ]
+      },
+      {
+        "text": "觉得字不能当饭吃，早早吹灯睡觉以养精蓄锐应对明日重体力农活",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：10–30",
+          "地域：农村山岭",
+          "门槛：现实短视者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "日子如常在日出而作日落而息中消磨，文书官司依然要花铜钱请人代写代读。",
+            "effect": {
+              "health": 5,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "错失战时自学启蒙机会，终生停留在文盲阶层。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_a3_liuwang_zhongxue",
+    "tier": "era",
+    "title": "战火漂泊：后方联立流亡中学借读",
+    "yearRange": [
+      1937,
+      1945
+    ],
+    "targetAge": [
+      13,
+      19
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.06,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "抗战爆发后华北、东南各省中学师生跋涉数千里向后方流亡，教育部成立了国立第一至第二十二中学，收容上万流亡学生以工代赈求学。",
+    "narrative": "学校在沦陷区停办，你跟随流亡师生队伍辗转千里抵达湘西山城。国立中学草建于破庙之中，以草席为被、苞谷饭度日，但书声琅琅不绝于耳。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "报名国立联中流亡借读生，半日出坡垦荒种菜，半日苦读数理英文",
+        "choiceTags": [
+          "时代：1937–1945",
+          "年龄：13–19",
+          "地域：西南大后方",
+          "门槛：初通文墨者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 80,
+            "log": "在破庙祠堂中完成了高中学业，结识了一批共患难的青年才俊，打下扎实国文与数理基础。",
+            "effect": {
+              "mentality": 35,
+              "wealth": -5,
+              "health": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在国立流亡中学坚持完结学业，保留了走向更高知识殿堂的火种。",
+            "status": "status_high_school_diploma"
+          },
+          {
+            "type": "injured",
+            "weight": 18,
+            "log": "流亡途中感染重度伤寒发热数日，幸得同窗倾力熬姜汤照料脱险，但身骨消瘦大半。",
+            "effect": {
+              "health": -25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "大后方求学期间罹患伤寒大病，体质转为虚弱。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "遇敌机对后方小城野蛮低空轰炸，防空洞塌方不幸遇难牺牲。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "战火流亡青年学子殁于敌机轰炸。"
+          }
+        ]
+      },
+      {
+        "text": "因忍受不了山中饥寒与粗粝苞谷，选择离校投奔大后方城镇商铺投机谋生",
+        "choiceTags": [
+          "时代：1937–1945",
+          "年龄：13–19",
+          "地域：后方市镇",
+          "门槛：重实利者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 95,
+            "log": "离开课堂进入茶馆打杂当跑堂，虽然顿顿有白米饭饱腹，但书本知识从此荒废。",
+            "effect": {
+              "wealth": 20,
+              "mentality": -10,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "中断正规中学教育，人生转轨为市井跑堂。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "在茶馆打翻当地驻军军官茶碗遭殴打并讹诈钱财，连累掌柜赔偿。",
+            "effect": {
+              "wealth": -20,
+              "health": -15,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "市井谋生缺乏庇护，饱尝军阀兵痞欺凌。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_a4_tuoguanxi_diandang",
+    "tier": "era",
+    "title": "营生自救：托同乡引荐进米行记账",
+    "yearRange": [
+      1940,
+      1949
+    ],
+    "targetAge": [
+      18,
+      45
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "民国城市工商业高度依赖宗族同乡网络，谋求账房、跑街等体面职差往往需要三保俱全及同乡前辈作保引荐。",
+    "narrative": "原籍工矿停摆，你在省城举目无亲。同乡会的老账房看你字迹端正且略懂算盘，私下表示若备得两块大洋作引荐茶钱，可保你进米行顶替空缺。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "东拼西凑凑齐引荐茶钱与保单，恭敬登门拜谒老账房求得差事",
+        "choiceTags": [
+          "时代：1940–1949",
+          "年龄：18–45",
+          "地域：城市商圈",
+          "门槛：懂珠算簿记者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "顺利进入粮行担任二账房，每月不仅有一斗平价米配额，更在混乱市面中获得庇护。",
+            "effect": {
+              "wealth": 25,
+              "family": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "靠同乡地缘关系成功切入城市商界账房，避开失业流民厄运。",
+            "status": "status_merchant_clerk"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "粮行因囤粮倒卖被稽查处敲诈，账房被连带盘问三天，虽未受刑但惊吓不浅。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "卷入战时粮行物资官司，深刻感受世道险恶。"
+          }
+        ]
+      },
+      {
+        "text": "拒绝送礼打点，坚信靠自己摆测字摊、替人代写家信维持生计",
+        "choiceTags": [
+          "时代：1940–1949",
+          "年龄：18–45",
+          "地域：城市街巷",
+          "门槛：清高自傲者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 100,
+            "log": "在城隍庙摆摊代书，饥一顿饱一顿，全凭过路流民赏几个铜板过活，勉强维持温饱。",
+            "effect": {
+              "wealth": -5,
+              "mentality": -5,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "坚拒市井请托规则，沦为城隍庙清贫落魄文人。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_b1_nueji_caoyao",
+    "tier": "era",
+    "title": "夏秋瘴毒：突发恶性疟疾高热冷战",
+    "yearRange": [
+      1937,
+      1948
+    ],
+    "targetAge": [
+      6,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "抗日战争期间华南与西南疟疾横行，奎宁（金鸡纳霜）被军阀与投机商炒成天价，普通百姓多以土方常山、青蒿或生姜硬扛。",
+    "narrative": "午后突然周身冰凉如堕冰窖，盖三层棉被依然牙齿格格打战；紧接着热度如烈火燎原，满脸通红胡言乱语，大汗淋漓衣被湿透。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙变卖仅有的过冬棉被与铜盆，托人在黑市求购两颗真假难辨的奎宁丸吞服",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–65",
+          "地域：全国城乡",
+          "门槛：舍得倾囊医治者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "药丸虽被奸商掺了面粉，但终含真奎宁，服用后冷热间歇拉长，七日后高烧退去彻底痊愈。",
+            "effect": {
+              "health": 15,
+              "wealth": -35,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重金求购黑市抗疟药保全性命，但家中已一贫如洗。"
+          },
+          {
+            "type": "injured",
+            "weight": 22,
+            "log": "买到了掺杂假药，热度迟迟不退转为慢性疟疾，脾脏肿大如拳头，体能严重衰退。",
+            "effect": {
+              "health": -30,
+              "wealth": -30,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黑市假药延误疟疾治疗，导致重度脾肿大与慢性贫血。",
+            "status": "sequelae_chronic_malaria"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "突发脑型疟疾昏迷抽搐，在深山茅屋中因高热惊厥不幸衰竭离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "恶性脑型疟疾夺去年轻生命。"
+          }
+        ]
+      },
+      {
+        "text": "舍不得花钱买天价西药，采用村里老法子大口吞服青蒿苦汁配烈酒发汗硬扛",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–65",
+          "地域：乡村山岭",
+          "门槛：笃信土方硬撑者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 65,
+            "log": "剧烈呕吐数天后侥幸退热保住一命，但肝脾受损，此后每逢农忙换季便频繁发作虚汗无力。",
+            "effect": {
+              "health": -20,
+              "wealth": 0,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "土法抗疟虽省钱，但遗留慢性脾肿大与易疲劳体质。",
+            "status": "sequelae_chronic_malaria"
+          },
+          {
+            "type": "safe",
+            "weight": 31,
+            "log": "自身免疫力过硬，生青蒿汁巧合对症，连饮数碗后大汗淋漓居然完全自愈。",
+            "effect": {
+              "health": 5,
+              "wealth": 0,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "凭借强悍体质险涉险关，传为村中奇谈。"
+          },
+          {
+            "type": "fatal",
+            "weight": 4,
+            "log": "烈酒与热病攻心导致神志不清，夜间呕吐物窒息不幸身故。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "盲信土方偏方烈酒发汗导致意外窒息。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_b2_shangshou_poshangfeng",
+    "tier": "era",
+    "title": "农具割伤：生锈铁镰划破脚底化脓",
+    "yearRange": [
+      1937,
+      1949
+    ],
+    "targetAge": [
+      8,
+      65
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "抗生素发明前，生锈农具造成的深部刺伤是农村破伤风与败血症的主要源头，民间多以灶灰、香灰覆盖，极易造成厌氧菌感染致死。",
+    "narrative": "赤脚在烂泥田中抢割秋稻，脚底不慎踩在生锈的废铁犁头上，豁开一道寸许深口，鲜血混着黑泥汩汩外涌，痛彻心扉。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听信同伴建议，抓起灶膛香灰和陈年牛粪敷在伤口上止血包扎，继续干活",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：8–65",
+          "地域：农村泥滩",
+          "门槛：盲从旧习硬扛者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 60,
+            "log": "创口深度厌氧感染化脓，整条小腿红肿如桶，发高烧半月，伤口烂见白骨终成跛足。",
+            "effect": {
+              "health": -35,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "香灰糊伤口引发严重蜂窝织炎，导致终生行动跛行。",
+            "status": "sequelae_motor_impairment"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "破伤风梭菌蔓延致角弓反张、牙关紧闭，在痛苦抽搐中因呼吸肌麻痹不治。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "旧式封建泥灰糊伤口诱发急性破伤风殒命。"
+          },
+          {
+            "type": "safe",
+            "weight": 37,
+            "log": "老母亲见状急用开水冲洗泥沙并用烈酒浇创，居然顽强结痂愈合，未酿大祸。",
+            "effect": {
+              "health": -10,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "开水清洗避免了严重感染，侥幸逃过截肢之灾。"
+          }
+        ]
+      },
+      {
+        "text": "立即停工，叫人用独轮车推到五里外县城教会红十字诊所做清创并注射破伤风血清",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：8–65",
+          "地域：县城郊区",
+          "门槛：具备卫生防范意识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "外科大夫彻底扩创排净铁锈并注射血清，卧床两周伤口平整愈合，无任何后遗症。",
+            "effect": {
+              "health": 5,
+              "wealth": -20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学现代清创打破破伤风致命锁链，保全完好肢体。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "异种马血清发生轻度过敏皮疹发痒，抗组胺治疗三日好转。",
+            "effect": {
+              "health": -5,
+              "wealth": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "血清轻微过敏，额外增加少许开销。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_b3_dongchuang_kuiyang",
+    "tier": "era",
+    "title": "极寒逃荒：严冬双足重度冻伤溃烂",
+    "yearRange": [
+      1938,
+      1948
+    ],
+    "targetAge": [
+      6,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "北方与中原战乱流亡者在冰雪天气多着单薄破鞋，足趾耳廓冻死坏疽十分普遍，民间以雪搓、火烤常加剧组织坏死。",
+    "narrative": "零下二十度的暴风雪中连夜跋涉，草鞋早已破烂漏出脚趾。等在破土地庙歇脚脱下草鞋时，发现双脚发硬苍白如木头，完全失去知觉。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听信老辈传言，急忙扑到火堆边大火烘烤并抓起门外硬雪死命搓擦双脚",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–70",
+          "地域：北方严寒地带",
+          "门槛：盲从雪搓火烤偏方者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "急剧升温与粗暴摩擦导致冻结毛细血管大面积破裂，两个脚趾发黑坏疽脱落，终生残疾。",
+            "effect": {
+              "health": -30,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "错误使用火烤雪搓偏方导致肢端不可逆干性坏疽。",
+            "status": "sequelae_motor_impairment"
+          },
+          {
+            "type": "safe",
+            "weight": 30,
+            "log": "因冻结时间尚短，烤火后皮肉起大水疱溃烂数周，最终脱落新生红皮保全脚趾。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重度冻疮侥幸未伤及骨骼，留下顽固冬令冻疮体质。"
+          }
+        ]
+      },
+      {
+        "text": "用体温微温的水慢慢温敷，撕下棉袄夹层干棉花严密包裹，置于怀中缓慢复温",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–70",
+          "地域：北方严寒地带",
+          "门槛：具备救护常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "双足刺痛麻木感逐渐消退恢复血色，仅起轻微冻疮红斑，半月后自如行走。",
+            "effect": {
+              "health": 5,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "缓慢渐进复温科学化解严重冻伤，保全身躯完整。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "小脚趾遗留遇冷则发痒溃破的慢性冻疮顽疾。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遗留季节性冻疮旧疾。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_b4_yinshi_huoluan",
+    "tier": "era",
+    "title": "疫病肆虐：夏日难民饮用浊井水剧烈吐泻",
+    "yearRange": [
+      1937,
+      1948
+    ],
+    "targetAge": [
+      6,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "民国时期兵连祸结，战乱霍乱、副伤寒连年暴发，水源遭战死人畜污染，无抗生素与静脉输液条件下脱水致死率极高。",
+    "narrative": "逃难路上酷暑难耐，你饮用了路边一口漂浮着死鼠的水井生水。入夜后肚腹绞痛如刀割，剧烈喷射状水样腹泻伴随呕吐，眼眶深陷双唇发紫。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "拼命硬撑，以为只是寻常中暑拉肚子，躺在草席上紧闭嘴巴滴水不进",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–75",
+          "地域：战乱流徙地带",
+          "门槛：盲目断水硬挺者"
+        ],
+        "outcomes": [
+          {
+            "type": "fatal",
+            "weight": 4,
+            "log": "重度脱水导致低血容量性休克与急性肾衰竭，在深夜无声无息停止了心跳。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "战乱期剧烈腹泻误判中暑滴水不进致严重脱水身故。"
+          },
+          {
+            "type": "injured",
+            "weight": 76,
+            "log": "身体虚脱濒死，三天后腹泻自限停止，但肾功能与心脏遭受打击，元气大伤一年无法干重活。",
+            "effect": {
+              "health": -40,
+              "wealth": -10,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "重度脱水休克险死还生，身体免疫系统与耐力持久减退。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "年轻底子硬，靠自身体液平衡熬过了最危险的二十四小时，虚脱后逐渐恢复。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "侥幸从烈性感染性肠炎中保全性命。"
+          }
+        ]
+      },
+      {
+        "text": "向同路老脚夫讨来粗盐和红糖，将井水彻底烧开数次，频频大口饮用糖盐温水",
+        "choiceTags": [
+          "时代：1937–1949",
+          "年龄：6–75",
+          "地域：战乱宿营地",
+          "门槛：懂口服补液法者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "补充了大量电解质与水分，有效对抗了严重脱水，两日后排便成形转危为安。",
+            "effect": {
+              "health": 5,
+              "wealth": -5,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "自制糖盐水土法口服补液，成功战胜严重腹泻脱水险关。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "电解质虽得补足，但肠黏膜脱落较甚，消化功能在半年内较为脆弱。",
+            "effect": {
+              "health": -10,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "消化系统恢复期偏长，需细粮调养。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_c1_jinyuanquan_tunmi",
+    "tier": "era",
+    "title": "恶性通胀：金圆券如废纸抢购平价米",
+    "yearRange": [
+      1948,
+      1949
+    ],
+    "targetAge": [
+      18,
+      65
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.12,
+    "coolingPeriod": 5,
+    "factLevel": "确证",
+    "historicalFact": "1948年8月蒋介石发行金圆券强行收兑民间金银外币，数月间物价暴涨几万倍，市民推独轮车运钞票买米，工商业全面停摆崩溃。",
+    "narrative": "街头报贩大喊金圆券今日又贬值三倍！厂里刚刚发下一大捆崭新的大额金圆券钞票，如不立刻花掉，到傍晚连一盒火柴都买不起。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "扛起整麻袋钞票发疯似地冲向南市米店，哪怕挨警棍也要抢购两袋白面与菜油",
+        "choiceTags": [
+          "时代：1948–1949",
+          "年龄：18–65",
+          "地域：大中城市",
+          "门槛：手头持有法币纸币者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "在头破血流的挤兑长队中抢回一袋精白面与两斤麻油，锁在箱底，确保全家老小一个月免于断炊。",
+            "effect": {
+              "wealth": 15,
+              "family": 25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敏锐洞察纸币贬值危机，以硬通货实物保卫家庭口粮。"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "在米店门口被哄抢人潮踩伤脚趾，买到的面粉袋被割破漏掉小半，勉强护住大半。",
+            "effect": {
+              "health": -15,
+              "wealth": 5,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抢米风潮中负伤，见证纸币崩溃时期的民生惨相。"
+          }
+        ]
+      },
+      {
+        "text": "轻信广播里官办平价物资宣传，犹豫等待明日物价管制生效后再去采购",
+        "choiceTags": [
+          "时代：1948–1949",
+          "年龄：18–65",
+          "地域：大中城市",
+          "门槛：犹豫盲信官方者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 100,
+            "log": "次日全城米行全部关门上锁，一麻袋金圆券只换回两个干瘪烧饼，积蓄化作废纸，全家陷入饥寒。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -30,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在恶性通货膨胀中错失变现时机，资产瞬间归零蒸发。",
+            "status": "status_asset_wiped"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_c2_heishi_yinyuan",
+    "tier": "era",
+    "title": "暗潮涌动：弄堂黑市倒腾袁大头银元",
+    "yearRange": [
+      1947,
+      1949
+    ],
+    "targetAge": [
+      20,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "国统区末期民间全面拒用纸币，银元（袁大头、孙小头）成为实际流通货币。黑市银元贩子敲击银元听声辨伪，宪兵经常巡街查抄。",
+    "narrative": "后街阴暗的过道里，几个熟人正手指夹着银元在耳边叮当作响听成色。邻居拉你入伙，称只要把乡下的土产换成十枚袁大头倒卖，几天就能赚一倍差价。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "拿出微薄家底加入黑市倒腾，走街串巷倒换银元赚取汇差",
+        "choiceTags": [
+          "时代：1947–1949",
+          "年龄：20–55",
+          "地域：城市弄堂",
+          "门槛：冒险求暴利者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "你眼明手快，在宪兵来临前脱手套现，赚取了五枚成色十足的银元，发了笔小财。",
+            "effect": {
+              "wealth": 35,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在黑市投机倒把险中求胜，积累了一笔保底硬通货。"
+          },
+          {
+            "type": "entangled",
+            "weight": 35,
+            "log": "遇经济警察与宪兵突击搜查，连人带本钱全部被抄没，在拘留所关押三天才被保释。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -25,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黑市倒卖银元被宪兵搜缴一空，身陷拘押污点。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "因买到铜芯镀银假币与人争执，被黑帮打手持刀刺伤肩头。",
+            "effect": {
+              "health": -25,
+              "wealth": -30,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黑市交易遭黑恶势力暗算负伤。"
+          }
+        ]
+      },
+      {
+        "text": "深知黑市龙蛇混杂且触犯禁令，坚拒诱惑，规矩守成安分守己",
+        "choiceTags": [
+          "时代：1947–1949",
+          "年龄：20–55",
+          "地域：城市弄堂",
+          "门槛：谨慎守序者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "几天后该弄堂的银元贩子被一锅端全部判刑，你暗自庆幸没有贪小便宜惹大祸。",
+            "effect": {
+              "mentality": 20,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "审慎克制避开黑市抓捕陷阱，保全阖家平安。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_c3_bianmai_shoushi",
+    "tier": "era",
+    "title": "度荒抉择：当铺典当母亲传家点翠金簪",
+    "yearRange": [
+      1938,
+      1947
+    ],
+    "targetAge": [
+      18,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "抗日战争与内战期间灾荒频繁，典当行（押店）是城市贫民与破落户变现家产的残酷通道，当铺通常按实值两至三成苛刻折价。",
+    "narrative": "全家已断炊两天，孩子饿得直哭。母亲从贴身棉袄深处摸出一支祖传点翠金簪，这是外婆传下来的唯一嫁妆，泪眼婆娑递到你手中。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙走向高高柜台的当铺，任凭朝奉百般贬损挑刺，换回半石杂面与几吊铜钱",
+        "choiceTags": [
+          "时代：1938–1947",
+          "年龄：18–60",
+          "地域：全国城镇",
+          "门槛：舍弃旧物救急者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "虽然金簪被苛扣了大半价值，但换来的杂粮让全家挺过了最青黄不接的寒冬。",
+            "effect": {
+              "wealth": 15,
+              "family": 15,
+              "mentality": -10,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "变卖祖传传家金簪救全家脱离饥荒，换来一家性命。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "换来的伪钞在市场上被摊贩识破引发纠纷，所幸邻里出面调停化解。",
+            "effect": {
+              "wealth": -5,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "当铺折现遭遇伪币暗算，深感底层生计艰难。"
+          }
+        ]
+      },
+      {
+        "text": "誓死不卖传家宝，四处向远房亲友厚着脸皮借讨米糠野菜勉强维持",
+        "choiceTags": [
+          "时代：1938–1947",
+          "年龄：18–60",
+          "地域：全国城乡",
+          "门槛：重情义守死节者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 65,
+            "log": "靠吃野菜榆树皮硬挺，幼子饿出重度浮肿病，虽保住金簪但家人身体大受摧残。",
+            "effect": {
+              "health": -25,
+              "family": -15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "坚守旧物家传，代价是家人饱受饥馑营养不良折磨。"
+          },
+          {
+            "type": "safe",
+            "weight": 35,
+            "log": "亲友怜悯借了半斗苞谷，熬过了春荒，母亲的金簪得以完好传承。",
+            "effect": {
+              "family": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在亲友接济下守住传家遗物。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_c4_touji_mihang",
+    "tier": "era",
+    "title": "险中博弈：借贷囤积新麦博取战乱差价",
+    "yearRange": [
+      1941,
+      1948
+    ],
+    "targetAge": [
+      22,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "民国中晚期粮食统制政策漏洞百出，奸商与投机分子利用城防封锁与运力紧张囤粮居奇，但一旦遭遇兵变或物资查禁往往倾家荡产。",
+    "narrative": "城外秋收新麦上市，运河船家私下联络称有一船小麦愿低价转让。只要借下月息三分的高利贷吃下这批粮，待下月关卡封锁物价必涨。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "抵押房契借高利贷赌上一把，将整船小麦悄悄运入自家地窖密藏",
+        "choiceTags": [
+          "时代：1941–1948",
+          "年龄：22–55",
+          "地域：商埠水运枢纽",
+          "门槛：借贷重仓投机者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 50,
+            "log": "战线变动运力阻断，城中粮价翻番，你顺利脱手归还本息，净赚一套街面铺房。",
+            "effect": {
+              "wealth": 50,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借高利贷投机倒把豪赌翻身，一跃成为本地富户。"
+          },
+          {
+            "type": "entangled",
+            "weight": 45,
+            "log": "地窖漏水小麦发霉发酸，又逢宪兵大搜查查扣大半，血本无归被高利贷逼得远走他乡。",
+            "effect": {
+              "wealth": -60,
+              "mentality": -35,
+              "family": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "投机囤粮惨遭查封水渍，深陷高利债务断绝后路。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "fatal",
+            "weight": 5,
+            "log": "被城内饥民暴动发现囤粮地窖，争夺推搡中被踩踏致命。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "发国难财囤粮激化民愤不幸死于饥民暴动。"
+          }
+        ]
+      },
+      {
+        "text": "深知国难财不可发，且高利贷如虎狼，断然回绝投机邀约",
+        "choiceTags": [
+          "时代：1941–1948",
+          "年龄：22–55",
+          "地域：商埠水运枢纽",
+          "门槛：安守本分者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "不久后该批私粮遭驻军按倒卖军粮全额没收，倒买者入狱，你全身而退安宁无事。",
+            "effect": {
+              "mentality": 20,
+              "wealth": 0
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不贪暴利规避灭顶之灾，守住平淡安全底线。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_d1_zhanluan_shisan",
+    "tier": "era",
+    "title": "烽火离散：码头拥挤逃难至亲下落不明",
+    "yearRange": [
+      1937,
+      1945
+    ],
+    "targetAge": [
+      6,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "抗日战争造成近一亿难民大迁徙，汉口、宜昌、重庆等大撤退节点人潮拥挤失散者不计其数，许多家庭至死未能重逢。",
+    "narrative": "敌机尖啸声中警报大作，难民潮疯狂涌向最后一艘客轮跳板。人流激荡冲撞间，紧拉着的手骤然被扯断，回头只见黑压压的人海哭喊，亲眷踪影全无。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "不上船，逆着逃难人流在江边废墟撕心裂肺搜寻三天三夜，张贴寻人墨字条",
+        "choiceTags": [
+          "时代：1937–1945",
+          "年龄：6–65",
+          "地域：沿江码头",
+          "门槛：重情重义者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "未能找到失散亲眷，反因淋雨露宿高烧一场，只捡回亲人遗落的一只刻字旧铜墨盒，怀恨踏上未知前路。",
+            "effect": {
+              "health": -20,
+              "mentality": -30,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "乱世中骨肉离散未能挽回，留下一生无尽的挂念与隐痛。",
+            "status": "status_lost_kin"
+          },
+          {
+            "type": "safe",
+            "weight": 22,
+            "log": "在难民收容所草棚角落奇迹般听到熟悉的呼唤，至亲抱头痛哭重聚，相约生死不离。",
+            "effect": {
+              "family": 40,
+              "mentality": 35,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战火人海中奇迹寻回至亲，骨肉团聚支撑一生信念。"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "在码头寻找亲人时遭遇第二波敌机俯冲扫射，中弹罹难。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "战火寻亲不幸命丧空袭。"
+          }
+        ]
+      },
+      {
+        "text": "含泪顺从人流登上轮船撤往后方，牢记原籍地名，立誓日后登报寻访",
+        "choiceTags": [
+          "时代：1937–1945",
+          "年龄：6–65",
+          "地域：沿江码头",
+          "门槛：隐忍顾全大局者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "轮船缓缓起锚，江风如刀，你将泪水咽进肚里。虽然幸存抵达后方，但从此孑然一身。",
+            "effect": {
+              "health": 5,
+              "mentality": -20,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战火流散天各一方，成为漂泊后方的孤雁。",
+            "status": "status_lost_kin"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_d2_laomu_binggu",
+    "tier": "era",
+    "title": "异乡送终：逃荒古道上老母力竭安详离世",
+    "yearRange": [
+      1938,
+      1948
+    ],
+    "targetAge": [
+      14,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_orphan"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "战乱期间长途跋涉对老弱妇孺是巨大磨难，饥渴、水土不服与痢疾常导致老人病故于荒野路侧，多只能就地薄葬。",
+    "narrative": "鸡公独轮车推着年迈的老母亲行至秦岭山道，母亲的气息渐渐微弱。她颤抖着用枯槁的手抚摸你的额头，轻声嘱咐你要好好活下去，便闭上了双眼。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "向同路难民磕头借来两块洋钱买一口薄皮柳木棺材，在山冈松柏下掘穴成墓",
+        "choiceTags": [
+          "时代：1938–1948",
+          "年龄：14–55",
+          "地域：山陕川黔驿道",
+          "门槛：至孝尽礼者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "借钱为母亲立了一块无字石碑并向南磕了三个响头。虽背负一身盘缠债，但良心无愧。",
+            "effect": {
+              "wealth": -20,
+              "mentality": 10,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "流亡途中尽孝送终，立下山岗石碑铭记母恩。",
+            "status": "status_bereaved_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "徒手掘石坑双手指节挫伤血肉模糊，寒冬感染发烧，同路人好心搀扶前行。",
+            "effect": {
+              "health": -20,
+              "wealth": -20,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "荒野葬母十指创伤，身心遭受重创。"
+          }
+        ]
+      },
+      {
+        "text": "囊空如洗无力买棺，只能用破旧草席将母亲仔细裹紧，就地深埋垒石为记",
+        "choiceTags": [
+          "时代：1938–1948",
+          "年龄：14–55",
+          "地域：山陕川黔驿道",
+          "门槛：现实无奈者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "在乱石堆前长跪不起，将母亲生前缝制的一双旧布鞋贴胸收好，擦干眼泪继续前行。",
+            "effect": {
+              "wealth": 0,
+              "mentality": -25,
+              "family": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "草席葬母乱世无奈，带着母亲的针线布鞋活出坚韧。",
+            "status": "status_bereaved_parent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_d3_weiji_jiashu",
+    "tier": "era",
+    "title": "泛黄心绪：行囊深处未寄出的原籍家书",
+    "yearRange": [
+      1940,
+      1949
+    ],
+    "targetAge": [
+      16,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "抗战及内战阻断邮路，沦陷区与大后方通邮困难，需借由红十字会或中立国转递，万千家书滞留半途化作泛黄废纸。",
+    "narrative": "整理多年颠沛流离的小铁盒，翻出一封五年前写好却因邮路阻断未能寄出的信件。信封已磨出毛边，墨迹微化，上面写着老家亲人的名字与地址。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "花两枚银角托付南下经商的民间走帮商人，请其辗转寻访投递此信",
+        "choiceTags": [
+          "时代：1940–1949",
+          "年龄：16–60",
+          "地域：全国城乡",
+          "门槛：执着念旧者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "半年后客商托人捎回口信：老宅虽已毁于战火，但得知亲人已迁居乡下避难尚在人世，心头巨石落地。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 30,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千里托信辗转获得原籍至亲音讯，慰藉半生漂泊。"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "客商收了银钱却杳无音信，信件如石沉大海，反添一层受骗的失落与悲凉。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "托人捎信无果，徒增乱世离愁。"
+          }
+        ]
+      },
+      {
+        "text": "将信件就着油灯点燃化作灰烬，将对故土亲人的思念深埋心底，专注当下生存",
+        "choiceTags": [
+          "时代：1940–1949",
+          "年龄：16–60",
+          "地域：全国城乡",
+          "门槛：冷峻务实者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "纸灰在风中散尽，你不再回头望向沦陷的旧关河，神情变得更加坚毅沉着。",
+            "effect": {
+              "mentality": 10,
+              "wealth": 0
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "焚去旧信断绝执念，冷峻适应乱世求存规则。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1937_1949_d4_tongpao_fuxu",
+    "tier": "era",
+    "title": "烽火盟誓：代殓阵亡挚友送还染血铜墨盒",
+    "yearRange": [
+      1938,
+      1948
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "战争年代同僚战友朝夕相处生死托付，一人阵亡往往由幸存者代为收殓并设法将遗物送还孤儿寡母，是动荡岁月中最高尚的人性光芒。",
+    "narrative": "轰炸过后硝烟弥漫，和你同甘共苦两年的同僚伤重不治。临终前他将随身的半瓶烧酒、一块怀表和染血的铜墨盒塞给你，求你将来带给他老家的妻儿。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "郑重对天起誓，将遗物视若生命妥善保管，跋涉千里亲手送抵挚友老家",
+        "choiceTags": [
+          "时代：1938–1948",
+          "年龄：18–55",
+          "地域：全国各地",
+          "门槛：诺重千钧者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "战事暂歇后你徒步寻访三个月，终于在僻远山村将遗物交到其白发老母手中，获全村人垂泪相敬。",
+            "effect": {
+              "mentality": 35,
+              "wealth": -15,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "千金一诺送还战友遗物，成就乱世中的道义丰碑。"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "送信途中遭溃兵抢劫，为死守挚友怀表右臂被枪托砸折，幸得路人营救保全遗物。",
+            "effect": {
+              "health": -25,
+              "wealth": -10,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "护送挚友遗物负伤受挫，虽体魄受损但义薄云天。"
+          }
+        ]
+      },
+      {
+        "text": "自身难保无力远涉，将怀表变卖换作两人逃难盘缠，将墨盒就地掩埋在坟头",
+        "choiceTags": [
+          "时代：1938–1948",
+          "年龄：18–55",
+          "地域：战火前沿",
+          "门槛：保全自我者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "靠变卖遗物换来的米面活了下来，但在每一个惊醒的梦夜，战友临终的眼神始终在心头挥之不去。",
+            "effect": {
+              "wealth": 15,
+              "mentality": -20,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "变卖亡友遗物救急虽换来苟活，却留下终生愧疚梦魇。"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "evt_1950_hunyinfa",
     "tier": "era",
     "title": "新中国首部法律《婚姻法》与婚姻自主",
@@ -8959,7 +10504,11 @@
     ],
     "exposureConditions": {},
     "preTags": [],
-    "excludeTags": [],
+    "excludeTags": [
+      "uneducated",
+      "status_peasant_illiterate",
+      "status_dropped_out"
+    ],
     "triggerProbability": 0.95,
     "coolingPeriod": 4,
     "factLevel": "确证",
@@ -9048,6 +10597,1479 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "虽未进考场却乘知识春风革新，成就不逊于大学生的实干人生。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_a1_saomang_tuomang",
+    "tier": "era",
+    "title": "火热扫盲：农村冬学识字班煤油灯下苦读",
+    "yearRange": [
+      1950,
+      1958
+    ],
+    "targetAge": [
+      14,
+      45
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student",
+      "status_high_school_diploma"
+    ],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "建国初期全国掀起轰轰烈烈的扫盲运动，各村创办冬学和夜校，推行祁建华速成识字法，数百万人摘掉文盲帽子，学会记工分与写条据。",
+    "narrative": "寒冬农闲，村大队部点起了汽灯与罩子灯，黑板上写着‘毛主席万岁’和‘抗美援朝’。村支书敲锣号召所有大姑娘小伙子都来扫盲班认字记工分。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "每晚顶风冒雪坚持上夜校，苦记注音字母与五百常用汉字，争当扫盲积极分子",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：14–45",
+          "地域：全国农村",
+          "门槛：无全日制文凭者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "经过两个冬天的刻苦突击，你顺利通过县扫盲验收大考，获发脱盲证书，被公社选派为生产队副记工员。",
+            "effect": {
+              "mentality": 30,
+              "wealth": 15,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在建国初期扫盲运动中脱颖而出，从纯文盲跃升为基层记工骨干。",
+            "status": "status_literate"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "深夜在雪地返家途中摔入结冰水渠扭伤踝关节，由同班社员轮流背回家中，卧床休养大半月。",
+            "effect": {
+              "health": -15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冬学上进途中摔伤扭骨，留下轻微阴雨天脚踝酸胀。"
+          }
+        ]
+      },
+      {
+        "text": "自认大老粗种地不需要咬文嚼字，宁愿窝在土炕上烤火编草鞋睡大觉",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：14–45",
+          "地域：全国农村",
+          "门槛：因循守旧者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "避开了冬夜严寒，但此后在公社分粮划字时依然只能按红手印，与文书会计岗位彻底无缘。",
+            "effect": {
+              "health": 5,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃扫盲脱贫机会，一生受困于文盲粗活。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_a2_gongnong_zhongxue",
+    "tier": "era",
+    "title": "组织选拔：保送工农速成中学带薪深造",
+    "yearRange": [
+      1951,
+      1957
+    ],
+    "targetAge": [
+      18,
+      32
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "1950年代初国家设立工农速成中学，抽调优秀青年工人、革命功臣带薪入学，用三年时间完成普通中学六年课程，随后直升大学工科。",
+    "narrative": "厂工会与党委贴出光荣榜，鉴于你在车间技术革新中表现优异、政治过硬，决定保送你进入省立工农速成中学，保留原工资福利脱产深造三年。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "告别机床背起行囊，立下军令状誓把数理化硬骨头啃下来，决不辜负工人阶级嘱托",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–32",
+          "地域：工业城市",
+          "门槛：工矿先进生产者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "三年夜以继日苦攻代数立体几何与物理，顺利以优异成绩结业，直接升入工业专科学校成为技术骨干。",
+            "effect": {
+              "mentality": 35,
+              "wealth": 20,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住工农速成中学历史机遇实现学历飞跃，晋升厂级技术干部。",
+            "status": "status_high_school_diploma"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "底子太薄拼命赶进度导致神经衰弱与重度胃溃疡，虽勉强结业但身形大为消瘦。",
+            "effect": {
+              "health": -20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "速成高强度学习引发慢性消化道功能紊乱。"
+          }
+        ]
+      },
+      {
+        "text": "担忧自己底子太差跟不上数理公式，主动向厂长请辞留在车间继续当机床能手",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–32",
+          "地域：工业城市",
+          "门槛：安于实操者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "留在熟悉的车间继续当老师傅，虽踏实受敬重，但随着新工艺引进而逐步落后于新一代科班工程师。",
+            "effect": {
+              "wealth": 10,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃进修干部通道，终身保留老资格一线技术工人身份。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_a3_chijiao_yisheng",
+    "tier": "era",
+    "title": "公社送教：参加赤脚医生卫生员集训",
+    "yearRange": [
+      1965,
+      1976
+    ],
+    "targetAge": [
+      16,
+      28
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "1965年毛泽东发出‘把医疗卫生工作的重点放到农村去’的号召，全国培训了百万名半农半医的赤脚医生，一根银针一把草药解决基层看病难。",
+    "narrative": "大队贫下中农管理委员会推选你参加县人民医院举办的‘赤脚医生三个月速成班’。桌上发了《赤脚医生手册》、一套针灸针和几盒常用磺胺类药。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "在自己身上练习扎针，熟悉银针穴位与急救包扎，毕业背起红十字小药箱走村串户",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–28",
+          "地域：广大农村",
+          "门槛：初中文化青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "白天赤脚下田割谷，夜晚提马灯出诊为社员接生治感冒，成为全大队公认的救命好后生，工分待遇优渥。",
+            "effect": {
+              "mentality": 30,
+              "wealth": 15,
+              "health": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "成为受人敬重的半农半医赤脚医生，建立深厚群众威望。",
+            "status": "status_barefoot_doctor"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "深夜翻山越岭抢救难产孕妇失足滚下山坡，手肘擦伤挫骨，忍痛赶到现场接生母子平安。",
+            "effect": {
+              "health": -15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "夜路出诊负伤但救活两命，树立医者崇高仁心。"
+          }
+        ]
+      },
+      {
+        "text": "畏惧给乡亲打针见血出事故，借口晕血把名额让给大队会计的侄子",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–28",
+          "地域：广大农村",
+          "门槛：胆小规避者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "继续留在生产队挣十个工分，虽无责任风险，但也错失了改变社会阶层的良机。",
+            "effect": {
+              "mentality": -5,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "主动推辞卫生员机遇，继续全日制重体力劳作。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_a4_xuetong_zhuanzheng",
+    "tier": "era",
+    "title": "苦练技术：国营大厂三年学徒满期考核",
+    "yearRange": [
+      1953,
+      1965
+    ],
+    "targetAge": [
+      17,
+      24
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "计划经济时期国营工矿严格推行八级工资制，学徒工三年期满需通过工件锉削、游标卡尺测量等严苛操作考核方能转正为二级工。",
+    "narrative": "三年当学徒，给八级钳工师父端茶递扳手扫铁屑。今天车间主任和工会代表站在机床旁监考，要求你在两小时内徒手锉出一个公差千分之二毫米的凹凸配块。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "凝神静气，端正站姿，严格按照师父传授的手法推锉，反复用刀口尺精密验光",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：17–24",
+          "地域：重工业工矿",
+          "门槛：学徒三年期满者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 88,
+            "log": "零件严丝合缝不见一丝漏光！考官集体起立鼓掌，顺利通过转正考核定为二级工，月工资涨至38.5元。",
+            "effect": {
+              "wealth": 25,
+              "mentality": 30,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以过硬基本功考取正式国企钳工编制，端上铁饭碗。",
+            "status": "status_certified_mechanic"
+          },
+          {
+            "type": "injured",
+            "weight": 12,
+            "log": "过度紧张左手大拇指被铁件毛刺深扎流血，咬牙强撑完成，虽勉强及格定为一级工，但伤口发炎化脓。",
+            "effect": {
+              "health": -10,
+              "wealth": 10,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "考核带伤勉强过关，起薪级别略受压制。"
+          }
+        ]
+      },
+      {
+        "text": "妄图耍小聪明用电动砂轮机偷懒磨光工件，被现场老技师当场识破严厉训斥",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：17–24",
+          "地域：重工业工矿",
+          "门槛：投机取巧者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 100,
+            "log": "因违规操作且公差严重超标被判定不及格，延长学徒期一年并在车间大会上作深刻检讨。",
+            "effect": {
+              "mentality": -25,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "违章取巧转正延期，成为车间反面典型受挫。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_b1_kuangong_tanfang",
+    "tier": "era",
+    "title": "井下险情：地方小煤矿掌子面落石砸伤",
+    "yearRange": [
+      1958,
+      1976
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "五六十年代各地群办地方小煤窑、社队煤矿，木质支护简陋，‘大跃进’与战备时期经常冒顶塌方，压伤骨折与矽肺发生率较高。",
+    "narrative": "井下百米深处阴冷潮湿，掌子面突然发出吱吱呀呀木头断裂声，碎石如雨点般砸下。几块百余斤重的坚硬矸石从顶板直直向你压来！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "不顾一切抱头向安全通风副巷猛扑，尽量贴紧坚硬岩壁避开落石中心",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：采掘工矿",
+          "门槛：具备逃生避险反应者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 75,
+            "log": "狂尘弥漫中你滚入副巷，大块矸石擦背而过砸断铁轨，仅受轻微皮肉擦伤，安然脱险。",
+            "effect": {
+              "health": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断避险险涉冒顶塌方，被评为矿井安全自救典型。"
+          },
+          {
+            "type": "injured",
+            "weight": 22,
+            "log": "右腿被崩飞的矸石击中造成闭合性胫骨骨折，由工友用矿车推出井口送县医院打石膏打钢针。",
+            "effect": {
+              "health": -35,
+              "wealth": -10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "矿山落石导致胫骨骨折，伤愈后阴雨天隐痛不适。",
+            "status": "sequelae_motor_impairment"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "巨石砸毁顶梁瞬间压塌整个巷道，胸腹部严重压榨伤不幸当场殉职。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "煤窑严重冒顶事故不幸以身殉职。"
+          }
+        ]
+      },
+      {
+        "text": "舍不得刚装满优质原煤的矿车，试图先推走矿车再撤离",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：采掘工矿",
+          "门槛：贪恋公家资产者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "矿车被整块煤壁砸扁，你被气浪推倒撞在支柱上断裂两根肋骨，被赶来的救护队挖出捡回一命。",
+            "effect": {
+              "health": -45,
+              "wealth": 0,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "贪恋物资滞留险境致多发肋骨骨折，胸壁留下畸形痛。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 5,
+            "log": "二次大面积冒顶瞬间活埋整个掌子面，未能生还。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "为护矿车延误撤离时机遭矸石掩埋罹难。"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "幸运推车冲出塌方边缘，矿车保住人未挂彩，受到矿部通报表扬记大功一次。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冒险抢救公物大难不死受奖。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_b2_huishou_zhongdu",
+    "tier": "era",
+    "title": "农药防护缺失：拌种六六六粉头晕恶心",
+    "yearRange": [
+      1956,
+      1975
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "建国后大量使用六六六粉、DDT等有机氯有机磷农药消灭麦蚜与蝗虫，农民因无手套口罩赤手拌种，常发急慢性吸入性神经毒性反应。",
+    "narrative": "公社库房里弥漫着刺鼻的六六六农药粉尘。你徒手翻拌麦种大半天，午后突然头痛欲裂、恶心呕吐、视物模糊成双，汗毛倒竖四肢颤抖。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听信老农偏方，猛灌两大碗生冷绿豆汤与陈醋，关上房门蒙头大睡发汗硬扛",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–65",
+          "地域：农村库房",
+          "门槛：盲信民间解毒方者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "有机磷毒素未能及时络合清除，在炕上剧烈呕吐抽搐两天，毒素损害肝功能，休养三个月始能勉强下床。",
+            "effect": {
+              "health": -30,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "偏方抗农药中毒延误病情，导致慢性中毒性肝损害。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "农药肺水肿伴随呼吸衰竭，在深夜熟睡中窒息离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "农药吸入重度中毒盲信偏方致呼吸衰竭逝世。"
+          },
+          {
+            "type": "safe",
+            "weight": 27,
+            "log": "因中毒剂量尚浅，吐出残胃物后大量排尿，依靠强壮肝脏代谢侥幸脱险痊愈。",
+            "effect": {
+              "health": -10,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻度农药中毒体质较硬自行代谢恢复。"
+          }
+        ]
+      },
+      {
+        "text": "立刻用大量肥皂水彻底冲洗面部与双手皮肤，由家人急送公社卫生院洗胃并注射解磷定",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–65",
+          "地域：农村公社",
+          "门槛：具备卫生洗消常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "洗胃排毒与特异性解毒剂阻断了胆碱酯酶抑制，卧床输液两天症状全消，完全康复无后遗症。",
+            "effect": {
+              "health": 5,
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学洗消排毒阻断有机磷中毒，完好保全身体各脏器。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "洗胃过程插管擦伤食管黏膜，胸骨后轻微疼痛一周。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "急救轻微器械擦伤无大碍。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_b3_shuiku_laoshun",
+    "tier": "era",
+    "title": "水利大会战：独轮车推土过度腰椎急性扭伤",
+    "yearRange": [
+      1958,
+      1975
+    ],
+    "targetAge": [
+      17,
+      50
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "五六十年代全国农田水利建设如火如荼，数千万民工肩挑手推修筑十三陵、红旗渠、丹江口等水库，重负荷下腰肌劳损与椎间盘病变普遍。",
+    "narrative": "红旗猎猎的水库大坝工地上，你推着四百斤湿重黄土的木独轮车冲陡坡，前轮猛地磕在暗石上骤停，后腰咔嚓一声剧痛，整个人直不起腰跪倒在泥坡上。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙喊出‘轻伤不下火线’口号，用麻绳狠扎腰间强行站起，继续咬牙推完十车",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：17–50",
+          "地域：水库工地",
+          "门槛：硬扛吃苦拼命者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 80,
+            "log": "急性腰肌纤维严重撕裂并导致腰椎间盘纤维环破裂，神经根受压，从此落下弯腰受限的顽固腰痛。",
+            "effect": {
+              "health": -30,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "过度硬扛导致急性腰扭伤转为终身慢性腰椎病。",
+            "status": "sequelae_chronic_backpain"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "精神原子弹爆发，靠青年强健筋骨熬过了剧痛，被工地指挥部评为‘铁人标兵’奖红脸盆一个。",
+            "effect": {
+              "mentality": 30,
+              "wealth": 5,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拼命精神换来政治荣誉，但身体透支埋下隐患。"
+          }
+        ]
+      },
+      {
+        "text": "立即向排长请假，在工地医疗棚硬板床上平躺绝对卧床三天，配合热敷拔火罐",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：17–50",
+          "地域：水库工地",
+          "门槛：遵医嘱理智休养者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "经充分平卧休克与红外线理疗，腰背筋膜水肿完全吸收，腰力逐步复原，未落下病根。",
+            "effect": {
+              "health": 5,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "及时制动卧床化解腰部重伤，保全劳动能力。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "因请假扣除三天工分，同班组有些风言风语，但身体确实保住了。",
+            "effect": {
+              "wealth": -5,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "短暂停工受扣工分，但换来健康长远利益。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_b4_guanyintu_zhongzhang",
+    "tier": "era",
+    "title": "饥馑度荒：误食观音土致重度腹胀便结",
+    "yearRange": [
+      1959,
+      1961
+    ],
+    "targetAge": [
+      6,
+      70
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "估计/文学化",
+    "historicalFact": "1959-1961年部分受灾农村粮食供应极度紧张，群众被迫采集榆树皮、野草根乃至含高岭土的‘观音白泥’充饥，常引发机械性肠梗阻。",
+    "narrative": "青黄不接春荒难熬，肚子如火烧般绞痛。你咽下了掺着粗麦麸的一块白观音土饼子，三天后腹部鼓胀硬如磐石，剧痛难忍无法排便，冷汗淋漓。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "硬忍着不敢告诉公社干部，独自关在柴房用棉布狠勒腹部妄图把干硬物挤压出来",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：6–70",
+          "地域：饥荒重灾村",
+          "门槛：盲目蛮干硬挺者"
+        ],
+        "outcomes": [
+          {
+            "type": "fatal",
+            "weight": 4,
+            "log": "暴力压迫导致缺血肠管穿孔并发急性弥漫性腹膜炎，在无手术条件下不幸休克离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "观音土肠梗阻暴力挤压致肠穿孔不幸殒命。"
+          },
+          {
+            "type": "injured",
+            "weight": 76,
+            "log": "肠管严重水肿坏死边缘，最后由家人发现用植物油灌肠抠掏出干结泥团，九死一生大伤肠胃。",
+            "effect": {
+              "health": -45,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "机械性肠梗阻险死还生，消化功能遭受持久打击。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "依靠自身肠道强烈蠕动拼死排出，虚脱后狂饮温开水，逐渐排空缓过劲来。",
+            "effect": {
+              "health": -20,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "侥幸自行排出高岭土硬块脱险。"
+          }
+        ]
+      },
+      {
+        "text": "向大队赤脚医生坦白求助，服用蓖麻油导泻并配合温盐水连续深部灌肠",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：6–70",
+          "地域：农村公社",
+          "门槛：敢于如实求医者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "在医生耐心润滑灌肠协助下排出干硬土块，腹胀大消，饮用米汤三天后身体逐渐平复。",
+            "effect": {
+              "health": 5,
+              "mentality": 15,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学灌肠导泻解除了致命性肠梗阻，平稳度过危局。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "灌肠机械性刺激轻微引起结肠黏膜擦伤出血，服用止血草药数日好转。",
+            "effect": {
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "灌肠伴随轻度黏膜损伤已完全受控。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_c1_jizhi_feige",
+    "tier": "era",
+    "title": "家庭大件：集全家积蓄凭工业券抢购飞鸽单车",
+    "yearRange": [
+      1962,
+      1976
+    ],
+    "targetAge": [
+      20,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "计划经济时期自行车、缝纫机、手表并称‘老三大件’，一辆天津飞鸽或上海永久标价约150-180元，相当于普通工人四五个月工资，且需凭特供工业券购买。",
+    "narrative": "全家省吃俭用三年攒足一百六十元，又托单位老工长弄到一张宝贵的天津飞鸽自行车工业购货券。百货大楼玻璃柜台前人头攒动，黑油漆二八大杠散发着机油清香。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "全额交纳一百六十元现金与工业券，推走崭新的二八飞鸽单车，套上自织红毛线车把套",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：20–55",
+          "地域：城镇矿区",
+          "门槛：手头有大笔储蓄者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "推车骑过厂区引来无数羡慕目光！不仅通勤省下一个多小时，更成为全家最骄傲的传家重器。",
+            "effect": {
+              "wealth": -25,
+              "family": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "购置家庭第一辆传世飞鸽自行车，极大改善家庭生活便利度与社会声望。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "车停在菜场门口车铃盖被顽童拧走，心痛了整整三天，赶忙找铁匠配了个铜挂锁。",
+            "effect": {
+              "wealth": -30,
+              "family": 20,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拥有一辆珍贵单车增添了日常看护与防盗挂虑。"
+          }
+        ]
+      },
+      {
+        "text": "舍不得掏空全家老小积蓄，将工业券原价转让给待婚的工友，留钱应对生老病死",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：20–55",
+          "地域：城镇矿区",
+          "门槛：过日子精打细算者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "把钱老老实实存入人民银行储蓄所，继续安步当车，工友感激你的转让，两家关系坚如钢铁。",
+            "effect": {
+              "wealth": 10,
+              "family": 15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "守住现金安全防线，克制消费赢得良好人情赞誉。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_c2_heishi_bupiao",
+    "tier": "era",
+    "title": "票证调剂：粮店后巷私下倒兑全国粮票与布票",
+    "yearRange": [
+      1960,
+      1976
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "计划经济时期一切日用品凭票供应，全国通用粮票含油水可带出省，黑市上常有人以鸡蛋、香油或高价私兑粮票布票，被定性为投机倒把受到巡查打击。",
+    "narrative": "过年想给长身体的孩子扯两尺纯棉蓝布做身新棉袄，但家里布票早已用尽。粮站后巷的拐角处，几个低檐帽常客正在鬼鬼祟祟用香油私换全国粮票和布票。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "用家中省下来的两斤清油，在暗处悄悄跟票贩子兑换三尺布票与十斤地方粮票",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：城市后巷",
+          "门槛：急需生活布匹者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "顺利避开巡逻民警换回布票，母亲连夜踩缝纫机为孩子赶出崭新小棉袄，除夕夜全家喜气洋洋。",
+            "effect": {
+              "family": 25,
+              "mentality": 20,
+              "wealth": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "暗中调剂紧缺票证满足生活之需，阖家温暖。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "刚接手就被居委会治保主任和联防队员当场截获，油和票全被没收，被责令在居委会作深刻检讨。",
+            "effect": {
+              "wealth": -20,
+              "mentality": -25,
+              "family": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黑市私兑票证被抓现行，家庭档案记上投机倒把批评。"
+          }
+        ]
+      },
+      {
+        "text": "坚决不碰黑市底线，将旧棉被拆洗翻新重新絮棉花，熬到明年发新票",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：城市后巷",
+          "门槛：遵纪守法者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "虽然衣服打着补丁，但一家人平平安安行得正坐得直，未给工作单位招惹半分嫌疑与麻烦。",
+            "effect": {
+              "mentality": 15,
+              "family": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "安贫乐道坚守政策底线，家庭政审清白。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_c3_diandang_shoubiao",
+    "tier": "era",
+    "title": "应急变现：委托信托商店寄卖半钢旧手表",
+    "yearRange": [
+      1963,
+      1976
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "公私合营后原当铺被改组为国营信托商店（寄卖行），负责估价寄卖民间旧钟表、毛料大衣和照相机，收取手续费，是普通市民变现应急的合法通道。",
+    "narrative": "家中老人突发重疾急需自费药物与白糖营养品，积蓄告罄。你将结婚时购买的七成新上海牌半钢手表摘下，步入街角高挂‘信托寄卖’招牌的门市。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "接受店员六十元的压价估价，当场办结寄存转让手续，拿走沉甸甸的救急现钞",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：22–60",
+          "地域：城市信托寄卖店",
+          "门槛：持有旧大件者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "六十元现金及时付清了老人住院药费，将老人从鬼门关拉回，全家渡过重大危机。",
+            "effect": {
+              "wealth": 20,
+              "family": 25,
+              "mentality": -5,
+              "health": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "变卖心爱手表挽回至亲健康，舍身尽孝担当家庭支柱。"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "事后伴侣因失去重要定情信物伤心落泪，两口子心有芥蒂互相沉默了多日。",
+            "effect": {
+              "family": -10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "变卖结婚纪念大件引发家庭内部情感隔阂。"
+          }
+        ]
+      },
+      {
+        "text": "舍不得卖掉定情物，掉头向车间几十个工友挨个开口每人借两三元拼凑医药费",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：22–60",
+          "地域：城市信托寄卖店",
+          "门槛：好面子借债者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "工人阶级互助友爱，工友们凑足五十元解了燃眉之急，此后你发工资逐月按期奉还，赢得众人信赖。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 15,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借债度难保住传家手表，守信履约铸就良好工友情谊。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "个别工友催债言辞刻薄，闹得车间人尽皆知，背负人情债心头沉重。",
+            "effect": {
+              "mentality": -15,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "四处小额借款伤及自尊脸面。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_c4_genfeng_tugaolu",
+    "tier": "era",
+    "title": "狂热跟风：后院私搭土高炉砸铁锅炼钢",
+    "yearRange": [
+      1958,
+      1959
+    ],
+    "targetAge": [
+      16,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "1958年大跃进全民大炼钢铁，全国数千万人土法上马建土高炉，砸烂铁锅、铜门环甚至锄头投入炉中，炼出大量无法工业使用的脆生铁渣。",
+    "narrative": "满城红旗招展锣鼓喧天，单位和胡同院里垒起冒浓烟的黏土高炉。积极分子登门动员，要求各家交出废旧铁器砸锅熔铁，誓向国庆献礼超英赶美。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "将家中仅有的一口双耳生铁大锅和旧铁锁主动砸碎上缴土高炉，彻夜拉风箱苦战",
+        "choiceTags": [
+          "时代：1958–1959",
+          "年龄：16–60",
+          "地域：全国城乡",
+          "门槛：狂热跟风积极分子"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "炉中烧出一坨毫无韧性的海绵脆生铁渣，自家大锅却彻底毁坏，不久公共食堂停办全家连口做饭铁锅都没有。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -15,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "砸铁锅炼出无用铁疙瘩，日常生活陷入严重物资匮乏困境。"
+          },
+          {
+            "type": "safe",
+            "weight": 28,
+            "log": "因拉风箱表现积极获评‘红旗炼钢好手’，戴大红花上台表彰，弥补了经济损失。",
+            "effect": {
+              "mentality": 25,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以毁损家用铁器为代价换得短期政治荣誉。"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "土高炉耐火泥坍塌发生钢水喷溅爆燃，重度烧伤不幸身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "土法炼铁严重违章发生钢渣爆炸事故殒命。"
+          }
+        ]
+      },
+      {
+        "text": "悄悄把祖传做饭铁锅埋入后院菜地泥土下伪装遗失，仅上缴两把废旧烂生锈火钳应付差事",
+        "choiceTags": [
+          "时代：1958–1959",
+          "年龄：16–60",
+          "地域：全国城乡",
+          "门槛：机警务实保底者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "风潮过后全村铁器奇缺，你从土里刨出完好无损的铁锅，全家老小安稳开火做饭，暗自佩服自己的远见。",
+            "effect": {
+              "wealth": 15,
+              "family": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "机警藏锅躲过荒诞狂热，守住最核心的温饱家当。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_d1_kunnan_shangou",
+    "tier": "era",
+    "title": "春荒讣告：远房堂兄病故倾尽口粮接济遗孤",
+    "yearRange": [
+      1959,
+      1962
+    ],
+    "targetAge": [
+      18,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "估计/文学化",
+    "historicalFact": "三年经济困难时期农村受灾严重，宗族亲邻之间节衣缩食、通过邮局互寄几斤炒面红枣接济孤残成为维系生命的重要民间温情通道。",
+    "narrative": "邮递员送来一封薄薄的毛边纸信，老家来报堂兄因严重浮肿不治病故，丢下两个刚上小学的孩子，孤儿寡母口粮眼看就要彻底断绝。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "全家每顿饭勒紧裤带少吃一口，省下十斤晒干的红薯干和五元钱，寄往老家抚养遗孤",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–65",
+          "地域：全国各地",
+          "门槛：血浓于水顾家者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "寄出的红薯干让两个苦命孩子活了下来。两年后嫂子带孩子登门深情跪谢，亲情血脉紧紧相依。",
+            "effect": {
+              "wealth": -20,
+              "family": 35,
+              "mentality": 20,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在困难时期倾囊接济兄长遗孤，托举至亲骨肉保全血脉。",
+            "status": "status_family_protector"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "自家本就极度缺少油脂，长期过量节食导致自身也出现双下肢轻度凹陷性水肿。",
+            "effect": {
+              "health": -20,
+              "family": 30,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "舍身救助同胞导致自身轻度营养不良水肿。"
+          }
+        ]
+      },
+      {
+        "text": "自家孩子也面黄肌瘦，狠下心肠只回一封劝慰信，不敢掏出仅有的活命粮",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–65",
+          "地域：全国各地",
+          "门槛：泥菩萨过江自保者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "保全了自家小家庭平稳渡过难关，但老家亲族从此对你形同陌路，来往音讯渐绝。",
+            "effect": {
+              "health": 5,
+              "family": -25,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "灾荒之年独善其身，导致宗族骨肉情感裂痕难以弥合。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_d2_sanxian_guahao",
+    "tier": "era",
+    "title": "深山来信：大三线挚友跨越千里的挂号家书",
+    "yearRange": [
+      1965,
+      1976
+    ],
+    "targetAge": [
+      18,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "1960年代中期起数百万人奔赴‘好人好马上三线’的西南西北深山，隐姓埋名建设军工基地，与沿海故土亲友主要通过严格审验的邮政挂号信联系。",
+    "narrative": "收到一封来自‘四川某地404信箱’的厚重挂号信。同窗挚友响应号召进山造雷达已整整五年，信中夹着一片山里的红枫叶与几张泛黄的手绘蓝图。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "精心挑选两本机械设计工具书与一盒青岛蛤蜊油，包裹挂号寄往深山给挚友御寒",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–60",
+          "地域：全国各地",
+          "门槛：珍惜友谊者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "挚友回信热泪盈眶，称这盒蛤蜊油在冰冷防空洞里治好了他溃烂的双手，两人相约建设祖国各自发光。",
+            "effect": {
+              "mentality": 30,
+              "family": 15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "遥寄书籍油膏温暖深山三线战友，成就跨越一生的莫逆之交。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "包裹因保密信箱地址核验延误两月，所幸完好送达。",
+            "effect": {
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "保密通信延时无大碍。"
+          }
+        ]
+      },
+      {
+        "text": "工作繁忙随手把信压在台玻璃下，心想大山阻隔各安天命，未作回音",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–60",
+          "地域：全国各地",
+          "门槛：疏于联络者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "日子一天天过去，信箱那头再也没有信件寄来，那段少年时代的情谊悄然沉寂于万重青山之中。",
+            "effect": {
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "时空阻隔任由旧友情谊消磨无痕。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_d3_zhiqing_zhantai",
+    "tier": "era",
+    "title": "站台惜别：蒸汽机车汽笛下目送至亲知青下乡",
+    "yearRange": [
+      1968,
+      1976
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "上山下乡运动中全国1700多万城镇知青奔赴农村与边疆农场。火车站台挤满敲锣打鼓与掩面痛哭的父母家眷，一列列绿皮车承载了一代人的青春远行。",
+    "narrative": "站台上人山人海红旗招展，大喇叭放着革命歌曲。绿皮列车即将开往黑龙江北大荒，胞弟/同胞从车窗探出身子，满眼泪花使劲挥舞着红宝书。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "挤过人流追赶缓缓启动的列车，将自己棉袄内贴身缝有十五元私房钱的小布袋死命塞进车窗",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–65",
+          "地域：火车站台",
+          "门槛：手足情深者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "列车在一声长鸣中远去，小布袋里的救命钱让至亲在寒冷边陲买到了第一件厚羊皮坎肩，安然挺过首个严冬。",
+            "effect": {
+              "wealth": -15,
+              "family": 30,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "站台飞车塞钱救急手足，成为两地思念中最温情的支撑。"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "追车跑动中在湿滑站台台阶扭伤脚腕，目送列车消失在风雪地平线，心中满是悲壮与担忧。",
+            "effect": {
+              "health": -15,
+              "family": 25,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "送别至亲崴脚挂彩，一代青春记忆深深烙印。"
+          }
+        ]
+      },
+      {
+        "text": "服从纪律在后排站立克制情绪，响应号召大声领头呼喊欢送口号，不流半滴眼泪",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：16–65",
+          "地域：火车站台",
+          "门槛：克制坚毅者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "保持了积极庄重的政治觉悟，列车离去后独自在站台吸完半截劣质香烟，咽下所有酸楚。",
+            "effect": {
+              "mentality": 10,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以沉毅冷峻外表送别亲人，内心深处锁住时代的沉重。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1950_1977_d4_gongshang_laoshi",
+    "tier": "era",
+    "title": "车间悼念：老八级机修师抢修设备因公殉职",
+    "yearRange": [
+      1955,
+      1976
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "在赶超生产指标的抢修过程中，由于防护简陋与长时间连轴转疲劳作业，工矿企业经常发生皮带绞伤、触电或重物坠落导致骨干师傅因公殉职。",
+    "narrative": "防空警报声响彻车间，为排除主电机轴承过热事故，带了你五年的老八级机修师傅冲入狭窄地坑抢修，不幸被飞落的配重滑轮砸中胸膛壮烈牺牲。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "含泪主持灵堂守夜，接下师傅生前磨得发亮的老工具箱，并主动承担按月接济师娘孤幼的道义责任",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：工矿国企",
+          "门槛：重师徒情深者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "师傅的工具箱陪伴你走过往后三十年工匠生涯，全厂上下赞誉你仁厚重义，师傅的技艺与精神由你完整传承。",
+            "effect": {
+              "mentality": 35,
+              "wealth": -10,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "继承烈士师傅衣钵并赡养遗眷，赢得车间至高声望。",
+            "status": "status_craft_successor"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "因连日守灵悲伤过度诱发急性胃出血，住院输液数天康复。",
+            "effect": {
+              "health": -20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "哀毁过礼伤及脾胃，但尽显赤子之心。"
+          }
+        ]
+      },
+      {
+        "text": "参加工会统一追悼会随大流默哀三分钟，随后全身心投入机床抢产以实际行动表忠诚",
+        "choiceTags": [
+          "时代：1950–1977",
+          "年龄：18–55",
+          "地域：工矿国企",
+          "门槛：恪尽职守者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "将悲痛化作动力完成双倍生产指标，获厂党委授予‘硬骨头标兵’奖状，按常规程序完成悼念。",
+            "effect": {
+              "mentality": 15,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以工厂流水线标准节奏消化悲痛，步入正规劳模晋升轨道。"
           }
         ]
       }
@@ -13793,6 +16815,1471 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "高强度服务长假透支咽喉与腰肌，后加聘帮手科学排班。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_a1_dianda_gaokao",
+    "tier": "era",
+    "title": "逆光苦读：高等教育自学考试攻取专科文凭",
+    "yearRange": [
+      1981,
+      1998
+    ],
+    "targetAge": [
+      20,
+      38
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "uneducated",
+      "status_peasant_illiterate",
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "1981年国家首创高等教育自学考试（自考），为数千万未能通过高考全日制录取的落榜青年、在职职工提供国家承认学历的进修通道，通过率约15%-25%。",
+    "narrative": "白天在工厂机床前站满八小时，夜晚在单身宿舍借着走廊灯光猛啃厚厚的《政治经济学》与《哲学原理》。今年已通过了九门统考，距离拿到专科大红文凭只差最后三门。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "推掉所有周末牌局与聚餐，连续六个月每晚苦读至凌晨一点，志在必得冲刺全科通过",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–38",
+          "地域：全国城乡",
+          "门槛：无全日制大专文凭者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 82,
+            "log": "查分单公布全部在七十分以上！你昂首走上台阶领到了省自考委颁发的大专毕业证书，转年顺利转为干部编制调入企管科。",
+            "effect": {
+              "mentality": 35,
+              "wealth": 25,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "靠自学考试顽强斩获国家承认大专学历，完成人生阶层重要跨越。",
+            "status": "status_college_diploma"
+          },
+          {
+            "type": "injured",
+            "weight": 18,
+            "log": "长期熬夜浓茶刺激导致严重神经衰弱与急性十二指肠溃疡，虽文凭到手但吃药调理了大半年。",
+            "effect": {
+              "health": -20,
+              "mentality": 20,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拼命自考耗损脾胃与睡眠质量，落下慢性胃疾。"
+          }
+        ]
+      },
+      {
+        "text": "觉得自考文凭不如铁饭碗实在，放弃最后几门考试，把精力转去厂外兼职倒腾小百货",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–38",
+          "地域：全国城乡",
+          "门槛：急功近利者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 100,
+            "log": "自学考试中途弃考，小百货摆摊虽赚得三五百元零花，但在九十年代定岗评级时因缺少文凭未能转正。",
+            "effect": {
+              "wealth": 15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "半途荒废自考学业，错失转干关键资格。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_a2_xiangzhen_xietu",
+    "tier": "era",
+    "title": "落榜转轨：投奔乡镇五金模具厂拜师学艺",
+    "yearRange": [
+      1983,
+      1996
+    ],
+    "targetAge": [
+      17,
+      25
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "改革开放初期江浙、广东乡镇企业与‘星期天工程师’崛起，大量高考落榜农村青年投奔模具、注塑、五金小厂拜师，靠一身硬技术成长为民营实业骨干。",
+    "narrative": "高考榜上无名，老父亲借来自行车把你带到邻乡新兴的模具厂。机床轰鸣油烟弥漫，从国企退休的技术厂长扫了你一眼，问你吃不吃得了手上长厚茧的苦头。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "当场递烟磕头认师父，立志把冲压模与线切割机床彻底摸透，甘心打杂学艺两年",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：17–25",
+          "地域：沿海乡镇",
+          "门槛：初高中毕业生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "冬夏不辍，你不仅学会了手工装配精密冲压模，还能看懂复杂的机械装配图纸，两年后成为厂里顶梁柱开出千元月薪。",
+            "effect": {
+              "wealth": 30,
+              "mentality": 25,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在乡镇制造业黄金期习得精密模具核心技术，开辟实业致富坦途。",
+            "status": "status_craft_successor"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "装配模具时手指被沉重滑块夹破指甲缝出血，由师父上药包扎，带伤坚持学会了整套工序。",
+            "effect": {
+              "health": -10,
+              "wealth": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "学徒受伤磨练心性，奠定扎实技术功底。"
+          }
+        ]
+      },
+      {
+        "text": "嫌弃民营小作坊又脏又累且没有劳保，拒绝当学徒，回村帮家里继续承包田插秧",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：17–25",
+          "地域：沿海乡镇",
+          "门槛：求安稳守土者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "守在几亩责任田里面朝黄土背朝天，虽然粮食产量连年上升，但始终未能分享到工业化的高额利润红利。",
+            "effect": {
+              "wealth": 5,
+              "mentality": -5,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拒绝进厂学艺错过乡镇工业化浪潮，固守小农传统。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_a3_tuo_jiediao",
+    "tier": "era",
+    "title": "人脉运作：托老战友关系跨系统借调进城",
+    "yearRange": [
+      1980,
+      1993
+    ],
+    "targetAge": [
+      24,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "计划经济向市场经济转轨期间体制流动存在壁垒，偏远林场、农机站干部常利用战友、知青战线‘借调’、‘商调’至县市级物资局、商业局完成身份进城。",
+    "narrative": "在偏僻的大山林场工作了八年，孩子眼看就要到上小学的年龄。老部队的老战友如今在县物资局当科长，私下表示只要备足土特产并按政策走，可以办借调。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "带上深山野蜂蜜与鹿茸登门拜会老班长，诚恳托付，并回单位耐心跑妥两地商调函",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：24–45",
+          "地域：山区林场",
+          "门槛：有退伍或体制资历者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "借调函与组织调令顺利下发，全家户口迁入县城，分配到县物资局机关大院职工宿舍，孩子如愿进入县一小。",
+            "effect": {
+              "family": 35,
+              "wealth": 20,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借助战友战线完成关键调动迁徙，全家彻底跳出大山深处。",
+            "status": "status_urban_settled"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "原林场场长卡壳拖延大半年不肯放人，多方送烟送茶协调方得成行，耗费不少心力盘缠。",
+            "effect": {
+              "wealth": -15,
+              "mentality": -10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "调动审批阻力重重，虽成行但深感人情世故盘剥。"
+          }
+        ]
+      },
+      {
+        "text": "顾虑送礼求人有违原则，心想深山空气好衣食无忧，索性打消调动念头留在林场",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：24–45",
+          "地域：山区林场",
+          "门槛：清高不愿求人者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "继续在林区巡山护林，生活宁静自足，但数年后随林业停伐改制面临转岗压力，孩子教育也明显落后于城镇。",
+            "effect": {
+              "mentality": 5,
+              "health": 10,
+              "family": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恪守清高放弃进城契机，后代教育资源相对受限。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_a4_yeda_waiyu",
+    "tier": "era",
+    "title": "时代潮头：周末夜校恶补涉外经贸与财会",
+    "yearRange": [
+      1988,
+      1999
+    ],
+    "targetAge": [
+      19,
+      35
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "沿海对外开放与合资企业浪潮下，懂英文函电、现代借贷记账法的涉外财会人员严重紧缺，各大高校夜大与职工进修班学费昂贵但门庭若市。",
+    "narrative": "特区外贸公司贴出招聘启事，月薪开到惊人的八百元加奖金，但必须熟练掌握外贸英文函电与电脑电算化。你站在涉外培训班招生简章前，学费要整整两个月工资。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙交纳两个月工资报名夜大周末班，买来收录机天天跟着许国璋英语磁带反复跟读练习",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：19–35",
+          "地域：沿海城市",
+          "门槛：有一定英语基础者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "一年后考取外贸会计资格证书并在面试中流利解答信用证流程，成功跳槽合资公司担任总账会计，月薪翻倍。",
+            "effect": {
+              "wealth": 40,
+              "mentality": 30,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "前瞻性学习涉外财经技能，搭上九十年代外贸经济腾飞快车。",
+            "status": "status_white_collar"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "白天上班晚上看盘带耳机音量过大引发持续性耳鸣，伴随轻微偏头痛，但总算拿下证书。",
+            "effect": {
+              "health": -15,
+              "wealth": 25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "突击听磁带落下轻微听觉疲劳旧疾。"
+          }
+        ]
+      },
+      {
+        "text": "认为外国话太拗口学不会，把学费省下来存入银行吃保值储蓄高利息",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：19–35",
+          "地域：沿海城市",
+          "门槛：保守存钱者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "拿着稳定的存单吃利息，日子平稳无波，但十年后看着当年报班的同事纷纷买房买车，心中难免落寞。",
+            "effect": {
+              "wealth": 10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "选择守成规避学习风险，错失涉外高薪红利窗口。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_b1_chongya_shangshou",
+    "tier": "era",
+    "title": "安全脱节：私营五金厂冲床连冲压伤指节",
+    "yearRange": [
+      1985,
+      1999
+    ],
+    "targetAge": [
+      18,
+      50
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "八九十年代珠三角、长三角乡镇民营五金冲压厂多采用脚踏连冲老式机械，无红外安全光电保护装置，工人工伤断指（被称为‘断指之城’现象）频发。",
+    "narrative": "为赶外贸交货期连续加班十四个小时，眼皮沉重。脚下一踩踏板，冲床滑块猛然连冲砸下，右手食指指端一阵剧烈钻心剧痛，机床上鲜血狂溅！",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听信老板‘别闹大包两千私了’的劝说，由工友骑摩托送往无证黑诊所做简单缝合包扎",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：18–50",
+          "地域：民营工业园",
+          "门槛：私了息事宁人者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "黑诊所未规范清创导致骨髓炎坏疽，最终食指被迫截除末节指骨，两千元医药费很快花光，右手握力大减。",
+            "effect": {
+              "health": -35,
+              "wealth": 10,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "私了黑诊所处置不当致骨髓炎截指，留下永久性手部残疾。",
+            "status": "sequelae_motor_impairment"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "所幸未伤及指骨中节，黑诊所草药包扎后侥幸未感染，留下一截短粗畸形指头，勉强能捏拿物品。",
+            "effect": {
+              "health": -15,
+              "wealth": 15,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "断指虽留畸形但勉强保全关节功能。"
+          }
+        ]
+      },
+      {
+        "text": "断然拒绝私了，找来红领巾包扎断指，坚持叫救护车直奔市骨科医院做断指显微再植手术",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：18–50",
+          "地域：民营工业园",
+          "门槛：懂显微外科维权者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "显微外科专家在显微镜下吻合微小动静脉与神经，再植指完全成活，经劳动仲裁由厂方全额赔付医疗费与停工工资。",
+            "effect": {
+              "health": -5,
+              "wealth": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依靠现代显微外科成功挽回断指，依法维权获全额赔偿。"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "血管痉挛虽接活但指尖感觉神经迟钝，遇冷则苍白发麻，厂方老板怀恨在心事后将你辞退。",
+            "effect": {
+              "health": -15,
+              "wealth": -10,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "再植成活但指端麻木，且面临劳资关系破裂失业转岗。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_b2_fangzhi_feibing",
+    "tier": "era",
+    "title": "职业暗疾：棉纺织厂清花车间长期咳嗽胸闷",
+    "yearRange": [
+      1980,
+      1996
+    ],
+    "targetAge": [
+      20,
+      50
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "纺织工业八十年代常年三班倒，清花、梳棉车间棉尘飞扬，工人虽配发白纱布口罩，但长期吸入棉尘内毒素易患‘棉尘病’（纺织工人哮喘）。",
+    "narrative": "清花车间里空中弥漫着肉眼可见的白棉绒絮。每到周一上班就胸闷憋气、干咳不止，工友笑称这是‘星期一综合征’，但最近咳出的痰里已有黑丝与血星。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "觉得这是纺织工的家常便饭，每天猛灌甘草片和自熬川贝雪梨膏硬挺，拒绝调岗降薪",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–50",
+          "地域：轻纺工业城市",
+          "门槛：贪恋挡车工高津贴者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "棉尘内毒素引起永久性气道不可逆重塑，转为慢性阻塞性肺疾病，一爬三楼就气喘吁吁，体力大打折扣。",
+            "effect": {
+              "health": -30,
+              "wealth": 15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "忽视职业病早期信号硬扛，致慢性不可逆肺气肿损伤。",
+            "status": "sequelae_respiratory"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "自身呼吸道纤毛屏障较好，配合甘草调理勉强控制了进展，维持在轻微慢性咳嗽水平。",
+            "effect": {
+              "health": -10,
+              "wealth": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "呼吸系统轻微受累但未发生急性恶化。"
+          }
+        ]
+      },
+      {
+        "text": "拿着胸片找厂医开具职业病诊断证明，坚决申请调离高粉尘车间去成品包装仓库",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–50",
+          "地域：轻纺工业城市",
+          "门槛：健康优先理智者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "调离粉尘污染环境后肺功能逐步逆转止咳，虽然每月少了二十元特殊粉尘津贴，但身体彻底保全。",
+            "effect": {
+              "health": 15,
+              "wealth": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "果断脱离粉尘危害环境，斩断职业肺病致残链条。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "仓库老员工排挤新人，多干了不少搬运重活，但空气清新让人心安。",
+            "effect": {
+              "health": 5,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "转岗带来短暂人际适应成本。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_b3_nongyao_zhongdu",
+    "tier": "era",
+    "title": "盛夏劳作：背喷雾器喷百草枯轻微渗透中毒",
+    "yearRange": [
+      1988,
+      1999
+    ],
+    "targetAge": [
+      18,
+      65
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "九十年代百草枯等灭生性除草剂在农村广泛推广，农民烈日下赤膊背喷雾器打药，药液经常顺着背带渗漏腐蚀后背皮肤造成局部吸收中毒与溃烂。",
+    "narrative": "酷暑三十八度烈日下，你光着膀子背着漏药水的铁皮农药喷雾器给柑橘园除草。药液渗入破背心，后背整片皮肤灼痛如被火烧，泛起大片黄水泡并头晕心慌。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "随手抓一把河滩青泥擦抹后背，大口灌下冰冷井水，咬牙先把剩下的两亩药水打完",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：18–65",
+          "地域：广大农村",
+          "门槛：盲目蛮干硬扛者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "高浓度除草剂经大面积溃破皮肤吸收损害肺脏与肝脏，后背整块皮肤溃烂化脓，发烧十天留下巴掌大增生性疤痕。",
+            "effect": {
+              "health": -35,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "百草枯皮肤吸收并发严重接触性皮炎与肺损伤隐患。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "大量吸收除草剂引发进行性迟发性肺间质纤维化，呼吸衰竭抢救无效离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "农药大面积皮肤吸收延误抢救致肺纤维化罹难。"
+          },
+          {
+            "type": "safe",
+            "weight": 22,
+            "log": "自身排毒强侥幸未累及脏器，后背烂皮脱落换上一层黑硬老茧，免于大劫。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "除草剂皮肤灼伤侥幸未致内脏衰竭。"
+          }
+        ]
+      },
+      {
+        "text": "扔掉喷雾器立刻跳入水渠彻底冲刷全身半小时，换上干净衣服急赴县医院皮肤科做酸碱中和抗毒治疗",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：18–65",
+          "地域：广大农村",
+          "门槛：具备化学防护常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "大量流动清水清洗彻底去除了表皮农药残留，外用紫草油与烧伤膏一周结痂平整，未引起全身中毒。",
+            "effect": {
+              "health": 5,
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "黄金时间内大量清水冲洗阻断农药透皮吸收，彻底转危为安。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "背部留下一小块淡褐色色素沉着，无任何功能影响。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻微色素沉着无碍大局。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_b4_shui_liji",
+    "tier": "era",
+    "title": "夏令暴饮：工地生饮生冷压水井水急性菌痢",
+    "yearRange": [
+      1982,
+      1998
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "八九十年代城乡结合部建筑工地与打工棚饮水卫生条件简陋，志贺氏痢疾杆菌随浅层压水井污染水源，极易造成民工群发性黏液脓血便与重度脱水。",
+    "narrative": "高温四十度在脚手架上扎钢筋汗如雨下，工地大锅绿豆汤早被抢空。你扑到老式压水井旁连按压杆，对着冰凉甘冽的生井水狂饮了整整半铁瓢。半夜腹内如绞肉机翻滚。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "觉得肚痛拉肚子只是受凉，吞服两瓣生大蒜和几粒去痛片，蒙头硬撑继续上工",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：16–65",
+          "地域：建筑工地",
+          "门槛：土法抗痢疾硬挺者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "止痛片掩盖病情，痢疾杆菌在结肠大量繁殖脱落黏膜形成假膜，剧烈里急后重便脓血十余次，休克晕倒在脚手架上送医抢救大伤元气。",
+            "effect": {
+              "health": -35,
+              "wealth": -15,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲信生大蒜硬扛急性菌痢延误治疗致败血休克。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "中毒型细菌性痢疾突发脑水肿抽搐昏迷，在救护车转院途中不幸衰竭离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "重度中毒性菌痢延误输液治疗殒命。"
+          },
+          {
+            "type": "safe",
+            "weight": 28,
+            "log": "凭借自身极强的消化道抗体，连拉两天稀水后居然慢慢自限痊愈，虚汗淋漓。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "强壮体魄硬涉险关自愈脱险。"
+          }
+        ]
+      },
+      {
+        "text": "立即停工请假，叫工友陪同就近前往镇卫生院化验大便，遵医嘱口服诺氟沙星（氟哌酸）并静脉输注糖盐水",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：16–65",
+          "地域：建筑工地",
+          "门槛：及时规范就医者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "喹诺酮类抗生素精准杀灭痢疾杆菌，两瓶补液迅速纠正水电解质紊乱，次日腹痛全消，三天后体力生龙活虎如初。",
+            "effect": {
+              "health": 5,
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学使用特效抗菌药与补液，闪电化解急性菌痢危机。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "输液部位出现轻度静脉炎红肿，硫酸镁湿敷后消退。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "输液轻微静脉刺激无后患。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_c1_minjian_biaohui",
+    "tier": "era",
+    "title": "民间借贷：闽浙民间标会互助会崩盘倒会",
+    "yearRange": [
+      1986,
+      1998
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "改革开放民营经济早期银行贷款难，沿海盛行互助性的民间标会（摇会、互助会）。部分会头以高达两三分月息非法集资，倒会跑路潮频发，导致大量家庭半生积蓄化为乌有。",
+    "narrative": "街坊邻里都在热烈讨论某某做会头组织十万元大标会，月息高达两分五厘。会头是看着你长大的表叔，极力劝你拿出存单入会当会脚，一年稳赚大半年工资。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "取出全家三年储蓄一万元投入标会，期盼利滚利三年后买一间街面商铺",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：22–60",
+          "地域：沿海工商业带",
+          "门槛：贪图民间高息者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 75,
+            "log": "不到半年下游会脚链条断裂，会头半夜携款潜逃不知所踪！数十受害群众围堵哭天抢地，你的一万元老本血本无归，全家抱头痛哭。",
+            "effect": {
+              "wealth": -50,
+              "mentality": -35,
+              "family": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "陷入民间标会倒会骗局，全家半生积蓄荡然无存。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "在崩盘前夕敏锐察觉会头买豪宅苗头，提前以微亏利息抢标退会套现，惊险保全本金并小赚千元。",
+            "effect": {
+              "wealth": 25,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在民间标会风暴来临前精准逃顶，保全财富。"
+          }
+        ]
+      },
+      {
+        "text": "牢记‘贪高息吃大亏’古训，坚决拒绝亲戚劝诱，将积蓄老老实实锁在国有银行定存",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：22–60",
+          "地域：沿海工商业带",
+          "门槛：克制本分稳健者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "数月后该标会轰然爆雷牵连全村半数人家，你家存款分文未损安稳如初，邻里无不佩服你的定力。",
+            "effect": {
+              "mentality": 25,
+              "wealth": 10,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "坚拒民间非法集资高息诱惑，守住家庭财务底线。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_c2_qigong_zhishangshui",
+    "tier": "era",
+    "title": "特异狂潮：气功大师带功报告与信息锅热卖",
+    "yearRange": [
+      1985,
+      1995
+    ],
+    "targetAge": [
+      20,
+      65
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "八九十年代全国泛滥‘气功热’，所谓严新、张香玉等大师在体育馆召开万人带功报告会，售卖铝锅改造的‘信息感应锅’、录音带，敛财数以亿计。",
+    "narrative": "市工人文化宫体育馆挤满了数千名头顶铝锅的人群，号称能接收宇宙高能信息包治百病。门票炒到五十元一张，推销员围着你称购买一套大师亲笔开光的功法磁带可延寿三十年。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "跟风花去整月工资买下信息铝锅和三盘功法录音带，回家每夜头顶铝锅打坐晃脑练功",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–65",
+          "地域：全国城市",
+          "门槛：盲信伪科学气功者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "自我催眠导致剧烈精神恍惚幻听‘气冲脑门’，出现严重神经官能症夜不能寐，被家属送精神专科门诊服药纠偏，白白损失巨款。",
+            "effect": {
+              "wealth": -25,
+              "mentality": -30,
+              "health": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲信伪气功走火入魔损伤身心健康，缴足时代智商税。",
+            "status": "sequelae_mental_trauma"
+          },
+          {
+            "type": "safe",
+            "weight": 30,
+            "log": "权当茶余饭后散步拉伸锻炼，未陷太深，不久气功大师卷款潜逃案发，自嘲一笑将铝锅拿回厨房炖肉。",
+            "effect": {
+              "wealth": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻微破财但及时清醒止损。"
+          }
+        ]
+      },
+      {
+        "text": "指责其纯属江湖装神弄鬼骗局，捂紧钱包转身离开会场，买了一套正规科普十万个为什么给孩子",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–65",
+          "地域：全国城市",
+          "门槛：崇尚唯物科学者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "理智守护了家庭钱袋子，几年后该类伪科学组织被国家依法取缔，你的唯物主义理性在邻里间树立了清醒威信。",
+            "effect": {
+              "mentality": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "秉持科学理性抵制封建迷信气功潮，家庭家风严正。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_c3_yuanshi_gupiao",
+    "tier": "era",
+    "title": "资本狂澜：1992深圳排队抢购股票认购证",
+    "yearRange": [
+      1992,
+      1993
+    ],
+    "targetAge": [
+      20,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "1992年8月深圳‘8·10’风波，全国上百万人涌入深圳排队抢购新股认购抽签表，认购表倒卖价格飙升十倍，酿成中国资本市场建立初期的狂热狂欢与阵痛。",
+    "narrative": "深圳体育场门口下着瓢泼大雨，数十万人前胸贴后背在铁栏杆前连轴排队两天两夜。有人开价五百元当场收购你手中的白条抽签表，也可以自己留着博取新股上市暴利。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "咬牙在暴雨人海中死守，凭两千元老本买下二十张认购表，全部拿去抽签认购新股上市",
+        "choiceTags": [
+          "时代：1992–1993",
+          "年龄：20–55",
+          "地域：特区金融前线",
+          "门槛：敢闯敢赌资本市场者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 65,
+            "log": "抽签高中五张！新股上市当天暴涨四倍抛出，净赚三万多元巨资，瞬间成为人均羡慕的‘万元户’！",
+            "effect": {
+              "wealth": 60,
+              "mentality": 35,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住特区股票认购证历史红利豪取第一桶金，实现资本原始积累。"
+          },
+          {
+            "type": "injured",
+            "weight": 35,
+            "log": "在排队拥挤中被踩伤右脚踝，且因舞弊抽签未中几张，高价认购表大半亏损，仅剩一身泥水。",
+            "effect": {
+              "health": -20,
+              "wealth": -25,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲目狂热追高股票认购证踩踏负伤亏损。"
+          }
+        ]
+      },
+      {
+        "text": "排到两张表后见好就收，转手加价八百元倒卖给队尾收表的炒家，揣着净利润迅速离场回旅社睡觉",
+        "choiceTags": [
+          "时代：1992–1993",
+          "年龄：20–55",
+          "地域：特区金融前线",
+          "门槛：落袋为安谨慎客"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "轻松赚到相当于大半年工资的八百元现金落袋为安，避开了随后的骚乱与踩踏，舒舒服服坐火车返乡。",
+            "effect": {
+              "wealth": 25,
+              "mentality": 20,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "适度套现落袋为安，规避了狂热泡沫后期的踩踏风险。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_c4_danbao_liandai",
+    "tier": "era",
+    "title": "人情枷锁：为同乡做生意经营贷款签字担保",
+    "yearRange": [
+      1990,
+      1999
+    ],
+    "targetAge": [
+      24,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "九十年代下海经商潮中信用体系薄弱，信用社与商业银行多采用联保或熟人担保制度，一人经营失败跑路常导致无辜担保人全额承担连带清偿责任。",
+    "narrative": "一起长大的发小下海开办建材批发部，拿着农行五万元贷款申请书登门，称万事俱备只差一个在国企有正式工作的体制内人员签字做连带责任担保。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "碍于多年情面与两瓶好酒，看都没看合同条款就在连带责任保证人一栏签上大名并按上手印",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：24–60",
+          "地域：全国各地",
+          "门槛：抹不开面子讲哥们义气者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 75,
+            "log": "发小因投机失败血本无归举家连夜跑路不知所踪！法院直接查封冻结你的月工资卡按月抵债，家庭陷入长达数年的拮据窘境。",
+            "effect": {
+              "wealth": -45,
+              "mentality": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲目为人情担保背负巨额连带死债，工资遭长期扣押。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "发小建材部赶上城市大拆迁赚了大钱，三年后如期本息还清银行并送你一套红木大衣柜酬谢，虚惊一场。",
+            "effect": {
+              "wealth": 20,
+              "family": 15,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "侥幸涉险过关未遭连带爆雷。"
+          }
+        ]
+      },
+      {
+        "text": "哪怕被发小痛骂‘忘恩负义不近人情’，也坚决守住底线只借五百元现金资助，绝不签字担保",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：24–60",
+          "地域：全国各地",
+          "门槛：法律意识清醒者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "虽然得罪了发小断了往来，但一年后该发小欠债失联数十担保人遭法院起诉执行，你安居乐业保全了自家全部资产。",
+            "effect": {
+              "mentality": 25,
+              "wealth": 10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "坚守法律财务边界拒绝连带担保，保全家庭长治久安。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_d1_xiagang_fufu",
+    "tier": "era",
+    "title": "潮落共担：国企重组双职工买断下岗自谋出路",
+    "yearRange": [
+      1995,
+      1999
+    ],
+    "targetAge": [
+      30,
+      52
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "1990年代中后期国企深化改革‘减员增效’，全国累计约三千万产业工人下岗分流。双职工家庭同时失去铁饭碗，夫妻搭伙摆地摊、开早点铺成为时代悲壮剪影。",
+    "narrative": "厂大会宣布全厂关停并转，夫妻两人同一天领到了按工龄计算的买断补偿金。站在冷清紧闭的厂大门外，看着手里的下岗优惠证，孩子正值初中交学费当口。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "夫妻同心其利断金，拿出两千元买下二手人力三轮车和铁皮煤炉，清晨四点出摊卖油条豆浆",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：30–52",
+          "地域：老工业基地",
+          "门槛：能屈能伸自强自立者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "起早贪黑双手炸起老茧，油条分量足赢得居民口碑，每天进账四五十元超过原工厂工资，全家昂首挺胸杀出一条血路！",
+            "effect": {
+              "wealth": 30,
+              "family": 35,
+              "mentality": 30,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "下岗逆境中夫妻相濡以沫自力更生，摆脱铁饭碗依赖实现创业生存。",
+            "status": "status_self_employed"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "热油锅溅起烫伤手臂，又逢城管驱赶扣押三轮车，抱头痛哭后在亲友资助下重新租了正规店面。",
+            "effect": {
+              "health": -15,
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "个体摆摊饱经波折但淬炼家庭坚韧品格。"
+          }
+        ]
+      },
+      {
+        "text": "放不下昔日国企老大哥面子，成天窝在家里借酒浇愁互相埋怨，指责厂长政策不公",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：30–52",
+          "地域：老工业基地",
+          "门槛：怨天尤人者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 100,
+            "log": "微薄买断金坐吃山空，夫妻天天因柴米油盐爆发激烈争吵甚至动手，生活陷入持久绝望与抑郁。",
+            "effect": {
+              "wealth": -30,
+              "family": -35,
+              "mentality": -35,
+              "health": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "消极对抗下岗现实导致家庭关系破裂陷入贫困陷阱。",
+            "status": "status_asset_wiped"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_d2_bensang_panchan",
+    "tier": "era",
+    "title": "千里奔丧：四处借凑四十元车票赶回老家送终",
+    "yearRange": [
+      1980,
+      1995
+    ],
+    "targetAge": [
+      20,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_orphan"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "绿皮火车时代跨省交通费用对普通工薪族是沉重开销，一张跨省硬座票相当于普通人半月工资。长辈离世发来‘母病危速归’急电，常需借凑差旅费连夜奔丧。",
+    "narrative": "电报局敲开门递上一张加急电报，上面仅有‘父病危速归’五个字。口袋里只剩七块五毛钱，而回老家的慢车硬座票加转大巴要整整四十元。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "连夜敲开全楼三家邻居与车间主任房门借齐四十元，直扑火车站跳上最近一班绿皮慢车",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–55",
+          "地域：全国各地",
+          "门槛：至孝急迫者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "站立颠簸三十个小时终于在咽气前半小时赶到父亲床头，紧握住老人的手听完最后叮嘱，尽了人子大孝。",
+            "effect": {
+              "wealth": -20,
+              "mentality": 20,
+              "family": 30,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "借钱千里奔丧见上最后一面，人生无悔无憾。",
+            "status": "status_bereaved_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "长途拥挤硬座双腿严重水肿，因极度悲痛在灵堂昏厥脱水，经乡村医生注射葡萄糖苏醒。",
+            "effect": {
+              "health": -25,
+              "wealth": -25,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "奔丧劳顿哀毁过礼伤及身躯。"
+          }
+        ]
+      },
+      {
+        "text": "嫌借钱丢人又自认火车太慢赶不上，只拍了一份加急汇款单与唁电回乡，自己留在原地照常上班",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：20–55",
+          "地域：全国各地",
+          "门槛：冷漠算计者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "虽然省下了差旅费与人情借条，但未能送老父最后一程成为心头永远结疤的死穴，遭族人冷眼痛斥。",
+            "effect": {
+              "wealth": 10,
+              "family": -35,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "因盘缠吝啬缺席至亲葬礼，铸成终生不可挽回之道德痛悔。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_d3_zhengchan_fenjia",
+    "tier": "era",
+    "title": "老宅动迁：手足同胞因分房平方尺数闹上法庭",
+    "yearRange": [
+      1989,
+      1999
+    ],
+    "targetAge": [
+      28,
+      62
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "九十年代城市旧城改造大拆迁启动，原按人头福利分房或老私房折算回迁面积，手足兄弟常因赡养义务与户口留存产生激烈博弈乃至反目成仇。",
+    "narrative": "父母留下的三间老瓦房面临市政拓宽动迁，可置换两套两居室安置房。三个同胞兄弟姐妹聚集在逼仄客堂里，为了谁当年照顾老人多、谁户口在老宅争吵不休大拍桌子。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "寸步不让，聘请律师搜集多年水电赡养单据对簿公堂，誓死捍卫自己应得的一套房产产权",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：28–62",
+          "地域：城市动迁区",
+          "门槛：据理力争维权者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 70,
+            "log": "法院一审判决你胜诉获得独立一套套房产权！虽拿到了遮风避雨的红本房产，但与哥嫂弟妹彻底断绝往来老死不相往来。",
+            "effect": {
+              "wealth": 50,
+              "family": -40,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依法捍卫合法房产产权，代价是亲情网络彻底撕裂碎解。"
+          },
+          {
+            "type": "entangled",
+            "weight": 30,
+            "log": "官司拉锯三年耗费万余元诉讼费，最终两败俱伤按比例折中折价，亲人变成仇家。",
+            "effect": {
+              "wealth": 10,
+              "family": -45,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "家庭房产诉讼旷日持久身心俱疲。"
+          }
+        ]
+      },
+      {
+        "text": "念及骨肉同胞一脉相传，主动提议折价两万元补偿让给住房困难的弟弟，自己退保小户型",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：28–62",
+          "地域：城市动迁区",
+          "门槛：顾全亲情长兄风范者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "退一步海阔天空，弟弟全家感激涕零尊你为一家之主，家庭和睦如初，逢年过节阖家欢聚其乐融融。",
+            "effect": {
+              "wealth": 20,
+              "family": 40,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以大度谦让化解手足争产死局，守住最珍贵的宗族亲情。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_1978_1999_d4_nanxia_bieyi",
+    "tier": "era",
+    "title": "站台目送：挚友辞去铁饭碗决然南下闯深圳",
+    "yearRange": [
+      1988,
+      1996
+    ],
+    "targetAge": [
+      22,
+      45
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "邓小平南方谈话前后引发全国数十万体制内干部、知识分子‘孔雀东南飞’砸掉铁饭碗下海闯深圳特区，老火车站台送别成为时代转折的标志性缩影。",
+    "narrative": "单位最有前途的年轻工程师挚友不顾领导挽留，毅然递交辞职信南下蛇口。昏黄的站台灯光下，他提着一口人造革皮箱，眼眶泛红握紧你的双手告别。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "掏出积攒的两个月工资塞进他口袋作为盘缠，并赠送他一本最新版《现代实用英汉词典》相约顶峰相见",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：22–45",
+          "地域：火车站台",
+          "门槛：真诚托举挚友者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "五年后挚友在特区创业成功开办科技公司，特意寄来巨额股份期权邀请你南下合伙，当年一饭之恩铸成终身莫逆同盟！",
+            "effect": {
+              "wealth": 30,
+              "mentality": 35,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倾力支持挚友时代下海壮举，未来收获惊人事业回报。"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "挚友在南下途中被人扒窃身无分文，幸得你接济的两月工资才在罗湖租下床位活了下来。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盘缠成为挚友异乡立足的救命稻草。"
+          }
+        ]
+      },
+      {
+        "text": "苦口婆心劝阻他留在体制内保铁饭碗，指责特区风大浪大搞不好就是盲流，劝阻无效后失望挥手",
+        "choiceTags": [
+          "时代：1978–1999",
+          "年龄：22–45",
+          "地域：火车站台",
+          "门槛：安于现状者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "两人思想从此分道扬镳，你留在老体制安稳过完余生，昔日同窗在南方大风大浪中渐行渐远，再无共同话题。",
+            "effect": {
+              "mentality": -5,
+              "wealth": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "观念分歧导致时代挚友情谊渐行渐远。"
           }
         ]
       }
@@ -18786,6 +23273,2942 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "细水长流尽孝心，让老人安享承欢膝下之福。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_a1_jisuanji_peixun",
+    "tier": "era",
+    "title": "数字浪潮：借钱报名软件培训班转行初级码农",
+    "yearRange": [
+      2002,
+      2015
+    ],
+    "targetAge": [
+      21,
+      35
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "入世后中国互联网与软件外包迅猛发展，北大青鸟、达内等IT职业培训班遍地开花，四到六个月集中脱产实训成为大批非计算机专业青年跨入高薪IT业的主要跳板。",
+    "narrative": "普通文科大专毕业后在小商贸公司拿八百元底薪做文员。中关村与科技园的程序员起薪已开到四五千，你站在职业软件工程师脱产班门口，学费要一万两千元借贷。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "向亲戚借齐一万两千元学费并签下培训贷，脱产半年每天在机房苦练代码十四个小时",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：21–35",
+          "地域：全国城市",
+          "门槛：有学习意愿的大专青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "结业通过外包项目考核顺利入职软件园科技公司做初级前端开发，月薪跃升至四千元，半年内还清全部借款！",
+            "effect": {
+              "wealth": 35,
+              "mentality": 30,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住PC互联网黄金时代红利成功转行软件工程师，踏入中产门槛。",
+            "status": "status_white_collar"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "长期通宵敲代码致重度干眼症与腱鞘炎，手腕红肿打封闭针，虽入职成功但体能消耗较大。",
+            "effect": {
+              "health": -15,
+              "wealth": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高强度转码集训引发轻微慢性劳损。"
+          }
+        ]
+      },
+      {
+        "text": "怀疑培训班是割韭菜骗局，拒绝借钱背贷，安守现状继续做商贸公司打字文员",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：21–35",
+          "地域：全国城市",
+          "门槛：规避借贷者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "虽然没有负债风险，但月薪在通胀下十年未见显著增长，逐渐被新一代年轻应届生边缘化。",
+            "effect": {
+              "wealth": 5,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "错失IT黄金转型期，长期停留在基层低薪文员岗。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_a2_nongmingong_hanbing",
+    "tier": "era",
+    "title": "技术立足：进城力工自费考取压力容器高压焊工证",
+    "yearRange": [
+      2003,
+      2015
+    ],
+    "targetAge": [
+      20,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "新世纪全国重大基建与造船、石化产业爆发，持质监局锅炉压力容器焊工特种作业证的熟练技术工人日薪达三四百元，成为农民工向高技术蓝领跃升的黄金通道。",
+    "narrative": "在建筑工地拌了三年水泥、扛了三年钢筋，浑身是泥日薪才六十元。你看着造船厂车间里的高压焊工戴着防护面罩焊花飞溅，按日结算三百元且供不应求。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "拿出一年积蓄两千五百元报名安监焊工考证班，克服电弧强光刺眼，反复练习鱼鳞焊缝",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：20–45",
+          "地域：工业园区",
+          "门槛：吃苦耐劳打工者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "无损探伤拍片一次性全优通过！顺利拿到特种设备高压焊工证，被大型造船厂高薪录用为高级技工，月入过万。",
+            "effect": {
+              "wealth": 40,
+              "mentality": 35,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "从工地苦力成功升级为国家级特种高压焊工，收入与地位跃迁。",
+            "status": "status_skilled_welder"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "练习电焊时不慎电弧晃眼引发急性电光性眼炎，双眼剧烈眼痛流泪两日，点冷牛奶与眼药水后愈合。",
+            "effect": {
+              "health": -15,
+              "wealth": 25,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "考证电光晃眼轻微眼损无大碍。"
+          }
+        ]
+      },
+      {
+        "text": "害怕电焊有毒烟尘伤害身体，继续在工地上做小工搬砖推沙包",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：20–45",
+          "地域：工业园区",
+          "门槛：畏缩保守者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "年复一年在工地上出卖力气，随着年龄渐长腰腿劳损加重，逐渐在体力工市场失去竞争优势。",
+            "effect": {
+              "health": -10,
+              "wealth": 10,
+              "mentality": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "未能实现技术晋级，长期受困于重体力劳务消耗。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_a3_zhuanshengben",
+    "tier": "era",
+    "title": "圆梦本科学位：在职自考攻克最后三门统考",
+    "yearRange": [
+      2001,
+      2014
+    ],
+    "targetAge": [
+      22,
+      38
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "高校扩招后大专文凭在职场迅速贬值，成人高等教育专升本与自考专升本成为在职员工晋升中层、参加公务员考试的必备硬性门槛。",
+    "narrative": "单位进行中层竞聘，你的业务能力全处室第一，但人事处明确红头文件规定‘必须具备全日制或国家承认本科学历及学士学位’。你看着还剩最后三门攻坚的自考准考证。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "请掉全部年休假闭关苦读，聘请名师辅导攻克高数与学位英语，志在必得拿下学位",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–38",
+          "地域：全国城市",
+          "门槛：在职专科进修者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "三门统考全过，毕业论文答辩获评良好！顺利拿到省重点大学成人本科学历与学士学位证书，破格提拔为部门副经理。",
+            "effect": {
+              "mentality": 35,
+              "wealth": 30,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在职拿下自考本科与学位彻底补齐学历短板，晋升中层骨干。",
+            "status": "status_college_diploma"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "高压备考导致长期失眠与轻度偏头痛，好在学位顺利到手，身心逐步通过休假调整复原。",
+            "effect": {
+              "health": -10,
+              "wealth": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "备考疲劳稍有神经衰弱无后遗症。"
+          }
+        ]
+      },
+      {
+        "text": "抱怨体制只认死文凭不看真本事，怒而放弃考试，寄希望于领导讲人情照顾",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–38",
+          "地域：全国城市",
+          "门槛：抱侥幸心理者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 100,
+            "log": "竞聘硬性条件卡死无法上报，副经理职位被新来的名校本科生顶替，职场天花板彻底被焊死。",
+            "effect": {
+              "mentality": -20,
+              "wealth": 0
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃学历补全机会，职场发展遭受硬性资格天花板制约。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_a4_kaidian_chuangye",
+    "tier": "era",
+    "title": "商海转型：加盟品牌连锁便利店自主创业",
+    "yearRange": [
+      2005,
+      2015
+    ],
+    "targetAge": [
+      28,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "城市化进程中‘美宜佳’、‘全家’、‘红旗连锁’等品牌便利店深入社区街道，特许加盟模式成为许多失业转型人员与中小创业者稳健立足的选择。",
+    "narrative": "原单位业务调整遭遇裁员，领到八万元补偿金。小区门口临街旺铺招租，知名品牌连锁便利店正在招募社区合伙加盟商，免加盟费提供统一配送系统。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "抵押积蓄投资加盟便利店，全家倒班轮流守店开通24小时营业，靠勤快与热诚服务打动街坊",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：28–55",
+          "地域：城市社区",
+          "门槛：有数万元启动资金者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "依托完善供应链与便民早餐快递服务，小店月营业额突破六万元，不仅实现自负盈亏更净赚全家丰厚收益！",
+            "effect": {
+              "wealth": 40,
+              "family": 25,
+              "mentality": 30,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "成功切入城市连锁零售业态，靠家族协作实现小康创业。",
+            "status": "status_self_employed"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "长期值夜班熬夜导致下肢静脉曲张轻度水肿，后雇佣半天兼职店员倒班改善。",
+            "effect": {
+              "health": -15,
+              "wealth": 25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "创业早期劳累引起轻微下肢静脉曲张。"
+          }
+        ]
+      },
+      {
+        "text": "觉得开小卖部成天看店太受罪，把补偿金全额存进银行理财继续四处投简历找清闲工作",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：28–55",
+          "地域：城市社区",
+          "门槛：求轻松规避实业者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "投出的简历大多石沉大海，中年求职屡屡碰壁，虽然生活安闲但存款逐年缩水。",
+            "effect": {
+              "wealth": -5,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "错失实体商业创业良机，求职遇冷陷入中年危机。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_b1_996_yaozhui",
+    "tier": "era",
+    "title": "职场劳损：长期久坐伏案腰椎间盘突出硬挺",
+    "yearRange": [
+      2005,
+      2015
+    ],
+    "targetAge": [
+      22,
+      45
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "随着电脑普及与互联网加班文化盛行，办公室白领长期伏案久坐缺乏锻炼，腰椎间盘突出症发病年龄大幅提前，多因盲目推拿按摩加重病情。",
+    "narrative": "连续熬夜加班两周赶项目上线，右侧腰臀部突然如触电般剧痛，一路放射麻木至右小腿肚和脚背，甚至走不完五十米就得蹲下缓解。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "嫌去大医院拍片排队繁琐，就近在路边盲人按摩店让师傅猛踩后腰大骨进行重力复位",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–45",
+          "地域：全国城市",
+          "门槛：盲目粗暴推拿者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "暴力踩踏导致原本破损的纤维环彻底脱垂碎裂，马尾神经受压急性大小便障碍，急送三甲医院行急诊椎板减压手术才免于瘫痪！",
+            "effect": {
+              "health": -45,
+              "wealth": -35,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "不当暴力推拿致腰椎间盘急性巨大脱垂急诊手术，落下神经麻木残留。",
+            "status": "sequelae_chronic_backpain"
+          },
+          {
+            "type": "safe",
+            "weight": 25,
+            "log": "运气好仅是单纯腰背筋膜炎，师傅推拿后肌肉放松大半，侥幸未伤及椎间盘核心。",
+            "effect": {
+              "health": 5,
+              "wealth": -5,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "侥幸避开神经根损伤。"
+          }
+        ]
+      },
+      {
+        "text": "立即请假前往三甲骨科行腰椎核磁共振检查，遵医嘱绝对硬板床平躺休息两周配合牵引与神经营养药",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–45",
+          "地域：全国城市",
+          "门槛：具备现代医学常识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "规范卧床使得神经根水肿完全消退，配合麦肯基疗法核心肌群锻炼，疼痛彻底根除自如返岗。",
+            "effect": {
+              "health": 10,
+              "wealth": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学制动平卧与正规康复彻底治愈腰突，未遗留神经后遗症。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "虽避免了手术，但久坐后偶有腰部酸紧，需长期注意坐姿防范。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "偶有轻度腰酸但无神经根压迫。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_b2_haixian_changweiyan",
+    "tier": "era",
+    "title": "夏令不洁：夜市大排档海鲜死虾急性胃肠炎",
+    "yearRange": [
+      2003,
+      2015
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "城市夜市大排档冷链储存不规范，死海鲜变质滋生副溶血性弧菌与嗜水气单胞菌，极易引发伴随剧烈脐周绞痛、血便脱水的感染性腹泻。",
+    "narrative": "夏天和朋友在夜市大排档喝冰啤酒吃麻辣小龙虾与生蚝。凌晨两点腹部剧烈绞痛，上吐下泻连续七次，吐尽苦胆水，全身冷汗淋漓四肢发软打颤。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "觉得只是普通吃坏肚子，翻出抽屉里过期的止泻药和牛黄解毒片吞服，喝口开水蒙头大睡硬熬",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：16–65",
+          "地域：全国城乡",
+          "门槛：滥用过期药硬扛者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 70,
+            "log": "强力止泻药阻碍肠道病菌排出致毒血症，诱发重度脱水休克与急性肾损伤，次日被同住人叫120抬进急诊重症监护室抢救三天！",
+            "effect": {
+              "health": -40,
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "急性细菌性肠胃炎盲目止泻致感染性休克伤及肾功能。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "剧烈呕吐误吸入呼吸道引起窒息并发恶性心律失常不幸离世。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "重症呕吐误吸窒息意外身故。"
+          },
+          {
+            "type": "safe",
+            "weight": 28,
+            "log": "自身肠道自净力极强，狂吐狂拉排空毒素后，多喝温水熬过了危险期，虚脱两天康复。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "排尽毒素脱险但胃肠黏膜需调理。"
+          }
+        ]
+      },
+      {
+        "text": "果断叫出租车直奔附近三甲医院发热门诊，做血常规化验，接受正规盐水输液与抗生素治疗",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：16–65",
+          "地域：全国城乡",
+          "门槛：果断正规急诊者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "急诊静脉补充电解质与第三代头孢输液，呕吐腹痛两小时内完全平息，次日精神饱满出院无大碍。",
+            "effect": {
+              "health": 5,
+              "wealth": -10,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学急诊补液与抗菌治疗迅速掐灭严重感染。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "急诊开销数百元，但迅速保全了身体元气。",
+            "effect": {
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻微经济支出换来健康平安。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_b3_tusanqi_ganposun",
+    "tier": "era",
+    "title": "民间偏方祸端：盲信土三七泡酒致肝小静脉闭塞",
+    "yearRange": [
+      2006,
+      2015
+    ],
+    "targetAge": [
+      35,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "民间常混淆中药‘熟三七’与含吡咯烷生物碱的‘土三七’（菊三七）。长期服用土三七泡酒极易引起不可逆的肝窦阻塞综合征（肝小静脉闭塞症），表现为腹水黄疸。",
+    "narrative": "膝关节骨质增生酸痛，邻居老中医热情推荐山里挖来的‘野生土三七’泡高度白酒，宣称活血化瘀神效。你每天晚饭按时喝两小杯，一个月后腹部鼓胀如鼓、双眼金黄尿如浓茶。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听信邻居‘这是体内湿热在向外排毒反应’的荒谬解释，继续加量饮用并配合拔罐硬顶",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：35–70",
+          "地域：全国城乡",
+          "门槛：深陷迷信偏方排毒说者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 78,
+            "log": "不可逆的吡咯烷毒素导致肝内广泛微小静脉闭塞纤维化，大量腹水形成顽固性肝硬化失代偿期，终身需服药并丧失重体力劳动能力！",
+            "effect": {
+              "health": -45,
+              "wealth": -35,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "盲信土三七偏方致药物性肝窦阻塞与不可逆肝损伤。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "突发肝性脑病深昏迷合并食管胃底静脉曲张大出血不治身亡。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "土三七重度肝衰竭并发消化道大出血罹难。"
+          },
+          {
+            "type": "safe",
+            "weight": 19,
+            "log": "家人发现不对强行倒掉药酒送医保肝治疗，所幸服用剂量尚小，经半年药物排毒肝功能指标部分逆转。",
+            "effect": {
+              "health": -20,
+              "wealth": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "强制停用偏方险死还生保全性命。"
+          }
+        ]
+      },
+      {
+        "text": "察觉腹水黄疸异常立即停药，带上药酒样本直奔大学附属医院消化肝病中心排毒做肝穿刺确诊",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：35–70",
+          "地域：全国城乡",
+          "门槛：具备科学用药警惕者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "专家精准锁定菊三七中毒，早期给予低分子肝素抗凝、前列地尔改善微循环与大剂量还原型谷胱甘肽，腹水全消，肝功恢复正常指标！",
+            "effect": {
+              "health": 5,
+              "wealth": -15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "及时科学抗凝保肝阻断肝小静脉闭塞进展，彻底化险为夷。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "肝脏纤维化早期轻微病变已受控，日常需杜绝饮酒保护肝脏。",
+            "effect": {
+              "health": -5,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻微肝纤维化早期受控需遵医嘱戒酒。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_b4_ganmao_xinjiyan",
+    "tier": "era",
+    "title": "重感硬撑：青年感冒通宵熬夜突发心肌炎",
+    "yearRange": [
+      2004,
+      2015
+    ],
+    "targetAge": [
+      16,
+      38
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "柯萨奇病毒、流感病毒引起的重感冒在青壮年群体中若得不到充分休息，病毒可直接侵犯心肌细胞诱发急性暴发性心肌炎，猝死率极高。",
+    "narrative": "重感冒发烧三十八度五、咽痛咳嗽，恰逢年底考核冲刺。你吞下两粒泰诺后在办公室连轴转通宵两天，清晨突然胸闷如压巨石、呼吸急促、心跳失常频发早搏。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "自恃二十多岁身体底子好，以为只是通宵缺觉，喝下两罐红牛强行支撑继续外出跟客户谈判",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：16–38",
+          "地域：全国城市",
+          "门槛：盲目逞强拼命三郎"
+        ],
+        "outcomes": [
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "暴发性心肌炎诱发恶性心室颤动心源性猝死，在谈判桌旁倒下未能抢救成功。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "重感冒通宵过劳死于急性暴发性心肌炎猝死。"
+          },
+          {
+            "type": "injured",
+            "weight": 77,
+            "log": "晕倒在会议室被送医查肌钙蛋白高出百倍，确诊重症心肌炎，在心内科重症监护室卧床一个月，留下了频发室性早搏与心肌收缩力减弱后遗症。",
+            "effect": {
+              "health": -45,
+              "wealth": -30,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "心肌炎严重损伤心脏收缩力，落下终身心脏早搏旧疾。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "强大的年轻免疫力险险挺过心肌损伤关口，自行代谢后逃过一劫，吓出一身冷汗。",
+            "effect": {
+              "health": -15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "过度劳累后心肌受惊吓侥幸保全未衰竭。"
+          }
+        ]
+      },
+      {
+        "text": "觉察胸闷心悸异常不对劲，立刻向主管请假退出现场，直奔医院做心电图与心肌酶谱化验并绝对卧床",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：16–38",
+          "地域：全国城市",
+          "门槛：具备健康红线意识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "早期发现心肌炎及时使用磷酸肌酸钠与大剂量维生素C营养心肌，严格平卧静养三周，心肌完全再生康复无任何杂音！",
+            "effect": {
+              "health": 10,
+              "wealth": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "及时卧床静养避免暴发性恶化，完美护卫心脏核心机能。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "请假扣除当月绩效奖金，但换来了心脏一辈子的健康与安全。",
+            "effect": {
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "短暂薪资折损换得全身健康平安。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_c1_gumin_guzai",
+    "tier": "era",
+    "title": "股市激流：2007/2015全民炒股高杠杆配资爆仓",
+    "yearRange": [
+      2007,
+      2015
+    ],
+    "targetAge": [
+      22,
+      60
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "2007年大牛市上证冲上6124点与2015年配资牛市冲上5178点期间，全民炒股狂热，大量散户通过场外1:4高杠杆配资借贷炒股，随后遭遇千股跌停断崖式强平爆仓。",
+    "narrative": "交易所大厅绿化带连大妈都在讨论股票涨停，朋友圈天天晒几万元收益。配资中介拉拢你称提供四倍场外配资杠杆，只需押进二十万积蓄就能操盘百万大单直奔财务自由。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "抵押房产取出全部储蓄加满四倍配资杠杆，全仓杀入当时炒得最火热的题材妖股",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–60",
+          "地域：全国城市",
+          "门槛：贪恋资本暴利博徒"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 80,
+            "log": "遭遇连续三个跌停板毫无流动性无法挂单卖出！配资公司无情执行穿仓强平，本金瞬间归零并倒欠配资公司十几万元债务！",
+            "effect": {
+              "wealth": -65,
+              "mentality": -40,
+              "family": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高杠杆炒股遭遇极端千股跌停穿仓爆仓，家庭财富遭毁灭性洗劫。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "在暴跌前夕嗅到监管清查异动，提前果断清仓离场，狂赚两倍利润全身而退买下大平层！",
+            "effect": {
+              "wealth": 70,
+              "mentality": 35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在资本市场历史大顶惊险逃顶，豪取时代巨额财富。"
+          }
+        ]
+      },
+      {
+        "text": "牢记‘当所有人都在狂欢时就是风险顶点’，坚决不碰场外配资杠杆，守紧家庭现金底线",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–60",
+          "地域：全国城市",
+          "门槛：理性克制投资者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "数周后千股跌停奇观上演，无数追高配资者血本无归，你全家存款分文未损，心平气和过好安稳日子。",
+            "effect": {
+              "mentality": 25,
+              "wealth": 10,
+              "family": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "克制人性贪婪避开股灾灭顶之灾，守住财富根基。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_c2_baojian_chuangdian",
+    "tier": "era",
+    "title": "银发陷阱：免费鸡蛋讲座忽悠老人两万买磁疗床垫",
+    "yearRange": [
+      2008,
+      2015
+    ],
+    "targetAge": [
+      48,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "针对城市退休老年群体的保健品骗局在此时期泛滥，不法商家以清晨排队免费领鸡蛋、组织廉价一日游为诱饵，推销数万元的三无磁疗床垫、量子饮水机。",
+    "narrative": "老母亲/老人每天清晨五点准时去社区小剧场听‘养生健康讲座’领两枚免费鲜鸡蛋。今天老人兴冲冲回家，执意要取出一万八千元养老存折去买一张‘包治百病防中风’的磁疗床垫。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "听之任之，甚至觉得老人开心就好不愿惹老人生气，顺从陪同去银行取款全额买下磁疗床垫",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：48–75",
+          "地域：全国城乡",
+          "门槛：纵容放任家属"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 80,
+            "log": "床垫不仅毫无疗效更因劣质加热丝漏电灼伤老人皮肤，两万元积蓄落入骗子腰包，骗子公司随后卷铺盖跑路维权无门。",
+            "effect": {
+              "wealth": -30,
+              "family": -20,
+              "mentality": -25,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放任老人购买虚假伪劣保健床垫，巨额财产受损且损害身体。",
+            "status": "status_asset_wiped"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "老人躺在电热床垫上获得心理安慰睡得踏实，虽花掉冤枉钱但未造成器质损害。",
+            "effect": {
+              "wealth": -25,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "破财消灾换取老人心理寄托。"
+          }
+        ]
+      },
+      {
+        "text": "坚决阻拦取款，耐心搜集央视《焦点访谈》曝光视频给老人讲透骗局套路，并向工商部门实名举报该黑窝点",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：48–75",
+          "地域：全国城乡",
+          "门槛：清醒维权守护家庭者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "执法大队迅速查封该虚假宣传窝点退还预付款，老人恍然大悟保全了两万元棺材本，对你的孝顺与理智夸赞不已。",
+            "effect": {
+              "wealth": 20,
+              "family": 30,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学防骗及时阻击养老黑窝点，守护家庭核心积蓄。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_c3_naicha_jiameng",
+    "tier": "era",
+    "title": "快招泡沫：轻信招商会加盟网红奶茶店血本无归",
+    "yearRange": [
+      2010,
+      2015
+    ],
+    "targetAge": [
+      22,
+      45
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "餐饮新消费浪潮下‘快招公司’层出不穷，通过花钱请托排队制造火爆假象，骗取创业者数万到十几万元加盟费与高价专用原料设备后迅速失联弃店。",
+    "narrative": "豪华酒店招商加盟大会上，PPT大肆宣扬日流水过万元的网红奶茶模式。现场样板店排队上百人，招商经理信誓旦旦保证‘三个月回本，总部全程带店扶持’。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "被狂热氛围煽动当场刷卡交纳六万元加盟费并高价购入全套专用设备开店",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–45",
+          "地域：城市商圈",
+          "门槛：盲从加盟创业者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 85,
+            "log": "开业后发现所谓排队全系雇人托儿，总部提供的果糖茶叶价格比市面贵一倍且根本不提供技术辅导，撑了四个月亏空十万元无奈转让！",
+            "effect": {
+              "wealth": -45,
+              "mentality": -30,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "陷入快招网红奶茶加盟合同陷阱，半生积蓄被收割一空。",
+            "status": "status_asset_wiped"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "凭借绝佳大学城选址和自身自创特色奶盖口味逆风翻盘，摆脱总部自立招牌实现盈利开出分店。",
+            "effect": {
+              "wealth": 40,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在恶劣快招骗局中依靠个人产品实力奇迹突围。"
+          }
+        ]
+      },
+      {
+        "text": "深知餐饮创业十人九亏，冷静蹲点暗访同城已开门店的真实流水，发现破绽后断然拒绝签约",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：22–45",
+          "地域：城市商圈",
+          "门槛：审慎调研投资者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "两个月后该快招公司因合同诈骗被经侦查处，你暗自庆幸守住了十万元血汗钱，稳健理财生活无忧。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以严密尽调识破快招加盟陷阱，守住家庭财务底牌。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_c4_shoufu_maifang",
+    "tier": "era",
+    "title": "时代关口：掏空全家六个钱包上车城市商品房",
+    "yearRange": [
+      2008,
+      2015
+    ],
+    "targetAge": [
+      24,
+      45
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.09,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "新世纪全国大中城市房价经历多轮暴涨，‘掏空父母祖辈六个钱包凑首付、承担三十年房贷按揭’成为青年一代成家立业与财富分化的决定性历史节点。",
+    "narrative": "售楼处人声鼎沸号牌抢光，均价从五千飙升到八千。房产中介催促今天再不下定金明天每平米再涨三百。把夫妻两人与双方父母的全部定期存款凑在一起刚好够三成首付。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "掏空三代人积蓄凑足首付签下三十年商业按揭贷款，咬牙买下两居室电梯商品房",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：24–45",
+          "地域：大中城市",
+          "门槛：敢于负债上车者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "交楼入住拿到红本房产证！随后五年内城市房价翻了两番，资产实现跨越式几何级暴增，奠定整个家族财富基石！",
+            "effect": {
+              "wealth": 60,
+              "family": 35,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在城市化黄金上升期果断杠杆买房，搭上时代财富特快列车。",
+            "status": "status_homeowner"
+          },
+          {
+            "type": "entangled",
+            "weight": 10,
+            "log": "每月房贷占去工资大半沦为‘房奴’，不敢换工作不敢生病，虽资产升值但生活质量骤降。",
+            "effect": {
+              "wealth": 30,
+              "mentality": -15,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "高额月供带来持久还贷心理压力。"
+          }
+        ]
+      },
+      {
+        "text": "坚信房价过高泡沫必破，拒绝背负巨债做房奴，坚持把钱存银行长期租房生活",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：24–45",
+          "地域：大中城市",
+          "门槛：空头观望者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 100,
+            "log": "数年后眼睁睁看着房价一路狂飙翻倍，原先的首付款如今连厕所都买不起，租金水涨船高，懊悔万分。",
+            "effect": {
+              "wealth": -30,
+              "mentality": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "固守传统观念看空房市，彻底被时代资产泡沫抛弃落伍。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_d1_feidian_shouwang",
+    "tier": "era",
+    "title": "封控守望：非典时期亲人进隔离病房隔窗相望",
+    "yearRange": [
+      2003,
+      2003
+    ],
+    "targetAge": [
+      16,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "2003年春非典（SARS）疫情袭来，北京等地启动定点传染病医院整建制全封闭隔离，家属无法探视，仅靠电话和隔窗字条传递亲情守望相助。",
+    "narrative": "满城空气中弥漫着84消毒液的气味，亲人突发高热咳嗽被救护车闭环送入定点传染病区全封闭隔离。你戴着12层纱布口罩站在警戒线外，仰望着三楼病房紧闭的窗户。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "天天冒雨在医院铁栏杆外守候，用大号白纸写下‘我们等你回家’高高举起，每天按时给护士站递送可口饭菜",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：16–65",
+          "地域：疫情封控城市",
+          "门槛：深情守望者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "亲人看到窗外的标语精神大振战胜病魔，两周后核酸转阴平安解除隔离出院，全家相拥而泣情感坚不可摧！",
+            "effect": {
+              "family": 40,
+              "mentality": 35,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在非典至暗时刻以无畏深情托举亲人康复，铸就家庭不朽精神支柱。"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "在医院外淋雨感冒发烧被作为疑似病例留观两日，所幸排除感染，虚惊一场。",
+            "effect": {
+              "health": -15,
+              "mentality": 20,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "守护至亲受惊留观平安解除。"
+          }
+        ]
+      },
+      {
+        "text": "畏惧传染不敢靠近医院，仅在家里打座机通话询问，严格居家足不出户消毒自保",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：16–65",
+          "地域：疫情封控城市",
+          "门槛：科学自保者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "自身零暴露风险安全渡过疫情危机，亲人在医护悉心救治下如期康复出院，家庭平稳回归正常轨道。",
+            "effect": {
+              "health": 5,
+              "family": 15,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恪守卫生防疫规程，全家安度非典难关。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_d2_peihu_icu",
+    "tier": "era",
+    "title": "生命天平：至亲病危进ICU有创呼吸机陪护抉择",
+    "yearRange": [
+      2006,
+      2015
+    ],
+    "targetAge": [
+      26,
+      60
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_orphan"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "现代重症监护室（ICU）普及后，每日自费数千至上万元的高昂维持费用与气管插管有创呼吸机创伤，给无数面临至亲终末期抢救的家庭带来巨大的伦理与经济考验。",
+    "narrative": "重症监护室厚重的铁门打开，主治大夫拿着病危通知书：老母亲/老人多器官衰竭，若上有创呼吸机加CRRT血滤每日自费八千元，仅能维持微弱生命体征，催你签字定夺。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "哪怕倾家荡产负债累累，也绝不放弃最后一丝希望，签字同意全套有创抢救方案",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：26–60",
+          "地域：现代三甲医院",
+          "门槛：倾囊救亲者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "在ICU鏖战二十一天奇迹般脱离呼吸机转入普通病房！虽然花光全家十余万储蓄，但老人保全生命多陪伴了家人五年。",
+            "effect": {
+              "wealth": -50,
+              "family": 40,
+              "mentality": 25,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "倾尽全家财力逆天改命，从死神手中抢回至亲性命。"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "虽全力抢救但老人终因不可逆脑死亡安详离世，全家背负沉重债务，在悲痛中料理后事。",
+            "effect": {
+              "wealth": -55,
+              "mentality": -35,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "尽心尽力抢救至亲未能挽回，留下高昂医疗债务与终生慰藉。",
+            "status": "status_bereaved_parent"
+          }
+        ]
+      },
+      {
+        "text": "不忍老人临终遭受插管切开之苦，遵从老人生前意愿签字放弃有创抢救，转入安宁疗护病房陪伴走完最后一程",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：26–60",
+          "地域：现代三甲医院",
+          "门槛：推崇安宁尊严者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "在镇痛舒适的轻柔音乐中，握着老人的手平静安详辞世，没有痛苦插管，家人克制平静送终。",
+            "effect": {
+              "wealth": -15,
+              "mentality": 20,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "选择尊严安宁疗护，以克制深情陪伴至亲无痛告别。",
+            "status": "status_bereaved_parent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_d3_jieqian_fanmu",
+    "tier": "era",
+    "title": "人情幻灭：昔日大学至交借走买房首付款成死账",
+    "yearRange": [
+      2008,
+      2015
+    ],
+    "targetAge": [
+      24,
+      50
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "在民间财富快速积累与房产狂飙期，无抵押熟人借贷极易因投资失败、资产暴跌演化为赖账纠纷，许多数十年的挚友情谊在巨额借款前彻底碎裂瓦解。",
+    "narrative": "大学同窗四年的挚友痛哭流涕登门，称其炒股穿仓急需五万元周转过桥，保证三个月连本带利归还。你心一软拿出自己准备买房首付的五万元积蓄借给了他。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "三年到期后多次好言催讨，对方百般推诿拉黑电话，聘请律师持借条起诉申请法院强制执行",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：24–50",
+          "地域：全国城市",
+          "门槛：依法维权撕破脸皮者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 60,
+            "log": "法院查封其名下车辆拍卖追回大部分欠款，虽然收回了四万余元血汗钱，但二十年挚友情谊彻底灰飞烟灭。",
+            "effect": {
+              "wealth": 20,
+              "mentality": -15,
+              "family": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "依法强执追回大部分借款，买断虚伪友谊。"
+          },
+          {
+            "type": "entangled",
+            "weight": 40,
+            "log": "对方名下无可供执行财产被列入老赖失信名单，五万元彻底化为死账，深感人性险恶。",
+            "effect": {
+              "wealth": -40,
+              "mentality": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻信熟人借贷遭遇老赖死账，巨额财产化为泡影。",
+            "status": "status_debt_burdened"
+          }
+        ]
+      },
+      {
+        "text": "顾及昔日兄弟情面不忍对簿公堂，就此自认倒霉打碎牙往肚里咽，不再向其讨要",
+        "choiceTags": [
+          "时代：2000–2015",
+          "年龄：24–50",
+          "地域：全国城市",
+          "门槛：软弱好面子者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "钱打了水漂换来伴侣无尽的埋怨与争吵，五万元成为心头拔不掉的一根刺，发誓此生再也不借一分钱给外人。",
+            "effect": {
+              "wealth": -35,
+              "mentality": -25,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "纵容老赖借贷流失巨资，痛定思痛筑牢财务防火墙。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2000_2015_d4_wenchuan_zhiyuan",
+    "tier": "era",
+    "title": "大爱无疆：汶川震后结对长期资助失亲孤儿",
+    "yearRange": [
+      2008,
+      2015
+    ],
+    "targetAge": [
+      24,
+      60
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "2008年5·12汶川特大地震发生后，全国涌现数百万志愿者与结对家庭，民间通过红十字会与妇联长期定向资助灾区失亲孤儿完成学业直至大学毕业。",
+    "narrative": "电视画面里都江堰与映秀废墟触目惊心。妇联发起‘汶川地震失亲孤儿一对一定点助学’倡议，每月只需寄出三百元生活费，即可保障一名灾区孩子念完初高中。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "郑重在妇联助学协议上签字，承诺连续十年每月按期汇出三百元，并经常通信鼓励孩子自强",
+        "choiceTags": [
+          "时代：2008–2015",
+          "年龄：24–60",
+          "地域：全国各地",
+          "门槛：仁爱担当奉献者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "十年长流水般的爱心呵护，被资助的孩子顺利考上重点大学医学院，专程登门送上锦旗深情唤你‘第二父母’！",
+            "effect": {
+              "mentality": 40,
+              "family": 30,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "十年坚守汶川孤儿助学铸就崇高道德楷模，收获终身跨血缘深情。",
+            "status": "status_family_protector"
+          },
+          {
+            "type": "entangled",
+            "weight": 5,
+            "log": "个别月份手头吃紧依然省吃俭用如期汇款，虽微有压力但问心无愧。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "恪守爱心承诺无怨无悔。"
+          }
+        ]
+      },
+      {
+        "text": "只在单位组织的一次性捐款箱里投下一百元，觉得自己过好小日子才是最重要的",
+        "choiceTags": [
+          "时代：2008–2015",
+          "年龄：24–60",
+          "地域：全国各地",
+          "门槛：普通随大流者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "尽了一份普通公民的本分随大流捐助，生活继续波澜不惊如常前行。",
+            "effect": {
+              "wealth": -5,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "随份子献爱心平稳安全过好小家生活。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_a1_gaozhi_kuozhao",
+    "tier": "era",
+    "title": "政策红利：搭乘百万高职扩招快车重返大学",
+    "yearRange": [
+      2019,
+      2023
+    ],
+    "targetAge": [
+      22,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "2019年政府工作报告提出高职院校大规模扩招100万人，面向退役军人、下岗失业人员、农民工和新型职业农民，实行免文化素质考试、弹性学制入读全日制大专。",
+    "narrative": "早年高中毕业一直在电子厂做普工。县人社局群里发来‘百万高职扩招专项行动’通知，免文化课考试，弹性上课三年，顺利毕业即可获得全日制统招普通大专学历。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "果断提交退役/农民工证明报名新能源汽车维修技术专业，半工半读苦学三年",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：22–45",
+          "地域：全国城乡",
+          "门槛：无全日制大专文凭者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "顺利通过毕业实操答辩领到教育部电子注册的全日制大专毕业证，被新能源头部车企直聘为售后技术专家！",
+            "effect": {
+              "wealth": 35,
+              "mentality": 30,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抓住高职扩招国家级红利摘掉低学历帽子，切入新能源朝阳产业。",
+            "status": "status_college_diploma"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "工学兼顾连轴转经常熬夜赶写作业引起胃炎，但坚持拿到文凭，前途豁然开朗。",
+            "effect": {
+              "health": -10,
+              "wealth": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "工学矛盾略耗心力无后遗症。"
+          }
+        ]
+      },
+      {
+        "text": "觉得大专文凭早已烂大街不值钱，懒得花时间折腾，下班继续躺平打游戏",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：22–45",
+          "地域：全国城乡",
+          "门槛：消极躺平者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "避开了读书之苦，但不久电子厂流水线大面积推行机械臂自动化替换，无技术工人首批被优化淘汰。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃政策扩招提升机遇，遭遇制造业自动化替代危机。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_a2_zimeiti_zhuanxing",
+    "tier": "era",
+    "title": "中年自救：遭遇裁员转行三农短视频直播带货",
+    "yearRange": [
+      2018,
+      2026
+    ],
+    "targetAge": [
+      32,
+      52
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "随着短视频与快手、抖音直播电商普及，大批遭遇城市‘35岁职场危机’的中年人返乡创业，利用乡村原生态风貌开辟‘三农自媒体’带货农产品实现自救。",
+    "narrative": "年过三十五岁遭遇公司降本增效裁员，投出上百份简历全部已读不回。回到县城老家，看到满山熟透滞销的蜜橘，你拿起智能手机支架，决定放手一搏短视频。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "自学视频剪辑与脚本，每天清晨五点上山下地实景直播，以真诚质朴风格推销家乡土特产",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：32–52",
+          "地域：县域乡村",
+          "门槛：敢于出镜自强者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "一条记录母亲柴火灶炖笋的视频全网爆火获赞百万！不仅帮全村卖光了滞销橘子，更建立自有助农电商品牌！",
+            "effect": {
+              "wealth": 45,
+              "mentality": 35,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在移动互联网流量新生态中二次创业崛起，实现财务与个人价值飞跃。",
+            "status": "status_self_employed"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "户外直播突遇暴雨感冒高烧失声，吃金嗓子含片调整后恢复，收获第一批忠实粉丝。",
+            "effect": {
+              "health": -10,
+              "wealth": 20,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "创业初期吃苦耐劳打下基础。"
+          }
+        ]
+      },
+      {
+        "text": "觉得在镜头前抛头露面丢不起那个人，拒绝转型，靠开网约车和吃微薄老本度日",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：32–52",
+          "地域：县域乡村",
+          "门槛：思想保守者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "每天跑车十二小时仅够勉强糊口，随着平台派单运价下降，收入逐月走低身心俱疲。",
+            "effect": {
+              "wealth": 5,
+              "mentality": -15,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "守旧不敢突破，深陷零工低薪内卷泥潭。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_a3_wurenji_feishou",
+    "tier": "era",
+    "title": "智慧农业：自费考取农用植保无人机飞手执照",
+    "yearRange": [
+      2017,
+      2026
+    ],
+    "targetAge": [
+      19,
+      45
+    ],
+    "applicableRegions": [
+      "RURAL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_college_student"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "大疆等农业植保无人机在全国农田飞速普及，取代传统人工背药喷洒，‘职业飞手’日作业面积达数百亩，收入可观且避免了农药中毒风险。",
+    "narrative": "村里年轻人纷纷进城打工，农田面临无人种地荒芜。农业合作社引进大型八轴植保无人机，你看到招募飞手培训班公告，学费三千元包拿CAAC无人机驾驶员执照。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "拿出压岁钱报名无人机飞手培训，在模拟器与外场苦练航线规划与避障喷洒技能",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：19–45",
+          "地域：现代农田",
+          "门槛：对智能科技感兴趣青年"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "高分拿下无人机驾驶证！一人操纵两架无人机跨省接单喷药，一个作业季净赚八万多元，成为现代农业明星！",
+            "effect": {
+              "wealth": 40,
+              "mentality": 30,
+              "health": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "掌握现代无人机精准农事技能，从传统老农跃升为高薪农业工程师。",
+            "status": "status_skilled_welder"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "外场试飞时螺旋桨气流掀起沙尘眯伤右眼角膜，冲洗点抗生素眼药膏三天痊愈。",
+            "effect": {
+              "health": -5,
+              "wealth": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "训练轻微眼部擦伤无碍执飞。"
+          }
+        ]
+      },
+      {
+        "text": "认为几万块钱的无人机摔了赔不起，宁愿继续人工背负电动喷雾器打药",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：19–45",
+          "地域：现代农田",
+          "门槛：因循传统者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "烈日下依然要赤膊吸农药，效率低下收入微薄，眼睁睁看着农田服务订单全被外地飞手抢走。",
+            "effect": {
+              "health": -10,
+              "wealth": 5,
+              "mentality": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "抗拒智能化农机，在农业现代化转型中被边陲化。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_a4_shequ_wangge",
+    "tier": "era",
+    "title": "基层兜底：应聘街道社区专职网格员获社保托底",
+    "yearRange": [
+      2018,
+      2026
+    ],
+    "targetAge": [
+      28,
+      55
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "城市网格化精细治理与疫情防控期间，全国各街道大量招募社区专职网格员，提供五险一金和稳定财政托底，成为吸纳大龄就业困难群体的政策安全网。",
+    "narrative": "原私企倒闭后断缴社保近两年，上有四位老人下有在读子女。街道党群服务中心贴出招聘微网格员启事，月薪三千五百元缴纳正规五险一金，负责两百户日常巡查。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "认真准备笔试面试顺利通过政审，穿上红马甲走楼入户做走访登记，扎根基层服务",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：28–55",
+          "地域：城市社区",
+          "门槛：热心社区事务者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "五险一金重新续接无断缴之虞！靠细心与热忱帮独居孤寡老人解决多桩急难，获评年度‘优秀金牌网格员’转聘专职副书记。",
+            "effect": {
+              "family": 25,
+              "wealth": 20,
+              "mentality": 25,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "通过社区微网格员实现社保与职业再托底，建立稳定职业归宿。",
+            "status": "status_white_collar"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "爬楼梯过多致轻度膝盖滑膜炎，贴膏药配合慢走缓解，工作平稳有条不紊。",
+            "effect": {
+              "health": -10,
+              "wealth": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "社区爬楼巡查引发轻微膝关节劳损。"
+          }
+        ]
+      },
+      {
+        "text": "嫌弃网格员成天处理邻里狗皮膏药琐事太繁琐，拒绝应聘，继续赋闲在家啃老",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：28–55",
+          "地域：城市社区",
+          "门槛：眼高手低者"
+        ],
+        "outcomes": [
+          {
+            "type": "redirected",
+            "weight": 100,
+            "log": "社保长期断缴面临未来养老医保无法办结的危机，家庭日常开销捉襟见肘，家庭矛盾日趋白热化。",
+            "effect": {
+              "wealth": -15,
+              "family": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "放弃基层兜底就业，社保断缴陷入中年财务泥淖。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_b1_aoye_zaobo",
+    "tier": "era",
+    "title": "数字成瘾：深宵刷短视频频发室性早搏胸闷",
+    "yearRange": [
+      2018,
+      2026
+    ],
+    "targetAge": [
+      16,
+      45
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "智能手机算法无限信息流推送导致当代青年重度熬夜普遍化，长期交感神经处于过度亢奋状态，导致功能性乃至器质性室性早搏、心悸高发。",
+    "narrative": "连续几个月每夜熄灯后侧卧刷短视频至凌晨三点，蓝光刺眼。今天午睡醒来心口突然猛烈‘咯噔’漏跳一拍，紧接着心慌发紧、四肢发凉、呼吸不畅频发心慌。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "以为只是白天咖啡喝多了，自作主张网购稳心颗粒自服，戴上降噪耳机继续熬夜追剧硬挺",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：16–45",
+          "地域：全国城乡",
+          "门槛：自作聪明乱用药者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 75,
+            "log": "频发室性早搏发展为短阵室性心动过速，在地铁站突发黑朦晕厥倒地磕破额头，急诊动态心电图显示单日早搏高达两万次！",
+            "effect": {
+              "health": -40,
+              "wealth": -20,
+              "mentality": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "漠视严重心律失常继续熬夜，导致心脏电生理功能重度紊乱。",
+            "status": "sequelae_vitality_drain"
+          },
+          {
+            "type": "fatal",
+            "weight": 2,
+            "log": "熬夜极度疲劳诱发恶性恶性心律失常室颤，深夜在被窝中心源性猝死。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "重度熬夜数字成瘾突发恶性心律失常猝死。"
+          },
+          {
+            "type": "safe",
+            "weight": 23,
+            "log": "受惊后强制放下手机早睡三天，早搏大幅减少自行恢复，彻底吓戒了熬夜恶习。",
+            "effect": {
+              "health": 5,
+              "mentality": 10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "及时受惊止损保全心脏。"
+          }
+        ]
+      },
+      {
+        "text": "立即卸载短视频软件，前往三甲医院心内科做24小时动态心电图与心脏彩超，遵医嘱按时作息",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：16–45",
+          "地域：全国城乡",
+          "门槛：具备数字健康自律者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "查明为交感神经兴奋性功能性早搏，无器质性病变。通过规律作息与有氧慢跑，早搏完全归零自愈！",
+            "effect": {
+              "health": 15,
+              "wealth": -5,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "科学纠正作息成功化解心律失常危机，养成终身健康作息习惯。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "偶尔劳累后仍有极个别偶发早搏，无须服药定期复查即可。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻微偶发早搏完全受控。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_b2_jianfei_shixin",
+    "tier": "era",
+    "title": "微商乱象：网购三无微商减肥胶囊心慌手抖",
+    "yearRange": [
+      2016,
+      2024
+    ],
+    "targetAge": [
+      16,
+      40
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "朋友圈微商兜售的所谓‘纯天然酵素/燃脂胶囊’常非法添加国家明令禁用的西布曲明、酚酞或甲状腺素，导致服用者出现严重厌食、精神狂躁与肺动脉高压。",
+    "narrative": "为在婚礼前快速减重十斤，花八百元网购了微商极力推荐的‘进口果蔬纯天然燃脂素’。连服三天体重骤降，但伴随口干舌燥如吞火炭、双手剧烈颤抖、瞳孔放大失眠。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "看到体重秤数字下降欣喜若狂，以为燃脂就是这样，继续加大剂量连吃半个月",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：16–40",
+          "地域：全国城乡",
+          "门槛：盲目容貌焦虑急功近利者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 76,
+            "log": "违禁西布曲明导致重度药物性躁狂症与不可逆肺动脉高压，晕倒送医洗胃抢救，留下轻微活动即气喘后遗症！",
+            "effect": {
+              "health": -45,
+              "wealth": -25,
+              "mentality": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "滥用含非法违禁添加物减肥药致心肺不可逆毒性损伤。",
+            "status": "sequelae_respiratory"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "严重药物过量引发恶性高热与急性心跳骤停不幸香消玉殒。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "违禁减肥药严重中毒致心搏骤停罹难。"
+          },
+          {
+            "type": "safe",
+            "weight": 21,
+            "log": "停药后大量喝水排毒，虽反弹了五斤但年轻身体代谢完毕，心悸慢慢平息。",
+            "effect": {
+              "health": -15,
+              "mentality": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "侥幸排毒脱险，彻底戒除有害减肥药。"
+          }
+        ]
+      },
+      {
+        "text": "果断将剩余药丸送食药监部门检测，停止服用并前往综合医院做尿检与电解质监测",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：16–40",
+          "地域：全国城乡",
+          "门槛：具备食品安全防范意识者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "化验检出超标西布曲明由经侦依法立案，你及时大量补液排毒，两日内心跳恢复窦性律，未留脏器损伤！",
+            "effect": {
+              "health": 5,
+              "wealth": -5,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "机警识破三无有毒违禁药果断止损，协助警方捣毁制假窝点。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "肠胃轻度受损腹泻两天，喝小米粥逐步调养自愈。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "轻度胃肠不适迅速平复。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_b3_qishou_diandao",
+    "tier": "era",
+    "title": "骑手抢时：暴雨天赶送外卖急刹打滑挫裂伤",
+    "yearRange": [
+      2018,
+      2026
+    ],
+    "targetAge": [
+      18,
+      48
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "外卖平台严格的‘超时扣款’算法机制驱使数百万骑手在恶劣天气下涉险疾驰，雨雪天电动车道路打滑侧翻跌打挫伤频发，普遍存在带伤送单现象。",
+    "narrative": "暴雨滂沱视线模糊，手机系统倒计时只剩八分钟，超时将面临客户差评与重金扣罚。转弯过斑马线时电动车突然侧滑甩飞，重重砸在路牙石上，膝盖血肉模糊剧痛难忍。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "用矿泉水胡乱冲洗伤口贴上创口贴，咬紧牙关扶起电动车一瘸一拐继续冒雨把这单外卖送到客人手中",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–48",
+          "地域：全国城市",
+          "门槛：为免差评拼命硬挺者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 78,
+            "log": "泥沙深部感染引发化脓性滑膜炎与半月板三度撕裂，因延误处理导致膝关节僵直积液，不得不卧床两个月并动了关节镜手术！",
+            "effect": {
+              "health": -35,
+              "wealth": -20,
+              "mentality": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "车祸创伤带泥硬挺导致关节严重化脓与半月板损伤。",
+            "status": "sequelae_motor_impairment"
+          },
+          {
+            "type": "safe",
+            "weight": 22,
+            "log": "送达后客人看到浑身是血的骑手感动不已，当场取消差评并打赏两百元医药费，包扎后未伤及骨头。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 15,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拼命精神打动客户，皮外伤未伤筋动骨。"
+          }
+        ]
+      },
+      {
+        "text": "立刻向平台报备交通事故上传照片申请异常订单免责，打车直奔附近公立医院骨科拍片缝合清创",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–48",
+          "地域：全国城市",
+          "门槛：生命安全优先者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "急诊彻底清除伤口砂石缝合五针，骑手专享意外险全额报销了治疗费，休息一周平稳拆线，膝盖完好无损。",
+            "effect": {
+              "health": 5,
+              "wealth": 0,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "正规清创缝合激活保险理赔，妥善保全肢体运动能力。"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "膝盖留下两寸白色线状疤痕，阴天稍有紧绷，无碍骑车跑单。",
+            "effect": {
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "微小线状瘢痕无功能受限。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_b4_jiaolv_shenpo",
+    "tier": "era",
+    "title": "迷途心魔：重度抑郁焦虑轻信神婆驱邪延误治疗",
+    "yearRange": [
+      2017,
+      2026
+    ],
+    "targetAge": [
+      18,
+      55
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "当代生活节奏加快与内卷压力下，抑郁症、焦虑症等心理精神疾病发病率上升，部分基层患者因病耻感拒绝正规心理科，转求民间神婆画符招魂延误病情。",
+    "narrative": "长期失眠胸闷惊恐发作，脑子里总是冒出绝望轻生念头，甚至连床都起不来。亲戚悄悄拉住你，称城郊有个老神婆‘通灵查虚病’极灵，花八千元烧符斩煞包好。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "瞒着家人掏出八千元私房钱去神婆堂口烧符纸喝香灰水，寄希望于玄学驱散心魔",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–55",
+          "地域：全国城乡",
+          "门槛：因病耻感盲求封建玄学"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 78,
+            "log": "延误正规神经递质抗抑郁治疗导致重度精神崩溃出现自残冲动，重度铅汞香灰水更损害肠胃，最终被家人送精神卫生中心强制封闭治疗！",
+            "effect": {
+              "health": -45,
+              "wealth": -35,
+              "mentality": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "迷信偏方香灰驱邪延误重度抑郁治疗，导致严重心理危机。",
+            "status": "sequelae_mental_trauma"
+          },
+          {
+            "type": "fatal",
+            "weight": 3,
+            "log": "在极度幻灭自责中突发冲动轻生意外离世，酿成家庭永久悲剧。",
+            "effect": {},
+            "isFatal": true,
+            "hiddenRiskLog": "重度心理危机延误现代医学干预不幸轻生。"
+          },
+          {
+            "type": "safe",
+            "weight": 19,
+            "log": "在堂口受惊反而清醒意识到封建迷信的荒谬，毅然逃离窝点自救。",
+            "effect": {
+              "mentality": 10,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "玄学闹剧警醒自拔。"
+          }
+        ]
+      },
+      {
+        "text": "破除心理病耻感，在好友陪同下前往正规三甲医院临床心理科做专业量表评估，按医嘱规范服用SSRIs药物配合认知行为疗法",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–55",
+          "地域：全国城乡",
+          "门槛：具备现代精神卫生科学认知"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 92,
+            "log": "服药两周后五羟色胺递质逐步平衡，胸闷失眠完全消除，重新体会到了阳光鸟鸣的美好，彻底重获新生！",
+            "effect": {
+              "mentality": 40,
+              "health": 15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "正规现代医学治疗驱散抑郁阴霾，彻底重拾身心掌控权。"
+          },
+          {
+            "type": "injured",
+            "weight": 8,
+            "log": "早期有轻微嗜睡胃部不适，一周后耐受，完全不影响正常工作学习。",
+            "effect": {
+              "health": 5,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "规范服药轻微初期副反应平稳度过。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_c1_p2p_baolei",
+    "tier": "era",
+    "title": "爆雷风暴：P2P互联网金融理财平台清盘跑路",
+    "yearRange": [
+      2016,
+      2020
+    ],
+    "targetAge": [
+      22,
+      65
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "2018年前后全国P2P网贷平台迎来史上最大爆雷潮，团贷网、爱投资等数千家宣称‘8%-12%保本保息、银行存管’的平台被公安经侦按非法吸收公众存款罪立案查处。",
+    "narrative": "地铁、电梯广告铺天盖地都是知名明星代言的P2P理财APP，宣称上市公司背景、保本保息年化10%。你账上正躺着全家辛苦攒下的二十万元存折，同事都在晒每天到账的利息。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "把二十万全额充值买入该平台一年期定期标的，期盼一年净收两万利息换辆代步车",
+        "choiceTags": [
+          "时代：2016–2020",
+          "年龄：22–65",
+          "地域：全国城市",
+          "门槛：贪图互联网高息者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 85,
+            "log": "不到半年APP突然无法提现发出清盘公告，实际控制人携款外逃被警方通缉！全家二十万积蓄化为泡影，漫漫维权路心力交瘁。",
+            "effect": {
+              "wealth": -60,
+              "mentality": -40,
+              "family": -30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "陷入P2P互联网金融非法集资爆雷，家庭流动性资产瞬间蒸发。",
+            "status": "status_asset_wiped"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "在爆雷前夕听到风吹草动提前提前一个月申请债转折价提现成功，侥幸保全本金并赚了千元利息逃出生天！",
+            "effect": {
+              "wealth": 20,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在网贷大崩盘前夕极限操作套现逃顶。"
+          }
+        ]
+      },
+      {
+        "text": "牢记银保监会‘收益率超过8%就很危险、超过10%就要准备损失全部本金’的警示，坚决不碰存入国有银行大额存单",
+        "choiceTags": [
+          "时代：2016–2020",
+          "年龄：22–65",
+          "地域：全国城市",
+          "门槛：遵循监管红线理智客"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "数月后该平台雷声震天无数受害者痛哭，你全家二十万存款在工行存单里安然无恙，本息安全如泰山！",
+            "effect": {
+              "mentality": 30,
+              "wealth": 15,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "敬畏金融规律坚守本金底线，守护全家多年财富成果。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_c2_wangdai_fenqi",
+    "tier": "era",
+    "title": "消费深渊：分期乐与网贷连环套以贷养贷",
+    "yearRange": [
+      2016,
+      2024
+    ],
+    "targetAge": [
+      18,
+      30
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "移动互联网消费贷大肆渗透年轻人，‘0首付买最新款iPhone/潮牌’引导超前消费，拆东墙补西墙以贷养贷，年化实际利率往往通过服务费掩盖超过36%。",
+    "narrative": "最新款折叠屏手机发布售价一万三，周围同学朋友都在用。你月工资只有三千五，分期平台弹窗提示‘日供只要十八元’，只需身份证一键人脸识别即可秒下款。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "忍不住虚荣心网贷分期拿下手机，随后又分期购买轻奢鞋包，靠在不同平台借新还旧",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–30",
+          "地域：全国城市",
+          "门槛：虚荣超前消费者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 85,
+            "log": "短短一年滚成八家网贷平台逾期三十余万！通讯录被催收爆破轰炸，父母变卖养老金替你填补窟窿，征信黑名单寸步难行！",
+            "effect": {
+              "wealth": -50,
+              "family": -40,
+              "mentality": -35
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "陷入消费贷多头借贷债务雪球，信用彻底破产连累父母。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "咬牙做三份兼职送外卖在利滚利前彻底还清本金，剪碎所有信用卡发誓再不超前消费。",
+            "effect": {
+              "wealth": -10,
+              "mentality": 20,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "经历债务惊魂靠勤劳苦干上岸自救。"
+          }
+        ]
+      },
+      {
+        "text": "关闭所有消费分期额度，坚持‘赚多少花多少’原则，用二手旧手机安心过日子",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–30",
+          "地域：全国城市",
+          "门槛：量入为出极简者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "无债一身轻，每个月还能存下一千元应急金，征信报告干干净净，精神状态无比自由从容。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 25,
+              "family": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "彻底杜绝消费贷陷阱，牢牢把握个人财务自主权。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_c3_xuni_chuanxiao",
+    "tier": "era",
+    "title": "科技画皮：所谓元宇宙区块链数字藏品炒作",
+    "yearRange": [
+      2021,
+      2024
+    ],
+    "targetAge": [
+      20,
+      50
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 6,
+    "factLevel": "确证",
+    "historicalFact": "2021-2023年元宇宙概念火爆，国内涌现数百个无版权依托的‘数藏平台’，以击鼓传花二级市场炒作几十倍虚高价格，最终平台拔线关停涉嫌非法集资与传销。",
+    "narrative": "微信群里疯狂转发某‘元宇宙数藏平台’的一张像素头像，号称限量发行、三天翻了五倍。群主信誓旦旦称这是未来虚拟房产门票，只要充值两万元入场拉两个下线就能分红十万。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "抱着投机暴富心态拿出两万元抢购数藏头像，并在朋友圈拼命拉亲戚朋友注册接盘",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：20–50",
+          "地域：全国城市",
+          "门槛：沉迷虚拟投机者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 80,
+            "log": "一周后平台服务器直接关停拔网线，负责人失联被公安经侦按传销立案查封！两万元血本无归更被亲友痛骂孤立！",
+            "effect": {
+              "wealth": -35,
+              "mentality": -30,
+              "family": -25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "参与虚拟币数藏传销资金盘遭割韭菜，人财两空声名扫地。",
+            "status": "status_asset_wiped"
+          },
+          {
+            "type": "safe",
+            "weight": 20,
+            "log": "次日趁着狂热以两倍价格火速转手给新韭菜套现四万元提现离场，惊险落袋为安！",
+            "effect": {
+              "wealth": 35,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在庞氏骗局击鼓传花中侥幸收割离场。"
+          }
+        ]
+      },
+      {
+        "text": "一眼识破这是穿了新马甲的庞氏资金盘骗局，直接退群并向微信安全中心举报涉诈",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：20–50",
+          "地域：全国城市",
+          "门槛：清醒防诈卫士"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "不贪图泡沫横财，守紧钱袋子，目睹群里受骗者哭天抢地维权，庆幸自己保持了常识与定力。",
+            "effect": {
+              "mentality": 20,
+              "wealth": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "常识破除虚妄概念，远离新型互联网资金盘洗劫。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_c4_gaojia_kengweifei",
+    "tier": "era",
+    "title": "流量诱饵：被MCN虚假签约套路三万培训费",
+    "yearRange": [
+      2019,
+      2026
+    ],
+    "targetAge": [
+      18,
+      35
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 8,
+    "factLevel": "确证",
+    "historicalFact": "随着网红经济野蛮生长，部分劣质MCN机构以‘包装百万粉丝达人、包商单保底’为名签约年轻求职者，实则诱导其贷款购买高价化妆、形体与直播培训课，深陷合同陷阱。",
+    "narrative": "应聘网红主播，面试官赞叹你形象气质极佳有‘爆火潜质’，承诺签约后分配百万级流量。但前提必须交纳三万元‘达人孵化包装培训与形象定制费’，可分期付款。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "沉浸在成为头部大主播的幻想中，爽快刷信用卡交纳三万元培训费签约",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–35",
+          "地域：全国城市",
+          "门槛：盲从网红明星梦者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 85,
+            "log": "签约后所谓培训只是几段网上下载的公开视频，直播间只有个位数机器人流量，解约反被索赔百万元违约金，深陷法庭纠纷！",
+            "effect": {
+              "wealth": -40,
+              "mentality": -35,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "陷入黑心MCN套路贷合同霸王条款，背负巨债心力交瘁。",
+            "status": "status_debt_burdened"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "自身表现力超群在深夜连麦中出圈，单飞打赢解约官司，成为真正自立的中腰部主播。",
+            "effect": {
+              "wealth": 35,
+              "mentality": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "靠个人独特才华打破MCN霸王合同脱颖而出。"
+          }
+        ]
+      },
+      {
+        "text": "深知正规用人单位绝不收取培训费，当场索要正规合同并严词拒绝交钱，转身离开",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：18–35",
+          "地域：全国城市",
+          "门槛：洞悉职场骗局者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "避开套路陷阱，老老实实找了一家正规电商公司做运营助理，踏实积累数字营销真本事。",
+            "effect": {
+              "wealth": 15,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "拒绝空头包装诱惑，选择脚踏实地职场成长。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_d1_yuntang_gaobie",
+    "tier": "era",
+    "title": "跨省阻隔：疫情封控跨省阻断视频连线云端送终",
+    "yearRange": [
+      2020,
+      2022
+    ],
+    "targetAge": [
+      22,
+      65
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_orphan"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "2020-2022年严格常态化疫情防控期间，受跨省列车停运、健康码弹窗及封闭隔离政策制约，大量在外游子未能见上病故长辈最后一面，依靠手机视频含泪云端告别。",
+    "narrative": "老家老母亲/祖父重症病危弥留，而你所在城市正值全域静默管理，高铁停运。护士在病床前拨通微信视频，屏幕那头老人双目微睁，呼吸面罩上布满白雾。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "跪在出租屋冰冷地板上，隔着手机屏幕撕心裂肺向老人磕头道别，把所有的思念与祈愿字字说完",
+        "choiceTags": [
+          "时代：2020–2022",
+          "年龄：22–65",
+          "地域：封控停运城市",
+          "门槛：深情隐忍顾大局者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 90,
+            "log": "老人微弱地点了点头安详合上双眼。虽然无法亲身送葬留下终身憾恨，但屏幕这头的跪拜尽了最后的深情与孝道。",
+            "effect": {
+              "mentality": 15,
+              "family": 30,
+              "wealth": 0
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在疫情至暗特殊年代云端跪别至亲，克制守望烙下一代特殊历史记忆。",
+            "status": "status_bereaved_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 10,
+            "log": "悲痛欲绝哀恸过度诱发神经性胃痉挛大汗淋漓，独吞感伤与思念慢慢愈合。",
+            "effect": {
+              "health": -20,
+              "mentality": -10,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "云端送终哀伤过度伤及身心。"
+          }
+        ]
+      },
+      {
+        "text": "冒着黄码拘留风险违规私自搭乘黑车强行翻越省界关卡，誓要冲回老家灵堂",
+        "choiceTags": [
+          "时代：2020–2022",
+          "年龄：22–65",
+          "地域：封控停运城市",
+          "门槛：不顾后果冲动者"
+        ],
+        "outcomes": [
+          {
+            "type": "entangled",
+            "weight": 100,
+            "log": "在高速收费站被防疫卡点当场拦截并赋红码，不仅未能赶回老家送终，更被送入隔离点自费集中隔离十四天并处行政训诫！",
+            "effect": {
+              "wealth": -20,
+              "mentality": -40,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "冲卡违规被截强隔，人财两失抱憾终身。",
+            "status": "status_bereaved_parent"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_d2_laonian_shidu",
+    "tier": "era",
+    "title": "折翼之殇：独生子女意外罹难老年失独抱团自救",
+    "yearRange": [
+      2016,
+      2026
+    ],
+    "targetAge": [
+      50,
+      75
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_lost_child"
+    ],
+    "triggerProbability": 0.07,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "第一代独生子女父母步入老年后，部分家庭面临独生子女因车祸、疾病意外早逝的‘失独’困境。民间失独群体与社区互助会通过抱团取暖、心理救助艰难重建生活信心。",
+    "narrative": "唯一的孩子在车祸中不幸早逝。客厅墙上挂着孩子名校毕业的微笑合影，房间纤尘不染，两张白发苍苍的面孔坐在空旷的餐桌前，天地寂静得让人窒息。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "夫妻相互搀扶走出家门，参加社区失独老人爱心互助会，把余生精力投入社区公益与流浪动物救助中",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：50–75",
+          "地域：全国城乡",
+          "门槛：大悲大痛自强走出者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "在帮助他人的善意中逐步疗愈心头剧痛，相濡以沫结识了同样遭遇的患难老友，重新找到了生命的尊严与微光。",
+            "effect": {
+              "mentality": 30,
+              "family": 35,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "走出失独至暗深渊投身社会公益，在互助中重建余生尊严。",
+            "status": "status_lost_child"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "每逢清明春节仍难免睹物思人暗自垂泪，但彼此手牵手坚定度过晚年。",
+            "effect": {
+              "mentality": 10,
+              "health": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "心伤难全但相濡以沫安享晚年。"
+          }
+        ]
+      },
+      {
+        "text": "终日以泪洗面拉上全部窗帘闭门谢客，拒绝一切外界关怀，深陷无尽的自责与怨尤",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：50–75",
+          "地域：全国城乡",
+          "门槛：自我封闭者"
+        ],
+        "outcomes": [
+          {
+            "type": "injured",
+            "weight": 100,
+            "log": "长年封闭导致双双罹患严重老年抑郁症与心血管急症，身体机能断崖式衰退，晚境凄凉令人唏嘘。",
+            "effect": {
+              "health": -40,
+              "mentality": -40,
+              "family": -20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "失独后自我封闭导致身心健康严重崩解衰朽。",
+            "status": "status_lost_child"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_d3_zhengchan_taoyuan",
+    "tier": "era",
+    "title": "遗嘱缺失：高龄父母离世手足亲戚争抢房产",
+    "yearRange": [
+      2017,
+      2026
+    ],
+    "targetAge": [
+      35,
+      68
+    ],
+    "applicableRegions": [
+      "URBAN"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_peasant_illiterate"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 10,
+    "factLevel": "确证",
+    "historicalFact": "城市高房价背景下，老人猝然离世未立公证遗嘱，按照民法典法定继承顺序转继承、代位继承牵扯七大姑八大姨数十人签字，公证继承纠纷屡见不鲜。",
+    "narrative": "父母相继安详病故，留下一套价值三百万的市区老商品房。由于生前未立公证遗嘱，常年不露面的外地堂兄妹与再婚子女纷纷登门，要求按法定继承均分房产份额。",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "聘请专业继承法律师，拿出多年床前尽孝垫付医药费的完整银行流水单据，要求多分份额并依法分割",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：35–68",
+          "地域：城市商品房小区",
+          "门槛：依法维权讲究法理者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "法院采信尽孝主要责任认定判决你继承75%核心份额并折价补偿他人，顺利过户取得红本，守卫了父母心血。",
+            "effect": {
+              "wealth": 45,
+              "family": -25,
+              "mentality": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以完整尽孝证据赢得法定继承诉讼，依法捍卫家庭核心资产。"
+          },
+          {
+            "type": "entangled",
+            "weight": 15,
+            "log": "官司在亲戚群里闹得沸沸扬扬两败俱伤，虽拿到大部分房款但断绝了远房宗亲往来。",
+            "effect": {
+              "wealth": 30,
+              "family": -35,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "房产诉讼彻底斩断亲戚网络。"
+          }
+        ]
+      },
+      {
+        "text": "主动组织家庭调解会议，念在同胞血脉各退一步，折中折价各分一部分，签署人民调解协议息诉罢争",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：35–68",
+          "地域：城市商品房小区",
+          "门槛：以和为贵讲人情者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "各方握手言和在不动产中心完成平稳交割，虽然财产稍有让步，但避免了反目成仇的狗血闹剧，父母九泉之下亦得瞑目。",
+            "effect": {
+              "wealth": 25,
+              "family": 30,
+              "mentality": 30
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "以胸怀大度化解遗产继承死结，保全宗族最后体面与情分。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_2016_2026_d4_yilai_yiyuan",
+    "tier": "era",
+    "title": "遗物静默：清理已故父母旧居翻出泛黄记账本",
+    "yearRange": [
+      2016,
+      2026
+    ],
+    "targetAge": [
+      28,
+      70
+    ],
+    "applicableRegions": [
+      "ALL"
+    ],
+    "exposureConditions": {},
+    "preTags": [],
+    "excludeTags": [
+      "status_orphan"
+    ],
+    "triggerProbability": 0.08,
+    "coolingPeriod": 12,
+    "factLevel": "确证",
+    "historicalFact": "在当代清理已故老一辈居所时，翻检出的红木樟木箱、搪瓷茶缸、存折、泛黄的手写记账本，往往真实记录着一个普通中国家庭半个世纪以来的温饱奋斗史。",
+    "narrative": "整理已故老父亲生前的红木五斗橱，在一个生锈的铁皮月饼盒深处，翻出一本用棉线装订的泛黄记账本。上面用工整小楷记录着：某年某月买自行车欠三十元、某年为你缴大学学费...",
+    "isDecision": true,
+    "passiveImpact": null,
+    "choices": [
+      {
+        "text": "坐在空荡寂静的旧木椅上把记账本从头到尾读完，抚摸着字迹泪流满面，随后将其塑封珍藏进保险箱代代相传",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：28–70",
+          "地域：全国各地",
+          "门槛：至纯念旧至孝者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "父辈清贫而坚韧的一生如电影般在眼前闪过，懂得了父母省吃俭用托举自己的全部深意，胸中生出无尽的生活力量与感恩！",
+            "effect": {
+              "mentality": 40,
+              "family": 35,
+              "wealth": 0
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在父辈朴素账本遗物中领悟家庭传承真谛，精神获得崇高升华。",
+            "status": "status_bereaved_parent"
+          },
+          {
+            "type": "injured",
+            "weight": 5,
+            "log": "深夜翻看旧物哀伤过甚失眠数日，随后在晨光中昂首迈向新生活。",
+            "effect": {
+              "mentality": 25,
+              "health": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "克制追思慰藉心灵。"
+          }
+        ]
+      },
+      {
+        "text": "觉得都是陈年旧账毫无经济价值，随手连同旧报纸一并扔入废品回收袋打包卖掉",
+        "choiceTags": [
+          "时代：2016–2026",
+          "年龄：28–70",
+          "地域：全国各地",
+          "门槛：冷漠实利主义者"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "旧屋清理一空转手挂牌出租，生活没有受到丝毫情感波澜打扰，只是在某些深夜，偶尔感到心口空落落无处落脚。",
+            "effect": {
+              "wealth": 10,
+              "mentality": -10,
+              "family": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "弃置父辈精神印记，斩断历史情感纽带。"
           }
         ]
       }
