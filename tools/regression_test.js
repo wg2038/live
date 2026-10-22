@@ -631,6 +631,18 @@ test('P2-2 多次初始化不会叠加改写内置事件数据', async () => {
   assert.deepStrictEqual(second, first, '第二次 init 不应把灾后窗口再往后推');
 });
 
+test('P2-2 知青返城事件对保留城镇户籍的下乡青年可达', async () => {
+  const e = await freshEngine(211);
+  const char = makeCharacter(e, {});
+  char.urbanRural = 'urban';
+  char.tags.add('corps_educated_youth');
+  e.currentYear = 1980;
+  e.currentAge = 25;
+  const ids = e.findEligibleEvents().map(x => x.id);
+  assert.ok(ids.includes('evt_1979_zhiqing_fancheng'),
+    '下乡知青保留城镇户籍，返城事件应可达');
+});
+
 // ---------------------------------------------------------------------------
 // 运行器
 // ---------------------------------------------------------------------------

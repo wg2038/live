@@ -132,9 +132,14 @@ node tools/audit_metrics.js 1000
 
 # 4. 冒烟测试：批量跑完整人生并检查叙事矛盾
 node tools/smoke_test.js 50
+
+# 5. 传承模式：先跑完一世，再以该角色父辈身份重开一世，检查初始化契约与闭环
+node tools/lineage_test.js 100
 ```
 
 若修改了 `data/events/*.json` 等源数据，先运行 `python3 tools/compile_all_events.py` 重新生成 `data/events.json` 与 `data/embedded.js`。
+
+当前基线：回归测试 40/40；10,000 局审计 0 崩溃、事件覆盖 289/290；1,000 局传承模式 0 初始化错误、0 逻辑错误；200 局冒烟测试 0 报错。
 
 ---
 

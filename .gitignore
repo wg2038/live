@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .DS_Store
 *.log
+
+# 审计运行产物
+tools/audit_metrics.json
+tools/lineage_test.json

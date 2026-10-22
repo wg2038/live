@@ -250,7 +250,7 @@
       "ALL"
     ],
     "exposureConditions": {
-      "urbanRural": "rural"
+      "urbanRural": "urban"
     },
     "preTags": [
       "corps_educated_youth",
