@@ -41,6 +41,7 @@ class SimulationEngine {
     this.lastCitySnippetDecade = null;
     this.lastSentenceOpener = '';
     this.currentPendingDecision = null;
+    this.lastEraDecisionYear = -999;
   }
 
   /**
@@ -326,6 +327,7 @@ class SimulationEngine {
     this.history = [];
     this.statusFlags.clear();
     this.currentPendingDecision = null;
+    this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
 
@@ -687,7 +689,11 @@ class SimulationEngine {
 
       // 地域覆盖
       if (evt.applicableRegions && !evt.applicableRegions.includes('ALL')) {
-        if (!evt.applicableRegions.includes(this.character.region)) continue;
+        let regionMatch = false;
+        if (evt.applicableRegions.includes(this.character.region)) regionMatch = true;
+        if (evt.applicableRegions.includes('URBAN') && this.character.urbanRural === 'urban') regionMatch = true;
+        if (evt.applicableRegions.includes('RURAL') && this.character.urbanRural === 'rural') regionMatch = true;
+        if (!regionMatch) continue;
       }
 
       // 曝光条件
@@ -1471,6 +1477,274 @@ class SimulationEngine {
   }
 
   /**
+   * 检验角色是否符合特定职业/社会身份门槛（用于选项级身份准入鉴权）
+   */
+  characterMatchesPersonaRole(roleKey) {
+    if (!roleKey) return true;
+    const r = roleKey.trim();
+    const char = this.character;
+    const age = this.currentAge;
+    const occ = (char && char.occupation) || '';
+    const track = (char && char.careerTrack) || '';
+
+    // 0. 地理地域/震中/疫区门槛 (如: 身处湖北/武汉, 身处郑州, 身处玉树, 身处唐山)
+    const city = (this.cities && char && char.cityId) ? this.cities.find(c => c.id === char.cityId) : null;
+    const cityName = (city && city.name) || '';
+    const cityShort = (city && city.shortName) || '';
+    const provId = (char && char.provinceId) || '';
+    const provName = (char && char.province) || '';
+
+    if (/身处|处于|居于/.test(r)) {
+      if (/湖北|武汉/.test(r)) {
+        return provId === 'hubei' || cityName.includes('武汉') || cityName.includes('湖北');
+      }
+      if (/郑州|河南/.test(r)) {
+        return provId === 'henan' || cityName.includes('郑州') || cityName.includes('河南');
+      }
+      if (/北京|京津/.test(r)) {
+        return provId === 'beijing' || cityName.includes('北京');
+      }
+      if (/上海|长三角/.test(r)) {
+        return provId === 'shanghai' || ['上海', '江苏', '浙江'].some(p => cityName.includes(p) || provName.includes(p));
+      }
+      if (/四川|成都|雅安|汶川|芦山/.test(r)) {
+        return provId === 'sichuan' || ['四川', '成都', '雅安', '汶川', '芦山'].some(p => cityName.includes(p));
+      }
+      if (/天津|滨海/.test(r)) {
+        return provId === 'tianjin' || cityName.includes('天津');
+      }
+      if (/青海|玉树/.test(r)) {
+        return provId === 'qinghai' || cityName.includes('青海') || cityName.includes('玉树');
+      }
+      if (/唐山/.test(r)) {
+        return provId === 'hebei' && (cityName.includes('唐山') || cityShort.includes('唐山'));
+      }
+    }
+
+    // 全国其他省份 / 其他省市 / 广大同胞 (若当前角色身处核心疫区/震中，则不作为“其他省份同胞”)
+    if (/其他省份|其他省市|其他地区/.test(r)) {
+      if (/湖北|武汉/.test(r) && (provId === 'hubei' || cityName.includes('武汉'))) return false;
+      if (/郑州|河南/.test(r) && (provId === 'henan' || cityName.includes('郑州'))) return false;
+      return true;
+    }
+
+    // 1. 医护与公卫专业人员
+    if (/医护|公卫|医生|护士|卫生员|大夫|野战医疗|防疫|医疗/.test(r)) {
+      if (this.characterHasTag('doctor') || this.characterHasTag('nurse') || this.characterHasTag('barefoot_doctor')) return true;
+      if (/医|护|卫|公卫|诊所|病房/.test(occ)) return true;
+      return false;
+    }
+
+    // 2. 在读学生 / 青少年学子 / 少儿
+    if (/在读|学生|学子|学童|少儿|中小学生/.test(r)) {
+      if (age <= 18) return true;
+      if (age <= 25 && char && char.educationLevel && (char.educationLevel.includes('在读') || char.educationLevel.includes('大学') || char.educationLevel.includes('高中') || char.educationLevel.includes('中专'))) return true;
+      return false;
+    }
+
+    // 3. 青年群体 (在京青年、长三角青年、爱国青年)
+    if (/青年/.test(r)) {
+      if (age < 15 || age > 38) return false;
+      if (/在京/.test(r) && provId !== 'beijing' && !cityName.includes('北京')) return false;
+      if (/上海|长三角/.test(r) && provId !== 'shanghai' && !['上海', '江苏', '浙江'].some(p => cityName.includes(p) || provName.includes(p))) return false;
+      return true;
+    }
+
+    // 4. 教师 / 教培 / 文教科研人员 / 学者
+    if (/教师|教培|文教|学者|知识分子|科研|工程人员|工程师/.test(r)) {
+      if (track === 'cadre_teacher') return true;
+      if (/教|师|校|院|研|工程|技术员|学者/.test(occ)) return true;
+      return false;
+    }
+
+    // 5. 工业工矿 / 技工 / 产业工人 / 铁道 / 建筑 / 机务
+    if (/工矿|技工|工人|机修|地勤|铁道|铁路|桥梁|采掘|矿工|机务|车间|五金/.test(r)) {
+      if (track === 'worker') return true;
+      if (/工|铁|桥|车间|技|矿|机械|焊|钳|模具/.test(occ)) return true;
+      return false;
+    }
+
+    // 6. 军警 / 消防 / 特警 / 防化 / 官兵 / 士兵 / 飞行员
+    if (/消防|军警|特警|防化|官兵|机工|汽车兵|士兵|部队|空勤|飞行员/.test(r)) {
+      if (this.characterHasTag('military') || this.characterHasTag('pilot')) return true;
+      if (/军|警|消|兵|飞行|空勤/.test(occ)) return true;
+      return false;
+    }
+
+    // 7. 商业 / 餐饮 / 实体店主 / 摊贩 / 企业财务
+    if (/商户|餐饮|店主|小微|手工业|酒楼|企业财务|商铺|个体/.test(r)) {
+      if (track === 'merchant') return true;
+      if (/商|店|餐|板|摊|贸|财|会计/.test(occ)) return true;
+      return false;
+    }
+
+    // 8. 农村社员 / 农民 / 老农 / 养殖户
+    if (/农户|社员|老农|农民|养殖户|贫困建档|石匠|老农/.test(r)) {
+      if ((char && char.urbanRural === 'rural') || track === 'farmer') return true;
+      if (/农|社|耕|养/.test(occ)) return true;
+      return false;
+    }
+
+    // 9. 家长 / 父母
+    if (/家长|父母/.test(r)) {
+      if ((char && (char.hasChildren || char.maritalStatus === '已婚')) || age >= 28) return true;
+      return false;
+    }
+
+    // 10. 子女
+    if (/子女/.test(r)) {
+      if (age >= 16 && age <= 65) return true;
+      return false;
+    }
+
+    // 11. 白领 / 职场
+    if (/白领|职场|务工|自由职业/.test(r)) {
+      if (age >= 18 && age <= 65) return true;
+      return false;
+    }
+
+    // 12. 重体力劳动工种
+    if (/重体力/.test(r)) {
+      if (track === 'worker' || track === 'farmer') return true;
+      if (/工|矿|装卸|力|铁|机/.test(occ)) return true;
+      return false;
+    }
+
+    // 13. 发病患者本人
+    if (/患者本人/.test(r)) {
+      if (age >= 45 || (char && char.attributes && char.attributes.health <= 60) || this.characterHasTag('status_chronic_heart')) return true;
+      return false;
+    }
+
+    // 14. 公职人员 / 干部 / 党员
+    if (/公职|干部|党员|机关/.test(r)) {
+      if (track === 'cadre_teacher') return true;
+      if (/干|委|局|政|办|公/.test(occ)) return true;
+      return false;
+    }
+
+    // 15. 大众 / 普通居民 / 同胞 / 全国人民
+    if (/普通|国民|居民|同胞|大众|市民|群众/.test(r)) {
+      return true;
+    }
+
+    return true;
+  }
+
+  /**
+   * 选项级身份准入过滤与文案自然去前缀清洗
+   */
+  filterAndPolishChoices(decision) {
+    if (!decision || !decision.choices || decision.choices.length === 0) return decision;
+    const cloned = JSON.parse(JSON.stringify(decision));
+    const matched = [];
+    let hadPersonaChoices = false;
+
+    for (const c of cloned.choices) {
+      const origText = c.text || '';
+      let isEligible = true;
+
+      // 1. 匹配开头的 "若为...，" 或 "若身处...，"
+      const m = origText.match(/^若(?:为|身处)([^，,：:]{2,25})[，,：:]\s*(.*)/);
+      if (m) {
+        hadPersonaChoices = true;
+        const role = (origText.startsWith('若身处') ? '身处' : '') + m[1];
+        const action = m[2];
+        if (this.characterMatchesPersonaRole(role)) {
+          c.text = action;
+          isEligible = true;
+        } else {
+          isEligible = false;
+        }
+      }
+
+      // 2. 校验 choiceTags 中的门槛标签
+      if (isEligible && c.choiceTags && Array.isArray(c.choiceTags)) {
+        for (const t of c.choiceTags) {
+          if (t.startsWith('门槛：')) {
+            const gate = t.slice(3);
+            if (!this.characterMatchesPersonaRole(gate)) {
+              isEligible = false;
+              break;
+            }
+          }
+        }
+      }
+
+      if (isEligible) {
+        matched.push(c);
+      }
+    }
+
+    // 若原事件存在特定人群分支且过滤后留下了合规选项
+    if (hadPersonaChoices && matched.length > 0) {
+      if (matched.length === 1) {
+        matched.push({
+          text: '立足自身当下岗位与家庭实际，遵从公共指引，平稳理性应对外部变局',
+          choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：理性国民'],
+          outcomes: [
+            {
+              type: 'safe',
+              weight: 100,
+              log: '保持理智与清醒，不随波逐流也不盲目涉险，守护个人与小家安宁。',
+              effect: { mentality: 10, family: 10 },
+              isFatal: false,
+              hiddenRiskLog: '在外部时代动荡中坚守理智与从容。'
+            }
+          ]
+        });
+      }
+      cloned.choices = matched;
+      return cloned;
+    }
+
+    // 若过滤后完全没有剩下选项（例如全是飞行员/核专家的极端选项），自动生成合情合理的大众应对
+    if (hadPersonaChoices && matched.length === 0) {
+      cloned.choices = [
+        {
+          text: '严格遵从国家号召与后方调度指引，安守本职岗位，密切关注战事与局势发展',
+          choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：普通国民'],
+          outcomes: [
+            {
+              type: 'safe',
+              weight: 90,
+              log: '在时代洪流中安分守己做好本职工作，平稳度过风暴期。',
+              effect: { mentality: 15, family: 10 },
+              isFatal: false,
+              hiddenRiskLog: '在重大时代历史关头坚守平凡岗位，护卫小家安宁。'
+            },
+            {
+              type: 'safe',
+              weight: 10,
+              log: '积极参与社区或街道组织的爱心互助活动，略尽公民绵薄之力。',
+              effect: { mentality: 20, wealth: -5 },
+              isFatal: false,
+              hiddenRiskLog: '在大时代变局中奉献微光温情。'
+            }
+          ]
+        },
+        {
+          text: '以家庭为重心做好日常生活保障与防范，关照老人孩子平稳度日',
+          choiceTags: [`时代：${this.currentYear}`, `年龄：${this.currentAge}`, '地域：全国', '门槛：家庭支柱'],
+          outcomes: [
+            {
+              type: 'safe',
+              weight: 100,
+              log: '未盲目冲动卷入风暴中心，守住家庭基本盘安稳如常。',
+              effect: { family: 20, mentality: 10 },
+              isFatal: false,
+              hiddenRiskLog: '坚韧守护家庭避开外部动荡冲击。'
+            }
+          ]
+        }
+      ];
+      return cloned;
+    }
+
+    return decision;
+  }
+
+  /**
    * 将重大历史抉择动态匹配到角色的年龄与社会圈层 (千人千面)
    */
   adaptDecisionToPersona(decision) {
@@ -1826,7 +2100,7 @@ class SimulationEngine {
         ]
       };
     }
-    return decision;
+    return this.filterAndPolishChoices(decision);
   }
 
   /**
@@ -2253,33 +2527,33 @@ class SimulationEngine {
     // 3. 检查人生重要节点抉择 (义务教育推进、中考分流、高考、婚育、至暗时刻等)
     const pendingMilestone = this.checkLifeMilestone();
 
-    // 4. 决策挑选逻辑（严格分级：时代层重大参与 > 人生里程碑节点 > 人生链条 > 职业与习惯轨迹 > 偶发意外）
+    // 4. 决策挑选逻辑（严格分级：人生主轴里程碑优先；防时代灾难滚雪球过度集中；保障生活链条与职业习惯触发）
     let activeDecision = null;
 
-    // 4.1 时代层关键参与决策
-    const eraDecisions = decisionCandidates.filter(e => e.tier === 'era' && Math.random() < (e.triggerProbability || 0.8));
-    if (eraDecisions.length > 0) {
-      activeDecision = eraDecisions[0];
-    } else if (pendingMilestone) {
-      // 4.2 人生里程碑节点
+    if (pendingMilestone) {
+      // 4.1 核心人生阶段里程碑优先触发 (学龄、中考分流、高考、婚育等为人生主轴)
       activeDecision = pendingMilestone;
     } else {
-      // 4.3 人生链条决策 (结婚、育儿、学区房、下岗创业、赡养父母等)
-      const lifeChainDecisions = decisionCandidates.filter(e => e.tier === 'life_chain' && Math.random() < (e.triggerProbability || 0.35));
-      if (lifeChainDecisions.length > 0) {
+      // 4.2 筛选各层候选决策
+      const eraDecisions = decisionCandidates.filter(e => e.tier === 'era' && Math.random() < (e.triggerProbability || 0.8));
+      const lifeChainDecisions = decisionCandidates.filter(e => e.tier === 'life_chain' && Math.random() < (e.triggerProbability || 0.45));
+      const trajDecisions = decisionCandidates.filter(e => e.tier === 'trajectory' && Math.random() < (e.triggerProbability || 0.18));
+      const contDecisions = decisionCandidates.filter(e => e.tier === 'contingency' && Math.random() < (e.triggerProbability || 0.05));
+
+      // 防灾难滚雪球机制：同一角色在刚经历过宏观时代风暴决策的2年内，优先进入微观家庭生活、职业创业、消费借贷与亲友互助
+      const inEraFatigue = this.lastEraDecisionYear && (this.currentYear - this.lastEraDecisionYear <= 2);
+
+      if (inEraFatigue && (lifeChainDecisions.length > 0 || trajDecisions.length > 0 || contDecisions.length > 0)) {
+        activeDecision = lifeChainDecisions[0] || trajDecisions[0] || contDecisions[0];
+      } else if (eraDecisions.length > 0) {
+        activeDecision = eraDecisions[0];
+        this.lastEraDecisionYear = this.currentYear;
+      } else if (lifeChainDecisions.length > 0) {
         activeDecision = lifeChainDecisions[0];
-      } else {
-        // 4.4 职业与习惯轨迹决策 (职业险情、提拔、吸烟体检、作息等)
-        const trajDecisions = decisionCandidates.filter(e => e.tier === 'trajectory' && Math.random() < (e.triggerProbability || 0.12));
-        if (trajDecisions.length > 0) {
-          activeDecision = trajDecisions[0];
-        } else {
-          // 4.5 偶发层 (低概率黑天鹅事件)
-          const contDecisions = decisionCandidates.filter(e => e.tier === 'contingency' && Math.random() < (e.triggerProbability || 0.03));
-          if (contDecisions.length > 0) {
-            activeDecision = contDecisions[0];
-          }
-        }
+      } else if (trajDecisions.length > 0) {
+        activeDecision = trajDecisions[0];
+      } else if (contDecisions.length > 0) {
+        activeDecision = contDecisions[0];
       }
     }
 
@@ -3443,6 +3717,7 @@ class SimulationEngine {
     this.history = [];
     this.statusFlags.clear();
     this.currentPendingDecision = null;
+    this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
 
@@ -3531,6 +3806,7 @@ class SimulationEngine {
     this.lastSentenceOpener = '';
     this.eventCooldowns = {};
     this.currentPendingDecision = null;
+    this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
     this.updateCareerStage();

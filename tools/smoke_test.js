@@ -79,6 +79,16 @@ async function runSmokeTest(count = 50) {
           }
         }
 
+        // 校验 3: 身份准入一致性 (学生在非典中绝不可看到或选择医护一线重症选项)
+        if (decId === 'evt_2003_sars_feidian') {
+          const occ = engine.character.occupation || '';
+          const isMedic = engine.characterHasTag('doctor') || engine.characterHasTag('nurse') || /医|护|卫/.test(occ);
+          const hasMedicChoice = (dec.choices || []).some(c => c.text && c.text.includes('小汤山一线隔离区'));
+          if (!isMedic && hasMedicChoice) {
+            errors.push(`[身份越位] 非医护角色 #${i+1} (${engine.character.age}岁, 职业: ${occ}) 在非典中被展示了一线ICU抢救选项`);
+          }
+        }
+
         const choices = dec.choices || [];
         if (!choices || choices.length === 0) {
           errors.push(`[数据缺陷] 决策事件 ${decId} 缺少选项 choices`);

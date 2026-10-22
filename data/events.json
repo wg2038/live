@@ -7202,87 +7202,12 @@
     "factLevel": "确证",
     "historicalFact": "1957年10月武汉长江大桥正式建成通车。作为万里长江上第一座公铁两用大桥，彻底连通京汉铁路与粤汉铁路，结束了千百年来长江两岸依赖轮渡摆渡的历史。",
     "narrative": "汉阳龟山与武昌蛇山之间，巍峨的钢桁梁巨桥横跨大江。桥面上彩旗猎猎，成千上万群众涌上引桥欢呼跳跃。绿皮火车喷吐着白汽鸣笛驶过下层铁轨，北国江南从此连为一体。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "若为桥梁铁路职工或青年工人，直接参与大桥下沉式管柱基础施工与合龙决战",
-        "choiceTags": [
-          "时代：1957–1958",
-          "年龄：18–45",
-          "地域：湖北及铁路系统",
-          "门槛：筑路建桥青工"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 75,
-            "log": "掌握了苏联管柱钻孔先进建桥绝活，荣获铁道部建桥功臣奖章，成为全国大桥骨干技术人员。",
-            "effect": {
-              "wealth": 25,
-              "knowledge": 30,
-              "mentality": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "参与万里长江第一桥建设，掌握重大钢构技术并享受极高行业声誉。",
-            "status": "bridge_builder_model"
-          },
-          {
-            "type": "injured",
-            "weight": 22,
-            "log": "高空铆接作业被飞溅的高温热铆钉火花灼伤面颊并烫伤手背，包扎后坚守岗位。",
-            "effect": {
-              "health": -20,
-              "wealth": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "高空架桥作业负轻工伤留印记，深以筑起天堑通途为傲。"
-          },
-          {
-            "type": "fatal",
-            "weight": 3,
-            "log": "在江心深水围堰排除突发险情时遭遇缆绳断裂不幸坠江牺牲。",
-            "effect": {},
-            "isFatal": true,
-            "hiddenRiskLog": "在武汉长江大桥深水关键作业中壮烈牺牲。"
-          }
-        ]
-      },
-      {
-        "text": "作为普通市民，排队购买首日通车纪念车票，乘坐跨江列车亲身体验大桥壮丽",
-        "choiceTags": [
-          "时代：1957–1958",
-          "年龄：12–70",
-          "地域：全国",
-          "门槛：普通民众"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 85,
-            "log": "坐在列车车窗旁俯瞰脚下滚滚长江波涛，心中升腾起强烈的自豪感与建设热情。",
-            "effect": {
-              "mentality": 25,
-              "knowledge": 10
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "亲历新中国首座跨江大桥通车盛况，极大拓宽眼界与建设自豪感。",
-            "status": "witness_changjiang_bridge"
-          },
-          {
-            "type": "injured",
-            "weight": 15,
-            "log": "大桥通车游行庆祝人流极为拥挤被挤跌扭伤左膝盖，在桥头救护站上红药水。",
-            "effect": {
-              "health": -15,
-              "mentality": 10
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "桥头观礼盛况推搡擦伤扭伤，一生难忘通车盛景。"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15,
+      "knowledge": 10
+    },
+    "choices": null
   },
   {
     "id": "evt_1958_dayuejin_gangtie",
@@ -8266,81 +8191,12 @@
     "factLevel": "确证",
     "historicalFact": "1964年10月16日，我国第一颗原子弹在新疆罗布泊戈壁滩爆炸成功。浩瀚戈壁升腾起巨大的蘑菇云，打破了超级大国的核垄断与核讹诈，极大提高了新中国的国际地位和国防实力。",
     "narrative": "傍晚中央人民广播电台播送原子弹爆炸成功的重大新闻公报。街头喇叭前瞬间挤满了激动的市民，大红的号外报纸被群众一抢而空。工人们拥抱欢呼，甚至有人激动得老泪纵横，神州大地沸腾不已。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "手握大红号外奔走相告，与街坊工友在红旗锣鼓下游行欢庆，扬眉吐气",
-        "choiceTags": [
-          "时代：1964",
-          "年龄：10–75",
-          "地域：全国",
-          "门槛：广大群众"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 90,
-            "log": "见证国家国防实力实现历史性飞跃，民族自豪感与爱国干劲空前高涨。",
-            "effect": {
-              "mentality": 35,
-              "knowledge": 15
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "亲历第一颗原子弹上天的豪迈历史，爱国自强精神烙印终身。",
-            "status": "nuclear_era_witness"
-          },
-          {
-            "type": "safe",
-            "weight": 10,
-            "log": "激动之下主动报名加入民兵防核防化训练队，学习三防科学知识。",
-            "effect": {
-              "knowledge": 25,
-              "mentality": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "由此热爱国防军事科学，成为基层人防民兵骨干。"
-          }
-        ]
-      },
-      {
-        "text": "若为罗布泊或青海金银滩基地的科研工程人员，在风沙戈壁中甘做无名英雄拼搏攻关",
-        "choiceTags": [
-          "时代：1964",
-          "年龄：20–50",
-          "地域：大西北科研戈壁",
-          "门槛：核工业保密科技人员"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 75,
-            "log": "见证巨龙腾飞泪洒试验场，被国防科工委授予特等功臣并继续投身氢弹研制。",
-            "effect": {
-              "knowledge": 40,
-              "mentality": 40,
-              "wealth": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "两弹一星核心功勋元勋，隐姓埋名惊天动地，铸就共和国核盾牌。",
-            "status": "nuclear_project_pioneer"
-          },
-          {
-            "type": "injured",
-            "weight": 25,
-            "log": "戈壁高辐射严酷自然环境与常年风沙导致慢性放射病白细胞偏低及慢性角膜炎。",
-            "effect": {
-              "health": -35,
-              "knowledge": 35,
-              "mentality": 35
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "为两弹研制奉献健康，受国家最高荣誉照料保密优待。",
-            "status": "wounded_nuclear_pioneer"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 25,
+      "knowledge": 10
+    },
+    "choices": null
   },
   {
     "id": "evt_1965_rengong_yidaosu",
@@ -8365,79 +8221,12 @@
     "factLevel": "确证",
     "historicalFact": "1965年9月中国科学家历经六年艰苦拼搏，在世界上首次人工全合成具有完全生物活性的结晶牛胰岛素。标志着人类在认识生命起源和揭开生命奥秘的历程中迈出关键一步，震动世界科学界。",
     "narrative": "中国科学院生化所与北大化学系的实验室里，简陋的试管仪器昼夜不停。科学家们在缺乏先进色谱仪的条件下，用土办法手工分离纯化数千个样品。当显微镜下第一次清晰看见璀璨的菱形六角结晶时，全室掌声雷动。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "若为文教科研人员或医务工作者，在院所中参与生化分析制备或开展全行业学术宣讲",
-        "choiceTags": [
-          "时代：1965–1966",
-          "年龄：20–60",
-          "地域：科研院校/大医院",
-          "门槛：科技医卫工作者"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 80,
-            "log": "系统吸收世界前沿生化有机合成理论，在基层医疗教学中培养出一批骨干生化人才。",
-            "effect": {
-              "knowledge": 35,
-              "mentality": 25,
-              "wealth": 15
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "紧跟世界首次人工合成胰岛素前沿，奠定深厚科学素养与师者地位。",
-            "status": "biochem_education_master"
-          },
-          {
-            "type": "entangled",
-            "weight": 20,
-            "log": "日夜泡在实验室挥发性试剂气味中引发轻微化学性支气管哮喘，休整后改搞文案编纂。",
-            "effect": {
-              "health": -20,
-              "knowledge": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "化学试验劳损支气管，转为严谨科学科普编译工作。"
-          }
-        ]
-      },
-      {
-        "text": "若为基层糖尿病患者或大众，深切感受到现代医药科学曙光，带头破除巫医迷信偏方",
-        "choiceTags": [
-          "时代：1965–1966",
-          "年龄：16–65",
-          "地域：全国",
-          "门槛：普通群众"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 85,
-            "log": "主动接受规范科学的胰岛素治疗与健康饮食生活指导，血糖控制平稳寿命大幅延长。",
-            "effect": {
-              "health": 30,
-              "family": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "破除封建巫医旧俗，拥抱现代生物医学赢得健康寿命。",
-            "status": "science_health_advocate"
-          },
-          {
-            "type": "safe",
-            "weight": 15,
-            "log": "自学科学急救卫生常识，在村里多次挽救酮症低血糖昏迷乡亲生命。",
-            "effect": {
-              "knowledge": 20,
-              "family": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "将现代医卫常识普及乡村，成为乡亲们交口夸赞的卫生宣传员。"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15,
+      "knowledge": 15
+    },
+    "choices": null
   },
   {
     "id": "evt_1965_chijiao_yisheng",
@@ -9350,79 +9139,12 @@
     "factLevel": "确证",
     "historicalFact": "1971年10月25日第二十六届联合国大会以76票赞成的压倒性多数通过第2758号决议，恢复中华人民共和国在联合国的一切合法权利。毛主席风趣地说：‘这是非洲黑人兄弟把我们抬进去的’。",
     "narrative": "大会主席台上阿尔巴尼亚、阿尔及利亚等国代表跳起欢庆的舞蹈。乔冠华仰天大笑的历史瞬间定格为新中国外交最潇洒的注脚。大洋彼岸纽约联合国总部门前，五星红旗伴随着义勇军进行曲冉冉升起。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "在报刊亭排长队争购印有乔冠华大笑特写的大红号外，与工友热烈探讨国际大势",
-        "choiceTags": [
-          "时代：1971",
-          "年龄：14–75",
-          "地域：全国各大城市",
-          "门槛：广大市民"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 90,
-            "log": "深感国家走向世界舞台中央扬眉吐气，开始自学世界地理与国际政治书籍开阔眼界。",
-            "effect": {
-              "knowledge": 25,
-              "mentality": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "亲历恢复联合国席位高光时刻，形成宽广的世界大国视野。",
-            "status": "un_seat_restoration_witness"
-          },
-          {
-            "type": "safe",
-            "weight": 10,
-            "log": "在单位黑板报上用彩色粉笔绘制精美的五星红旗升起联合国大厦图解，获评优秀宣传员。",
-            "effect": {
-              "knowledge": 20,
-              "mentality": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "发挥文宣特长传播外交大捷，展现积极时代风采。"
-          }
-        ]
-      },
-      {
-        "text": "若在外贸、海关或涉外翻译系统工作，连夜筹备扩大进出口贸易与涉外商检规范",
-        "choiceTags": [
-          "时代：1971",
-          "年龄：22–55",
-          "地域：沿海口岸与外贸系统",
-          "门槛：涉外商务公职人员"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 85,
-            "log": "参与首批联合国教科文及商贸公约文本翻译与转接，晋升为国家外贸部门核心骨干。",
-            "effect": {
-              "wealth": 25,
-              "knowledge": 35,
-              "mentality": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "抓住重返联合国窗口期拓宽涉外贸易通道，成为早期涉外经贸精英。",
-            "status": "foreign_trade_diplomat"
-          },
-          {
-            "type": "entangled",
-            "weight": 15,
-            "log": "涉外政审制度极其森严，因海外远亲关系接受组织严格例行核实排查，谨慎履职。",
-            "effect": {
-              "mentality": -15,
-              "knowledge": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "涉外工作如履薄冰经受严格组织考验，养成极其缜密作风。"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 20,
+      "knowledge": 5
+    },
+    "choices": null
   },
   {
     "id": "evt_1971_linbiao_shijian",
@@ -9543,88 +9265,12 @@
     "factLevel": "确证",
     "historicalFact": "1972年2月美国总统尼克松访华，发表《上海公报》，中美坚冰消融。随后西方国家掀起对华建交高潮。毛主席、周总理果断批准‘四三方案’，斥资43亿美元从美、日、法等国大规模引进13套大化肥、大化纤和乙烯成套设备，解决全国人民吃穿燃眉之急。",
     "narrative": "国宾馆草坪上军乐高奏，跨越大洋的巨人之手紧紧相握。随后不久，上海金山卫海滩和四川长寿的化工厂工地上，一批批印着外文字符的高大分馏塔与反应釜巨型设备源源运抵。外国工程师与中国年轻技术员同桌探讨装配图纸，开放的大门悄然推开一角。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "若为化工、纺织或外语工程技术人员，参与金山石化或大化肥成套设备安装调试攻关",
-        "choiceTags": [
-          "时代：1972–1973",
-          "年龄：20–50",
-          "地域：重点化工化纤基地",
-          "门槛：外语技术骨干"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 75,
-            "log": "率先掌握西方先进大型连续催化裂解与乙烯合成图纸，成为新中国现代石化工业领军人才。",
-            "effect": {
-              "knowledge": 35,
-              "wealth": 25,
-              "mentality": 25
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "参与四三方案化纤大引进，掌握世界先进石化流程奠定行业权威。",
-            "status": "modern_petrochem_master"
-          },
-          {
-            "type": "injured",
-            "weight": 22,
-            "log": "高空吊装高压反应釜遭遇钢缆滑落被擦破背脊，并吸入少许氨气导致急性支气管痉挛治疗。",
-            "effect": {
-              "health": -25,
-              "knowledge": 30
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "大型石化安装调试负轻伤，为全国人民解决穿衣化纤立奇功。"
-          },
-          {
-            "type": "fatal",
-            "weight": 3,
-            "log": "在深水码头卸载数十吨超重裂解炉部件时因起重突发故障不幸殉职。",
-            "effect": {},
-            "isFatal": true,
-            "hiddenRiskLog": "在建设国家特大石化基地卸载重点装备时不幸牺牲。"
-          }
-        ]
-      },
-      {
-        "text": "作为普通百姓，在供销社第一次凭布票买到结实耐磨免烫的“的确良”化纤布料做新衣",
-        "choiceTags": [
-          "时代：1972–1973",
-          "年龄：14–65",
-          "地域：全国城乡",
-          "门槛：广大居民"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 85,
-            "log": "裁缝店里量体裁衣做出一件挺括亮丽的白底碎花‘的确良’衬衫，穿出大街引来无数羡慕眼光。",
-            "effect": {
-              "wealth": 10,
-              "family": 20,
-              "mentality": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "见证新中国化纤普及解决衣被之困，生活品质显著改善。",
-            "status": "dacron_fashion_pioneer"
-          },
-          {
-            "type": "injured",
-            "weight": 15,
-            "log": "在百货大楼抢购仅有的两匹素色‘的确良’面料时被铁栅栏擦破小腿皮肉。",
-            "effect": {
-              "health": -10,
-              "wealth": -10
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "排队抢购时髦化纤布受皮外伤，感受民生消费渴望的升温。"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "mentality": 15,
+      "knowledge": 10
+    },
+    "choices": null
   },
   {
     "id": "evt_1972_tuijian_gongnongbing",
@@ -10382,6 +10028,41 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "唐山废墟抢救同胞负伤留疤，成为一生的无上荣光。"
+          }
+        ]
+      },
+      {
+        "text": "在后方搭建简易防震棚，节衣缩食为唐山灾区倾力捐献棉被、粮食与衣物，支援灾区重建",
+        "choiceTags": [
+          "时代：1976",
+          "年龄：6–75",
+          "地域：华北及全国各省",
+          "门槛：后方普通民众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 95,
+            "log": "住进街头搭建的简易防震油毡棚，主动省出口粮与两床厚棉被送往街道救灾捐献点，略尽后方绵薄之力。",
+            "effect": {
+              "mentality": 25,
+              "family": 15,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在1976年特大震灾后方守望相助，展现全民共克时艰的赤诚大爱。"
+          },
+          {
+            "type": "safe",
+            "weight": 5,
+            "log": "协助街道居委会巡查平房险情与维持秩序，收留安置数位从震区疏散而来的远亲同胞。",
+            "effect": {
+              "mentality": 30,
+              "family": 20,
+              "wealth": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在唐山大地震后方无私接济安抚受灾同胞。"
           }
         ]
       }
@@ -18418,93 +18099,13 @@
     "factLevel": "确证",
     "historicalFact": "2001年11月多哈会议正式批准中国加入世界贸易组织（WTO）。外贸关税壁垒打破，全球产业链向中国沿海大规模转移，‘中国制造’商品潮水般涌向全球货架。",
     "narrative": "宁波舟山港与盐田港集装箱昼夜装卸吞吐，汽笛长鸣。外贸公司的传真机整日吐着来自欧美客商的急单。各大工厂车间通宵达旦赶工，英文标签与集装箱封签成了工薪族的最熟悉日常。",
-    "isDecision": true,
-    "passiveImpact": null,
-    "choices": [
-      {
-        "text": "投身沿海合资外贸制造企业做外销跟单员或进出口报关员",
-        "choiceTags": [
-          "时代：2001–2004",
-          "年龄：20–40",
-          "地域：沿海长三角/珠三角",
-          "门槛：大中专青年/懂基本英语"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 65,
-            "log": "熟练处理信用证与报关退税，年终外贸提成丰厚，在沿海省城全款购入首套商品房。",
-            "effect": {
-              "wealth": 50,
-              "knowledge": 25,
-              "mentality": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "精准搭上加入WTO外贸爆发快车，数年内实现阶层跃升与资产立足。",
-            "status": "wto_foreign_trader",
-            "newCareerTrack": "tech_whitecollar"
-          },
-          {
-            "type": "injured",
-            "weight": 25,
-            "log": "欧美船期催单日夜倒时差熬夜沟通，患上严重反流性食管炎与胃溃疡。",
-            "effect": {
-              "health": -25,
-              "wealth": 40
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "透支身体换取外贸高薪，在经济起飞期积累了雄厚原始资本。",
-            "newCareerTrack": "tech_whitecollar"
-          },
-          {
-            "type": "entangled",
-            "weight": 10,
-            "log": "遭遇外商破产赖账被拖欠十万美元货款，被迫承担两成业务罚款。",
-            "effect": {
-              "wealth": -20,
-              "mentality": -20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "涉外贸易初涉国际商法漏洞，经受法律合规大考。",
-            "newCareerTrack": "tech_whitecollar"
-          }
-        ]
-      },
-      {
-        "text": "若为内地农机或传统国企，主动推动生产线按国际ISO标准换装出海配件",
-        "choiceTags": [
-          "时代：2001–2004",
-          "年龄：24–55",
-          "地域：全国工业城镇",
-          "门槛：制造车间技工/工程师"
-        ],
-        "outcomes": [
-          {
-            "type": "safe",
-            "weight": 70,
-            "log": "主导车间拿下欧美CE与UL安全认证，工厂订单排到三年后，全厂效益大翻身。",
-            "effect": {
-              "wealth": 30,
-              "knowledge": 20
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "依托国际化标准升级传统制造，成为不可或缺的涉外数控技师。",
-            "status": "iso_certified_engineer"
-          },
-          {
-            "type": "entangled",
-            "weight": 30,
-            "log": "因老设备精度不达标首批外贸出口件遭遇批量退货索赔，扣罚三个月奖金。",
-            "effect": {
-              "wealth": -15,
-              "mentality": -15
-            },
-            "isFatal": false,
-            "hiddenRiskLog": "设备老化冲击外贸标准交学费，痛定思痛全面技改。"
-          }
-        ]
-      }
-    ]
+    "isDecision": false,
+    "passiveImpact": {
+      "wealth": 10,
+      "knowledge": 5,
+      "mentality": 10
+    },
+    "choices": null
   },
   {
     "id": "evt_2001_shenao_chenggong",
@@ -18707,6 +18308,40 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "恐慌跟风抢购受骗交智商税，从此崇尚科学破除盲信。"
+          }
+        ]
+      },
+      {
+        "text": "若为在读中小学生/青年学子，配合学校每日晨午检，遵从停课指引在家收看空中课堂自律自习",
+        "choiceTags": [
+          "时代：2003",
+          "年龄：6–22",
+          "地域：全国",
+          "门槛：在读中小学生"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "按时收看电视空中课堂，自觉完成各科功课与眼保健操，在特殊时期锻炼了独立自学自律能力。",
+            "effect": {
+              "knowledge": 25,
+              "mentality": 20,
+              "health": 5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在非典停课期间高度自律保持求知探索，学业名列前茅。"
+          },
+          {
+            "type": "safe",
+            "weight": 15,
+            "log": "停课期间天天在家跳绳做操强身健体，主动承担起家庭洗碗拖地消毒家务，深受长辈夸赞。",
+            "effect": {
+              "health": 20,
+              "family": 25
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "停课期间体魄强健懂事孝亲，养成优良生活习惯。"
           }
         ]
       }
@@ -19985,8 +19620,7 @@
     ],
     "applicableRegions": [
       "西北",
-      "西南",
-      "ALL"
+      "西南"
     ],
     "exposureConditions": {
       "provinces": [
@@ -19998,7 +19632,7 @@
     },
     "preTags": [],
     "excludeTags": [],
-    "triggerProbability": 0.85,
+    "triggerProbability": 0.35,
     "coolingPeriod": 4,
     "factLevel": "确证",
     "historicalFact": "2010年4月14日青海省玉树藏族自治州发生7.1级强烈地震。震区海拔近4000米，高寒缺氧，藏汉军民在高原绝境中展开空前大营救，展现民族团结生死相依的伟大力量。",
@@ -20092,6 +19726,28 @@
             },
             "isFatal": false,
             "hiddenRiskLog": "高原救援突发重症肺水肿脱险，用生命践行医者誓言。"
+          }
+        ]
+      },
+      {
+        "text": "通过红十字会与社区倾力为玉树灾区捐赠保暖棉衣、帐篷与清油，守望相助",
+        "choiceTags": [
+          "时代：2010",
+          "年龄：10–75",
+          "地域：全国",
+          "门槛：广大同胞"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "向街道红十字会捐出两套全新羽绒服与五百元生活津贴，为雪域高原受灾同胞送去人间暖流。",
+            "effect": {
+              "mentality": 20,
+              "wealth": -10
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在玉树震灾后方向雪域同胞伸出援助之手，传递手足深情。"
           }
         ]
       }
@@ -20331,7 +19987,7 @@
     },
     "preTags": [],
     "excludeTags": [],
-    "triggerProbability": 0.85,
+    "triggerProbability": 0.35,
     "coolingPeriod": 4,
     "factLevel": "确证",
     "historicalFact": "2012年7月21日北京及华北地区遭遇61年来最强特大暴雨。房山与广渠门等桥下发生严重积水积水，全市数万辆车辆涉水被淹。市民自发打双闪免费搭乘滞留乘客，在洪水中守望互助感动全城。",
@@ -20758,8 +20414,7 @@
       70
     ],
     "applicableRegions": [
-      "西南",
-      "ALL"
+      "西南"
     ],
     "exposureConditions": {
       "provinces": [
@@ -20771,7 +20426,7 @@
     },
     "preTags": [],
     "excludeTags": [],
-    "triggerProbability": 0.85,
+    "triggerProbability": 0.35,
     "coolingPeriod": 4,
     "factLevel": "确证",
     "historicalFact": "2013年4月20日四川雅安市芦山县发生7.0级强烈地震。得益于汶川震后严格的建筑抗震设防标准与现代应急救援体系，救灾更加科学、有序、高效，生命绿色通道迅速打通。",
@@ -21002,7 +20657,7 @@
     },
     "preTags": [],
     "excludeTags": [],
-    "triggerProbability": 0.85,
+    "triggerProbability": 0.35,
     "coolingPeriod": 4,
     "factLevel": "确证",
     "historicalFact": "2015年8月12日深夜天津港瑞海公司危险品仓库发生特别重大火灾爆炸事故。巨大蘑菇云腾空而起，数公里内门窗尽毁，165人不幸遇难（其中公安消防官兵及企业特勤队员110人），给危化品安全监管敲响警钟。",
@@ -21107,6 +20762,29 @@
             "effect": {},
             "isFatal": true,
             "hiddenRiskLog": "在处置特大火灾爆炸事故一线壮烈牺牲，被追认为革命烈士。"
+          }
+        ]
+      },
+      {
+        "text": "通过正规渠道参与致敬逆行消防英雄爱心捐款，并配合社区开展危化隐患大排查",
+        "choiceTags": [
+          "时代：2015",
+          "年龄：10–80",
+          "地域：全国",
+          "门槛：热心民众"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 100,
+            "log": "向牺牲消防烈士家属专项抚恤基金捐款，并在工作单位主动自查消防栓与易燃物，提高安全防范意识。",
+            "effect": {
+              "mentality": 20,
+              "knowledge": 15,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在重大安全生产事故后深切反思，积极提升消防应急避险素养。"
           }
         ]
       }
@@ -22403,7 +22081,7 @@
     },
     "preTags": [],
     "excludeTags": [],
-    "triggerProbability": 0.9,
+    "triggerProbability": 0.35,
     "coolingPeriod": 4,
     "factLevel": "确证",
     "historicalFact": "2021年7月20日河南郑州遭遇历史罕见特大暴雨，小时降雨量达201.9毫米突破中国大陆极值。地铁5号线与京广路隧道遭遇倒灌险情，全城内涝，全国救援力量与平民英雄展开生死大营救。",
