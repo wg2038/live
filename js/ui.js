@@ -545,9 +545,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 当地产业与时代信息
     const indProfile = char.industryPillar || '传统农业手工业';
-    document.getElementById('macroIndustry').textContent = indProfile;
-    document.getElementById('macroEra').textContent = `${era.name}（预期寿命基准 ${era.lifeExpectancy} 岁）`;
-    document.getElementById('idJob').textContent = char.occupation || '平民';
+    const macroInd = document.getElementById('macroIndustry');
+    if (macroInd) macroInd.textContent = indProfile;
+    const macroEra = document.getElementById('macroEra');
+    if (macroEra) macroEra.textContent = `${era.name}（预期寿命基准 ${era.lifeExpectancy} 岁）`;
+    const idJob = document.getElementById('idJob');
+    if (idJob) idJob.textContent = char.occupation || '平民';
   }
 
   function setBarVal(barId, txtId, val, color) {
@@ -739,13 +742,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     choices.forEach((c, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      let tagsHtml = '';
-      if (c.choiceTags && Array.isArray(c.choiceTags) && c.choiceTags.length > 0) {
-        tagsHtml = `<div class="choice-tags-container">` +
-          c.choiceTags.map(t => `<span class="choice-tag-pill">${escapeHtml(t)}</span>`).join('') +
-          `</div>`;
-      }
-      btn.innerHTML = `<b>${escapeHtml(c.text)}</b>${c.desc ? `<small style="display:block;color:var(--ink3);margin-top:2px;">${escapeHtml(c.desc)}</small>` : ''}${tagsHtml}`;
+      btn.innerHTML = `<b>${escapeHtml(c.text)}</b>${c.desc ? `<small style="display:block;color:var(--ink3);margin-top:2px;">${escapeHtml(c.desc)}</small>` : ''}`;
       btn.addEventListener('click', () => {
         resolveChoice(evt.id, idx);
       });
