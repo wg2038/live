@@ -173,8 +173,8 @@
       "yunnan"
     ],
     "targetCities": [
-      "yuxi",
-      "honghe"
+      "yuxi_tonghai",
+      "honghe_gejiu"
     ],
     "severity": "catastrophic",
     "fact": "1970年1月5日凌晨，云南通海、峨山一带发生7.7级强烈地震。震中烈度达10度，极震区房屋几乎全平，时值文革特殊时期，救灾在极其艰难闭塞的条件下展开。",
@@ -382,7 +382,7 @@
       "shaanxi"
     ],
     "targetCities": [
-      "aba",
+      "aba_wenchuan",
       "mianyang",
       "deyang",
       "guangyuan",
@@ -430,7 +430,7 @@
       "gansu"
     ],
     "targetCities": [
-      "gannan"
+      "gannan_zhouqu"
     ],
     "severity": "catastrophic",
     "fact": "2010年8月7日深夜，甘肃甘南藏族自治州舟曲县突发暴雨，三眼峪等峡谷暴发特大泥石流，淤泥带长达5公里、厚达数米，半座县城被黄泥吞噬，千余同胞不幸罹难。",

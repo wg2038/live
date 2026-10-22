@@ -36,6 +36,9 @@ class SimulationEngine {
     this.statusFlags = new Set();
     this.eventCooldowns = {};
     this.usedDetailSnippets = new Set();
+    this.detailUsage = {};
+    this.lastDetailSnippet = '';
+    this.lastCitySnippetDecade = null;
     this.lastSentenceOpener = '';
     this.currentPendingDecision = null;
   }
@@ -213,20 +216,53 @@ class SimulationEngine {
    * 动态解析城市在当年的历史称谓（如1940年深圳显示为宝安县）
    */
   resolveCityDisplay(city, year) {
+    const clean = (s) => (s || '').replace(/[（(][^）)]*[）)]/g, '').trim();
+    const cleanName = clean(city.name);
+    // 自治州名过长，使用“阿坝州/红河州”这类简称；普通市保留“市”字。
+    const official = cleanName.includes('自治州')
+      ? (city.shortName || cleanName)
+      : cleanName;
     if (year < city.foundingYear && city.historicalNamePre) {
+      // 民国年间不应出现“XX族自治州”这类新中国区划名，退称“XX地区”。
+      let preName = clean(city.historicalNamePre);
+      if (preName.includes('自治州')) {
+        const base = (city.shortName || preName).replace(/自治州|州$/, '').trim();
+        if (base) preName = base + '地区';
+      }
       return {
-        displayName: city.historicalNamePre,
+        displayName: preName || official,
         isPre: true,
         officialName: city.name,
         foundingYear: city.foundingYear
       };
     }
     return {
-      displayName: city.name,
+      displayName: official,
       isPre: false,
       officialName: city.name,
       foundingYear: city.foundingYear
     };
+  }
+
+  /**
+   * 随年份滚动更新城市称谓与当期主导产业。
+   * 例如 1980 年出生的深圳人，出生时是宝安县，1990 年应显示深圳市；
+   * 其“当地产业底色”也应从三来一补逐步切换到高新科技，而不是一生停在出生年。
+   */
+  refreshCityContext() {
+    if (!this.character || !Array.isArray(this.cities)) return;
+    const city = this.cities.find(c => c.id === this.character.cityId);
+    if (!city) return;
+
+    const cityDisp = this.resolveCityDisplay(city, this.currentYear);
+    const indEraKey = this.getIndustryEraKey(this.currentYear);
+    const indProfile = (city.eraIndustries && (city.eraIndustries[indEraKey] || city.eraIndustries['era_1950_1978'])) || {};
+
+    this.character.cityHistoricalName = cityDisp.displayName;
+    this.character.cityShortName = city.shortName || cityDisp.displayName;
+    this.character.cityOfficialName = city.name;
+    this.character.industryPillar = indProfile.pillar || this.character.industryPillar;
+    this.character.industryNature = indProfile.nature || this.character.industryNature || '';
   }
 
   /**
@@ -312,7 +348,7 @@ class SimulationEngine {
     // 2. 出生省份与城市/区县 (支持不同抽选机制)
     let province, city;
     if (cityFilter === 'county') {
-      const countyPool = this.cities.filter(c => c.type.includes('县') || c.type.includes('资源') || c.type.includes('贫瘠') || c.type.includes('特色'));
+      const countyPool = this.cities.filter(c => c.level === 'county');
       city = countyPool.length > 0 ? countyPool[Math.floor(Math.random() * countyPool.length)] : this.cities[0];
       province = this.provinces.find(p => p.id === city.provinceId) || this.provinces[0];
     } else if (cityFilter === 'random') {
@@ -417,7 +453,10 @@ class SimulationEngine {
       provinceId: province.id,
       cityId: city.id,
       cityName: city.name,
+      cityShortName: city.shortName || cityDisplay.displayName,
       cityHistoricalName: cityDisplay.displayName,
+      birthCityName: cityDisplay.displayName,
+      cityOfficialName: city.name,
       cityType: city.type,
       cityFoundingYear: city.foundingYear,
       region: province.region,
@@ -425,6 +464,7 @@ class SimulationEngine {
       familyClass,
       parentJob,
       industryPillar: indProfile.pillar,
+      industryNature: indProfile.nature || '',
       economicLevel,
       siblingsCount,
       attributes,
@@ -452,6 +492,9 @@ class SimulationEngine {
 
     this.eventCooldowns = {};
     this.usedDetailSnippets = new Set();
+    this.detailUsage = {};
+    this.lastDetailSnippet = '';
+    this.lastCitySnippetDecade = null;
     this.lastSentenceOpener = '';
     this.currentYear = birthYear;
     this.currentAge = 0;
@@ -1086,17 +1129,32 @@ class SimulationEngine {
     }
 
     // 产业特征对属性的影响（如重工业与下岗浪潮）
+    const city = this.cities.find(c => c.id === this.character.cityId);
+    const cityRisk = (city && city.riskModifiers) || {};
+
     if (this.currentYear >= 1998 && this.currentYear <= 2000 && this.currentAge >= 28 && this.currentAge <= 55) {
-      const city = this.cities.find(c => c.id === this.character.cityId);
-      if (city && city.type === '重工业资源型') {
-        attr.wealth = Math.max(10, attr.wealth - 5 * stepYears);
-        attr.mentality = Math.max(10, attr.mentality - 5 * stepYears);
+      const shock = cityRisk.xiagang1998 || 1;
+      if (shock > 1) {
+        attr.wealth = Math.max(10, attr.wealth - Math.round(3 * shock * stepYears));
+        attr.mentality = Math.max(10, attr.mentality - Math.round(2 * shock * stepYears));
+      }
+    }
+
+    // 2001 入世红利：沿海外贸与民营轻工城市获得订单与就业扩张，农业主产区则承受进口冲击
+    if (this.currentYear >= 2001 && this.currentYear <= 2007 && this.currentAge >= 20 && this.currentAge <= 60) {
+      // wtoBoom2001 越高代表当地外贸/轻工订单扩张越强；越低代表受进口冲击越重。
+      const wto = cityRisk.wtoBoom2001 || 1;
+      if (wto >= 1.4) {
+        attr.wealth += Math.round(2 * stepYears);
+        attr.mentality += Math.round(1 * stepYears);
+      } else if (wto <= 0.8) {
+        attr.wealth = Math.max(10, attr.wealth - Math.round(1 * stepYears));
+        attr.mentality = Math.max(10, attr.mentality - Math.round(1 * stepYears));
       }
     }
 
     // 2020-2022 疫情静默与供应链受阻对实体商贸、外贸民营及务工的冲击
     if (this.currentYear >= 2020 && this.currentYear <= 2022 && this.currentAge >= 20 && this.currentAge <= 65) {
-      const city = this.cities.find(c => c.id === this.character.cityId);
       if (city && (city.type === '沿海商贸外贸型' || city.type === '民营轻工集群型' || city.type === '传统农业劳务型')) {
         attr.wealth = Math.max(8, attr.wealth - 4 * stepYears);
         attr.mentality = Math.max(10, attr.mentality - 3 * stepYears);
@@ -1110,7 +1168,6 @@ class SimulationEngine {
 
     // 2023-2024 AI大模型狂飙对青年知识白领的降本增效竞争
     if (this.currentYear >= 2023 && this.currentYear <= 2024 && this.currentAge >= 20 && this.currentAge <= 35) {
-      const city = this.cities.find(c => c.id === this.character.cityId);
       if (city && city.type === '综合科教中心') {
         if (this.energy.study >= 30) {
           attr.knowledge += 5 * stepYears;
@@ -1801,7 +1858,9 @@ class SimulationEngine {
       macro = this.getYearMacroSnippet(year, era);
     }
 
-    // 4. 线程二：时代生活细节库 (饮食、居住、交通、通讯、娱乐，同一细节一生最多出现2次)
+    // 4. 线程二：时代生活细节库 (饮食、居住、交通、通讯、娱乐)
+    //    不再只抽一个维度撞运气：遍历全部维度，优先使用未出现过的句子，
+    //    全部用尽后允许每个句子最多复用 2 次，避免长人生后半程全是通用家境句。
     let lifeDetail = '';
     if (this.details && this.details.eras) {
       let eraKey = '1937_1949';
@@ -1818,15 +1877,27 @@ class SimulationEngine {
           : (char.careerTrack === 'cadre_teacher' ? 'cadre_intellectual' : 'urban_worker');
 
         const dims = ['diet', 'housing', 'transport', 'communication', 'entertainment'];
-        const chosenDim = dims[Math.floor(Math.random() * dims.length)];
-        const pool = (eraDetails[chosenDim] && eraDetails[chosenDim][classKey]) ? eraDetails[chosenDim][classKey] : [];
-
-        for (const item of pool) {
-          if (!this.usedDetailSnippets.has(item)) {
-            lifeDetail = item;
-            this.usedDetailSnippets.add(item);
-            break;
+        const allSnippets = [];
+        const freshSnippets = [];
+        for (const dim of dims) {
+          const pool = (eraDetails[dim] && eraDetails[dim][classKey]) ? eraDetails[dim][classKey] : [];
+          for (const item of pool) {
+            if (!item || allSnippets.includes(item)) continue;
+            allSnippets.push(item);
+            const usedCount = this.detailUsage[item] || 0;
+            if (item !== this.lastDetailSnippet && usedCount < 2) freshSnippets.push(item);
           }
+        }
+
+        let pool = freshSnippets;
+        if (pool.length === 0) pool = allSnippets.filter(item => item !== this.lastDetailSnippet);
+        if (pool.length === 0) pool = allSnippets;
+
+        if (pool.length > 0) {
+          lifeDetail = pool[Math.floor(Math.random() * pool.length)];
+          this.detailUsage[lifeDetail] = (this.detailUsage[lifeDetail] || 0) + 1;
+          this.lastDetailSnippet = lifeDetail;
+          this.usedDetailSnippets.add(lifeDetail);
         }
       }
     }
@@ -1836,14 +1907,26 @@ class SimulationEngine {
 
     // 6. 线程四：家境温饱与身心承载
     const household = this.getHouseholdSensorySnippet(char, age);
+    const energyLine = this.getEnergySensorySnippet(this.energy || {});
+
+    // 7. 线程五：城市纪事。每个十年只出现一次，让 700+ 城市的产业与地名真正进入叙事。
+    let cityLine = '';
+    const currentDecade = Math.floor(year / 10);
+    if (this.lastCitySnippetDecade !== currentDecade) {
+      cityLine = this.getCitySensorySnippet(city, cityDisp, year);
+      this.lastCitySnippetDecade = currentDecade;
+    }
 
     // 综合编织
     let full = '';
     if (lifeDetail) {
       full = `${opener}${macro} ${labor} ${lifeDetail}`.trim();
     } else {
-      full = `${opener}${macro} ${labor} ${household}`.trim();
+      full = `${opener}${macro} ${labor} ${Math.random() < 0.5 ? energyLine : household}`.trim();
     }
+
+    if (cityLine && full.length < 120) full += ` ${cityLine}`;
+    if (energyLine && full.length < 110 && Math.random() < 0.45) full += ` ${energyLine}`;
 
     // 长度与节奏严格钳制在 80 - 150 汉字
     if (full.length > 150) {
@@ -1960,11 +2043,45 @@ class SimulationEngine {
     return `柴米油盐细水长流，日子虽不富裕倒也平稳温饱。`;
   }
 
+  /**
+   * 城市纪事：让城市类型、历史称谓与当期产业进入日常叙事，而不只是面板上的标签。
+   */
+  getCitySensorySnippet(city, cityDisp, year) {
+    const name = (cityDisp && cityDisp.displayName) || this.character.cityHistoricalName || '家乡';
+    const pillar = (this.character && this.character.industryPillar) || '';
+    const type = (city && city.type) || (this.character && this.character.cityType) || '';
+
+    switch (type) {
+      case '重工业资源型':
+        return `厂区汽笛与${pillar || '工矿生产'}，仍是${name}街巷里绕不开的生计底色。`;
+      case '三线军工型':
+        return `山沟里的代号厂与${pillar || '军工生产'}，仍在${name}许多家庭的记忆里回响。`;
+      case '传统农业劳务型':
+        return `${name}四乡的田畴与外出务工的汇款单，撑起寻常人家的柴米油盐。`;
+      case '沿海商贸外贸型':
+        return `${name}的码头汽笛与外贸订单，牵动着街市上每一家铺面的心跳。`;
+      case '民营轻工集群型':
+        return `${name}的作坊、厂房与专业市场灯火通明，家家户户在订单里讨生活。`;
+      case '综合科教中心':
+        return `${name}的校园、研究所与机关大院，塑造着这座城市不紧不慢的节奏。`;
+      case '边陲农牧林业型':
+        return `${name}的草场、林场与边境集市，风声里夹杂着各族乡音。`;
+      case '贫瘠特困型':
+        return `${name}的瘠薄山地与外出谋生的行囊，仍是许多家庭绕不开的现实。`;
+      default:
+        return `${name}的街巷在${year}年的风里照常醒转，家家有本难念的经。`;
+    }
+  }
+
   getEnergySensorySnippet(energy) {
-    if (energy.study >= 40) return `夜灯下翻卷深研，眼界见识日益开阔。`;
-    if (energy.work >= 45) return `抢抓工时全力打拼，掌心磨出厚实老茧。`;
-    if (energy.family >= 45) return `用心照看老小起居，屋檐下满是烟火人情。`;
-    if (energy.health >= 45) return `起居有节清淡进补，精神矍铄身骨结实。`;
+    const entries = [
+      ['study', energy.study || 0, `夜灯下翻卷深研，眼界见识日益开阔。`],
+      ['work', energy.work || 0, `抢抓工时全力打拼，掌心磨出厚实老茧。`],
+      ['family', energy.family || 0, `用心照看老小起居，屋檐下满是烟火人情。`],
+      ['health', energy.health || 0, `起居有节清淡进补，精神矍铄身骨结实。`]
+    ];
+    entries.sort((a, b) => b[1] - a[1]);
+    if (entries[0][1] >= 25) return entries[0][2];
     return `脚踏实地，在岁序更替中守住内心的踏实与平静。`;
   }
 
@@ -1974,6 +2091,7 @@ class SimulationEngine {
   advanceYear() {
     if (this.isGameOver) return null;
 
+    this.refreshCityContext();
     let stepYears = this.getStepYears();
     if (this.currentYear < 2026 && this.currentYear + stepYears > 2026) {
       stepYears = 2026 - this.currentYear;
@@ -2061,6 +2179,7 @@ class SimulationEngine {
       this.currentYear += stepYears;
       this.currentAge += stepYears;
       this.recordLifeline();
+      this.refreshCityContext();
 
       if (this.currentYear > 2026 || this.currentAge >= 98) {
         this.triggerNaturalEnding();
@@ -2206,6 +2325,7 @@ class SimulationEngine {
     this.currentYear += stepYears;
     this.currentAge += stepYears;
     this.recordLifeline();
+    this.refreshCityContext();
 
     // 11. 到达 2026 年或百岁圆满
     if (this.currentYear > 2026 || this.currentAge >= 98) {
@@ -2489,10 +2609,12 @@ class SimulationEngine {
         eraName: era.name,
         narrative: trimmedNarrative,
         attributes: { ...this.character.attributes },
-        eventTitle: evt.title || '关键抉择'
+        eventTitle: evt.title || '关键抉择',
+        isDecision: true
       };
       this.history.push(turnRecord);
       this.recordLifeline();
+      this.refreshCityContext();
 
       this.currentPendingDecision = null;
       return;
@@ -2597,13 +2719,15 @@ class SimulationEngine {
       eraName: era.name,
       narrative: trimmedNarrative,
       attributes: { ...this.character.attributes },
-      eventTitle: evt.title || '关键抉择'
+      eventTitle: evt.title || '关键抉择',
+      isDecision: true
     };
     this.history.push(turnRecord);
 
     this.currentYear += stepYears;
     this.currentAge += stepYears;
     this.recordLifeline();
+    this.refreshCityContext();
 
     if (this.currentYear > 2026 || this.currentAge >= 98) {
       this.triggerNaturalEnding();
@@ -3001,6 +3125,7 @@ class SimulationEngine {
     const finalAge = 2026 - this.character.birthYear;
     this.currentYear = finalYear;
     this.currentAge = finalAge;
+    this.refreshCityContext();
 
     let cause = '见证近百年家国沧桑，于当今盛世安享晚年';
     let title = '见证盛世';
@@ -3356,7 +3481,10 @@ class SimulationEngine {
       provinceId: province.id,
       cityId: city.id,
       cityName: city.name,
+      cityShortName: city.shortName || cityDisplay.displayName,
       cityHistoricalName: cityDisplay.displayName,
+      birthCityName: cityDisplay.displayName,
+      cityOfficialName: city.name,
       cityType: city.type,
       cityFoundingYear: city.foundingYear,
       region: province.region,
@@ -3364,6 +3492,7 @@ class SimulationEngine {
       familyClass,
       parentJob,
       industryPillar: indProfile.pillar,
+      industryNature: indProfile.nature || '',
       economicLevel: '温饱',
       siblingsCount: 2,
       attributes,
@@ -3389,6 +3518,15 @@ class SimulationEngine {
 
     this.currentYear = birthYear;
     this.currentAge = 0;
+    this.usedDetailSnippets = new Set();
+    this.detailUsage = {};
+    this.lastDetailSnippet = '';
+    this.lastCitySnippetDecade = null;
+    this.lastSentenceOpener = '';
+    this.eventCooldowns = {};
+    this.currentPendingDecision = null;
+    this.isGameOver = false;
+    this.deathInfo = null;
     this.updateCareerStage();
 
     this.energy = {

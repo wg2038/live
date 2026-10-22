@@ -107,6 +107,73 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   loadMemorialLives();
 
+  // 自动人生档案：每局终局自动保存，不依赖玩家点击“留念”。
+  const LIFE_ARCHIVE_KEY = 'live_life_archive';
+  function readLifeArchive() {
+    try {
+      const list = JSON.parse(localStorage.getItem(LIFE_ARCHIVE_KEY) || '[]');
+      return Array.isArray(list) ? list : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function renderLifeArchive() {
+    const listEl = document.getElementById('lifeArchiveList');
+    const panel = document.getElementById('lifeArchivePanel');
+    if (!listEl) return;
+    const list = readLifeArchive();
+    if (panel) panel.hidden = list.length === 0;
+    listEl.innerHTML = list.slice(0, 8).map(item => {
+      const years = item.alive2026 ? `${item.birthYear} — 2026 · 未完待续` : `${item.birthYear} — ${item.endYear} · 享年 ${item.age} 岁`;
+      return `
+        <div class="archive-card">
+          <div class="ac-head"><b>${escapeHtml(item.name || '无名')}</b><span>${escapeHtml(years)}</span></div>
+          <div class="ac-meta">${escapeHtml(item.place || '')} · ${escapeHtml(item.cityType || '')}</div>
+          <div class="ac-meta">${escapeHtml(item.education || '')} · ${escapeHtml(item.job || '')}</div>
+          ${Number.isFinite(item.decisions) ? `<div class="ac-meta">经历关键抉择 ${item.decisions} 次</div>` : ''}
+          <div class="ac-note">${escapeHtml(item.cause || '')}</div>
+        </div>`;
+    }).join('');
+  }
+
+  function archiveCurrentLife(char, death, isAlive2026) {
+    try {
+      const list = readLifeArchive();
+      const record = {
+        id: `${char.name}-${char.birthYear}-${death.year}-${char.cityId}`,
+        name: char.name,
+        birthYear: char.birthYear,
+        endYear: death.year,
+        age: death.age,
+        alive2026: !!isAlive2026,
+        place: `${char.birthPlace} ${char.birthCityName || char.cityHistoricalName}`,
+        cityType: char.cityType,
+        education: char.educationLevel || '未入学',
+        job: char.occupation || '平民',
+        cause: isAlive2026 ? '行至 2026 年，人生仍在继续' : `死因：${death.cause}`,
+        decisions: engine.history.filter(h => h.isDecision).length,
+        archivedAt: new Date().toISOString()
+      };
+      const next = [record, ...list.filter(x => x.id !== record.id)].slice(0, 30);
+      localStorage.setItem(LIFE_ARCHIVE_KEY, JSON.stringify(next));
+      renderLifeArchive();
+    } catch (e) {
+      console.warn('人生档案写入失败', e);
+    }
+  }
+
+  const clearArchiveBtn = document.getElementById('clearArchiveBtn');
+  if (clearArchiveBtn) {
+    clearArchiveBtn.addEventListener('click', () => {
+      try {
+        localStorage.removeItem(LIFE_ARCHIVE_KEY);
+      } catch (e) { /* ignore */ }
+      renderLifeArchive();
+    });
+  }
+  renderLifeArchive();
+
   // =========================================================================
   // 视图切换与轮盘动画 (Views & Roulette Roll)
   // =========================================================================
@@ -154,7 +221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const finalProv = (char.birthPlace || '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
       const finalCity = ['北京', '上海', '天津', '重庆'].includes(finalProv)
         ? `${finalProv}市`
-        : (finalProv ? `${finalProv} · ` : '') + (char.cityHistoricalName || '');
+        : (finalProv ? `${finalProv} · ` : '') + (char.cityShortName || char.cityHistoricalName || '');
       const lunar = getLunarYearName(char.birthYear);
       const finalMeta = `${char.birthYear}年 · ${lunar} · ${char.cityType || '普通家庭'}`;
 
@@ -163,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const candidateList = rawCities.map(c => {
         const prov = engine.provinces ? engine.provinces.find(p => p.id === c.provinceId) : null;
         const pName = (prov ? prov.name : '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
-        let cName = (c.name || '').replace(/[（\(][^）\)]*[）\)]/g, '').trim();
+        let cName = c.shortName || (c.name || '').replace(/[（\(][^）\)]*[）\)]/g, '').trim();
         if (['北京', '上海', '天津', '重庆'].includes(pName)) {
           return { displayName: `${pName}市`, type: c.type || '直辖市' };
         }
@@ -245,13 +312,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const provName = (char.birthPlace || '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
     const placeName = ['北京', '上海', '天津', '重庆'].includes(provName)
       ? `${provName}市`
-      : (provName ? `${provName} · ` : '') + (char.cityHistoricalName || '');
+      : (provName ? `${provName} · ` : '') + (char.birthCityName || char.cityHistoricalName || '');
 
     const story = `你出生在 ${char.birthYear} 年（${lunar}）的 ${placeName}。彼时当地正值【${char.cityType}】定位，以【${char.industryPillar}】为时代重心。家中长辈靠【${char.parentJob}】维持生计，撑起一门烟火，同胞兄弟姐妹共 ${char.siblingsCount} 人。`;
     document.getElementById('certStory').textContent = story;
 
     document.getElementById('cfYear').textContent = `${char.birthYear}年 (${lunar})`;
-    document.getElementById('cfPlace').textContent = `${char.birthPlace} · ${char.cityHistoricalName}`;
+    document.getElementById('cfPlace').textContent = `${char.birthPlace} · ${char.birthCityName || char.cityHistoricalName}`;
     document.getElementById('cfUrban').textContent = urbanLabel;
     document.getElementById('cfLife').textContent = `${era.lifeExpectancy} 岁`;
     document.getElementById('cfInd').textContent = char.industryPillar;
@@ -275,9 +342,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   let gameTimer = null;
   let isPaused = false;
   let currentSpeedMs = 1100; // 1× 初始速度
+  let decisionResumeIntent = false;
+  let isFastForwarding = false;
 
   const pauseBtn = document.getElementById('pauseBtn');
   const stepBtn = document.getElementById('stepBtn');
+  const nextDecisionBtn = document.getElementById('nextDecisionBtn');
   const spButtons = document.querySelectorAll('#spSet button');
 
   function setSpeed(multiplier) {
@@ -339,6 +409,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // 快进到下一个抉择：自动推演平静年份，遇到弹窗即停，避免玩家在无决策年份空等。
+  function fastForwardToDecision() {
+    if (isFastForwarding || engine.isGameOver) return;
+    isFastForwarding = true;
+    const wasAutoPlaying = !isPaused;
+    pauseGame();
+
+    try {
+      for (let i = 0; i < 120; i++) {
+        if (engine.isGameOver || engine.currentPendingDecision) break;
+        tickTurn();
+        if (engine.isGameOver || engine.currentPendingDecision) break;
+      }
+      if (engine.currentPendingDecision) {
+        // 快进前若正在自动播放，选择后继续自动播放；否则保持暂停。
+        decisionResumeIntent = wasAutoPlaying;
+      }
+    } finally {
+      isFastForwarding = false;
+    }
+  }
+
+  if (nextDecisionBtn) {
+    nextDecisionBtn.addEventListener('click', fastForwardToDecision);
+  }
+
   // 开始人生按钮
   if (beginBtn) {
     beginBtn.addEventListener('click', () => {
@@ -350,6 +446,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function initLifeviewUI() {
     const char = engine.character;
+    lastFeedDecade = null;
+    decisionResumeIntent = false;
+    isFastForwarding = false;
     // 身份证面板
     document.getElementById('idName').textContent = char.name;
     document.getElementById('idPlace').textContent = `${char.birthPlace} · ${char.cityHistoricalName}`;
@@ -469,9 +568,79 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // 纪事流渲染
-  function appendFeedItem({ age, year, tag, tagClass, narrative }) {
+  let lastFeedDecade = null;
+  const ATTR_LABELS = { health: '健康', mentality: '心气', knowledge: '文化', family: '亲缘', wealth: '家产' };
+  const ATTR_ORDER = ['health', 'mentality', 'knowledge', 'family', 'wealth'];
+
+  function formatDelta(delta) {
+    if (!delta) return '';
+    const parts = ATTR_ORDER
+      .filter(k => Math.abs(delta[k] || 0) >= 1)
+      .map(k => {
+        const v = delta[k];
+        return `<span class="fd ${v > 0 ? 'up' : 'down'}">${ATTR_LABELS[k]} ${v > 0 ? '+' : ''}${v}</span>`;
+      });
+    return parts.join('');
+  }
+
+  function diffAttributes(before, after) {
+    if (!before || !after) return null;
+    const delta = {};
+    let any = false;
+    for (const k of ATTR_ORDER) {
+      const d = Math.round((after[k] || 0) - (before[k] || 0));
+      if (d !== 0) {
+        delta[k] = d;
+        any = true;
+      }
+    }
+    return any ? delta : null;
+  }
+
+  // 平静年份只提示真正值得注意的起伏，避免每年固定的 +2 健康/文化刷屏。
+  function significantDelta(delta, minAbs = 4) {
+    if (!delta) return null;
+    const out = {};
+    let any = false;
+    for (const k of ATTR_ORDER) {
+      const v = delta[k];
+      if (v && Math.abs(v) >= minAbs) {
+        out[k] = v;
+        any = true;
+      }
+    }
+    return any ? out : null;
+  }
+
+  function getFocusLabel(energy) {
+    if (!energy) return '';
+    const labels = { study: '读书求学', work: '勤奋劳作', family: '顾家陪伴', health: '养生疗愈' };
+    let key = 'work';
+    for (const k of Object.keys(labels)) {
+      if ((energy[k] || 0) > (energy[key] || 0)) key = k;
+    }
+    return labels[key];
+  }
+
+  function appendFeedItem({ age, year, tag, tagClass, narrative, delta, focus }) {
     const feed = document.getElementById('lifeFeed');
     if (!feed) return;
+
+    // 十年章节卡：在纪事流中形成可扫读的人生段落。
+    const decade = Math.floor(year / 10) * 10;
+    if (decade !== lastFeedDecade) {
+      lastFeedDecade = decade;
+      const chapter = document.createElement('li');
+      chapter.className = 'feed-chapter';
+      const chapterEra = engine.getEraForYear(year);
+      chapter.innerHTML = `<span>${decade}年代</span><small>${escapeHtml(chapterEra ? chapterEra.name : '')}</small>`;
+      feed.insertBefore(chapter, feed.firstChild);
+    }
+
+    const deltaHtml = formatDelta(delta);
+    const metaHtml = (focus || deltaHtml)
+      ? `<div class="feed-extra">${focus ? `<span class="feed-focus">本年重心 · ${escapeHtml(focus)}</span>` : ''}${deltaHtml ? `<span class="feed-deltas">${deltaHtml}</span>` : ''}</div>`
+      : '';
 
     const li = document.createElement('li');
     li.innerHTML = `
@@ -479,6 +648,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div class="x">
         ${tag ? `<span class="feed-tag ${tagClass || 'tag-era'}">${escapeHtml(tag)}</span>` : ''}
         <span>${escapeHtml(narrative)}</span>
+        ${metaHtml}
       </div>
     `;
 
@@ -492,6 +662,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    const beforeAttrs = { ...engine.character.attributes };
     const res = engine.advanceYear();
     if (!res) return;
 
@@ -504,6 +675,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 2. 触发人生关键抉择或至暗时刻 (暂停演进，呼出弹窗)
     if (res.isDecision) {
+      // 修复：先记录进入弹窗前是否处于自动播放，再暂停。
+      // 之前 pauseGame() 先置 isPaused=true，导致选完后永远无法自动续播。
+      decisionResumeIntent = !isPaused;
       pauseGame();
       updateVitalsUI();
       showDecisionModal(res);
@@ -528,7 +702,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       year: turn.year,
       tag,
       tagClass,
-      narrative: turn.narrative
+      narrative: turn.narrative,
+      delta: significantDelta(diffAttributes(beforeAttrs, turn.attributes)),
+      focus: getFocusLabel(engine.energy)
     });
 
     updateVitalsUI();
@@ -581,6 +757,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function resolveChoice(decisionId, choiceIndex) {
     modalEl.hidden = true;
+    const beforeAttrs = { ...engine.character.attributes };
     engine.resolveDecision(decisionId, choiceIndex);
 
     const lastHistory = engine.history[engine.history.length - 1];
@@ -590,7 +767,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         year: lastHistory.year,
         tag: '抉择',
         tagClass: 'tag-choice',
-        narrative: lastHistory.narrative
+        narrative: lastHistory.narrative,
+        delta: diffAttributes(beforeAttrs, lastHistory.attributes),
+        focus: getFocusLabel(engine.energy)
       });
     }
 
@@ -598,8 +777,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (engine.isGameOver) {
       handleGameOver();
-    } else if (!isPaused) {
+    } else if (decisionResumeIntent) {
+      decisionResumeIntent = false;
       resumeGame();
+    } else {
+      // 保持暂停状态，让单步/快进模式在抉择后停住。
+      decisionResumeIntent = false;
     }
   }
 
@@ -616,6 +799,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const era = engine.getEraForYear(char.birthYear);
 
     const isAlive2026 = death.isAliveIn2026 || death.year >= 2026;
+    archiveCurrentLife(char, death, isAlive2026);
 
     // 1. 证书核心信息 (严格区分在世与离世)
     if (isAlive2026) {
@@ -623,7 +807,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('deadName').textContent = `${char.name} (${char.birthYear} — 2026 · 现年 ${death.age} 岁 · 在世)`;
       document.getElementById('deadCause').textContent = `当前状态：${death.cause}`;
       document.getElementById('deadCtx').textContent = `在 ${char.birthYear} 年同一年出生的中国人中，你健康平稳地行至2026年，继续见证日新月异的神州大地。当年同代人的平均预期寿命约为 ${era.lifeExpectancy} 岁。`;
-      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.cityHistoricalName}，在时代洪流中奋进成长`;
+      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.birthCityName || char.cityHistoricalName}，在时代洪流中奋进成长`;
     } else {
       document.getElementById('deadCertNo').textContent = `NO. 1937-2026-RIP-${Math.floor(1000 + Math.random() * 9000)}`;
       document.getElementById('deadName').textContent = `${char.name} (${char.birthYear} — ${death.year} · 享年 ${death.age} 岁)`;
@@ -632,7 +816,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const diff = death.age - era.lifeExpectancy;
       const diffText = diff >= 0 ? `多活了 ${diff.toFixed(1)} 年` : `少活了 ${Math.abs(diff).toFixed(1)} 年`;
       document.getElementById('deadCtx').textContent = `在 ${char.birthYear} 年同一年出生的中国人中，约有 ${Math.max(1, 100 - comp.lifespan.percentile)}% 活得比你久。你比当年同代人的平均预期寿命（${era.lifeExpectancy} 岁）${diffText}。`;
-      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.cityHistoricalName}，在近一个世纪的风云变迁中走完一生`;
+      document.getElementById('dSumYears').textContent = `生于${char.birthPlace}${char.birthCityName || char.cityHistoricalName}，在近一个世纪的风云变迁中走完一生`;
     }
 
     // 2. 一生履历摘要
@@ -717,9 +901,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 6. 渲染分享卡与文字总结
     let summaryText = '';
     if (isLateBornSurvivor) {
-      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为新时代少年「${char.name}」（${char.birthYear}年出生，现年 ${death.age} 岁）。出生于 ${char.birthPlace} · ${char.cityHistoricalName}，在父祖两代人近半个世纪的接力托举中平稳成长。来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
+      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为新时代少年「${char.name}」（${char.birthYear}年出生，现年 ${death.age} 岁）。出生于 ${char.birthPlace} · ${char.birthCityName || char.cityHistoricalName}，在父祖两代人近半个世纪的接力托举中平稳成长。来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
     } else {
-      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为「${char.name}」（${char.birthYear}–${death.year}），享年 ${death.age} 岁。出生于 ${char.birthPlace} · ${char.cityHistoricalName}，因 ${death.cause} 离世。寿数超越同代 ${comp.lifespan.percentile}% 的人！来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
+      summaryText = `【live · 14亿分之1】我在 1937–2026 中国历史模拟中化身为「${char.name}」（${char.birthYear}–${death.year}），享年 ${death.age} 岁。出生于 ${char.birthPlace} · ${char.birthCityName || char.cityHistoricalName}，因 ${death.cause} 离世。寿数超越同代 ${comp.lifespan.percentile}% 的人！来体验属于中国人真实历史的一生：https://wg2038.github.io/live/`;
     }
     document.getElementById('shareText').textContent = summaryText;
 
@@ -951,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     ctx.font = '15px "Noto Serif SC", serif';
     ctx.fillStyle = '#4A5A61';
-    ctx.fillText(`出生地：${char.birthPlace} · ${char.cityHistoricalName}（${char.cityType}）`, 40, 300);
+    ctx.fillText(`出生地：${char.birthPlace} · ${char.birthCityName || char.cityHistoricalName}（${char.cityType}）`, 40, 300);
     ctx.fillText(`门第生计：${char.parentJob}（主导产业：${char.industryPillar}）`, 40, 328);
     ctx.fillText(`同胞兄弟姐妹：${char.siblingsCount} 人 · 最终文化水平：${comp.education.level}`, 40, 356);
 
@@ -1009,7 +1193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ctx.textAlign = 'center';
     ctx.font = '12px "IBM Plex Mono", monospace';
     ctx.fillStyle = '#5F6E72';
-    ctx.fillText('中国历史人生模拟器 · 基于全国31省149城真实统计与方志档案 · live.1in8b.life', w / 2, 876);
+    ctx.fillText('中国历史人生模拟器 · 基于全国31省734城真实统计与方志档案 · live.1in8b.life', w / 2, 876);
     ctx.fillText('https://wg2038.github.io/live/', w / 2, 898);
 
     const dataUrl = canvas.toDataURL('image/png');
@@ -1037,7 +1221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           birthYear: char.birthYear,
           deathYear: death.year,
           age: death.age,
-          place: `${char.birthPlace} ${char.cityHistoricalName}`,
+          place: `${char.birthPlace} ${char.birthCityName || char.cityHistoricalName}`,
           job: char.occupation || '平民',
           farewell: text || '平凡一生，踏实走过。'
         });
