@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="live · 14亿分之1（中国出生模拟器 1937–2026）：随机出生为过去近百年里诞生的中国普通人之一，在全国31省149城的真实统计与历史大事件中，把一次的人生走到最后。">
+  <meta name="description" content="LIFE · 14亿分之1（中国出生模拟器 1937–2026）：随机出生为过去近百年里诞生的中国普通人之一，在全国31省149城的真实统计与历史大事件中，把一次的人生走到最后。">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏮</text></svg>">
   <meta name="theme-color" content="#8C1D3C">
-  <title>live · 14亿分之1 (中国历史人生模拟 1937–2026)</title>
+  <title>LIFE · 14亿分之1 (中国历史人生模拟 1937–2026)</title>
 
   <!-- Google Fonts: Noto Serif SC for display & IBM Plex Mono for figures -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,17 +21,16 @@
        1. 首页介绍与选项配置 (1:1 1in8b.life #intro)
        ====================================================================== -->
   <section id="intro" class="wrap">
-    <nav class="langsw" aria-label="设置与主题">
-      <button class="themebtn" id="themeBtn" type="button" aria-label="画面明暗切换" title="画面明暗切换">
-        <span aria-hidden="true">◐</span>
-      </button>
-    </nav>
-
     <div class="hero">
       <div class="herotext">
-        <h1 class="brand-title">live · 14亿分之<em>1</em></h1>
+        <div class="brand-header">
+          <h1 class="brand-title">LIFE · 14亿分之<em>1</em></h1>
+          <button class="themebtn" id="themeBtn" type="button" aria-label="画面明暗切换" title="画面明暗切换">
+            <span aria-hidden="true">◐</span>
+          </button>
+        </div>
 
-        <p class="lede">1937年至今，近九十载风云更迭。数以亿计的普通人在这片土地上降生、跋涉、劳作与告别。每一次开端皆是未知——生于何地、落于何年、成为谁的骨肉，无从预设，也无法挑选。你将随机成为其中的一员，去经历那仅有一次的一生。</p>
+        <p class="lede">1937年至今，近九十载风云更迭。数以亿计的普通人在这片土地上降生、跋涉、劳作与告别。每一次开端皆是未知——生于何地、落于何年、生于哪户人家，无从预设，也无法挑选。你将随机成为其中的一员，去经历那仅有一次的一生。</p>
 
         <!-- 实时人口流动统计计数器 -->
         <div class="counter" aria-live="off">
@@ -40,18 +39,18 @@
         </div>
 
         <div class="ctarow">
-          <button class="cta" id="startBtn" type="button">成为某个人出生 <span aria-hidden="true">→</span></button>
+          <button class="cta" id="startBtn" type="button">随机降生 <span aria-hidden="true">→</span></button>
         </div>
 
         <!-- 史料说明 -->
         <div class="notes">
           <div>
             <h4>真实历史统计</h4>
-            <p>人口死亡率、人均期望寿命、城镇化率取自国家统计局与历次人口普查公报。149座城市历史前身地名与主导产业变迁忠实还原历史进程。</p>
+            <p>人口死亡率、人均期望寿命、城镇化率取自国家统计局与历次人口普查公报。考据149座城市的旧称沿革与主导产业变迁，忠实还原时代演进。</p>
           </div>
           <div>
-            <h4>天灾撞击与生命沉浮</h4>
-            <p>真实收录1938年花园口、1942年河南大旱、1976年唐山地震、2008年汶川地震等19场自然浩劫与近年疫情大事件，同城碰撞随机定生死。</p>
+            <h4>时代浩劫与生命沉浮</h4>
+            <p>真实收录1938年花园口决堤、1942年河南大旱、1976年唐山大地震、2008年汶川地震等重大历史灾祸与公共卫生事件，还原大时代下的个体命运无常。</p>
           </div>
         </div>
       </div>
@@ -105,7 +104,7 @@
     <!-- 顶部状态与时间控制栏 -->
     <header class="topbar">
       <div class="wrap">
-        <div class="brand">live · 14亿分之<em>1</em></div>
+        <div class="brand">LIFE · 14亿分之<em>1</em></div>
         <div class="agebox">
           <div class="age" id="ageNum">0<small>岁</small></div>
           <div class="yr">
