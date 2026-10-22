@@ -66,6 +66,9 @@ async function main() {
     alive2026: 0,
     married: 0,
     hasChildren: 0,
+    adultCount: 0,
+    adultMarried: 0,
+    adultChildren: 0,
     totalDecisions: 0,
     decisionEventCounts: {},
     triggeredEventIds: new Set(),
@@ -141,6 +144,11 @@ async function main() {
 
     if (char.maritalStatus === '已婚' || (char.tags && char.tags.has('married'))) stats.married++;
     if (char.hasChildren) stats.hasChildren++;
+    if (finalAge >= 21) {
+      stats.adultCount++;
+      if (char.maritalStatus === '已婚' || (char.tags && char.tags.has('married'))) stats.adultMarried++;
+      if (char.hasChildren) stats.adultChildren++;
+    }
 
     if (finalAge > 16 && /小学在读|初中在读/.test(edu)) {
       stats.adultEducationAnomaly++;
@@ -170,6 +178,7 @@ async function main() {
   }
 
   const allEventIds = new Set(engine.events.map(e => e.id));
+  const triggeredEventCount = [...allEventIds].filter(id => stats.triggeredEventIds.has(id)).length;
   const untriggered = [...allEventIds].filter(id => !stats.triggeredEventIds.has(id));
   const reachableUntriggered = untriggered.filter(id => !unreachableStatic.includes(id));
 
@@ -196,10 +205,13 @@ async function main() {
     deceased: stats.deceased,
     marriagePct: +(stats.married / total * 100).toFixed(2),
     childrenPct: +(stats.hasChildren / total * 100).toFixed(2),
+    adultCount: stats.adultCount,
+    adultMarriagePct: +(stats.adultMarried / Math.max(1, stats.adultCount) * 100).toFixed(2),
+    adultChildrenPct: +(stats.adultChildren / Math.max(1, stats.adultCount) * 100).toFixed(2),
     avgDecisions: +(stats.totalDecisions / total).toFixed(2),
     eventCoverage: {
       total: allEventIds.size,
-      triggered: stats.triggeredEventIds.size,
+      triggered: triggeredEventCount,
       untriggered: untriggered.length,
       staticUnreachable: unreachableStatic.length,
       reachableUntriggered: reachableUntriggered.length,
@@ -223,6 +235,7 @@ async function main() {
   console.log(`2026 年死亡: ${report.deaths2026}, 其中仍走“在世”百分位: ${report.deaths2026PeerAlive}`);
   console.log(`致命决策死亡 / 全部死亡: ${report.fatalDecisionDeaths}/${report.deceased} (${report.fatalDecisionDeathPct}%)`);
   console.log(`结婚率: ${report.marriagePct}%, 有子女率: ${report.childrenPct}%`);
+  console.log(`活到21岁者: ${report.adultCount}, 其中结婚 ${report.adultMarriagePct}%, 有子女 ${report.adultChildrenPct}%`);
   console.log(`人均决策: ${report.avgDecisions}`);
   console.log(`事件覆盖: ${report.eventCoverage.triggered}/${report.eventCoverage.total}, 静态不可达 ${report.eventCoverage.staticUnreachable}, 可达但未触发 ${report.eventCoverage.reachableUntriggered}`);
   console.log('\n出生队列观测 vs 期望:');

@@ -522,6 +522,116 @@ test('P2-1 出生年份分布与 avgAnnualBirthM × 年数 的误差小于 2 个
 });
 
 // ---------------------------------------------------------------------------
+// P2-2 事件饥饿、灾害遮蔽与前置标签语义
+// ---------------------------------------------------------------------------
+test('P2-2 被灾害遮蔽的同题材事件改为灾后集体记忆且可触发', async () => {
+  const e = await freshEngine(201);
+  const tangshan = e.events.find(x => x.id === 'evt_1976_tangshan_dizhen');
+  assert.ok(tangshan, '找不到唐山事件');
+  assert.strictEqual(tangshan.isDecision, false);
+  assert.strictEqual(tangshan.perspective, 'disaster_aftermath');
+  makeCharacter(e, {});
+  const city = firstCityOf(e, 'hebei');
+  e.character.provinceId = 'hebei';
+  e.character.region = '华北';
+  e.character.cityId = city.id;
+  e.character.cityName = city.name;
+  e.currentYear = 1977;
+  e.currentAge = 30;
+  const ids = e.findEligibleEvents().map(x => x.id);
+  assert.ok(ids.includes('evt_1976_tangshan_dizhen'), '灾后记忆在幸存者年份仍不可触发');
+});
+
+test('P2-2 职业前置标签按“任一身份”匹配，而不是要求同时满足', async () => {
+  const e = await freshEngine(202);
+  makeCharacter(e, {});
+  const city = firstCityOf(e, 'beijing');
+  e.character.provinceId = 'beijing';
+  e.character.cityId = city.id;
+  e.character.cityName = city.name;
+  e.character.urbanRural = 'urban';
+  e.character.careerTrack = 'cadre_teacher';
+  e.character.occupation = '市立中学教师';
+  e.character.educationLevel = '高中';
+  e.currentYear = 1957;
+  e.currentAge = 25;
+  const ids = e.findEligibleEvents().map(x => x.id);
+  assert.ok(ids.includes('evt_1957_fanyou_yundong'),
+    'cadre_teacher 应满足 ["cadre_teacher","higher_ed_degree"] 中的任一身份');
+});
+
+test('P2-2 女性+已婚仍按“全部满足”，男性不会触发产妇事件', async () => {
+  const e = await freshEngine(203);
+  makeCharacter(e, {});
+  e.character.sex = '男';
+  e.character.maritalStatus = '已婚';
+  e.currentYear = 2000;
+  e.currentAge = 30;
+  const ids = e.findEligibleEvents().map(x => x.id);
+  assert.ok(!ids.includes('evt_cont_nanchang_xinsheng'), '男性不应进入产妇事件');
+});
+
+test('P2-2 1985 裁军被动事件不再被永不出现的 soldier 标签锁死', async () => {
+  const e = await freshEngine(204);
+  makeCharacter(e, {});
+  e.currentYear = 1985;
+  e.currentAge = 30;
+  const ids = e.findEligibleEvents().map(x => x.id);
+  assert.ok(ids.includes('evt_1985_caijun_baiwan'), '普通国民也应能听到裁军百万的宏观事件');
+});
+
+test('P2-2 转轨后旧职业标签不再残留为当前身份', async () => {
+  const e = await freshEngine(205);
+  makeCharacter(e, {});
+  e.character.tags = new sandbox.Set(['urban', 'male', 'cadre_teacher']);
+  e.character.careerTrack = 'worker';
+  e.character.occupation = '数控技师';
+  assert.strictEqual(e.characterHasTag('cadre_teacher'), false,
+    'tags 中的旧 cadre_teacher 不应盖过当前 worker 轨道');
+});
+
+// ---------------------------------------------------------------------------
+// P2-3/P2-4 家庭成分、经济水平与旁白年份
+// ---------------------------------------------------------------------------
+test('P2-3 家庭成分按父母职业正确归类并决定初始轨道', async () => {
+  const e = await freshEngine(206);
+  assert.strictEqual(e.classifyFamilyClass('市立第一中学骨干教师', true), '知识分子');
+  assert.strictEqual(e.classifyFamilyClass('码头上装卸苦力', true), '工人');
+  assert.strictEqual(e.classifyFamilyClass('小五金私营厂老板', true), '商人');
+  assert.strictEqual(e.classifyFamilyClass('公社打井水利模范', false), '农民');
+  const city = firstCityOf(e, 'beijing');
+  assert.strictEqual(e.determineInitialCareerTrack(true, city, '知识分子', '中学教师'), 'cadre_teacher');
+});
+
+test('P2-4 经济水平随当前家产变化，并同步标签', async () => {
+  const e = await freshEngine(207);
+  const char = makeCharacter(e, {});
+  char.attributes.wealth = 85;
+  e.updateEconomicLevel();
+  assert.strictEqual(char.economicLevel, '富裕');
+  assert.ok(char.tags.has('富裕'));
+  assert.ok(!char.tags.has('贫困') && !char.tags.has('温饱') && !char.tags.has('小康'));
+  char.attributes.wealth = 10;
+  e.updateEconomicLevel();
+  assert.strictEqual(char.economicLevel, '贫困');
+});
+
+test('P2-4 宏观旁白不再把胜利/高考/大炼钢铁提前到错误年份', async () => {
+  const e = await freshEngine(208);
+  assert.ok(!e.getYearMacroSnippet(1944, e.getEraForYear(1944)).includes('胜利'));
+  assert.ok(!e.getYearMacroSnippet(1976, e.getEraForYear(1976)).includes('高考'));
+  assert.ok(!e.getYearMacroSnippet(1957, e.getEraForYear(1957)).includes('大炼钢铁'));
+});
+
+test('P2-2 多次初始化不会叠加改写内置事件数据', async () => {
+  const e1 = await freshEngine(209);
+  const first = e1.events.find(x => x.id === 'evt_2021_henan_720_baoyu').yearRange.slice();
+  const e2 = await freshEngine(210);
+  const second = e2.events.find(x => x.id === 'evt_2021_henan_720_baoyu').yearRange.slice();
+  assert.deepStrictEqual(second, first, '第二次 init 不应把灾后窗口再往后推');
+});
+
+// ---------------------------------------------------------------------------
 // 运行器
 // ---------------------------------------------------------------------------
 (async () => {

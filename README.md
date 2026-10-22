@@ -116,6 +116,28 @@ python3 server.py
 
 ---
 
+## ✅ 自动化验证
+
+修改规则或事件数据后，建议依次执行：
+
+```bash
+# 1. 事件结构校验（0 errors 才可继续）
+python3 tools/validate_events.py
+
+# 2. 回归测试：固定审计中发现的逻辑缺陷
+node tools/regression_test.js
+
+# 3. 批量人生审计：崩溃、学历矛盾、事件覆盖、婚育与死亡结构
+node tools/audit_metrics.js 1000
+
+# 4. 冒烟测试：批量跑完整人生并检查叙事矛盾
+node tools/smoke_test.js 50
+```
+
+若修改了 `data/events/*.json` 等源数据，先运行 `python3 tools/compile_all_events.py` 重新生成 `data/events.json` 与 `data/embedded.js`。
+
+---
+
 ## 📁 目录结构
 
 ```text
@@ -134,7 +156,7 @@ live/
 │   ├── disasters.json # 1937–2026 特大自然灾害全息数据库
 │   ├── naming.json    # 五大年代人名谱系与地域族群命名库
 │   ├── stats.json     # 12 个历史时期生命表与同辈统计排位表
-│   ├── events.json    # 210 条分层历史/人生事件（时代、人生链、轨迹、偶发）
+│   ├── events.json    # 290 条分层历史/人生事件（时代、人生链、轨迹、偶发）
 │   └── embedded.js    # 全量内嵌数据兜底脚本 (保障无服务直接运行)
 ├── tools/             # 数据构建与验证脚本集（build_all_cities.py 生成 734 城）
 ├── server.py          # 极简本地调试 HTTP 服务器

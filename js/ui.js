@@ -551,6 +551,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (macroEra) macroEra.textContent = `${era.name}（预期寿命基准 ${era.lifeExpectancy} 岁）`;
     const idJob = document.getElementById('idJob');
     if (idJob) idJob.textContent = char.occupation || '平民';
+    const idClass = document.getElementById('idClass');
+    if (idClass) idClass.textContent = `${char.urbanRural === 'urban' ? '城镇职工' : '农村户籍'} · ${char.economicLevel}`;
   }
 
   function setBarVal(barId, txtId, val, color) {

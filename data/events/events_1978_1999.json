@@ -253,7 +253,8 @@
       "urbanRural": "rural"
     },
     "preTags": [
-      "worker"
+      "corps_educated_youth",
+      "rural_cadre_youth"
     ],
     "excludeTags": [],
     "triggerProbability": 0.85,
@@ -1394,9 +1395,7 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [
-      "soldier"
-    ],
+    "preTags": [],
     "excludeTags": [],
     "triggerProbability": 0.85,
     "coolingPeriod": 4,

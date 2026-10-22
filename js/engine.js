@@ -74,7 +74,9 @@ class SimulationEngine {
       if (embedded) {
         this.provinces = embedded.provinces || [];
         this.stats = embedded.stats || null;
-        this.events = embedded.events || [];
+        // 事件会在 prepareEventPerspectives 中被改写，必须深拷贝，
+        // 否则同一个页面里多次 new SimulationEngine() 会叠加改写内置数据。
+        this.events = JSON.parse(JSON.stringify(embedded.events || []));
         this.cities = embedded.cities || [];
         this.disasters = embedded.disasters || [];
         this.naming = embedded.naming || null;
@@ -89,6 +91,30 @@ class SimulationEngine {
   }
 
   /**
+   * 判断某个事件是否被同年的灾害系统完全遮蔽。
+   * advanceYear 在灾害命中时会提前返回，不再处理事件；如果事件的省份窗口
+   * 与灾害灾区完全重合，该事件就永远不会触发（1954 洪水、1976 唐山、2021 郑州）。
+   */
+  findShadowingDisaster(evt) {
+    if (!Array.isArray(this.disasters) || !evt.exposureConditions) return null;
+    const provinces = evt.exposureConditions.provinces;
+    if (!Array.isArray(provinces) || provinces.length === 0) return null;
+    const regions = evt.applicableRegions || ['ALL'];
+    const eligibleProvinces = provinces.filter(id => {
+      if (regions.includes('ALL')) return true;
+      const province = (this.provinces || []).find(p => p.id === id);
+      return province && regions.includes(province.region);
+    });
+    if (eligibleProvinces.length === 0) return null;
+    for (const dis of this.disasters) {
+      if (dis.year < evt.yearRange[0] || dis.year > evt.yearRange[1]) continue;
+      const hit = new Set(dis.targetProvinces || []);
+      if (eligibleProvinces.every(id => hit.has(id))) return dis;
+    }
+    return null;
+  }
+
+  /**
    * 1937 年出生起点意味着任何角色在 1937–1949 年都不可能是成年人。
    * 对“目标年龄下限超过该年份窗口内最大可能年龄”的事件，转为父辈口述的被动历史，
    * 不再把成年人的选择硬塞给儿童，也不再让这些事件永远无法触发。
@@ -97,11 +123,31 @@ class SimulationEngine {
     if (!Array.isArray(this.events)) return;
     for (const evt of this.events) {
       if (!evt || !evt.targetAge || !evt.yearRange) continue;
+      // 灾害年份由灾害引擎独占：把同题材事件改为灾后数年的集体记忆，
+      // 否则它会被灾害分支永久遮蔽，成为死数据。
+      if (this.findShadowingDisaster(evt)) {
+        evt.isDecision = false;
+        evt.perspective = 'disaster_aftermath';
+        evt.yearRange = [evt.yearRange[0], Math.min(2026, evt.yearRange[1] + 3)];
+        evt.targetAge = [0, 90];
+        evt.oralHistoryNarrative = `灾后多年，亲历者仍常说起${evt.title}：${evt.historicalFact || evt.narrative || ''}`;
+        evt.passiveImpact = evt.passiveImpact || { mentality: 3 };
+        continue;
+      }
       const latestPossibleAge = evt.yearRange[1] - 1937;
-      if (evt.targetAge[0] <= latestPossibleAge) continue;
+      // 只要事件窗口内所有角色都还是幼童/少年（最大可能年龄 < 14），
+      // 事件里的“参军、变卖家产、主持减租”等成年人选项就不该由孩子决定；
+      // 统一改为长辈口述的被动历史，让儿童以耳濡目染的方式经历时代。
+      const onlyChildrenCanReach = latestPossibleAge < 14;
+      if (!onlyChildrenCanReach && evt.targetAge[0] <= latestPossibleAge) continue;
       evt.isDecision = false;
       evt.perspective = 'oral_history';
-      evt.targetAge = [0, Math.max(0, latestPossibleAge)];
+      // 口述历史可以晚几年由长辈讲给孩子听，但不应把成年人的角色门槛
+      // （工人/干部/商人/军人）强加给一个孩子。
+      const witnessAge = Math.min(16, Math.max(0, latestPossibleAge) + 6);
+      evt.targetAge = [0, witnessAge];
+      evt.yearRange = [evt.yearRange[0], Math.min(2026, evt.yearRange[1] + 6)];
+      evt.preTags = [];
       evt.oralHistoryNarrative = `长辈们后来常讲起${evt.title}：${evt.historicalFact || evt.narrative || ''}`;
       evt.passiveImpact = evt.passiveImpact || { mentality: 2 };
     }
@@ -405,7 +451,8 @@ class SimulationEngine {
     } else {
       parentJob = this.sampleRuralJob(indEraKey);
     }
-    const familyClass = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
+    const familyClass = this.classifyFamilyClass(parentJob, isUrban);
+    const familyDetail = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
 
     // 6. 家庭经济水平
     const econRoll = Math.random() * 100;
@@ -487,6 +534,7 @@ class SimulationEngine {
       region: province.region,
       urbanRural,
       familyClass,
+      familyDetail,
       parentJob,
       industryPillar: indProfile.pillar,
       industryNature: indProfile.nature || '',
@@ -636,6 +684,19 @@ class SimulationEngine {
    */
   characterHasTag(tag) {
     if (!tag) return true;
+    // 职业轨道标签以当前 careerTrack 为准。角色转轨后旧标签仍可能留在 tags 里，
+    // 不能让“曾经的教师”在转任技工多年后仍被当成教师。
+    const careerTags = ['worker', 'farmer', 'cadre_teacher', 'tech_whitecollar', 'merchant', 'flexible_labor'];
+    const occ = this.character.occupation || '';
+    if (careerTags.includes(tag)) {
+      if (this.character.careerTrack === tag) return true;
+      if (tag === 'worker' && /工人|技工|车工|钳工|焊工|电工|矿工|操作工|装配|流水线|技师|机修|施工|搬运|司机|骑手/.test(occ)) return true;
+      if (tag === 'farmer' && /农民|农户|社员|农耕|养殖|种植|生产队/.test(occ)) return true;
+      if (tag === 'cadre_teacher' && /教师|老师|教授|讲师|校长|园长|教研|干部|公务员|科员|主任|书记|局长|科长|干事|医师|医生|护士/.test(occ)) return true;
+      if (tag === 'tech_whitecollar' && /软件|程序|研发|工程师|技术员|设计师|分析师|白领/.test(occ)) return true;
+      if (tag === 'merchant' && /商人|商户|店主|老板|摊|商贸|个体户|经营/.test(occ)) return true;
+      return false;
+    }
     if (this.character.tags && this.character.tags.has(tag)) return true;
     if (this.statusFlags.has(tag)) return true;
     if (this.character.careerTrack === tag) return true;
@@ -647,12 +708,6 @@ class SimulationEngine {
     if (tag === 'married' && this.character.maritalStatus === '已婚') return true;
     if (tag === 'single' && this.character.maritalStatus !== '已婚') return true;
     if (tag === 'has_children' && this.character.hasChildren) return true;
-    const occ = this.character.occupation || '';
-    if (tag === 'worker' && (this.character.careerTrack === 'worker' || /工人|技工|车工|钳工|焊工|电工|矿工|操作工|装配|流水线|技师|机修|施工|搬运|司机|骑手/.test(occ))) return true;
-    if (tag === 'farmer' && (this.character.careerTrack === 'farmer' || /农民|农户|社员|农耕|养殖|种植|生产队/.test(occ))) return true;
-    if (tag === 'cadre_teacher' && (this.character.careerTrack === 'cadre_teacher' || /教师|老师|教授|讲师|校长|园长|教研|干部|公务员|科员|主任|书记|局长|科长|干事|医师|医生|护士/.test(occ))) return true;
-    if (tag === 'tech_whitecollar' && (this.character.careerTrack === 'tech_whitecollar' || /软件|程序|研发|工程师|技术员|设计师|分析师|白领/.test(occ))) return true;
-    if (tag === 'merchant' && (this.character.careerTrack === 'merchant' || /商人|商户|店主|老板|摊|商贸|个体户|经营/.test(occ))) return true;
     if (tag === 'uneducated') {
       const edu = this.character.educationLevel;
       const isNone = !edu || edu === '未入学' || edu === '文盲';
@@ -726,16 +781,15 @@ class SimulationEngine {
       // 曝光条件
       if (!this.characterMeetsExposure(evt.exposureConditions)) continue;
 
-      // 前置必备标签 (全部满足)
+      // 前置标签默认表示“符合任一身份即可”（工人或教师或商户）。
+      // 带性别标签的组合（如 female + married）才要求全部满足。
+      // 旧逻辑把所有列表都当 AND，导致 ["worker","cadre_teacher"] 这类事件永远不可达。
       if (evt.preTags && evt.preTags.length > 0) {
-        let allMatch = true;
-        for (const t of evt.preTags) {
-          if (!this.characterHasTag(t)) {
-            allMatch = false;
-            break;
-          }
-        }
-        if (!allMatch) continue;
+        const requiresAll = evt.preTags.includes('female') || evt.preTags.includes('male');
+        const match = requiresAll
+          ? evt.preTags.every(t => this.characterHasTag(t))
+          : evt.preTags.some(t => this.characterHasTag(t));
+        if (!match) continue;
       }
 
       // 互斥排除标签 (任一命中即排除)
@@ -753,6 +807,19 @@ class SimulationEngine {
       list.push(evt);
     }
     return list;
+  }
+
+  /**
+   * 从已通过触发概率筛选的候选中按事件权重抽取一个。
+   * 旧逻辑永远取数组第一个，排在低概率“时代切片”事件前面的高概率事件
+   * 会年复一年把后者饿死，导致事件库覆盖长期停滞。
+   */
+  pickEventCandidate(candidates) {
+    if (!candidates || candidates.length === 0) return null;
+    if (candidates.length === 1) return candidates[0];
+    // triggerProbability 已经在这一步之前决定“今年是否发生”，
+    // 这里若再按概率加权，低概率事件会被重复惩罚而永不触发。
+    return candidates[Math.floor(Math.random() * candidates.length)];
   }
 
   /**
@@ -1208,14 +1275,53 @@ class SimulationEngine {
   }
 
   /**
+   * 按当前家产刷新经济水平。
+   * economicLevel 原先只在出生时按一次随机数写死，之后无论贫富都不再变化，
+   * 导致“贫困”标签和结局面板与角色一生的实际财富脱节。
+   */
+  updateEconomicLevel() {
+    if (!this.character || !this.character.attributes) return;
+    const wealth = this.character.attributes.wealth;
+    const next = wealth < 25 ? '贫困' : wealth < 50 ? '温饱' : wealth < 70 ? '小康' : '富裕';
+    if (next === this.character.economicLevel) return;
+    if (this.character.tags) {
+      for (const level of ['贫困', '温饱', '小康', '富裕']) this.character.tags.delete(level);
+      this.character.tags.add(next);
+    }
+    this.character.economicLevel = next;
+  }
+
+  /**
+   * 把父母的具体职业归入家庭成分。
+   * familyClass 曾经被写成“城市类型 · 职业”的展示串，导致
+   * `familyClass === '干部'/'知识分子'/'商人'/'工人'` 四个判断永远是 false，
+   * 教师、医生、机关干部的孩子会被随机归入工人轨道。
+   */
+  classifyFamilyClass(parentJob, isUrban) {
+    if (!isUrban) return '农民';
+    const job = parentJob || '';
+    if (/教师|教授|讲师|教员|研究员|科研|学者|医生|医师|护士|律师|记者|编辑|作家|工程师|技术员|设计师|会计/.test(job)) {
+      return '知识分子';
+    }
+    if (/干部|公务|机关|书记|主任|科长|局长|干事|督导|代表|党员|军人|警察|社区/.test(job)) {
+      return '干部';
+    }
+    if (/商|贩|铺|老板|掌柜|倒爷|个体|店主|贸|销售|运营|主播|货代|报关|批发|电商|客栈|金融|投资|经理|总监/.test(job)) {
+      return '商人';
+    }
+    return '工人';
+  }
+
+  /**
    * 初生职业轨道推演判定
    */
   determineInitialCareerTrack(isUrban, city, familyClass, parentJob) {
     if (!isUrban) return 'farmer';
-    if (familyClass === '干部' || familyClass === '知识分子') return 'cadre_teacher';
-    if (familyClass === '商人' || (parentJob && (parentJob.includes('商') || parentJob.includes('贩') || parentJob.includes('铺')))) return 'merchant';
-    if (familyClass === '工人' || (parentJob && (parentJob.includes('工') || parentJob.includes('匠')))) return 'worker';
-    if (city && city.type === '综合科教中心') return 'tech_whitecollar';
+    const family = ['干部', '知识分子', '商人', '工人'].includes(familyClass)
+      ? familyClass
+      : this.classifyFamilyClass(parentJob, isUrban);
+    if (family === '干部' || family === '知识分子') return 'cadre_teacher';
+    if (family === '商人') return 'merchant';
     return 'worker';
   }
 
@@ -1505,6 +1611,12 @@ class SimulationEngine {
     }
 
     char.occupation = title;
+    // 保持 tags 中的职业轨道与当前轨道一致，避免转轨后旧职业标签继续触发
+    // 职业病、身份门槛等规则。
+    for (const t of ['worker', 'farmer', 'cadre_teacher', 'tech_whitecollar', 'merchant', 'flexible_labor']) {
+      char.tags.delete(t);
+    }
+    if (char.careerTrack) char.tags.add(char.careerTrack);
   }
 
   /**
@@ -2562,17 +2674,20 @@ class SimulationEngine {
     if (year >= 1937 && year <= 1938) return `卢沟桥烽火骤起，沿海高校与工矿仓促西撤，流民车马塞满官道。`;
     if (year >= 1939 && year <= 1941) return `大后方警报声不绝于耳，黑烟滚滚，街市在空袭与物价飞涨中勉力维系。`;
     if (year >= 1942 && year <= 1943) return `中原旱蝗成灾与战事胶着，粮盐定量紧缩，家家在煤油灯下苦苦捱过饥馑。`;
-    if (year >= 1944 && year <= 1945) return `抗战胜利号外传遍大街小巷，爆竹碎屑染红青石板，百废待兴复员还乡。`;
+    if (year === 1944) return `豫湘桂战事吃紧，难民潮沿铁路线涌动，后方城市在警报与物价飞涨中勉力支撑。`;
+    if (year === 1945) return `抗战胜利号外传遍大街小巷，爆竹碎屑染红青石板，百废待兴复员还乡。`;
     if (year >= 1946 && year <= 1948) return `法币金圆券如废纸般贬值，商铺关门物价如脱缰野马，局势急剧动荡。`;
     if (year >= 1949 && year <= 1950) return `开国礼炮响彻神州，城乡秧歌腰鼓震天，扫盲夜校与分田界碑遍布乡野。`;
     if (year >= 1951 && year <= 1953) return `抗美援朝保家卫国动员如火如荼，大后方工厂夜以继日赶制支前被服弹药。`;
     if (year >= 1954 && year <= 1956) return `“一五”重工奠基与三大改造高潮涌动，公私合营与手工业入社红榜挂满街头。`;
-    if (year >= 1957 && year <= 1959) return `土高炉火光映红夜空，大炼钢铁与公社大食堂号角齐鸣，标语刷满白灰墙。`;
+    if (year === 1957) return `“一五”计划收官，工厂与机关展开整风辩论，报刊上的批判文章一天比一天密集。`;
+    if (year >= 1958 && year <= 1959) return `土高炉火光映红夜空，大炼钢铁与公社大食堂号角齐鸣，标语刷满白灰墙。`;
     if (year >= 1960 && year <= 1962) return `粮票布票按两称重，稀粥照出人影，工矿精简职工退粮还乡共克时艰。`;
     if (year >= 1963 && year <= 1965) return `第一颗原子弹在戈壁升空，“备战备荒”三线建设号召大批骨干扎入深山。`;
     if (year >= 1966 && year <= 1970) return `红色浪潮席卷城乡，语录歌在大喇叭里终日回响，知青打起背包上山下乡。`;
     if (year >= 1971 && year <= 1975) return `街道地下防空工事叮当作响，乒乓外交叩开国门，车间里悄然抓紧规章整顿。`;
-    if (year >= 1976 && year <= 1977) return `唐山余震未平，紧接着高考之门重新开启，数十万学子挑灯夜战奔赴考场。`;
+    if (year === 1976) return `唐山大地震的余震波及华北，广播里哀乐低回，街巷人家在悲痛与不安中守望相助。`;
+    if (year === 1977) return `高考之门重新开启，尘封多年的课本被翻出来，数十万学子挑灯夜战奔赴考场。`;
     if (year >= 1978 && year <= 1981) return `改革春风拂面，小岗村承包红手印传开，街头巷尾探讨着实践真理与按劳分配。`;
     if (year >= 1982 && year <= 1985) return `女排夺冠万人空巷，黑白电视机围满邻里，特区蛇口开山炮声震动南国。`;
     if (year >= 1986 && year <= 1989) return `港台卡带情歌回响街头，物价闯关牵动人心，孔雀东南飞与进厂学徒潮并起。`;
@@ -2759,6 +2874,7 @@ class SimulationEngine {
 
     // 0.1 更新角色职业状态与生涯阶段 (0-80岁职业进阶树)
     this.updateCareerStage();
+    this.updateEconomicLevel();
 
     // 1. 自然灾害碰撞命中检验（这是人生的残酷天谴）
     const disasterStrike = this.checkNaturalDisaster();
@@ -2910,16 +3026,18 @@ class SimulationEngine {
       const inEraFatigue = this.lastEraDecisionYear && (this.currentYear - this.lastEraDecisionYear <= 2);
 
       if (inEraFatigue && (lifeChainDecisions.length > 0 || trajDecisions.length > 0 || contDecisions.length > 0)) {
-        activeDecision = lifeChainDecisions[0] || trajDecisions[0] || contDecisions[0];
+        activeDecision = this.pickEventCandidate(lifeChainDecisions) ||
+                         this.pickEventCandidate(trajDecisions) ||
+                         this.pickEventCandidate(contDecisions);
       } else if (eraDecisions.length > 0) {
-        activeDecision = eraDecisions[0];
+        activeDecision = this.pickEventCandidate(eraDecisions);
         this.lastEraDecisionYear = this.currentYear;
       } else if (lifeChainDecisions.length > 0) {
-        activeDecision = lifeChainDecisions[0];
+        activeDecision = this.pickEventCandidate(lifeChainDecisions);
       } else if (trajDecisions.length > 0) {
-        activeDecision = trajDecisions[0];
+        activeDecision = this.pickEventCandidate(trajDecisions);
       } else if (contDecisions.length > 0) {
-        activeDecision = contDecisions[0];
+        activeDecision = this.pickEventCandidate(contDecisions);
       }
     }
 
@@ -3277,6 +3395,7 @@ class SimulationEngine {
     }
 
     // 状态标签与人生状态处理
+    this.updateEconomicLevel();
     const outcomeStatus = (selectedOutcome && selectedOutcome.status) ? selectedOutcome.status : choice.status;
     if (outcomeStatus) {
       this.character.tags.add(outcomeStatus);
@@ -4197,7 +4316,8 @@ class SimulationEngine {
     } else {
       parentJob = this.sampleRuralJob(indEraKey);
     }
-    const familyClass = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
+    const familyClass = this.classifyFamilyClass(parentJob, isUrban);
+    const familyDetail = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
     const initCareerTrack = this.determineInitialCareerTrack(isUrban, city, familyClass, parentJob);
 
     const attributes = {
@@ -4226,6 +4346,7 @@ class SimulationEngine {
       region: province.region,
       urbanRural,
       familyClass,
+      familyDetail,
       parentJob,
       industryPillar: indProfile.pillar,
       industryNature: indProfile.nature || '',
