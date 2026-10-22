@@ -242,7 +242,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const lunar = getLunarYearName(char.birthYear);
-    const story = `彼时当地正值【${char.cityType}】定位，以【${char.industryPillar}】为时代重心。家中长辈靠【${char.parentJob}】维持生计，撑起一门烟火。`;
+    const provName = (char.birthPlace || '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
+    const placeName = ['北京', '上海', '天津', '重庆'].includes(provName)
+      ? `${provName}市`
+      : (provName ? `${provName} · ` : '') + (char.cityHistoricalName || '');
+
+    const story = `你出生在 ${char.birthYear} 年（${lunar}）的 ${placeName}。彼时当地正值【${char.cityType}】定位，以【${char.industryPillar}】为时代重心。家中长辈靠【${char.parentJob}】维持生计，撑起一门烟火，同胞兄弟姐妹共 ${char.siblingsCount} 人。`;
     document.getElementById('certStory').textContent = story;
 
     document.getElementById('cfYear').textContent = `${char.birthYear}年 (${lunar})`;
@@ -255,9 +260,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urbanPct = Math.round(era.urbanRatio);
     const ruralPct = 100 - urbanPct;
     if (isUrban) {
-      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${urbanPct}% 像你一样生于城镇，其余 ${ruralPct}% 则生于乡村。`;
+      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${urbanPct}% 像你一样生于城镇，其余 ${ruralPct}% 则生于乡村。当年全国人均期望寿命约为 ${era.lifeExpectancy} 岁。`;
     } else {
-      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${ruralPct}% 像你一样生于乡村，仅 ${urbanPct}% 生于城镇。`;
+      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${ruralPct}% 像你一样生于乡村，仅 ${urbanPct}% 生于城镇。当年全国人均期望寿命约为 ${era.lifeExpectancy} 岁。`;
     }
   }
 

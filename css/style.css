@@ -545,27 +545,22 @@ img {
    ========================================================================== */
 
 #roll {
-  padding-block: 40px 80px;
-  min-height: calc(100vh - 120px);
-  min-height: calc(100dvh - 120px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  width: 100%;
   box-sizing: border-box;
 }
 
 @media (max-width: 560px) {
   #roll {
-    padding-block: 16px 20px;
-    min-height: calc(100vh - 40px);
-    min-height: calc(100dvh - 40px);
+    padding-top: 18px;
+    padding-bottom: 16px;
   }
 }
 
 .roller {
   text-align: center;
-  padding: 32px 16px;
+  padding: 48px 16px 36px;
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
@@ -635,7 +630,7 @@ img {
 
 /* Certificate Component (1:1 with 1in8b) */
 .cert {
-  width: min(680px, 100%);
+  width: min(720px, 100%);
   background: var(--card);
   border: 1px solid var(--rule);
   border-radius: 4px;
@@ -649,21 +644,21 @@ img {
 .cert .band {
   background: var(--accent);
   color: var(--accent-ink);
-  padding: 8px 20px;
-  min-height: 44px;
-  max-height: 48px;
+  padding: 12px 22px;
+  min-height: 46px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .cert .band b {
   font-family: var(--f-display);
-  font-size: 17.5px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   white-space: nowrap;
 }
 
@@ -676,13 +671,13 @@ img {
 }
 
 .cert .body {
-  padding: 18px 22px 14px;
+  padding: 22px 26px 18px;
   position: relative;
 }
 
 @media (max-width: 560px) {
   .cert .body {
-    padding: 14px 16px 12px;
+    padding: 16px 18px 14px;
   }
 }
 
@@ -690,7 +685,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .cert-name-box {
@@ -700,7 +695,7 @@ img {
 }
 
 .cert-name-box .lbl-small {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ink3);
   letter-spacing: .04em;
   font-weight: 500;
@@ -710,7 +705,7 @@ img {
 
 .cert h2 {
   font-family: var(--f-display);
-  font-size: clamp(22px, 5.5vw, 30px);
+  font-size: clamp(24px, 5.5vw, 32px);
   margin: 0;
   line-height: 1.15;
   font-weight: 700;
@@ -721,7 +716,7 @@ img {
 .cert-status-badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 9px;
+  padding: 3px 10px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 600;
@@ -741,74 +736,74 @@ img {
 }
 
 .cert .story {
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: var(--ink2);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   text-wrap: pretty;
 }
 
 @media (max-width: 560px) {
   .cert .story {
-    font-size: 12.5px;
-    line-height: 1.45;
-    margin-bottom: 10px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 14px;
   }
 }
 
 .fields {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 14px;
+  gap: 12px 18px;
   border-top: 1px dashed var(--rule);
-  padding-top: 12px;
+  padding-top: 14px;
 }
 
 @media (max-width: 560px) {
   .fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px 12px;
-    padding-top: 10px;
+    gap: 10px 14px;
+    padding-top: 12px;
   }
 }
 
 .fields small {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink3);
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 
 .fields b {
   display: block;
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--ink);
   overflow-wrap: anywhere;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .odds-line {
-  margin-top: 12px;
-  padding: 8px 12px;
+  margin-top: 14px;
+  padding: 10px 14px;
   background: var(--stamp-soft);
   border-radius: 3px;
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--ink);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 @media (max-width: 560px) {
   .odds-line {
-    margin-top: 10px;
-    padding: 7px 10px;
-    font-size: 11.5px;
-    line-height: 1.4;
+    margin-top: 12px;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 1.45;
   }
 }
 
 .cert .foot {
-  padding: 10px 22px 14px;
+  padding: 14px 26px 18px;
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -818,14 +813,14 @@ img {
 
 @media (max-width: 560px) {
   .cert .foot {
-    padding: 10px 16px 12px;
+    padding: 12px 18px 16px;
     gap: 10px;
   }
   .cert .foot .cta, .cert .foot .ghost {
     flex: 1 1 0;
     justify-content: center;
-    padding: 9px 12px;
-    font-size: 14px;
+    padding: 11px 16px;
+    font-size: 15px;
   }
 }
 
