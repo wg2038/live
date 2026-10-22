@@ -19110,14 +19110,16 @@
       2015
     ],
     "targetAge": [
-      6,
+      20,
       60
     ],
     "applicableRegions": [
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "married"
+    ],
     "excludeTags": [],
     "triggerProbability": 0.03,
     "coolingPeriod": 12,
@@ -19539,7 +19541,10 @@
       "ALL"
     ],
     "exposureConditions": {},
-    "preTags": [],
+    "preTags": [
+      "female",
+      "married"
+    ],
     "excludeTags": [],
     "triggerProbability": 0.03,
     "coolingPeriod": 12,

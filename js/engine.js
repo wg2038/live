@@ -922,34 +922,48 @@ class SimulationEngine {
    */
   calculateAnnualMortalityRate(era) {
     const age = this.currentAge;
-    let baseRate = 0.005;
 
-    // 1. 婴儿脆弱期（基于各时期婴儿死亡率）
+    // 时代宏观生命表换算（以中国现代化时期1990-2000预期寿命约69岁为锚点 1.0）
+    // 1937年(抗战，预期寿命35) -> eraFactor ≈ 2.85
+    // 1950年(建国初，预期寿命46.5) -> eraFactor ≈ 1.85
+    // 1970年(文革后期，预期寿命63.5) -> eraFactor ≈ 1.15
+    // 2014年(新时代，预期寿命77.3) -> eraFactor ≈ 0.70
+    // 2026年(现代，预期寿命78.6) -> eraFactor ≈ 0.65
+    const eraLifeExp = era.lifeExpectancy || 68;
+    const eraFactor = Math.max(0.55, Math.min(3.2, Math.pow(69 / eraLifeExp, 1.6)));
+
+    let baseRate = 0.001;
+
+    // 分年龄段真实生命表基准率（参考国家统计局分年龄死亡率生命表，乘以时代修正系数）
     if (age <= 1) {
-      baseRate = era.infantMortality / 1000.0;
-    } else if (age < 10) {
-      baseRate = 0.015;
+      baseRate = (era.infantMortality || 50) / 1000.0;
+    } else if (age < 5) {
+      baseRate = 0.0012 * eraFactor;
+    } else if (age < 15) {
+      baseRate = 0.0005 * eraFactor;
     } else if (age < 30) {
-      baseRate = 0.006;
-    } else if (age < 50) {
-      baseRate = 0.015;
-    } else if (age < 65) {
-      baseRate = 0.035;
-    } else if (age < 75) {
-      baseRate = 0.07;
-    } else if (age < 85) {
-      baseRate = 0.15;
+      baseRate = 0.0008 * eraFactor;
+    } else if (age < 45) {
+      baseRate = 0.0015 * eraFactor;
+    } else if (age < 60) {
+      baseRate = 0.0055 * eraFactor;
+    } else if (age < 70) {
+      baseRate = 0.0160 * eraFactor;
+    } else if (age < 80) {
+      baseRate = 0.0450 * eraFactor;
+    } else if (age < 90) {
+      baseRate = 0.1200 * eraFactor;
     } else {
-      baseRate = 0.28;
+      baseRate = 0.2600 * eraFactor;
     }
 
     // 2. 健康属性指数调节
     const health = this.character.attributes.health;
     let healthFactor = 1.0;
     if (health <= 0) return 1.0;
-    if (health < 20) healthFactor = 4.5;
-    else if (health < 40) healthFactor = 2.2;
-    else if (health < 60) healthFactor = 1.2;
+    if (health < 20) healthFactor = 5.0;
+    else if (health < 40) healthFactor = 2.5;
+    else if (health < 60) healthFactor = 1.3;
     else if (health > 80) healthFactor = 0.6;
 
     // 3. 玩家“健康/休养”精力分配抵御调节
@@ -959,7 +973,7 @@ class SimulationEngine {
     let industryRiskBonus = 1.0;
     const city = this.cities.find(c => c.id === this.character.cityId);
     if (city && city.riskModifiers) {
-      if (city.riskModifiers.dustDisease && age >= 35) {
+      if (city.riskModifiers.dustDisease && age >= 35 && (this.character.tags.has('worker') || this.character.tags.has('heavy_industry'))) {
         industryRiskBonus *= city.riskModifiers.dustDisease;
       }
       if (this.currentYear >= 1959 && this.currentYear <= 1961 && city.riskModifiers.famine1959) {
@@ -2261,7 +2275,7 @@ class SimulationEngine {
       });
     }
 
-    if (isHeavy) {
+    if (isHeavy && this.currentAge >= 18 && this.currentAge <= 65 && (this.character.tags.has('worker') || this.character.tags.has('heavy_industry') || this.character.tags.has('miner'))) {
       accidentPool.push({
         title: '重工车间突发机械安全事故',
         detail: '老厂行车钢丝绳断裂掉落重载钢件，险些被当场砸中，右腿严重撕裂骨折住院大半年。',
@@ -2303,10 +2317,15 @@ class SimulationEngine {
         isNatural: false,
         isAccident: true
       };
+      let fatalMilestoneTitle = '天降横祸';
+      if (this.currentAge < 16) fatalMilestoneTitle = '飞来横祸';
+      else if (this.currentAge < 45) fatalMilestoneTitle = '英年横祸';
+      else if (this.currentAge >= 70) fatalMilestoneTitle = '暮年意外';
+
       this.character.milestones.push({
         year: this.currentYear,
         age: this.currentAge,
-        title: '天降横祸',
+        title: fatalMilestoneTitle,
         detail: `于${this.currentYear}年（享年${this.currentAge}岁）因【${accident.cause}】骤然离世。`
       });
       return { isFatal: true };
@@ -2326,6 +2345,236 @@ class SimulationEngine {
       title: accident.title,
       detail: accident.detail
     };
+  }
+
+  /**
+   * 严密按年龄、时代、性别、习惯标签分层的真实死因生成器（彻底消除32岁死于“老年多器官衰竭”等严重倒挂）
+   */
+  getAuthenticCauseOfDeath(era, age, sex, attributes, tags, fatalEvent) {
+    if (fatalEvent) {
+      if (fatalEvent.cause) return fatalEvent.cause;
+      if (fatalEvent.title && fatalEvent.title.includes('饥荒')) return '遭遇严重饥荒营养枯竭衰竭离世';
+      if (fatalEvent.title && fatalEvent.title.includes('抗战')) return '战火流弹波及与战地疫病离世';
+    }
+
+    const year = this.currentYear;
+
+    // 1. 婴儿期 (0–1 岁)
+    if (age <= 1) {
+      if (year < 1950) {
+        const pool = [
+          '因当年严峻的新生儿破伤风与脐带感染夭折',
+          '因母乳匮乏与严冬受冻重症肺炎夭折',
+          '因急性小儿百日咳与严重腹泻脱水夭折'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 1980) {
+        const pool = [
+          '因当年医疗匮乏突发新生儿急腹症未能及时送医夭折',
+          '因重症小儿麻疹并发急性肺炎夭折',
+          '因急性百日咳并发呼吸衰竭夭折'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 2000) {
+        const pool = [
+          '因新生儿重症急性呼吸窘迫综合征未能挽回',
+          '因先天性重症复杂畸形多器官衰竭夭折',
+          '因新生儿重度溶血与脑病并发症夭折'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else {
+        const pool = [
+          '因极低出生体重超早产合并多器官发育不全夭折',
+          '因严重复杂先天性心血管畸形抢救无效夭折',
+          '因新生儿急性重症坏死性小肠结肠炎夭折'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+    }
+
+    // 2. 幼童与少儿期 (2–14 岁)
+    if (age <= 14) {
+      if (year < 1950) {
+        const pool = [
+          '因霍乱与中毒性急性痢疾高热衰竭离世',
+          '因恶性疟疾（打摆子）高热抽搐未能送医离世',
+          '因白喉喉梗阻窒息不幸夭折',
+          '在战乱流亡逃荒途中因恶疾暴发夭折'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 1980) {
+        const pool = [
+          '因流行性乙型脑炎高热未能挽回离世',
+          '因暴发性流脑高热昏迷不幸离世',
+          '因急性重症细菌性肺炎未能及时用上抗生素离世',
+          '夏日野外水塘戏水不幸溺水身亡'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 2000) {
+        const pool = [
+          '因暴发性病毒性心肌炎急性发作抢救无效离世',
+          '因急性淋巴细胞白血病多方救治无效离世',
+          '因野外水域游泳溺水意外不幸溺亡',
+          '在放学途中遭遇严重公路交通事故意外离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else {
+        const pool = [
+          '因急性恶性血液系统疾病多方救治无效离世',
+          '因暴发性急性重症病毒性心肌炎不治离世',
+          '在校外突发严重道路交通意外创伤不治',
+          '因急性重症脑干脑炎抢救无效离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+    }
+
+    // 3. 青年与年轻壮年期 (15–35 岁)
+    if (age <= 35) {
+      // 习惯与生活标签响应
+      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion'))) {
+        return '因长期高强度通宵熬夜与极度过劳，突发急性心源性猝死';
+      }
+      if (tags && tags.has('drinker') && Math.random() < 0.6) {
+        return '在连续过量烈酒应酬后突发暴发性急性重症胰腺炎离世';
+      }
+      if (tags && tags.has('smoker') && Math.random() < 0.5) {
+        return '因长期吸烟诱发突发自发性张力性气胸急性衰竭离世';
+      }
+
+      // 性别特定死因 (产育仅限育龄女性)
+      if (sex === '女' && tags && tags.has('married') && Math.random() < 0.25) {
+        if (year < 1978) {
+          return '在农村土法接生中遭遇严重难产与产后大出血感染不幸离世';
+        } else {
+          return '在分娩过程中突发极为凶险的暴发性羊水栓塞大出血不幸离世';
+        }
+      }
+
+      // 时代青年死因池
+      if (year < 1950) {
+        const pool = [
+          '因浸润型肺结核空洞破裂大咯血未能救治离世',
+          '因暴发性伤寒高热不退与消化道穿孔离世',
+          '因霍乱急性重度脱水休克未能抢救离世',
+          sex === '男' ? '在战火动荡中被拉壮丁或前线流弹创伤感染离世' : '在战火流离颠沛中染上恶性痢疾未能救治离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 1980) {
+        const pool = [
+          '因暴发性病毒性肝炎诱发急性重度肝坏死衰竭离世',
+          '因重度肺结核反复大咯血在隔离病房不幸离世',
+          '因急性重症心肌炎未能有效复苏不幸离世',
+          '在水利工程与高强度农耕中遭遇塌方工伤意外离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 2000) {
+        const pool = [
+          '因暴发性重症心肌炎猝发导致急性心力衰竭离世',
+          '因急性坏死性重度胰腺炎多器官抢救无效离世',
+          '在长途公路出行业务途中遭遇特大交通事故创伤不治',
+          '因恶性淋巴瘤晚期多发转移多方求医不治离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else {
+        // 2000–2026年现代青年死因 (绝对排除了“老年”、“衰老”等一切老年词汇)
+        const pool = [
+          '突发急性心源性猝死，经医院多方抢救无效不幸英年早逝',
+          '因青年期高发恶性肿瘤晚期恶病质，多方化疗救治不治离世',
+          '因暴发性急性重症病毒性心肌炎并发恶性心律失常离世',
+          '因急性坏死性胰腺炎合并全身重度感染性休克离世',
+          '在深夜国道公路长途行程中遭遇严重机动车碰撞意外创伤不治'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+    }
+
+    // 4. 中青年与中年期 (36–59 岁)
+    if (age <= 59) {
+      if (tags && (tags.has('stay_up_late') || tags.has('exhaustion'))) {
+        return '中年肩负家庭与工作双重重压，长期严重透支引发突发急性心梗猝死';
+      }
+      if (tags && tags.has('smoker') && Math.random() < 0.6) {
+        return '因数十载烟龄诱发中晚期中央型肺癌广泛转移衰竭离世';
+      }
+      if (tags && tags.has('drinker') && Math.random() < 0.6) {
+        return '因长期大量饮酒诱发重度肝硬化失代偿期腹水并上消化道大出血离世';
+      }
+
+      if (year < 1980) {
+        const pool = [
+          '因长期过度劳累与营养不良诱发重度肺源性心脏病衰竭离世',
+          '因中晚期胃部恶性肿瘤恶竭衰竭离世',
+          '因突发大面积重度脑溢血偏瘫昏迷未能醒来',
+          '因重度化脓性腹膜炎送医不及时不幸离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 2000) {
+        const pool = [
+          '因突发急性大面积前壁心肌梗死抢救无效离世',
+          '因原发性晚期肝癌竭力多方保守治疗无效离世',
+          '因高血压性基底节区重度脑出血不治离世',
+          '因中晚期消化系统恶性肿瘤广泛浸润衰竭离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else {
+        const pool = [
+          '因急性广泛前壁心肌梗死伴心源性休克抢救无效离世',
+          '因中晚期恶性肿瘤（肺癌/消化道肿瘤）全身多发转移衰竭离世',
+          '因脑基底节区突发重度出血破入脑室中枢衰竭离世',
+          '因原发性肝脏恶性肿瘤晚期失代偿衰竭离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+    }
+
+    // 5. 初老与老年期 (60–74 岁)
+    if (age <= 74) {
+      if (year < 1980) {
+        const pool = [
+          '因慢性支气管炎合并重度肺气肿与感染呼吸衰竭离世',
+          '因重度脑卒中后遗症昏迷长期卧床肺部感染离世',
+          '因慢性肾功能衰竭尿毒症终末期离世',
+          '因晚期消化道恶疾恶病质离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else if (year < 2000) {
+        const pool = [
+          '因冠状动脉粥样硬化性心脏病急性加重合并心衰离世',
+          '因慢性阻塞性肺疾病(COPD)急性加重呼吸衰竭离世',
+          '因大面积缺血性脑卒中并中枢性呼吸衰竭离世',
+          '因晚期恶性肿瘤全身消耗衰竭离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      } else {
+        const pool = [
+          '因冠状动脉粥样硬化性心脏病合并慢性心力衰竭急性加重离世',
+          '因重度慢性阻塞性肺疾病合并重症肺部感染衰竭离世',
+          '因各类中晚期恶性肿瘤终末期恶竭离世',
+          '因重度脑梗死大面积软化并中枢神经衰竭离世'
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+    }
+
+    // 6. 高龄老人期 (75 岁及以上 - 唯有此处才允许出现“老年多器官衰退”与“高龄自然终老”)
+    if (age >= 85) {
+      const pool = [
+        '一生历经近一个世纪家国风雨，于耄耋之年寿终正寝自然终老',
+        '因高龄体衰，多器官功能自然衰退，安详长眠离世',
+        '因极高龄重症肺部感染合并多系统循环功能自然衰竭终老'
+      ];
+      return pool[Math.floor(Math.random() * pool.length)];
+    } else {
+      // 75–84 岁
+      const pool = [
+        '因老年多器官功能退化衰退，在亲人守候中平静离世',
+        '因高龄慢性基础疾病终末期合并肺部感染衰竭离世',
+        '因重度脑血管病后遗症致中枢系统与循环功能渐进性衰退离世',
+        '因高龄体弱心肺功能衰竭安详离世'
+      ];
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
   }
 
   /**
@@ -2357,18 +2606,14 @@ class SimulationEngine {
    */
   triggerDeath(era, fatalEvent) {
     this.isGameOver = true;
-    let cause = '因病恶化未能及时救治不幸离世';
-
-    if (this.currentAge <= 2) {
-      cause = '因当年严峻的新生儿急症与医疗条件匮乏夭折';
-    } else if (fatalEvent && fatalEvent.title.includes('饥荒')) {
-      cause = '遭遇严重饥荒营养枯竭衰竭离世';
-    } else if (fatalEvent && fatalEvent.title.includes('抗战')) {
-      cause = '战火流弹波及与战地疫病离世';
-    } else {
-      const causes = era.typicalCausesOfDeath || ['因高龄体衰自然终老'];
-      cause = causes[Math.floor(Math.random() * causes.length)];
-    }
+    const cause = this.getAuthenticCauseOfDeath(
+      era,
+      this.currentAge,
+      this.character.sex,
+      this.character.attributes,
+      this.character.tags,
+      fatalEvent
+    );
 
     this.deathInfo = {
       age: this.currentAge,
@@ -2378,10 +2623,16 @@ class SimulationEngine {
       isDisaster: false
     };
 
+    let milestoneTitle = '魂归故土';
+    if (this.currentAge < 15) milestoneTitle = '幼年夭折';
+    else if (this.currentAge < 45) milestoneTitle = '英年早逝';
+    else if (this.currentAge < 65) milestoneTitle = '中途陨落';
+    else if (this.currentAge >= 80) milestoneTitle = '寿终正寝';
+
     this.character.milestones.push({
       year: this.currentYear,
       age: this.currentAge,
-      title: '魂归故土',
+      title: milestoneTitle,
       detail: `于${this.currentYear}年（享年${this.currentAge}岁）因【${cause}】走完了一生。`
     });
   }
