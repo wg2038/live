@@ -233,19 +233,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('certNo').textContent = serial;
     document.getElementById('certName').textContent = char.name;
 
+    const isUrban = char.urbanRural === 'urban';
+    const urbanLabel = isUrban ? '城镇户籍' : '农村户籍';
+    const tagEl = document.getElementById('certUrbanTag');
+    if (tagEl) {
+      tagEl.textContent = urbanLabel;
+      tagEl.className = `cert-status-badge ${isUrban ? 'badge-urban' : 'badge-rural'}`;
+    }
+
     const lunar = getLunarYearName(char.birthYear);
-    const story = `你出生在 ${char.birthYear} 年（${lunar}）的 ${char.birthPlace}${char.cityHistoricalName}。其时地属【${char.cityType}】，当地主导工业产业为【${char.industryPillar}】。父亲与家中长辈以【${char.parentJob}】拉扯家门，同胞兄弟姐妹共 ${char.siblingsCount} 人。`;
+    const story = `彼时当地正值【${char.cityType}】定位，以【${char.industryPillar}】为时代重心。家中长辈靠【${char.parentJob}】维持生计，撑起一门烟火。`;
     document.getElementById('certStory').textContent = story;
 
     document.getElementById('cfYear').textContent = `${char.birthYear}年 (${lunar})`;
     document.getElementById('cfPlace').textContent = `${char.birthPlace} · ${char.cityHistoricalName}`;
-    document.getElementById('cfUrban').textContent = char.urbanRural === 'urban' ? '城镇职工户口' : '农村户籍';
+    document.getElementById('cfUrban').textContent = urbanLabel;
     document.getElementById('cfLife').textContent = `${era.lifeExpectancy} 岁`;
     document.getElementById('cfInd').textContent = char.industryPillar;
     document.getElementById('cfSiblings').textContent = `${char.siblingsCount} 人`;
 
     const urbanPct = Math.round(era.urbanRatio);
-    document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${urbanPct}% 像你一样出生在城镇，${100 - urbanPct}% 出生在农村贫寒家庭。当年新生儿平均预期寿命仅为 ${era.lifeExpectancy} 岁。`;
+    const ruralPct = 100 - urbanPct;
+    if (isUrban) {
+      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${urbanPct}% 像你一样生于城镇，其余 ${ruralPct}% 则生于乡村。`;
+    } else {
+      document.getElementById('certOdds').textContent = `在 ${char.birthYear} 年出生的中国人中，约有 ${ruralPct}% 像你一样生于乡村，仅 ${urbanPct}% 生于城镇。`;
+    }
   }
 
   if (startBtn) startBtn.addEventListener('click', triggerRoulette);

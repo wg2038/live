@@ -230,6 +230,47 @@ class SimulationEngine {
   }
 
   /**
+   * 按照年代抽选符合史实的农村户籍生计方式（务农、集体工、手艺人、务工、基层干事等）
+   */
+  sampleRuralJob(indEraKey) {
+    const ruralJobsByEra = {
+      era_1937_1949: [
+        '自耕农田劳作农户',
+        '乡村租田佃农',
+        '乡间走村木匠手艺人',
+        '农闲车马长途脚夫',
+        '村头杂粮作坊磨房工'
+      ],
+      era_1950_1978: [
+        '人民公社生产队农田社员',
+        '大队农机站拖拉机手',
+        '生产大队林果副业组员',
+        '公社铁木农具修配组匠人',
+        '大队赤脚卫生员',
+        '生产队粮秣记工员'
+      ],
+      era_1979_2000: [
+        '包产到户承包农户',
+        '乡镇企业五金装配工人',
+        '第一代进城务工建筑工人',
+        '乡村个体木工装潢匠人',
+        '大棚温室果蔬种植户',
+        '村集体副业代销点掌柜'
+      ],
+      era_2001_2026: [
+        '外出务工建筑装饰技工',
+        '现代家庭农场农机种植户',
+        '乡镇快递网点配送揽收员',
+        '工厂跨省务工流水线班长',
+        '乡村生态果林专业户',
+        '村委会基层综合办事员'
+      ]
+    };
+    const pool = ruralJobsByEra[indEraKey] || ruralJobsByEra['era_1950_1978'];
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  /**
    * 创建新角色（开局玩家无法选择出身，支持时代与抽选模式参数）
    */
   createCharacter(options = 'medium') {
@@ -294,11 +335,16 @@ class SimulationEngine {
     const minorityNames = ['回族', '满族', '蒙古族', '藏族', '维吾尔族', '苗族', '彝族', '壮族', '土家族'];
     const ethnicity = isMinority ? minorityNames[Math.floor(Math.random() * minorityNames.length)] : '汉族';
 
-    // 5. 抓取该城市当期的具体产业结构与父母职业！
+    // 5. 抓取该城市当期的具体产业结构与父母职业（城镇/农村户籍深度适配）
     const indProfile = city.eraIndustries[indEraKey] || city.eraIndustries['era_1950_1978'];
-    const typicalJobs = indProfile.typicalJobs || ['农田社员'];
-    const parentJob = typicalJobs[Math.floor(Math.random() * typicalJobs.length)];
-    const familyClass = `${city.type} · ${parentJob}`;
+    let parentJob;
+    if (isUrban) {
+      const typicalJobs = indProfile.typicalJobs && indProfile.typicalJobs.length > 0 ? indProfile.typicalJobs : ['国营工厂职工'];
+      parentJob = typicalJobs[Math.floor(Math.random() * typicalJobs.length)];
+    } else {
+      parentJob = this.sampleRuralJob(indEraKey);
+    }
+    const familyClass = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
 
     // 6. 家庭经济水平
     const econRoll = Math.random() * 100;
@@ -420,7 +466,7 @@ class SimulationEngine {
     };
 
     // 记录出生里程碑
-    const birthIntro = `降生于${province.name}${cityDisplay.displayName}。其时地属【${city.type}】，当地主导生计为【${indProfile.pillar}】，父亲/长辈靠【${parentJob}】拉扯家门，家中有同辈兄弟姐妹${siblingsCount}人。`;
+    const birthIntro = `降生于${province.name}${cityDisplay.displayName}。彼时当地正值【${city.type}】定位，以【${indProfile.pillar}】为时代重心。长辈靠【${parentJob}】维持生计，家中同辈兄弟姐妹共${siblingsCount}人。`;
     this.character.milestones.push({
       year: birthYear,
       age: 0,
@@ -1086,12 +1132,12 @@ class SimulationEngine {
    * 初生职业轨道推演判定
    */
   determineInitialCareerTrack(isUrban, city, familyClass, parentJob) {
+    if (!isUrban) return 'farmer';
     if (familyClass === '干部' || familyClass === '知识分子') return 'cadre_teacher';
     if (familyClass === '商人' || (parentJob && (parentJob.includes('商') || parentJob.includes('贩') || parentJob.includes('铺')))) return 'merchant';
     if (familyClass === '工人' || (parentJob && (parentJob.includes('工') || parentJob.includes('匠')))) return 'worker';
-    if (!isUrban || (familyClass && familyClass.includes('农'))) return 'farmer';
     if (city && city.type === '综合科教中心') return 'tech_whitecollar';
-    return isUrban ? 'worker' : 'farmer';
+    return 'worker';
   }
 
   /**
@@ -3284,9 +3330,14 @@ class SimulationEngine {
     const name = parentProfile.name || this.generateAuthenticName(birthYear, sex, province.id, ethnicity);
 
     const indProfile = city.eraIndustries[indEraKey] || city.eraIndustries['era_1979_2000'];
-    const typicalJobs = indProfile.typicalJobs || ['国营厂技术员', '农田社员'];
-    const parentJob = typicalJobs[Math.floor(Math.random() * typicalJobs.length)];
-    const familyClass = `${city.type} · ${parentJob}`;
+    let parentJob;
+    if (isUrban) {
+      const typicalJobs = indProfile.typicalJobs || ['国营厂技术员', '普通工人'];
+      parentJob = typicalJobs[Math.floor(Math.random() * typicalJobs.length)];
+    } else {
+      parentJob = this.sampleRuralJob(indEraKey);
+    }
+    const familyClass = `${urbanRural === 'urban' ? city.type : '乡村农户'} · ${parentJob}`;
 
     const attributes = {
       health: 82,
