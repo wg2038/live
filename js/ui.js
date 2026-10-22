@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     [secIntro, secRoll, secLifeview, secDead].forEach(s => {
       if (s) s.hidden = (s !== targetSec);
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   }
 
   const startBtn = document.getElementById('startBtn');
@@ -131,58 +131,99 @@ document.addEventListener('DOMContentLoaded', async () => {
   const reRollBtn = document.getElementById('reRollBtn');
   const beginBtn = document.getElementById('beginBtn');
 
+  let isRolling = false;
   async function triggerRoulette() {
-    showSection(secRoll);
-    rollerEl.hidden = false;
-    certEl.hidden = true;
+    if (isRolling) return;
+    isRolling = true;
 
-    // 预处理所有城市：去除所有括号及括号内历史备注，显示当前中国最新规范名称
-    const rawCities = (engine.cities && engine.cities.length > 0) ? engine.cities : [];
-    const candidateList = rawCities.map(c => {
-      const prov = engine.provinces ? engine.provinces.find(p => p.id === c.provinceId) : null;
-      const provName = prov ? prov.name : '';
-      // 过滤任何全角或半角括号及说明，例如 "深圳市（特区前沿）" -> "深圳市", "阿坝藏族羌族自治州（汶川县）" -> "阿坝藏族羌族自治州"
-      const cleanCity = (c.name || '').replace(/[（\(][^）\)]*[）\)]/g, '').trim();
-      const displayName = provName && !cleanCity.startsWith(provName) ? `${provName} · ${cleanCity}` : cleanCity;
-      return {
-        displayName,
-        type: c.type || '城市'
-      };
-    });
+    try {
+      showSection(secRoll);
+      rollerEl.hidden = false;
+      certEl.hidden = true;
 
-    // 严格跳动 5 秒整
-    const totalDuration = 5000;
-    const interval = 65;
-    const startTime = Date.now();
+      const rollProgressEl = document.getElementById('rollProgress');
+      if (rollProgressEl) rollProgressEl.style.width = '0%';
 
-    await new Promise(resolve => {
-      const timer = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        if (candidateList.length > 0) {
-          const rnd = candidateList[Math.floor(Math.random() * candidateList.length)];
-          const rndYear = Math.floor(1937 + Math.random() * 89);
-          rollNameEl.textContent = rnd.displayName;
-          rollMetaEl.textContent = `${rndYear}年 · ${rnd.type}`;
+      // 1. 预先创建角色，确保终点与出生登记证 100% 严丝合缝
+      const char = engine.createCharacter({
+        eraFilter: 'all',
+        cityFilter: 'weighted',
+        paceMode: 'medium'
+      });
+
+      const finalProv = (char.birthPlace || '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
+      const finalCity = ['北京', '上海', '天津', '重庆'].includes(finalProv)
+        ? `${finalProv}市`
+        : (finalProv ? `${finalProv} · ` : '') + (char.cityHistoricalName || '');
+      const lunar = getLunarYearName(char.birthYear);
+      const finalMeta = `${char.birthYear}年 · ${lunar} · ${char.cityType || '普通家庭'}`;
+
+      // 2. 规范化候选城市库：去除长后缀及括号历史说明，将单行字符长度严格控制在规范以内，彻底避免多行高度跳动
+      const rawCities = (engine.cities && engine.cities.length > 0) ? engine.cities : [];
+      const candidateList = rawCities.map(c => {
+        const prov = engine.provinces ? engine.provinces.find(p => p.id === c.provinceId) : null;
+        const pName = (prov ? prov.name : '').replace(/(特别行政区|维吾尔自治区|壮族自治区|回族自治区|自治区|省|市)/g, '');
+        let cName = (c.name || '').replace(/[（\(][^）\)]*[）\)]/g, '').trim();
+        if (['北京', '上海', '天津', '重庆'].includes(pName)) {
+          return { displayName: `${pName}市`, type: c.type || '直辖市' };
         }
+        cName = cName.replace(/(藏族羌族|朝鲜族|哈萨克|蒙古|藏族|傣族|白族|柯尔克孜|回族|布依族苗族|苗族侗族)自治州$/, '州');
+        const displayName = pName ? `${pName} · ${cName}` : cName;
+        return {
+          displayName,
+          type: c.type || '城市'
+        };
+      });
 
-        if (elapsed >= totalDuration) {
-          clearInterval(timer);
-          resolve();
+      // 3. 严格跳动 5 秒整，采用平滑物理拟真减速曲线（前 3 秒极速抓取，3~4.6 秒递进减速，4.6~5 秒精准停靠）
+      const totalDuration = 5000;
+      const startTime = Date.now();
+
+      await new Promise(resolve => {
+        function tick() {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(100, Math.round((elapsed / totalDuration) * 100));
+          if (rollProgressEl) rollProgressEl.style.width = `${progress}%`;
+
+          if (elapsed >= totalDuration) {
+            rollNameEl.textContent = finalCity;
+            rollMetaEl.textContent = finalMeta;
+            if (rollProgressEl) rollProgressEl.style.width = '100%';
+            resolve();
+            return;
+          }
+
+          if (elapsed >= 4600) {
+            rollNameEl.textContent = finalCity;
+            rollMetaEl.textContent = finalMeta;
+            setTimeout(tick, totalDuration - elapsed);
+            return;
+          }
+
+          if (candidateList.length > 0) {
+            const rnd = candidateList[Math.floor(Math.random() * candidateList.length)];
+            const rndYear = Math.floor(1937 + Math.random() * 89);
+            rollNameEl.textContent = rnd.displayName;
+            rollMetaEl.textContent = `${rndYear}年 · ${rnd.type}`;
+          }
+
+          let nextDelay = 65;
+          if (elapsed > 3000) {
+            const p = (elapsed - 3000) / 1600;
+            nextDelay = Math.round(65 + Math.pow(p, 2) * 320);
+          }
+          setTimeout(tick, nextDelay);
         }
-      }, interval);
-    });
+        tick();
+      });
 
-    // 创建角色
-    const char = engine.createCharacter({
-      eraFilter: 'all',
-      cityFilter: 'weighted',
-      paceMode: 'medium'
-    });
-
-    // 填充出生登记证
-    renderBirthCertificate(char);
-    rollerEl.hidden = true;
-    certEl.hidden = false;
+      // 4. 填充出生登记证并无缝展示
+      renderBirthCertificate(char);
+      rollerEl.hidden = true;
+      certEl.hidden = false;
+    } finally {
+      isRolling = false;
+    }
   }
 
   function renderBirthCertificate(char) {
