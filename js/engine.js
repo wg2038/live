@@ -1519,6 +1519,204 @@ class SimulationEngine {
         ]
       };
     }
+
+    // 2020 武汉保卫战与举国抗疫千人千面适配
+    if (decision.id === 'evt_2020_covid_chuxi') {
+      const isHubei = this.character && (
+        this.character.provinceId === 'hubei' ||
+        (this.character.birthPlace && this.character.birthPlace.includes('湖北')) ||
+        (this.character.cityHistoricalName && this.character.cityHistoricalName.includes('武汉'))
+      );
+      const isMedic = this.character && (
+        (this.character.occupation && (this.character.occupation.includes('医') || this.character.occupation.includes('护'))) ||
+        (this.character.careerTrack === 'cadre_teacher' && !this.statusFlags.has('certified_public_teacher'))
+      );
+
+      // 1. 湖北及武汉封控核心区居民
+      if (isHubei) {
+        return {
+          id: decision.id,
+          title: '庚子新春突发新冠疫情与武汉保卫战',
+          isDecision: true,
+          historicalFact: decision.historicalFact,
+          narrative: '大年三十的江城街头空无一人，黄鹤楼下长江静卧，只有红绿灯在冬夜里孤独交替。电视里滚动播报着封城通告与前线告急。口罩被洗劫一空，千家万户围坐取暖，在空前的磨难中守望相助。',
+          choices: [
+            {
+              text: '严格遵从居家静默指令，守望相助，在阳台高唱国歌相互打气鼓励',
+              choiceTags: ['时代：2020', '年龄：10–75', '地域：湖北武汉及周边', '门槛：封控核心区居民'],
+              outcomes: [
+                {
+                  type: 'safe',
+                  weight: 70,
+                  log: '坚忍熬过七十六个日夜封控，全家人零感染平安等到4月8日武汉解封，历经浩劫内心坚如磐石。',
+                  effect: { family: 30, mentality: 30 },
+                  isFatal: false,
+                  hiddenRiskLog: '在武汉封城76天严苛考验中生死守望幸存，成为坚韧抗疫英雄城市见证人。',
+                  status: 'wuhan_lockdown_survivor'
+                },
+                {
+                  type: 'injured',
+                  weight: 27,
+                  log: '初期不幸感染轻型新冠送入方舱医院隔离救治，在医护悉心照料下顺利康复转阴出舱。',
+                  effect: { health: -25, mentality: 25 },
+                  isFatal: false,
+                  hiddenRiskLog: '方舱医院亲历人间真情痊愈，更加珍惜生命寻常可贵。',
+                  status: 'fangcang_recovered'
+                },
+                {
+                  type: 'fatal',
+                  weight: 3,
+                  log: '在早期医疗资源挤兑极度紧缺阶段不幸感染重症肺炎未能抢救脱险罹难。',
+                  effect: {},
+                  isFatal: true,
+                  hiddenRiskLog: '在2020年初武汉早期医疗挤兑阶段不幸染疫罹难。'
+                }
+              ]
+            },
+            {
+              text: '报名社区网格化志愿者，佩戴红袖标协助挨家挨户敲门排查体温与配送爱心蔬菜',
+              choiceTags: ['时代：2020', '年龄：18–65', '地域：湖北武汉核心区', '门槛：社区青年志愿者'],
+              outcomes: [
+                {
+                  type: 'safe',
+                  weight: 85,
+                  log: '在社区最艰难的日子里顶风冒雨搬运蔬菜粮油百余吨，赢得街坊交口赞誉，自身严密防护零感染。',
+                  effect: { mentality: 35, family: 25, wealth: 10 },
+                  isFatal: false,
+                  hiddenRiskLog: '战疫最困难时期挺身而出担当社区顶梁柱，荣获优秀抗疫志愿者表彰。',
+                  status: 'wuhan_community_volunteer'
+                },
+                {
+                  type: 'injured',
+                  weight: 15,
+                  log: '高强度志愿服务导致体力严重透支急性受凉发热，核酸排除后卧床休养两周。',
+                  effect: { health: -20, mentality: 25 },
+                  isFatal: false,
+                  hiddenRiskLog: '社区抗疫一线拼搏劳累受寒，因公奉献问心无愧。'
+                }
+              ]
+            }
+          ]
+        };
+      }
+
+      // 2. 医护与公卫骨干
+      if (isMedic) {
+        return {
+          id: decision.id,
+          title: '庚子新春突发新冠疫情：白衣执甲与逆行出征',
+          isDecision: true,
+          historicalFact: decision.historicalFact,
+          narrative: '除夕之夜科室电话骤然铃声大作，国家紧急抽调精锐跨省驰援武汉。微信群里‘我报名’的请战申请瞬间刷屏。明知前方是未知的致命烈性传染病，救死扶伤的职责却重于泰山。',
+          choices: [
+            {
+              text: '除夕夜按红手印写下‘不计报酬、无论生死’请战书，连夜随医疗队直飞武汉一线',
+              choiceTags: ['时代：2020', '年龄：20–55', '地域：全国各省公立医院', '门槛：援鄂医护骨干'],
+              outcomes: [
+                {
+                  type: 'safe',
+                  weight: 75,
+                  log: '在金银潭或重症ICU穿三层防护服连轴奋战两月抢救数十名危重患者，全队零感染凯旋荣归。',
+                  effect: { mentality: 40, knowledge: 30, wealth: 25 },
+                  isFatal: false,
+                  hiddenRiskLog: '援鄂医疗英雄，以生命护佑生命，荣膺国家功臣终身尊荣。',
+                  status: 'anti_covid_national_hero'
+                },
+                {
+                  type: 'injured',
+                  weight: 25,
+                  log: '密闭护目镜面颊压疮重度破溃感染留疤，并在撤离后患上创伤后应激失眠，休养半年。',
+                  effect: { health: -30, mentality: 25 },
+                  isFatal: false,
+                  hiddenRiskLog: '战疫压疮留痕心力透支，深受全社会崇高致敬。',
+                  status: 'injured_medic_hero'
+                }
+              ]
+            },
+            {
+              text: '坚守本地医院发热门诊与预检分诊通道，严防输入病例扩散，筑牢家乡第一道防火墙',
+              choiceTags: ['时代：2020', '年龄：20–60', '地域：本地医院', '门槛：在岗医护'],
+              outcomes: [
+                {
+                  type: 'safe',
+                  weight: 85,
+                  log: '严格执行院感防控流程，连续数月坚守哨点门诊，实现本地医院零交叉感染。',
+                  effect: { knowledge: 25, mentality: 25, wealth: 15 },
+                  isFatal: false,
+                  hiddenRiskLog: '坚守本地发热门诊筑牢疫情防护网，保全一方平安。',
+                  status: 'fever_clinic_guardian'
+                },
+                {
+                  type: 'injured',
+                  weight: 15,
+                  log: '长期高负荷穿脱防护服导致腰肌劳损与慢性皮炎，调养数月。',
+                  effect: { health: -15, mentality: 20 },
+                  isFatal: false,
+                  hiddenRiskLog: '本土防线坚韧值守，默默奉献守护市民安宁。'
+                }
+              ]
+            }
+          ]
+        };
+      }
+
+      // 3. 全国其他省市普通居民
+      return {
+        id: decision.id,
+        title: '庚子新春突发新冠疫情：举国同心与全民抗疫',
+        isDecision: true,
+        historicalFact: decision.historicalFact,
+        narrative: '除夕夜的春晚播放着白衣天使集结出征的特别节目。手机屏幕上跳动着封城通报与各地响应。全国多地迅速启动重大突发公共卫生事件一级响应，取消大型聚会，倡导居家静默阻断病毒。',
+        choices: [
+          {
+            text: '坚决响应国家号召退掉春节探亲旅游车票，取消聚餐，戴好口罩居家静默',
+            choiceTags: ['时代：2020', '年龄：10–75', '地域：全国各省市', '门槛：普通国民'],
+            outcomes: [
+              {
+                type: 'safe',
+                weight: 88,
+                log: '退掉车票闭门谢客，全家人在家做面食、看书、守望相助，平安健康度过疫情初期风暴。',
+                effect: { family: 25, health: 20, mentality: 20 },
+                isFatal: false,
+                hiddenRiskLog: '在全民战疫初期严格自律阻断传播链，守护全家平安健康。',
+                status: 'disciplined_citizen'
+              },
+              {
+                type: 'injured',
+                weight: 12,
+                log: '抢购口罩消毒液遭遇阶段性断货，因恐慌焦虑失眠数日，后经社区平价调拨物资恢复安心。',
+                effect: { wealth: -10, mentality: -15 },
+                isFatal: false,
+                hiddenRiskLog: '战疫初期经历物资短暂紧缺焦虑，后在有序保供中恢复平常心。'
+              }
+            ]
+          },
+          {
+            text: '向红十字会或医疗一线捐赠款物，在业主群与朋友圈积极普及科学防护知识，抵制谣言',
+            choiceTags: ['时代：2020', '年龄：14–70', '地域：全国各省市', '门槛：热心公益公民'],
+            outcomes: [
+              {
+                type: 'safe',
+                weight: 92,
+                log: '捐出部分积蓄用于采购一线抗疫护目镜，并在邻里群协助独居老人代购生活物资，赢得赞许。',
+                effect: { mentality: 30, family: 15, wealth: -15 },
+                isFatal: false,
+                hiddenRiskLog: '在大灾大难面前倾力奉献爱心，传递人间温情。',
+                status: 'caring_citizen_2020'
+              },
+              {
+                type: 'safe',
+                weight: 8,
+                log: '协助社区辟谣伪科学偏方，普及科学七步洗手法与戴口罩规范，获得街道表扬。',
+                effect: { knowledge: 20, mentality: 20 },
+                isFatal: false,
+                hiddenRiskLog: '以科学理性之光驱散疫情恐慌阴霾。'
+              }
+            ]
+          }
+        ]
+      };
+    }
     return decision;
   }
 
@@ -1876,7 +2074,10 @@ class SimulationEngine {
     }
 
     // 2.2 筛选主动决策候选事件 (isDecision === true)
-    const decisionCandidates = eligibleEvents.filter(e => e.isDecision);
+    // 幼童与婴儿阶段（0-5岁）完全由长辈监护抚育，缺乏独立社会行为能力，不触发成年人主动决策
+    const decisionCandidates = this.currentAge < 6
+      ? []
+      : eligibleEvents.filter(e => e.isDecision);
 
     // 3. 检查人生重要节点抉择 (义务教育推进、中考分流、高考、婚育、至暗时刻等)
     const pendingMilestone = this.checkLifeMilestone();

@@ -328,7 +328,7 @@
       2003
     ],
     "targetAge": [
-      0,
+      8,
       80
     ],
     "applicableRegions": [
@@ -863,8 +863,8 @@
       2008
     ],
     "targetAge": [
-      0,
-      80
+      12,
+      75
     ],
     "applicableRegions": [
       "华南",
@@ -983,6 +983,41 @@
             "hiddenRiskLog": "在抗冰抢修前线因铁塔突发倒塌光荣殉职。"
           }
         ]
+      },
+      {
+        "text": "若为南方受灾城镇居民，节约用电、互通柴炭燃气、铲冰扫雪疏通街巷，在停水停电中守望相助",
+        "choiceTags": [
+          "时代：2008",
+          "年龄：12–75",
+          "地域：南方受灾省份",
+          "门槛：普通居民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 85,
+            "log": "全家围坐蜂窝煤炉生火取暖，帮楼道独居老人打井水运柴火，平安熬过半月冻灾考验。",
+            "effect": {
+              "family": 25,
+              "mentality": 20,
+              "health": 15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在特大雪灾断电严冬中与邻里守望相助，经受考验更懂亲情珍贵。",
+            "status": "ice_storm_resident_2008"
+          },
+          {
+            "type": "injured",
+            "weight": 15,
+            "log": "雪天路滑出门打水不慎摔倒擦破膝盖，敷贴跌打药膏休养数周复原。",
+            "effect": {
+              "health": -15,
+              "wealth": -5
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "雪灾路滑轻微擦伤，换来一家人冬日温饱。"
+          }
+        ]
       }
     ]
   },
@@ -995,8 +1030,8 @@
       2008
     ],
     "targetAge": [
-      0,
-      80
+      10,
+      70
     ],
     "applicableRegions": [
       "ALL"
@@ -1659,8 +1694,8 @@
       2010
     ],
     "targetAge": [
-      0,
-      75
+      10,
+      70
     ],
     "applicableRegions": [
       "西北",
@@ -2433,8 +2468,8 @@
       2013
     ],
     "targetAge": [
-      0,
-      75
+      10,
+      70
     ],
     "applicableRegions": [
       "西南",
@@ -2666,7 +2701,7 @@
       2015
     ],
     "targetAge": [
-      0,
+      10,
       80
     ],
     "applicableRegions": [
@@ -3668,8 +3703,8 @@
       2020
     ],
     "targetAge": [
-      0,
-      80
+      10,
+      75
     ],
     "applicableRegions": [
       "ALL"
@@ -3761,6 +3796,41 @@
             "isFatal": false,
             "hiddenRiskLog": "战疫压疮留痕心力透支，深受全社会崇高致敬。",
             "status": "injured_medic_hero"
+          }
+        ]
+      },
+      {
+        "text": "若为全国其他省份普通民众，坚决响应国家号召取消除夕聚餐与走亲访友，出门佩戴口罩，居家静待春暖花开",
+        "choiceTags": [
+          "时代：2020",
+          "年龄：10–75",
+          "地域：全国各省市",
+          "门槛：普通国民"
+        ],
+        "outcomes": [
+          {
+            "type": "safe",
+            "weight": 88,
+            "log": "严格响应居家防控号召退掉车票闭门谢客，全家守望相助安稳度过疫情初期风暴，身心平稳健康。",
+            "effect": {
+              "family": 25,
+              "health": 20,
+              "mentality": 20
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "在全民战疫初期严格自律阻断传播链，守护全家平安健康。",
+            "status": "disciplined_citizen"
+          },
+          {
+            "type": "injured",
+            "weight": 12,
+            "log": "采购防疫物资遭遇口罩酒精阶段性断货，因恐慌焦虑情绪失眠数日，后经社区平价保供纾解平复。",
+            "effect": {
+              "wealth": -10,
+              "mentality": -15
+            },
+            "isFatal": false,
+            "hiddenRiskLog": "战疫初期经历物资短暂紧缺焦虑，后在有序保供中恢复平常心。"
           }
         ]
       }
@@ -4034,7 +4104,7 @@
       2021
     ],
     "targetAge": [
-      0,
+      12,
       75
     ],
     "applicableRegions": [
@@ -4388,7 +4458,7 @@
       2023
     ],
     "targetAge": [
-      0,
+      8,
       85
     ],
     "applicableRegions": [
