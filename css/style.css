@@ -155,7 +155,7 @@ img {
 .langsw {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-block: 12px;
   border-bottom: 1px solid var(--rule);
   margin-bottom: 24px;
@@ -479,8 +479,8 @@ img {
 .notes {
   margin-top: 48px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
   border-top: 1px solid var(--rule);
   padding-top: 24px;
 }
@@ -1780,4 +1780,19 @@ img {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Footer Attribution
+   ========================================================================== */
+
+.site-footer {
+  text-align: center;
+  padding: 36px 16px 48px;
+  border-top: 1px solid var(--rule);
+  margin-top: 50px;
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  color: var(--ink3);
+  letter-spacing: .02em;
 }

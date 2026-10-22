@@ -46,16 +46,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   // =========================================================================
   const cBirthEl = document.getElementById('cBirth');
   const cDeathEl = document.getElementById('cDeath');
-  let birthTicker = 0;
-  let deathTicker = 0;
+  const pageStartTime = Date.now();
+  // 真实人口统计模型：当前中国年出生人口约 902 万人（约 0.2858 人/秒），年离世人口约 1041 万人（约 0.3299 人/秒）
+  const BIRTH_RATE_PER_SEC = 9020000 / (365.25 * 86400);
+  const DEATH_RATE_PER_SEC = 10410000 / (365.25 * 86400);
 
-  setInterval(() => {
-    // 中国每年约出生 900-1500 万人 (~0.35/s)，离世约 1000 万人 (~0.32/s)
-    birthTicker += 0.07;
-    deathTicker += 0.064;
-    if (cBirthEl) cBirthEl.textContent = Math.floor(birthTicker).toLocaleString('zh-CN');
-    if (cDeathEl) cDeathEl.textContent = Math.floor(deathTicker).toLocaleString('zh-CN');
-  }, 200);
+  function updateLiveTicker() {
+    const elapsedSec = (Date.now() - pageStartTime) / 1000;
+    const currentBirths = Math.floor(elapsedSec * BIRTH_RATE_PER_SEC);
+    const currentDeaths = Math.floor(elapsedSec * DEATH_RATE_PER_SEC);
+    if (cBirthEl) cBirthEl.textContent = currentBirths.toLocaleString('zh-CN');
+    if (cDeathEl) cDeathEl.textContent = currentDeaths.toLocaleString('zh-CN');
+  }
+  setInterval(updateLiveTicker, 200);
+  updateLiveTicker();
 
   // =========================================================================
   // 首页配置选项卡 (Segmented Controls)
@@ -132,28 +136,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     rollerEl.hidden = false;
     certEl.hidden = true;
 
-    // 轮盘极速旋转动画
-    const candidateCities = engine.cities && engine.cities.length > 0 ? engine.cities : [
-      { name: '辽宁 鞍山', type: '重工业资源型' },
-      { name: '四川 攀枝花', type: '三线工业型' },
-      { name: '广东 深圳', type: '外贸沿海型' },
-      { name: '河南 洛阳', type: '平原农业重镇' },
-      { name: '新疆 喀什', type: '边疆戍边型' }
-    ];
+    // 预处理所有城市：去除所有括号及括号内历史备注，显示当前中国最新规范名称
+    const rawCities = (engine.cities && engine.cities.length > 0) ? engine.cities : [];
+    const candidateList = rawCities.map(c => {
+      const prov = engine.provinces ? engine.provinces.find(p => p.id === c.provinceId) : null;
+      const provName = prov ? prov.name : '';
+      // 过滤任何全角或半角括号及说明，例如 "深圳市（特区前沿）" -> "深圳市", "阿坝藏族羌族自治州（汶川县）" -> "阿坝藏族羌族自治州"
+      const cleanCity = (c.name || '').replace(/[（\(][^）\)]*[）\)]/g, '').trim();
+      const displayName = provName && !cleanCity.startsWith(provName) ? `${provName} · ${cleanCity}` : cleanCity;
+      return {
+        displayName,
+        type: c.type || '城市'
+      };
+    });
 
-    let steps = 0;
-    const maxSteps = 22;
+    // 严格跳动 5 秒整
+    const totalDuration = 5000;
     const interval = 65;
+    const startTime = Date.now();
 
     await new Promise(resolve => {
       const timer = setInterval(() => {
-        steps++;
-        const rndCity = candidateCities[Math.floor(Math.random() * candidateCities.length)];
-        const rndYear = Math.floor(1937 + Math.random() * 88);
-        rollNameEl.textContent = `${rndCity.name}`;
-        rollMetaEl.textContent = `${rndYear}年 · ${rndCity.type}`;
+        const elapsed = Date.now() - startTime;
+        if (candidateList.length > 0) {
+          const rnd = candidateList[Math.floor(Math.random() * candidateList.length)];
+          const rndYear = Math.floor(1937 + Math.random() * 89);
+          rollNameEl.textContent = rnd.displayName;
+          rollMetaEl.textContent = `${rndYear}年 · ${rnd.type}`;
+        }
 
-        if (steps >= maxSteps) {
+        if (elapsed >= totalDuration) {
           clearInterval(timer);
           resolve();
         }
@@ -162,9 +174,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 创建角色
     const char = engine.createCharacter({
-      eraFilter: selectedEra,
-      cityFilter: selectedCity,
-      paceMode: selectedPace
+      eraFilter: 'all',
+      cityFilter: 'weighted',
+      paceMode: 'medium'
     });
 
     // 填充出生登记证

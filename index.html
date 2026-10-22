@@ -22,10 +22,6 @@
        ====================================================================== -->
   <section id="intro" class="wrap">
     <nav class="langsw" aria-label="设置与主题">
-      <div class="nw-tag">
-        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 8h13M8 1.5c2 2 2.8 4.2 2.8 6.5S10 12.5 8 14.5M8 1.5C6 3.5 5.2 5.7 5.2 8S6 12.5 8 14.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-        <span>中文 (简体) · 历史人口档案模拟</span>
-      </div>
       <button class="themebtn" id="themeBtn" type="button" aria-label="画面明暗切换" title="画面明暗切换">
         <span aria-hidden="true">◐</span>
       </button>
@@ -33,78 +29,18 @@
 
     <div class="hero">
       <div class="herotext">
-        <div class="kicker">
-          <span class="pill" id="verTag">v1.0 正式版</span>
-          <span class="pill">中国历史人生模拟</span>
-          <span class="pill">基于全国31省149城真实统计与地方志</span>
-          <span class="pill" id="ageTag">15岁以上</span>
-        </div>
-
         <h1 class="brand-title">live · 14亿分之<em>1</em></h1>
 
-        <p class="lede">就在此刻，时间倒流或前行。在漫长的一百年前至今，无数普通人诞生于这片土地。你将成为其中一个，把仅此一次的人生走到最后。在哪里出生、生于哪个年代、成为谁的孩子，都无法选择。就像你当初一样。</p>
+        <p class="lede">1937年至今，近九十载风云更迭。数以亿计的普通人在这片土地上降生、跋涉、劳作与告别。每一次开端皆是未知——生于何地、落于何年、成为谁的骨肉，无从预设，也无法挑选。你将随机成为其中的一员，去经历那仅有一次的一生。</p>
 
         <!-- 实时人口流动统计计数器 -->
         <div class="counter" aria-live="off">
-          <div><strong id="cBirth">0</strong><span>打开这个页面后出生的同胞</span></div>
-          <div><strong id="cDeath">0</strong><span>同一段时间里离世的人</span></div>
-        </div>
-
-        <!-- 模拟配置选择器 (Segmented Controls) -->
-        <div class="opts">
-          <div class="optgroup">
-            <span class="lbl">出生的时代</span>
-            <div class="seg seg-era" id="segEra" role="group" aria-label="出生的时代">
-              <button type="button" data-val="all" aria-pressed="true">全部年代 (1937–2026)</button>
-              <button type="button" data-val="1937_1949" aria-pressed="false">战火建国 (1937–1949)</button>
-              <button type="button" data-val="1950_1977" aria-pressed="false">探索曲折 (1950–1977)</button>
-              <button type="button" data-val="1978_1999" aria-pressed="false">改革开放 (1978–1999)</button>
-              <button type="button" data-val="2000_2026" aria-pressed="false">千禧现代 (2000–2026)</button>
-            </div>
-            <span class="hint" id="eraHint">按全国历史人口分布随机抽取年代，亲身跨越近百年的时代激荡。</span>
-          </div>
-
-          <div class="optgroup">
-            <span class="lbl">出生地的抽选方式</span>
-            <div class="seg seg-city" id="segCity" role="group" aria-label="出生地的抽选方式">
-              <button type="button" data-val="weighted" aria-pressed="true">按历史人口加权</button>
-              <button type="button" data-val="random" aria-pressed="false">全国完全随机</button>
-              <button type="button" data-val="county" aria-pressed="false">特色工业与偏远县市</button>
-            </div>
-            <span class="hint">人口加权依各省市历史真实规模；偏远县市将更频繁领略如塔什库尔干、墨脱、攀枝花等山河皱褶。</span>
-          </div>
-
-          <div class="optgroup">
-            <span class="lbl">一段人生的长度与节奏</span>
-            <div class="seg seg-pace" id="segPace" role="group" aria-label="一段人生的长度">
-              <button type="button" data-val="medium" aria-pressed="true">标准沉浸 (逐年推进)</button>
-              <button type="button" data-val="short" aria-pressed="false">极速推演 (大步向前)</button>
-              <button type="button" data-val="step" aria-pressed="false">手动掌控 (单步推进)</button>
-            </div>
-            <span class="hint">逐年感受时光流转，配合倍速播放（1×/2×/4×）掌控人生的沉浸感。</span>
-          </div>
+          <div><strong id="cBirth">0</strong><span>打开本页后全国新出生人口</span></div>
+          <div><strong id="cDeath">0</strong><span>同一时间段内全国离世人口</span></div>
         </div>
 
         <div class="ctarow">
           <button class="cta" id="startBtn" type="button">成为某个人出生 <span aria-hidden="true">→</span></button>
-          <span class="ctahint">免费 · 无需登录 · 真实天灾与重大历史关卡碰撞</span>
-        </div>
-
-        <!-- 追思馆档案预览 -->
-        <div class="pastlives" id="pastLivesBox">
-          <h3>安放在追思馆的人生</h3>
-          <div class="pastlives-grid" id="pastLivesGrid">
-            <div class="memo-card">
-              <div class="mc-head"><span>1942 — 2018 · 享年 76 岁</span><span>河南 洛阳</span></div>
-              <div class="mc-name">赵树声 (工人家庭)</div>
-              <div class="mc-note">“一辈子干拖拉机厂机械维修，平平安安，看着三个娃都成了大学生，知足了。”</div>
-            </div>
-            <div class="memo-card">
-              <div class="mc-head"><span>1958 — 2023 · 享年 65 岁</span><span>辽宁 鞍山</span></div>
-              <div class="mc-name">李秀芬 (鞍钢职工)</div>
-              <div class="mc-note">“经历过转炉热火，也扛过下岗的风霜，老头子走得早，但我挺过来了。”</div>
-            </div>
-          </div>
         </div>
 
         <!-- 史料说明 -->
@@ -116,10 +52,6 @@
           <div>
             <h4>天灾撞击与生命沉浮</h4>
             <p>真实收录1938年花园口、1942年河南大旱、1976年唐山地震、2008年汶川地震等19场自然浩劫与近年疫情大事件，同城碰撞随机定生死。</p>
-          </div>
-          <div>
-            <h4>活着本身的力量</h4>
-            <p>向余华《活着》致敬。“人是为活着本身而活着的，而不是为了活着之外的任何事物所活着。” 在苦难与平凡中品味坚韧的生命底色。</p>
           </div>
         </div>
       </div>
@@ -408,6 +340,10 @@
       </div>
     </div>
   </div>
+
+  <footer class="site-footer">
+    <p>Entirely generated by Gemini 3.8 Flash via Antigravity</p>
+  </footer>
 
 </main>
 
