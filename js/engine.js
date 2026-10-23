@@ -399,6 +399,8 @@ class SimulationEngine {
     this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
+    this.narrativeTension = 35 + Math.floor(Math.random() * 25);
+    this.nextDecisionCooldownUntil = 0;
 
     // 1. 出生年份 (支持年代段抽取)
     let birthYear;
@@ -541,6 +543,16 @@ class SimulationEngine {
       economicLevel,
       siblingsCount,
       attributes,
+      lifeRhythm: {
+        marriageBaseAge: (urbanRural === 'rural' || birthYear < 1980)
+          ? 20 + Math.floor(Math.random() * 5)
+          : 21 + Math.floor(Math.random() * 6),
+        careerPromoteAges: [
+          22 + Math.floor(Math.random() * 3),
+          33 + Math.floor(Math.random() * 5),
+          46 + Math.floor(Math.random() * 5)
+        ]
+      },
       educationLevel: '未入学',
       careerTrack: initCareerTrack,
       careerRank: '初生幼年',
@@ -697,17 +709,19 @@ class SimulationEngine {
       if (tag === 'merchant' && /商人|商户|店主|老板|摊|商贸|个体户|经营/.test(occ)) return true;
       return false;
     }
+    // 性别与婚姻标签以当前属性为准，防止 overrides 变更后 tags 残留旧值
+    if (tag === 'female' || tag === '女') return this.character.sex === '女';
+    if (tag === 'male' || tag === '男') return this.character.sex === '男';
+    if (tag === 'married') return this.character.maritalStatus === '已婚';
+    if (tag === 'single') return this.character.maritalStatus !== '已婚';
+    if (tag === 'has_children') return Boolean(this.character.hasChildren);
+
     if (this.character.tags && this.character.tags.has(tag)) return true;
     if (this.statusFlags.has(tag)) return true;
     if (this.character.careerTrack === tag) return true;
     if (this.character.urbanRural === tag) return true;
     if (this.character.provinceId === tag) return true;
     if (this.character.economicLevel === tag) return true;
-    if (this.character.sex === '男' && (tag === 'male' || tag === '男')) return true;
-    if (this.character.sex === '女' && (tag === 'female' || tag === '女')) return true;
-    if (tag === 'married' && this.character.maritalStatus === '已婚') return true;
-    if (tag === 'single' && this.character.maritalStatus !== '已婚') return true;
-    if (tag === 'has_children' && this.character.hasChildren) return true;
     if (tag === 'uneducated') {
       const edu = this.character.educationLevel;
       const isNone = !edu || edu === '未入学' || edu === '文盲';
@@ -746,6 +760,124 @@ class SimulationEngine {
   }
 
   /**
+   * 子职业精准锚定（Sub-Occupation Guard）：校验 trajectory 职业事件是否与当前具体工种相符
+   */
+  characterMatchesTrajectoryEvent(evt) {
+    if (!evt || evt.tier !== 'trajectory') return true;
+    const char = this.character;
+    if (!char) return false;
+    const occ = char.occupation || '';
+    const track = char.careerTrack || '';
+    const provId = char.provinceId || '';
+    const city = this.cities ? this.cities.find(c => c.id === char.cityId) : null;
+    const isHeavyIndustryCity = (city && city.type === '重工业资源型') || (char.cityType === '重工业资源型');
+
+    switch (evt.id) {
+      case 'evt_traj_yihu_jizhen':
+        // 医院急诊：仅限 occupation 含 医|护|卫|大夫 或拥有 doctor/nurse/barefoot_doctor 标签者触发（禁止普通中小学教师/校长触发）
+        if (/医|护|卫|大夫/.test(occ)) return true;
+        if (this.characterHasTag('doctor') || this.characterHasTag('nurse') || this.characterHasTag('barefoot_doctor')) return true;
+        return false;
+
+      case 'evt_traj_jiaoshi_yanyan':
+        // 乡村讲台：仅限 occupation 含 教|师|校|督学 者触发
+        if (/教|师|校|督学/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_xiaofang_jiuyuan':
+        // 火场逆行：仅限拥有 military/firefighter 标签或 occupation 含 消防|救援|武警|安全 者触发（禁止普通车工/教师触发）
+        if (this.characterHasTag('military') || this.characterHasTag('firefighter')) return true;
+        if (/消防|救援|武警|安全/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_kuangong_fengxian':
+        // 地下采掘：仅限 occupation 含 矿|采掘|井 或重工业资源型城市工矿工人触发
+        if (/矿|采掘|井/.test(occ)) return true;
+        if (isHeavyIndustryCity && (track === 'worker' || /工/.test(occ))) return true;
+        return false;
+
+      case 'evt_traj_qishou_fengyu':
+        // 配送骑手：仅限 careerTrack === 'flexible_labor' 或 occupation 含 骑手|配送|快递|外卖 者触发
+        if (track === 'flexible_labor') return true;
+        if (/骑手|配送|快递|外卖/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_huoche_pilao':
+        // 长途货运：仅限 careerTrack === 'flexible_labor' 或 occupation 含 司机|货运|跟车|车队 者触发
+        if (track === 'flexible_labor') return true;
+        if (/司机|货运|跟车|车队/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_yumin_fenglang':
+        // 远洋捕捞：仅限沿海省份（广东、福建、浙江、山东、辽宁、海南、广西、江苏）的农村/渔民/工人触发，内陆省份农民严禁出海捕鱼
+        const coastalProvinces = ['guangdong', 'fujian', 'zhejiang', 'shandong', 'liaoning', 'hainan', 'guangxi', 'jiangsu'];
+        if (!coastalProvinces.includes(provId)) return false;
+        if (char.urbanRural === 'rural' || track === 'farmer' || track === 'worker' || /渔|船|水产|工|海/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_chengxuyuan_996':
+        if (track === 'tech_whitecollar' || /软件|程序|研发|算法|IT|科技|代码/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_getihu_jingying':
+        if (track === 'merchant' || /商|店|摊|贸|个体/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_jianzhu_gaokong':
+        if (track === 'worker' || /工|建筑|瓦|架|吊/.test(occ)) return true;
+        return false;
+
+      case 'evt_traj_nongye_laoshun':
+        if (track === 'farmer' || char.urbanRural === 'rural' || /农|田|社|耕/.test(occ)) return true;
+        return false;
+
+      default:
+        return true;
+    }
+  }
+
+  /**
+   * 判定某时代事件是否与当前角色身份/地域构成“核心碰撞”
+   */
+  isEraCoreCollision(evt) {
+    if (!evt || evt.tier !== 'era') return false;
+    const char = this.character;
+    if (!char) return false;
+    const occ = char.occupation || '';
+    const track = char.careerTrack || '';
+    const provId = char.provinceId || '';
+    const cityName = char.cityName || '';
+    const year = this.currentYear;
+
+    // 1978 小岗村之于安徽农民
+    if (evt.id === 'evt_1978_xiaogang_dabaogan' || (year >= 1978 && year <= 1982 && /小岗|包产到户|大包干/.test(evt.title))) {
+      if (provId === 'anhui' && (char.urbanRural === 'rural' || track === 'farmer')) return true;
+    }
+
+    // 1990/1992 认购证/证券之于沪深市民
+    if (evt.id === 'evt_1990_shanghai_zhengquan' || evt.id === 'evt_1992_shenzhen_rengouzheng' || evt.id === 'evt_1978_1999_d1_rengouzheng' || /认购证|上海证券交易所/.test(evt.title)) {
+      if ((provId === 'shanghai' || provId === 'guangdong' || cityName.includes('上海') || cityName.includes('深圳')) && char.urbanRural === 'urban') {
+        return true;
+      }
+    }
+
+    // 1998 下岗潮之于东北国企工人
+    if (evt.id === 'evt_1998_xiagangchao' || (/下岗/.test(evt.id) && evt.tier === 'era')) {
+      if (char.region === '东北' && (track === 'worker' || /工/.test(occ))) return true;
+    }
+
+    // 专属特定省市事件碰撞 (非 ALL)
+    if (evt.applicableRegions && !evt.applicableRegions.includes('ALL')) {
+      const hitsProv = evt.applicableRegions.includes(provId) || evt.applicableRegions.includes(char.region);
+      const hitsUrban = (evt.applicableRegions.includes('URBAN') && char.urbanRural === 'urban') ||
+                        (evt.applicableRegions.includes('RURAL') && char.urbanRural === 'rural');
+      if (hitsProv && hitsUrban) return true;
+    }
+
+    return false;
+  }
+
+  /**
    * 检查当年是否有待触发的历史大事件（严格遵循曝光条件、冷却期、前置与排除标签）
    */
   findEligibleEvents() {
@@ -781,11 +913,29 @@ class SimulationEngine {
       // 曝光条件
       if (!this.characterMeetsExposure(evt.exposureConditions)) continue;
 
+      // 职业专属 trajectory 精准校验 (子职业精准锚定，根治跨行串戏)
+      if (evt.tier === 'trajectory') {
+        if (!this.characterMatchesTrajectoryEvent(evt)) continue;
+      }
+
+      // 特殊生育事件校验：全面二孩与三孩政策必须已婚已育
+      if (evt.id === 'evt_2016_quanmian_erhai') {
+        const isMarried = this.characterHasTag('married');
+        const hasChild = this.characterHasTag('has_children') || (this.character && this.character.hasChildren);
+        if (!isMarried || !hasChild) continue;
+      }
+      if (evt.id === 'evt_2021_san_hai_zhengce') {
+        const isMarried = this.characterHasTag('married');
+        const hasChild = this.characterHasTag('has_children') || this.characterHasTag('two_children_family') || (this.character && this.character.hasChildren);
+        if (!isMarried || !hasChild) continue;
+      }
+
       // 前置标签默认表示“符合任一身份即可”（工人或教师或商户）。
-      // 带性别标签的组合（如 female + married）才要求全部满足。
+      // 带性别标签或婚育复合标签的组合才要求全部满足。
       // 旧逻辑把所有列表都当 AND，导致 ["worker","cadre_teacher"] 这类事件永远不可达。
       if (evt.preTags && evt.preTags.length > 0) {
-        const requiresAll = evt.preTags.includes('female') || evt.preTags.includes('male');
+        const requiresAll = evt.preTags.includes('female') || evt.preTags.includes('male') ||
+          (evt.preTags.includes('married') && evt.preTags.includes('has_children'));
         const match = requiresAll
           ? evt.preTags.every(t => this.characterHasTag(t))
           : evt.preTags.some(t => this.characterHasTag(t));
@@ -823,62 +973,14 @@ class SimulationEngine {
   }
 
   /**
-   * 人生固定重要抉择节点（义务教育自动推进，不弹重复选项，仅在升学分流、高考与婚育分水岭弹决策）
+   * 刚性学业节点检测（小升初/中考分流、高考、启蒙入学）：不受张力门控
    */
-  checkLifeMilestone() {
+  checkRigidSchoolMilestone() {
     const age = this.currentAge;
     const isLateBorn = this.character && this.character.birthYear >= 2010;
 
-    // 针对 2010 年及以后出生的新时代少儿专属成长关卡（绝不涉及成年虚构内容）
+    // 针对 2010 年及以后出生的新时代少儿：中考分流关口
     if (isLateBorn) {
-      if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_child_interest')) {
-        this.statusFlags.add('decision_child_interest');
-        return {
-          id: 'node_child_interest',
-          title: '幼小衔接与兴趣班抉择',
-          isDecision: true,
-          narrative: `你已到学龄，周边家长纷纷给孩子报名少儿编程、英语口语与思维训练班。面对激烈的同龄竞争，家庭需权衡教育投入。`,
-          choices: [
-            {
-              text: '报读少儿兴趣与思维启蒙班',
-              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：重视素质启蒙家庭'],
-              effect: { "knowledge": 20, "wealth": -15, "health": -5 },
-              log: '周末穿梭于各个校外培训班，虽略显疲累，但眼界与思维打下了扎实基础。'
-            },
-            {
-              text: '坚持快乐童年，多跑跳户外运动',
-              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：崇尚天性自然家庭'],
-              effect: { "health": 15, "family": 15, "wealth": 5 },
-              log: '放学后与邻里小伙伴在小区楼下自由奔跑玩耍，享受无忧无虑的纯真童年。'
-            }
-          ]
-        };
-      }
-
-      if (age >= 10 && age <= 12 && !this.statusFlags.has('decision_child_digital')) {
-        this.statusFlags.add('decision_child_digital');
-        return {
-          id: 'node_child_digital',
-          title: '网课居家与智能终端考量',
-          isDecision: true,
-          narrative: `疫情居家上网课期间，你拥有了属于自己的平板与智能手机。屏幕那头是老师的板书，后台则是精彩纷呈的短视频与手机游戏。`,
-          choices: [
-            {
-              text: '高度自律专心网课，主动做拓展题',
-              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：自律求知学童'],
-              effect: { "knowledge": 25, "mentality": 10, "health": -5 },
-              log: '抵制住了游戏短视频诱惑，利用数字终端汲取海量知识，成绩名列前茅。'
-            },
-            {
-              text: '沉迷手机游戏与短视频，熬夜摸鱼',
-              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：数字娱乐沉浸者'],
-              effect: { "mentality": 15, "health": -10, "knowledge": -10 },
-              log: '在虚拟网络世界中获得极高满足感，但也让视力下降，课业偶有落伍。'
-            }
-          ]
-        };
-      }
-
       if (age >= 14 && age <= 16 && !this.statusFlags.has('decision_child_exam')) {
         this.statusFlags.add('decision_child_exam');
         return {
@@ -902,18 +1004,13 @@ class SimulationEngine {
           ]
         };
       }
-
       return null;
     }
 
-    // 针对 1980 年后出生的义务教育默认路径（自动推进，不弹重复选项）
     const isCompulsoryEra = this.character.birthYear >= 1980 || this.currentYear >= 1986;
 
     if (isCompulsoryEra) {
-      // 7 岁入学与 12 岁升初中统一在 advanceYear() 中自动推进并记录里程碑，
-      // 这里只保留 15–16 岁的中考分流关口，避免重复判定与重复里程碑。
-
-      // 15–16岁：中考分流关口（弹出关键决策）
+      // 15–16岁：中考分流关口
       if (age >= 15 && age <= 16 && (this.character.educationLevel === '初中在读' || this.character.tags.has('junior_high')) && !this.statusFlags.has('decision_zhongkao_fenliu')) {
         this.statusFlags.add('decision_zhongkao_fenliu');
         return {
@@ -942,7 +1039,7 @@ class SimulationEngine {
         };
       }
 
-      // 18–19岁：高考关口（针对高中生）；复读生 19–20 岁可再考一次
+      // 18–19岁：高考关口；复读生 19–20 岁可再考一次
       const isGaokaoRetry = age >= 19 && age <= 20 &&
         this.statusFlags.has('repeating_gaokao') &&
         !this.statusFlags.has('decision_gaokao_retry');
@@ -1004,101 +1101,179 @@ class SimulationEngine {
       }
     }
 
-    // 青年婚育抉择 (21-35岁，未婚且不在冷却期，与相亲结婚事件共享冷却)
-    if (age >= 21 && age <= 35 && this.character.maritalStatus !== '已婚') {
-      const isMarriageCooling = (this.eventCooldowns['node_marriage'] && this.currentYear < this.eventCooldowns['node_marriage']) ||
-                                (this.eventCooldowns['evt_life_xiangqin_jiehun'] && this.currentYear < this.eventCooldowns['evt_life_xiangqin_jiehun']);
-      if (!isMarriageCooling) {
-        this.eventCooldowns['node_marriage'] = this.currentYear + 4;
-        this.eventCooldowns['evt_life_xiangqin_jiehun'] = this.currentYear + 4;
+    return null;
+  }
+
+  createMarriageDecisionNode() {
+    return {
+      id: 'node_marriage',
+      tier: 'life_chain',
+      title: '成家立业关口',
+      isDecision: true,
+      narrative: `行至青年成家关口，媒人提亲或与心仪之人相知提上了日程。需置办聘礼家具，这是人生的一大转折点。`,
+      choices: [
+        {
+          text: '依照习俗顺理成章成家完婚',
+          choiceTags: ['时代：传统婚恋', '年龄：20–38', '地域：全国', '门槛：适龄青年'],
+          outcomes: [
+            { type: 'safe', weight: 90, log: '按当年规制办了喜酒成家立业，夫妻相濡以沫操持生计。', effect: { family: 25, wealth: -15, mentality: 10 }, status: 'married', hiddenRiskLog: '寻得终身伴侣喜结连理，携手抵御人间风雨。' },
+            { type: 'safe', weight: 10, log: '喜结良缘且夫妻双方勤俭持家，小家庭积蓄蒸蒸日上。', effect: { family: 35, wealth: 10, mentality: 15 }, status: 'married', hiddenRiskLog: '得遇贤能良偶，齐心协力改善家境。' }
+          ]
+        },
+        {
+          text: '推迟婚期，专心打拼本职或求学',
+          choiceTags: ['时代：事业优先', '年龄：20–38', '地域：全国', '门槛：打拼奋斗者'],
+          outcomes: [
+            { type: 'safe', weight: 100, log: '暂缓个人婚事，把满腔热忱投入到本职工作与打拼当中。', effect: { knowledge: 15, wealth: 15, family: -10 }, hiddenRiskLog: '暂缓成家立业，积蓄个人实力等待更佳良缘。' }
+          ]
+        }
+      ]
+    };
+  }
+
+  createMedicalDecisionNode() {
+    return {
+      id: 'node_medical',
+      tier: 'contingency',
+      title: '顽疾缠身与就医抉择',
+      isDecision: true,
+      narrative: `常年劳累积下重病，近来胸闷咳喘剧烈。大夫建议住院系统检查治疗，但这需要动用家中全部积蓄。`,
+      choices: [
+        {
+          text: '动用全部积蓄积极住院治疗',
+          choiceTags: ['时代：医疗救治', '年龄：48–65', '地域：全国', '门槛：重病患者'],
+          outcomes: [
+            { type: 'safe', weight: 85, log: '四处借钱并动用积蓄积极就医，病情得以控制稳定。', effect: { health: 25, wealth: -30, mentality: 10 }, hiddenRiskLog: '倾尽积蓄治愈恶疾，虽耗光钱财但保住宝贵生命。' },
+            { type: 'injured', weight: 15, log: '住院手术历经凶险虽保住性命，但需常年服药调养。', effect: { health: 15, wealth: -40 }, hiddenRiskLog: '大病初愈落下慢性病根，需谨遵医嘱长期调理。' }
+          ]
+        },
+        {
+          text: '抓草药硬扛，把钱留给儿女开销',
+          choiceTags: ['时代：保守求生', '年龄：48–65', '地域：全国', '门槛：省吃俭用者'],
+          outcomes: [
+            { type: 'injured', weight: 80, log: '不忍拖累家人选择硬撑苦挨，身体逐渐落下严重宿疾。', effect: { health: -20, family: 15, wealth: 5 }, hiddenRiskLog: '舍身顾念家庭延误医治，身体机能不可逆衰退。' },
+            { type: 'fatal', weight: 20, log: '病情迅速恶化引发全身感染多器官衰竭，抢救无效溘然长逝。', isFatal: true, hiddenRiskLog: '重病延误医治不幸早逝。' }
+          ]
+        }
+      ]
+    };
+  }
+
+  createDarkestHourDecisionNode() {
+    return {
+      id: 'node_darkest_hour',
+      tier: 'contingency',
+      title: '人生至暗时刻：深渊边缘的寒夜',
+      isDecision: true,
+      historicalFact: '生活中总有些绝境，万念俱灰的重压几乎要将人彻底碾碎。这是人性的深渊，也是尊严、责任与执念的最后拷问。',
+      narrative: '催债的电话在静音震动中闪烁不休，门缝里塞满了红色的律师函与催缴单。深冬的寒风呼呼灌进毛坯房的窗洞，你在桥头长椅上枯坐了整整一夜，烟头散落一地。前半生的心血与尊严碎成齑粉，桥下冰冷的黑水在夜色中泛着刺骨幽光。',
+      choices: [
+        {
+          text: '万念俱灰，松开栏杆走入冰冷黑夜（绝境弃生）',
+          choiceTags: ['时代：深渊时刻', '门槛：极度绝望者'],
+          outcomes: [
+            { type: 'fatal', weight: 100, isFatal: true, log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。', hiddenRiskLog: '在人生的至暗绝境中走完了一生。' }
+          ]
+        },
+        {
+          text: '嚼碎屈辱，哪怕出尽苦力也要替家人还债（负重苟活）',
+          choiceTags: ['时代：深渊时刻', '门槛：坚韧求生者'],
+          outcomes: [
+            { type: 'safe', weight: 100, log: '在桥头痛哭一场后咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。', effect: { health: -25, wealth: 10, mentality: 25 }, hiddenRiskLog: '嚼碎绝望重新站起，在最苦最累的生计中重塑尊严。' }
+          ]
+        },
+        {
+          text: '推开破旧老屋柴门，父母的一碗热汤将自己从悬崖边缘拉回（至亲救赎）',
+          choiceTags: ['时代：深渊时刻', '门槛：亲情羁绊者'],
+          outcomes: [
+            { type: 'safe', weight: 100, log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。', effect: { family: 20, mentality: 35 }, hiddenRiskLog: '在血脉至亲的包容与温暖中重拾活下去的勇气。' }
+          ]
+        }
+      ]
+    };
+  }
+
+  /**
+   * 人生重要抉择节点（向下兼容单测 direct call）
+   */
+  checkLifeMilestone() {
+    const rigid = this.checkRigidSchoolMilestone();
+    if (rigid) return rigid;
+
+    const age = this.currentAge;
+    const isLateBorn = this.character && this.character.birthYear >= 2010;
+
+    if (isLateBorn) {
+      if (age >= 6 && age <= 8 && !this.statusFlags.has('decision_child_interest')) {
+        this.statusFlags.add('decision_child_interest');
         return {
-          id: 'node_marriage',
-          title: '成家立业关口',
+          id: 'node_child_interest',
+          title: '幼小衔接与兴趣班抉择',
           isDecision: true,
-          narrative: `行至青年成家关口，媒人提亲或与心仪之人相知提上了日程。需置办聘礼家具，这是人生的一大转折点。`,
+          narrative: `你已到学龄，周边家长纷纷给孩子报名少儿编程、英语口语与思维训练班。面对激烈的同龄竞争，家庭需权衡教育投入。`,
           choices: [
             {
-              text: '依照习俗顺理成章成家完婚',
-              choiceTags: ['时代：传统婚恋', '年龄：21–35', '地域：全国', '门槛：适龄青年'],
-              outcomes: [
-                { type: 'safe', weight: 90, log: '按当年规制办了喜酒成家立业，夫妻相濡以沫操持生计。', effect: { family: 25, wealth: -15, mentality: 10 }, status: 'married', hiddenRiskLog: '寻得终身伴侣喜结连理，携手抵御人间风雨。' },
-                { type: 'safe', weight: 10, log: '喜结良缘且夫妻双方勤俭持家，小家庭积蓄蒸蒸日上。', effect: { family: 35, wealth: 10, mentality: 15 }, status: 'married', hiddenRiskLog: '得遇贤能良偶，齐心协力改善家境。' }
-              ]
+              text: '报读少儿兴趣与思维启蒙班',
+              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：重视素质启蒙家庭'],
+              effect: { "knowledge": 20, "wealth": -15, "health": -5 },
+              log: '周末穿梭于各个校外培训班，虽略显疲累，但眼界与思维打下了扎实基础。'
             },
             {
-              text: '推迟婚期，专心打拼本职或求学',
-              choiceTags: ['时代：事业优先', '年龄：21–35', '地域：全国', '门槛：打拼奋斗者'],
-              outcomes: [
-                { type: 'safe', weight: 100, log: '暂缓个人婚事，把满腔热忱投入到本职工作与打拼当中。', effect: { knowledge: 15, wealth: 15, family: -10 }, hiddenRiskLog: '暂缓成家立业，积蓄个人实力等待更佳良缘。' }
-              ]
+              text: '坚持快乐童年，多跑跳户外运动',
+              choiceTags: ['时代：新时代少儿', '年龄：6–8', '地域：全国', '门槛：崇尚天性自然家庭'],
+              effect: { "health": 15, "family": 15, "wealth": 5 },
+              log: '放学后与邻里小伙伴在小区楼下自由奔跑玩耍，享受无忧无虑的纯真童年。'
+            }
+          ]
+        };
+      }
+
+      if (age >= 10 && age <= 12 && !this.statusFlags.has('decision_child_digital')) {
+        this.statusFlags.add('decision_child_digital');
+        return {
+          id: 'node_child_digital',
+          title: '网课居家与智能终端考量',
+          isDecision: true,
+          narrative: `疫情居家上网课期间，你拥有了属于自己的平板与智能手机。屏幕那头是老师的板书，后台则是精彩纷呈的短视频与手机游戏。`,
+          choices: [
+            {
+              text: '高度自律专心网课，主动做拓展题',
+              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：自律求知学童'],
+              effect: { "knowledge": 25, "mentality": 10, "health": -5 },
+              log: '抵制住了游戏短视频诱惑，利用数字终端汲取海量知识，成绩名列前茅。'
+            },
+            {
+              text: '沉迷手机游戏与短视频，熬夜摸鱼',
+              choiceTags: ['时代：数字时代', '年龄：10–12', '地域：全国', '门槛：数字娱乐沉浸者'],
+              effect: { "mentality": 15, "health": -10, "knowledge": -10 },
+              log: '在虚拟网络世界中获得极高满足感，但也让视力下降，课业偶有落伍。'
             }
           ]
         };
       }
     }
 
-    // 中年大病求医抉择 (48-65岁，若健康较低)
-    if (age >= 48 && age <= 65 && this.character.attributes.health < 45 && !this.statusFlags.has('decision_medical')) {
-      this.statusFlags.add('decision_medical');
-      return {
-        id: 'node_medical',
-        title: '顽疾缠身与就医抉择',
-        isDecision: true,
-        narrative: `常年劳累积下重病，近来胸闷咳喘剧烈。大夫建议住院系统检查治疗，但这需要动用家中全部积蓄。`,
-        choices: [
-          {
-            text: '动用全部积蓄积极住院治疗',
-            choiceTags: ['时代：医疗救治', '年龄：48–65', '地域：全国', '门槛：重病患者'],
-            outcomes: [
-              { type: 'safe', weight: 85, log: '四处借钱并动用积蓄积极就医，病情得以控制稳定。', effect: { health: 25, wealth: -30, mentality: 10 }, hiddenRiskLog: '倾尽积蓄治愈恶疾，虽耗光钱财但保住宝贵生命。' },
-              { type: 'injured', weight: 15, log: '住院手术历经凶险虽保住性命，但需常年服药调养。', effect: { health: 15, wealth: -40 }, hiddenRiskLog: '大病初愈落下慢性病根，需谨遵医嘱长期调理。' }
-            ]
-          },
-          {
-            text: '抓草药硬扛，把钱留给儿女开销',
-            choiceTags: ['时代：保守求生', '年龄：48–65', '地域：全国', '门槛：省吃俭用者'],
-            outcomes: [
-              { type: 'injured', weight: 80, log: '不忍拖累家人选择硬撑苦挨，身体逐渐落下严重宿疾。', effect: { health: -20, family: 15, wealth: 5 }, hiddenRiskLog: '舍身顾念家庭延误医治，身体机能不可逆衰退。' },
-              { type: 'fatal', weight: 20, log: '病情迅速恶化引发全身感染多器官衰竭，抢救无效溘然长逝。', isFatal: true, hiddenRiskLog: '重病延误医治不幸早逝。' }
-            ]
-          }
-        ]
-      };
+    const rhythm = this.character && this.character.lifeRhythm;
+    const marriageBaseAge = (rhythm && rhythm.marriageBaseAge) ? rhythm.marriageBaseAge : 22;
+    const gradYear = (this.character && this.character.collegeGraduationYear) || 0;
+    const inHigherEd = (gradYear && this.currentYear <= gradYear) || (this.character && this.character.educationLevel === '高等院校在读');
+    const gradAge = gradYear ? (gradYear - this.character.birthYear) : 0;
+    const effectiveMarriageAge = Math.max(marriageBaseAge, gradAge ? (gradAge + 1) : 0);
+
+    if (!inHigherEd && age >= effectiveMarriageAge && age <= 38 && this.character.maritalStatus !== '已婚') {
+      const isMarriageCooling = (this.eventCooldowns['node_marriage'] && this.currentYear < this.eventCooldowns['node_marriage']) ||
+                                (this.eventCooldowns['evt_life_xiangqin_jiehun'] && this.currentYear < this.eventCooldowns['evt_life_xiangqin_jiehun']);
+      if (!isMarriageCooling) {
+        return this.createMarriageDecisionNode();
+      }
     }
 
-    // 人生至暗时刻抉择 (成年后心态极低且财富极低，处于破产与绝望边缘)
+    if (age >= 48 && age <= 65 && this.character.attributes.health < 45 && !this.statusFlags.has('decision_medical')) {
+      return this.createMedicalDecisionNode();
+    }
+
     if (age >= 20 && this.character.attributes.mentality < 22 && this.character.attributes.wealth < 20 && !this.statusFlags.has('decision_darkest_hour')) {
-      this.statusFlags.add('decision_darkest_hour');
-      return {
-        id: 'node_darkest_hour',
-        title: '人生至暗时刻：深渊边缘的寒夜',
-        isDecision: true,
-        historicalFact: '生活中总有些绝境，万念俱灰的重压几乎要将人彻底碾碎。这是人性的深渊，也是尊严、责任与执念的最后拷问。',
-        narrative: '催债的电话在静音震动中闪烁不休，门缝里塞满了红色的律师函与催缴单。深冬的寒风呼呼灌进毛坯房的窗洞，你在桥头长椅上枯坐了整整一夜，烟头散落一地。前半生的心血与尊严碎成齑粉，桥下冰冷的黑水在夜色中泛着刺骨幽光。',
-        choices: [
-          {
-            text: '万念俱灰，松开栏杆走入冰冷黑夜（绝境弃生）',
-            choiceTags: ['时代：深渊时刻', '门槛：极度绝望者'],
-            outcomes: [
-              { type: 'fatal', weight: 100, isFatal: true, log: '心力枯竭，在无尽的黑暗与深渊面前永远闭上了双眼。', hiddenRiskLog: '在人生的至暗绝境中走完了一生。' }
-            ]
-          },
-          {
-            text: '嚼碎屈辱，哪怕出尽苦力也要替家人还债（负重苟活）',
-            choiceTags: ['时代：深渊时刻', '门槛：坚韧求生者'],
-            outcomes: [
-              { type: 'safe', weight: 100, log: '在桥头痛哭一场后咬碎牙关擦干眼泪，哪怕脱掉长衫出尽苦力，也要替家门把债还清。', effect: { health: -25, wealth: 10, mentality: 25 }, hiddenRiskLog: '嚼碎绝望重新站起，在最苦最累的生计中重塑尊严。' }
-            ]
-          },
-          {
-            text: '推开破旧老屋柴门，父母的一碗热汤将自己从悬崖边缘拉回（至亲救赎）',
-            choiceTags: ['时代：深渊时刻', '门槛：亲情羁绊者'],
-            outcomes: [
-              { type: 'safe', weight: 100, log: '在老母亲颤抖递来的一碗热汤面面前抱头痛哭，认栽还乡，在亲情庇护下捡回一条命。', effect: { family: 20, mentality: 35 }, hiddenRiskLog: '在血脉至亲的包容与温暖中重拾活下去的勇气。' }
-            ]
-          }
-        ]
-      };
+      return this.createDarkestHourDecisionNode();
     }
 
     return null;
@@ -1376,6 +1551,15 @@ class SimulationEngine {
     // 1986 年义务教育法实施后（或 1980 年后出生）才有稳定的直升初中路径。
     const isCompulsoryEra = char.birthYear >= 1980 || year >= 1986;
 
+    // 读取个性化生命节律晋升年龄与属性门槛
+    const promoteAges = (char.lifeRhythm && Array.isArray(char.lifeRhythm.careerPromoteAges))
+      ? char.lifeRhythm.careerPromoteAges
+      : [22, 35, 48];
+    const p1 = promoteAges[0] || 22;
+    const p2 = promoteAges[1] || 35;
+    const p3 = promoteAges[2] || 48;
+    const meetsHighThreshold = Boolean(attr && ((attr.knowledge >= 55) || (attr.wealth >= 55)));
+
     // (A) 幼年期 (0-5岁)
     if (age <= 2) {
       title = isUrban ? '城镇乳儿' : '乡野乳儿';
@@ -1416,8 +1600,8 @@ class SimulationEngine {
         }
       }
     }
-    // (C) 青年起步与深造期 (15-22岁)
-    else if (age <= 22) {
+    // (C) 青年起步与深造期 (15-p1岁)
+    else if (age <= p1) {
       const hasDroppedOut = flags.has('status_dropped_out');
       const isHigherEd = flags.has('college_graduate') || 
                          char.tags.has('higher_ed_degree') ||
@@ -1481,10 +1665,10 @@ class SimulationEngine {
         }
       }
     }
-    // (D) 壮年立业与黄金期 (23-59岁)
+    // (D) 壮年立业与黄金期 ((p1+1)-59岁)
     else if (age <= 59) {
-      const isJunior = age <= 35;
-      const isMid = age > 35 && age <= 48;
+      const isJunior = age <= p2;
+      const isMid = age > p2 && age <= p3;
 
       switch (char.careerTrack) {
         case 'worker':
@@ -1493,11 +1677,15 @@ class SimulationEngine {
             else if (year < 2005) title = flags.has('xiagang_self_employed') ? '下岗再就业模具骨干' : '国企技改车间技术员';
             else title = '现代制造车间数控技师';
           } else if (isMid) {
-            if (year < 1998) title = '机械制造车间副主任';
-            else if (year < 2008) title = '民营五金模具厂车间主任';
-            else title = '现代化总装车间主任/技师';
+            if (meetsHighThreshold) {
+              if (year < 1998) title = '机械制造车间副主任';
+              else if (year < 2008) title = '民营五金模具厂车间主任';
+              else title = '现代化总装车间主任/技师';
+            } else {
+              title = '车间资深骨干钳工';
+            }
           } else {
-            title = '资深机电总装大师傅/八级工';
+            title = meetsHighThreshold ? '资深机电总装大师傅/八级工' : '资深机电熟练操作工';
           }
           break;
 
@@ -1507,11 +1695,15 @@ class SimulationEngine {
             else if (year < 2000) title = '责任田科技示范种粮能手';
             else title = '现代特色家庭农场主';
           } else if (isMid) {
-            if (year < 1980) title = '人民公社生产大队长';
-            else if (year < 2000) title = '乡镇农资总经销/种粮大户';
-            else title = '农机专业合作社理事长';
+            if (meetsHighThreshold) {
+              if (year < 1980) title = '人民公社生产大队长';
+              else if (year < 2000) title = '乡镇农资总经销/种粮大户';
+              else title = '农机专业合作社理事长';
+            } else {
+              title = '公社熟练种田老社员';
+            }
           } else {
-            title = '乡村资深农艺师/种田名家';
+            title = meetsHighThreshold ? '乡村资深农艺师/种田名家' : '乡村经验丰富老农';
           }
           break;
 
@@ -1521,9 +1713,9 @@ class SimulationEngine {
             else if (year < 2000) title = '县属中学公办骨干教师';
             else title = '实验中学高级教研组长';
           } else if (isMid) {
-            title = '重点中学校长/高级教师';
+            title = meetsHighThreshold ? '重点中学校长/高级教师' : '资深骨干教师';
           } else {
-            title = '教育系统资深督学/高级教师';
+            title = meetsHighThreshold ? '教育系统资深督学/高级教师' : '资深骨干教师';
           }
           break;
 
@@ -1533,9 +1725,9 @@ class SimulationEngine {
             else if (year < 2000) title = '沿海商贸五金批发商行主';
             else title = '跨境商贸供应链合伙人';
           } else if (isMid) {
-            title = '建材五金城总批发商/总经理';
+            title = meetsHighThreshold ? '建材五金城总批发商/总经理' : '商贸店东';
           } else {
-            title = '民营商贸企业董事长/商会理事';
+            title = meetsHighThreshold ? '民营商贸企业董事长/商会理事' : '商贸店东';
           }
           break;
 
@@ -1545,9 +1737,9 @@ class SimulationEngine {
             else if (year < 2018) title = '互联网资深软件架构师';
             else title = '人工智能算法研发总监';
           } else if (isMid) {
-            title = '高新科技公司技术总监/合伙人';
+            title = meetsHighThreshold ? '高新科技公司技术总监/合伙人' : '高级工程师';
           } else {
-            title = '数字化转型首席行业顾问';
+            title = meetsHighThreshold ? '数字化转型首席行业顾问' : '高级工程师';
           }
           break;
 
@@ -1557,9 +1749,9 @@ class SimulationEngine {
             else if (year < 2018) title = '物流干线冷链调度组长';
             else title = '平台金牌车队长/专送主管';
           } else if (isMid) {
-            title = '区域冷链货运车队长';
+            title = meetsHighThreshold ? '区域冷链货运车队长' : '资深干线货车司机';
           } else {
-            title = '产业园区设备安全运行主管';
+            title = meetsHighThreshold ? '产业园区设备安全运行主管' : '资深干线货车司机';
           }
           break;
 
@@ -3006,42 +3198,147 @@ class SimulationEngine {
       ? []
       : eligibleEvents.filter(e => e.isDecision);
 
-    // 3. 检查人生重要节点抉择 (义务教育推进、中考分流、高考、婚育、至暗时刻等)
+    // 3. 检查人生里程碑节点（刚性学制节点豁免门控，弹性节点受张力门控）
     const pendingMilestone = this.checkLifeMilestone();
+    const isRigidMilestone = pendingMilestone && [
+      'node_zhongkao_fenliu', 'node_gaokao_jueze', 'node_gaokao_retry', 'node_school', 'node_child_exam'
+    ].includes(pendingMilestone.id);
 
-    // 4. 决策挑选逻辑（严格分级：人生主轴里程碑优先；防时代灾难滚雪球过度集中；保障生活链条与职业习惯触发）
     let activeDecision = null;
 
-    if (pendingMilestone) {
-      // 4.1 核心人生阶段里程碑优先触发 (学龄、中考分流、高考、婚育等为人生主轴)
+    if (isRigidMilestone) {
+      // 硬性学业节点豁免，不受张力阈值限制，触发后重置张力为 20
       activeDecision = pendingMilestone;
+      this.narrativeTension = 20;
     } else {
-      // 4.2 筛选各层候选决策
-      const eraDecisions = decisionCandidates.filter(e => e.tier === 'era' && Math.random() < (e.triggerProbability || 0.8));
-      const lifeChainDecisions = decisionCandidates.filter(e => e.tier === 'life_chain' && Math.random() < (e.triggerProbability || 0.45));
-      const trajDecisions = decisionCandidates.filter(e => e.tier === 'trajectory' && Math.random() < (e.triggerProbability || 0.18));
-      const contDecisions = decisionCandidates.filter(e => e.tier === 'contingency' && Math.random() < (e.triggerProbability || 0.05));
+      // 普通决策受张力门控
+      if (this.narrativeTension === undefined) {
+        this.narrativeTension = 35 + Math.floor(Math.random() * 25);
+      }
+      if (this.nextDecisionCooldownUntil === undefined) {
+        this.nextDecisionCooldownUntil = 0;
+      }
 
-      // 防灾难滚雪球机制：同一角色在刚经历过宏观时代风暴决策的2年内，优先进入微观家庭生活、职业创业、消费借贷与亲友互助
-      const inEraFatigue = this.lastEraDecisionYear && (this.currentYear - this.lastEraDecisionYear <= 2);
+      const isTensionReady = (this.narrativeTension >= 85) && (this.currentYear >= this.nextDecisionCooldownUntil);
 
-      if (inEraFatigue && (lifeChainDecisions.length > 0 || trajDecisions.length > 0 || contDecisions.length > 0)) {
-        activeDecision = this.pickEventCandidate(lifeChainDecisions) ||
-                         this.pickEventCandidate(trajDecisions) ||
-                         this.pickEventCandidate(contDecisions);
-      } else if (eraDecisions.length > 0) {
-        activeDecision = this.pickEventCandidate(eraDecisions);
-        this.lastEraDecisionYear = this.currentYear;
-      } else if (lifeChainDecisions.length > 0) {
-        activeDecision = this.pickEventCandidate(lifeChainDecisions);
-      } else if (trajDecisions.length > 0) {
-        activeDecision = this.pickEventCandidate(trajDecisions);
-      } else if (contDecisions.length > 0) {
-        activeDecision = this.pickEventCandidate(contDecisions);
+      if (isTensionReady && this.currentAge >= 6) {
+        const eraCandidates = decisionCandidates.filter(e => e.tier === 'era');
+        const lifeChainCandidates = decisionCandidates.filter(e => e.tier === 'life_chain');
+        const trajCandidates = decisionCandidates.filter(e => e.tier === 'trajectory');
+        const contCandidates = decisionCandidates.filter(e => e.tier === 'contingency');
+
+        if (pendingMilestone && !isRigidMilestone) {
+          if (pendingMilestone.id === 'node_marriage') {
+            lifeChainCandidates.push(pendingMilestone);
+            lifeChainCandidates.push(pendingMilestone);
+          } else if (pendingMilestone.id === 'node_medical' || pendingMilestone.id === 'node_darkest_hour') {
+            contCandidates.push(pendingMilestone);
+          } else {
+            lifeChainCandidates.push(pendingMilestone);
+          }
+        }
+
+        const validEraDecisions = [];
+        for (const eraEvt of eraCandidates) {
+          const isCore = this.isEraCoreCollision(eraEvt);
+          const adapted = this.adaptDecisionToPersona(eraEvt);
+          const polished = this.filterAndPolishChoices(adapted);
+          if (!polished.choices || polished.choices.length <= 1) {
+            this.statusFlags.add(`done_${eraEvt.id}`);
+            const singleChoice = (polished.choices && polished.choices[0]);
+            if (singleChoice) {
+              const eff = (singleChoice.outcomes && singleChoice.outcomes[0] && singleChoice.outcomes[0].effect) || singleChoice.effect || {};
+              for (const [k, v] of Object.entries(eff)) {
+                if (this.character.attributes[k] !== undefined) {
+                  this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
+                }
+              }
+              this.character.milestones.push({
+                year: this.currentYear,
+                age: this.currentAge,
+                title: eraEvt.title,
+                detail: (singleChoice.outcomes && singleChoice.outcomes[0] && singleChoice.outcomes[0].log) || singleChoice.log || singleChoice.text || eraEvt.title
+              });
+            }
+            passiveNarrativeAdditions.push(eraEvt.oralHistoryNarrative || eraEvt.title);
+          } else {
+            validEraDecisions.push({ raw: eraEvt, isCore });
+          }
+        }
+
+        const coreCollisionEra = validEraDecisions.find(e => e.isCore);
+        if (coreCollisionEra) {
+          activeDecision = coreCollisionEra.raw;
+          this.lastEraDecisionYear = this.currentYear;
+        } else {
+          const hasPersonalHook = (this.character.maritalStatus === '已婚' && !this.character.hasChildren) ||
+                                  this.characterHasTag('xiagang') ||
+                                  this.characterHasTag('xiagang_self_employed') ||
+                                  ['worker', 'farmer', 'cadre_teacher', 'tech_whitecollar', 'merchant', 'flexible_labor'].includes(this.character.careerTrack) ||
+                                  ['smoker', 'drinker', 'swimmer', 'hiker', 'stay_up_late'].some(t => this.characterHasTag(t));
+
+          const inEraFatigue = this.lastEraDecisionYear && (this.currentYear - this.lastEraDecisionYear <= 2);
+
+          let wLife = hasPersonalHook ? 40 : 30;
+          let wTraj = hasPersonalHook ? 30 : 20;
+          let wEra = inEraFatigue ? 5 : (hasPersonalHook ? 25 : 40);
+          let wCont = hasPersonalHook ? 5 : 10;
+
+          const availableTiers = [];
+          if (lifeChainCandidates.length > 0) availableTiers.push({ tier: 'life_chain', weight: wLife, list: lifeChainCandidates });
+          if (trajCandidates.length > 0) availableTiers.push({ tier: 'trajectory', weight: wTraj, list: trajCandidates });
+          if (validEraDecisions.length > 0) availableTiers.push({ tier: 'era', weight: wEra, list: validEraDecisions.map(d => d.raw) });
+          if (contCandidates.length > 0) availableTiers.push({ tier: 'contingency', weight: wCont, list: contCandidates });
+
+          while (availableTiers.length > 0 && !activeDecision) {
+            const totalWeight = availableTiers.reduce((acc, t) => acc + t.weight, 0);
+            let roll = Math.random() * totalWeight;
+            let chosenTierIndex = 0;
+            for (let i = 0; i < availableTiers.length; i++) {
+              if (roll <= availableTiers[i].weight) {
+                chosenTierIndex = i;
+                break;
+              }
+              roll -= availableTiers[i].weight;
+            }
+            const chosenTier = availableTiers[chosenTierIndex];
+            const candidate = this.pickEventCandidate(chosenTier.list);
+            const adapted = this.adaptDecisionToPersona(candidate);
+            const polished = this.filterAndPolishChoices(adapted);
+            if (polished.choices && polished.choices.length > 1) {
+              activeDecision = candidate;
+              if (chosenTier.tier === 'era') {
+                this.lastEraDecisionYear = this.currentYear;
+              }
+            } else {
+              this.statusFlags.add(`done_${candidate.id}`);
+              if (polished.choices && polished.choices.length === 1) {
+                const c = polished.choices[0];
+                const eff = (c.outcomes && c.outcomes[0] && c.outcomes[0].effect) || c.effect || {};
+                for (const [k, v] of Object.entries(eff)) {
+                  if (this.character.attributes[k] !== undefined) {
+                    this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
+                  }
+                }
+                this.character.milestones.push({
+                  year: this.currentYear,
+                  age: this.currentAge,
+                  title: candidate.title,
+                  detail: (c.outcomes && c.outcomes[0] && c.outcomes[0].log) || c.log || c.text || candidate.title
+                });
+                passiveNarrativeAdditions.push(candidate.oralHistoryNarrative || candidate.title);
+              }
+              chosenTier.list = chosenTier.list.filter(e => e.id !== candidate.id);
+              if (chosenTier.list.length === 0) {
+                availableTiers.splice(chosenTierIndex, 1);
+              }
+            }
+          }
+        }
       }
     }
 
-    // 5. 正常年度死亡检测
+// 5. 正常年度死亡检测
     const deathRate = this.calculateAnnualMortalityRate(era);
     const deathRoll = Math.random();
     const hasDied = deathRoll < deathRate || this.character.attributes.health <= 0;
@@ -3061,17 +3358,40 @@ class SimulationEngine {
       // 适配后的千人千面分支同样要经过时代/年龄/地域/身份门槛过滤，
       // 避免儿童拿到成人选项、普通职工被套上医护/商户剧情。
       activeDecision = this.filterAndPolishChoices(this.adaptDecisionToPersona(activeDecision));
-      this.currentPendingDecision = activeDecision;
-      return {
-        isDecision: true,
-        decisionData: activeDecision,
-        currentYear: this.currentYear,
-        currentAge: this.currentAge
-      };
+      // 兜底防御：若过滤后选项仍小于等于 1 且不是硬性学制节点，自动转为被动记录，不弹出单按钮伪弹窗
+      if (activeDecision.choices && activeDecision.choices.length <= 1 && !['node_zhongkao_fenliu', 'node_gaokao_jueze', 'node_gaokao_retry', 'node_school', 'node_child_exam'].includes(activeDecision.id)) {
+        this.statusFlags.add(`done_${activeDecision.id}`);
+        const c = activeDecision.choices[0];
+        if (c) {
+          const eff = (c.outcomes && c.outcomes[0] && c.outcomes[0].effect) || c.effect || {};
+          for (const [k, v] of Object.entries(eff)) {
+            if (this.character.attributes[k] !== undefined) {
+              this.character.attributes[k] = Math.max(0, Math.min(100, this.character.attributes[k] + v));
+            }
+          }
+          this.character.milestones.push({
+            year: this.currentYear,
+            age: this.currentAge,
+            title: activeDecision.title,
+            detail: (c.outcomes && c.outcomes[0] && c.outcomes[0].log) || c.log || c.text || activeDecision.title
+          });
+        }
+        passiveNarrativeAdditions.push(activeDecision.oralHistoryNarrative || activeDecision.title);
+        activeDecision = null;
+      } else {
+        this.currentPendingDecision = activeDecision;
+        return {
+          isDecision: true,
+          decisionData: activeDecision,
+          currentYear: this.currentYear,
+          currentAge: this.currentAge
+        };
+      }
     }
 
-    // 7. 若当年为平静岁月 (无决策)，应用精力结算并自然推进
+    // 7. 若当年为平静岁月 (无决策)，应用精力结算并自然推进，累加张力
     this.applyEnergyEffects(stepYears);
+    this.narrativeTension = (this.narrativeTension || 0) + (28 + Math.floor(Math.random() * 12));
 
     // 8. 生成当年纪实叙事 (融合宏观背景与生活细节)
     const narrativeText = this.generateNarrative(era, null, null, passiveNarrativeAdditions);
@@ -3431,6 +3751,11 @@ class SimulationEngine {
       } else if (outcomeStatus === 'college_degree' || outcomeStatus === 'class_of_77_elite' || outcomeStatus === 'expanded_college_student' || outcomeStatus === 'lianda_scholar_elite' || outcomeStatus === 'overseas_scholar' || outcomeStatus === 'overseas_phd_scholar') {
         this.character.educationLevel = '大学本科';
         this.character.tags.add('higher_ed_degree');
+        this.character.tags.add('college_graduate');
+        this.statusFlags.add('college_graduate');
+        if (!this.character.collegeGraduationYear) {
+          this.character.collegeGraduationYear = this.currentYear + 4;
+        }
       } else if (outcomeStatus === 'junior_college_degree' || outcomeStatus === 'highschool_to_college' || outcomeStatus === 'self_made_scholar_1977') {
         this.character.educationLevel = '大专学历';
         this.character.tags.add('higher_ed_degree');
@@ -3485,6 +3810,11 @@ class SimulationEngine {
         this.eventCooldowns['evt_life_xiangqin_jiehun'] = this.currentYear + 4;
       }
     }
+
+    // 扣减张力并设置呼吸期冷却
+    const isRigidDecision = (decisionId === 'node_zhongkao_fenliu' || decisionId === 'node_gaokao_jueze' || decisionId === 'node_gaokao_retry' || decisionId === 'node_school' || decisionId === 'node_child_exam');
+    this.narrativeTension = isRigidDecision ? 20 : Math.floor(Math.random() * 18);
+    this.nextDecisionCooldownUntil = this.currentYear + (1 + Math.floor(Math.random() * 2));
 
     this.currentPendingDecision = null;
     this.updateCareerStage();
@@ -4293,6 +4623,8 @@ class SimulationEngine {
     this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
+    this.narrativeTension = 35 + Math.floor(Math.random() * 25);
+    this.nextDecisionCooldownUntil = 0;
 
     const birthYear = parentProfile.birthYear;
     const era = this.getEraForYear(birthYear);
@@ -4353,6 +4685,16 @@ class SimulationEngine {
       economicLevel: '温饱',
       siblingsCount: 2,
       attributes,
+      lifeRhythm: {
+        marriageBaseAge: (urbanRural === 'rural' || birthYear < 1980)
+          ? 20 + Math.floor(Math.random() * 5)
+          : 21 + Math.floor(Math.random() * 6),
+        careerPromoteAges: [
+          22 + Math.floor(Math.random() * 3),
+          33 + Math.floor(Math.random() * 5),
+          46 + Math.floor(Math.random() * 5)
+        ]
+      },
       educationLevel: '未入学',
       careerTrack: initCareerTrack,
       careerRank: '初生幼年',
@@ -4396,6 +4738,8 @@ class SimulationEngine {
     this.lastEraDecisionYear = -999;
     this.isGameOver = false;
     this.deathInfo = null;
+    this.narrativeTension = 35 + Math.floor(Math.random() * 25);
+    this.nextDecisionCooldownUntil = 0;
     this.updateCareerStage();
 
     this.energy = {

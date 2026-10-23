@@ -3062,7 +3062,8 @@
     ],
     "exposureConditions": {},
     "preTags": [
-      "married"
+      "married",
+      "has_children"
     ],
     "excludeTags": [],
     "triggerProbability": 0.85,
@@ -4230,7 +4231,8 @@
     ],
     "exposureConditions": {},
     "preTags": [
-      "married"
+      "married",
+      "has_children"
     ],
     "excludeTags": [],
     "triggerProbability": 0.85,

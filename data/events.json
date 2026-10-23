@@ -21028,7 +21028,8 @@
     ],
     "exposureConditions": {},
     "preTags": [
-      "married"
+      "married",
+      "has_children"
     ],
     "excludeTags": [],
     "triggerProbability": 0.85,
@@ -22196,7 +22197,8 @@
     ],
     "exposureConditions": {},
     "preTags": [
-      "married"
+      "married",
+      "has_children"
     ],
     "excludeTags": [],
     "triggerProbability": 0.85,
@@ -28512,6 +28514,7 @@
     ],
     "exposureConditions": {},
     "preTags": [
+      "flexible_labor",
       "worker",
       "merchant"
     ],
@@ -28738,6 +28741,7 @@
       "urbanRural": "urban"
     },
     "preTags": [
+      "flexible_labor",
       "worker"
     ],
     "excludeTags": [],
@@ -28841,8 +28845,7 @@
       55
     ],
     "applicableRegions": [
-      "华东",
-      "华南"
+      "ALL"
     ],
     "exposureConditions": {},
     "preTags": [
@@ -28963,7 +28966,9 @@
     "exposureConditions": {},
     "preTags": [
       "worker",
-      "cadre_teacher"
+      "cadre_teacher",
+      "military",
+      "firefighter"
     ],
     "excludeTags": [],
     "triggerProbability": 0.12,
@@ -29176,7 +29181,10 @@
     ],
     "exposureConditions": {},
     "preTags": [
-      "cadre_teacher"
+      "cadre_teacher",
+      "doctor",
+      "nurse",
+      "barefoot_doctor"
     ],
     "excludeTags": [],
     "triggerProbability": 0.12,
